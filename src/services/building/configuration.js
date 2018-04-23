@@ -45,14 +45,23 @@ class RollupConfiguration {
       throw new Error(`There's no configuration for the selected build type: ${buildType}`);
     }
 
+    const paths = target.output[buildType];
+
     const input = path.join(target.paths.source, target.entry[buildType]);
+    const output = {
+      file: `./${target.folders.build}/${paths.js}`,
+      format: target.library ? this._getLibraryFormat(target.libraryOptions) : 'iife',
+      sourcemap: target.sourceMap.development,
+      name: target.name.replace(/-(\w)/ig, (match, letter) => letter.toUpperCase()),
+    };
 
     const params = {
-      target,
       input,
+      output,
+      target,
       definitions: this.getDefinitions(target, buildType),
-      output: target.output[buildType],
       buildType,
+      rules: null,
     };
 
     params.rules = this.rollupFileRulesConfiguration.getConfig(params);
@@ -65,9 +74,24 @@ class RollupConfiguration {
       `rollup/${target.name}.${buildType}.config.js`,
       config
     ).getConfig(params);
-    config.output = this.pathUtils.join(config.output);
 
     return config;
+  }
+
+  _getLibraryFormat(options) {
+    const format = options.libraryTarget.toLowerCase();
+    let result;
+    switch (format) {
+    case 'commonjs2':
+      result = 'cjs';
+      break;
+    case 'window':
+    case 'umd':
+    default:
+      result = 'umd';
+    }
+
+    return result;
   }
 }
 

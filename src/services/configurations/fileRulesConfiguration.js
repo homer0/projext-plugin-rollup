@@ -17,6 +17,7 @@ class RollupFileRulesConfiguration extends ConfigurationFile {
       fonts: this.getFontsRule(params),
       images: this.getImagesRule(params),
       favicon: this.getFaviconRule(params),
+      all: this.getAllFilesRule(params),
     };
 
     const eventName = params.target.is.node ?
@@ -30,7 +31,7 @@ class RollupFileRulesConfiguration extends ConfigurationFile {
     );
   }
 
-  getJSRules(params) {
+  getJSRule(params) {
     const { target } = params;
     const config = this.pathUtils.join('config');
     const rule = {
@@ -54,7 +55,7 @@ class RollupFileRulesConfiguration extends ConfigurationFile {
     );
   }
 
-  getSCSSRules(params) {
+  getSCSSRule(params) {
     const { target } = params;
     const rule = {
       include: [
@@ -76,7 +77,7 @@ class RollupFileRulesConfiguration extends ConfigurationFile {
     );
   }
 
-  getCSSRules(params) {
+  getCSSRule(params) {
     const { target } = params;
     const rule = {
       include: [/\.css$/i],
@@ -93,8 +94,8 @@ class RollupFileRulesConfiguration extends ConfigurationFile {
     );
   }
 
-  getFontsRules(params) {
-    const { target, output } = params;
+  getFontsRule(params) {
+    const { target, paths } = params;
     const rule = {
       include: [
         /\.(?:woff2?|ttf|eot)$/i,
@@ -105,8 +106,8 @@ class RollupFileRulesConfiguration extends ConfigurationFile {
         )),
       ],
       exclude: [],
-      output: `./${target.folders.build}/${output.fonts}`,
-      url: `/${output.fonts}`,
+      output: `./${target.folders.build}/${paths.fonts}`,
+      url: `/${paths.fonts}`,
     };
 
     const eventName = target.is.node ?
@@ -119,8 +120,8 @@ class RollupFileRulesConfiguration extends ConfigurationFile {
     );
   }
 
-  getImagesRules(params) {
-    const { target, output } = params;
+  getImagesRule(params) {
+    const { target, paths } = params;
     const rule = {
       include: [
         /\.(jpe?g|png|gif|svg)$/i,
@@ -133,8 +134,8 @@ class RollupFileRulesConfiguration extends ConfigurationFile {
           new RegExp(`/node_modules/${modName}/(?:.*?/)?fonts/.*?`)
         )),
       ],
-      output: `${target.folders.build}/${output.images}`,
-      url: `/${output.images}`,
+      output: `${target.folders.build}/${paths.images}`,
+      url: `/${paths.images}`,
     };
 
     const eventName = target.is.node ?
@@ -147,7 +148,7 @@ class RollupFileRulesConfiguration extends ConfigurationFile {
     );
   }
 
-  getFaviconRules(params) {
+  getFaviconRule(params) {
     const { target } = params;
     const rule = {
       include: [/favicon\.(png|ico)$/i],
@@ -161,6 +162,42 @@ class RollupFileRulesConfiguration extends ConfigurationFile {
       'rollup-favicon-rule-configuration-for-browser';
     return this._reduceConfig(
       [eventName, 'webpack-favicon-rule-configuration'],
+      rule,
+      params
+    );
+  }
+
+  getAllFilesRule(params) {
+    const { target } = params;
+    const extensions = [
+      'js',
+      'jsx',
+      'css',
+      'html',
+      'map',
+      'woff',
+      'woff2',
+      'ttf',
+      'eot',
+      'jpg',
+      'jpeg',
+      'png',
+      'gif',
+      'svg',
+      'ico',
+    ];
+    const extensionsStr = extensions.join('|');
+    const extensionsRegex = `\\.(?:${extensionsStr})$`;
+    const rule = {
+      include: [new RegExp(`${target.paths.build}/.*?${extensionsRegex}`, 'i')],
+      exclude: [],
+    };
+
+    const eventName = target.is.node ?
+      'rollup-all-files-rule-configuration-for-node' :
+      'rollup-all-files-rule-configuration-for-browser';
+    return this._reduceConfig(
+      [eventName, 'webpack-all-files-rule-configuration'],
       rule,
       params
     );

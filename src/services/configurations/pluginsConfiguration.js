@@ -24,7 +24,23 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
 
   createConfig(params) {
     const settings = {
+      resolve: this.getResolveSettings(params),
+      replace: this.getReplaceSettings(params),
       babel: this.getBabelSettings(params),
+      commonjs: this.getCommonJSSettings(params),
+      sass: this.getSASSSettings(params),
+      css: this.getCSSSettings(params),
+      stylesheetAssets: this.getStyleheetAssetsSettings(params),
+      html: this.getHTMLSettings(params),
+      json: this.getJSONSettings(params),
+      urls: this.getURLsSettings(params),
+      template: this.getTemplateSettings(params),
+      watch: this.getWatchSettings(params),
+      external: this.getExternalSettings(params),
+      devServer: this.getDevServerSettings(params),
+      uglify: this.getUglifySettings(params),
+      compression: this.getCompressionSettings(params),
+      nodeRunner: this.getNodeRunnerSettings(params),
     };
 
     const eventName = params.target.is.node ?
@@ -105,7 +121,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
   }
 
   getSASSSettings(params) {
-    const { target, output, rules } = params;
+    const { target, paths, rules } = params;
 
     const settings = {
       include: rules.scss.include,
@@ -119,7 +135,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     if (target.css.inject) {
       settings.insert = true;
     } else {
-      settings.output = `./${target.folders.build}/${output.css}`;
+      settings.output = `./${target.folders.build}/${paths.css}`;
     }
 
     if (target.css.modules) {
@@ -140,7 +156,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
   }
 
   getCSSSettings(params) {
-    const { target, output, rules } = params;
+    const { target, paths, rules } = params;
 
     const settings = {
       include: rules.css.include,
@@ -154,7 +170,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     if (target.css.inject) {
       settings.insert = true;
     } else {
-      settings.output = `./${target.folders.build}/${output.css}`;
+      settings.output = `./${target.folders.build}/${paths.css}`;
     }
 
     if (target.css.modules) {
@@ -175,10 +191,10 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
   }
 
   getStyleheetAssetsSettings(params) {
-    const { target, output, rules } = params;
+    const { target, paths, rules } = params;
 
     const settings = {
-      stylesheet: `./${target.folders.build}/${output.css}`,
+      stylesheet: `./${target.folders.build}/${paths.css}`,
       urls: [
         rules.fonts,
         rules.images,
@@ -210,6 +226,20 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     );
   }
 
+  getJSONSettings(params) {
+    const settings = {};
+
+    const eventName = params.target.is.node ?
+      'rollup-json-plugin-settings-configuration-for-node' :
+      'rollup-json-plugin-settings-configuration-for-browser';
+
+    return this._reduceConfig(
+      [eventName, 'rollup-json-plugin-settings-configuration'],
+      settings,
+      params
+    );
+  }
+
   getURLsSettings(params) {
     const { target, rules } = params;
     const settings = {
@@ -232,13 +262,13 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
   }
 
   getTemplateSettings(params) {
-    const { target, output, rules } = params;
+    const { target, paths, rules } = params;
     const settings = {
       template: this.targetsHTML.getFilepath(target),
       output: `./${target.folders.build}/${target.html.filename}`,
       stylesheets: target.css.inject ?
         [] :
-        [`/${output.css}`],
+        [`/${paths.css}`],
       urls: [
         rules.images,
       ],
@@ -332,6 +362,58 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
 
     return this._reduceConfig(
       [eventName, 'rollup-devServer-plugin-settings-configuration'],
+      settings,
+      params
+    );
+  }
+
+  getUglifySettings(params) {
+    const settings = {};
+
+    const eventName = params.target.is.node ?
+      'rollup-uglify-plugin-settings-configuration-for-node' :
+      'rollup-uglify-plugin-settings-configuration-for-browser';
+
+    return this._reduceConfig(
+      [eventName, 'rollup-uglify-plugin-settings-configuration'],
+      settings,
+      params
+    );
+  }
+
+  getCompressionSettings(params) {
+    const { target, rules } = params;
+
+    const settings = {
+      folder: `./${target.folders.build}`,
+      include: rules.all.include,
+      exclude: rules.all.exclude,
+    };
+
+    const eventName = target.is.node ?
+      'rollup-compression-plugin-settings-configuration-for-node' :
+      'rollup-compression-plugin-settings-configuration-for-browser';
+
+    return this._reduceConfig(
+      [eventName, 'rollup-compression-plugin-settings-configuration'],
+      settings,
+      params
+    );
+  }
+
+  getNodeRunnerSettings(params) {
+    const { target, paths } = params;
+
+    const settings = {
+      folder: `./${target.paths.build}/${paths.js}`,
+    };
+
+    const eventName = target.is.node ?
+      'rollup-nodeRuner-plugin-settings-configuration-for-node' :
+      'rollup-nodeRuner-plugin-settings-configuration-for-browser';
+
+    return this._reduceConfig(
+      [eventName, 'rollup-nodeRuner-plugin-settings-configuration'],
       settings,
       params
     );
