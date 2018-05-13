@@ -173,11 +173,16 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       settings.output = `./${target.folders.build}/${paths.css}`;
     }
 
+    const processorOptions = [];
     if (target.css.modules) {
-      settings.processor = (css) => postcss([postcssModules])
-      .process(css)
-      .then((result) => result.css);
+      processorOptions.push(postcssModules);
     }
+
+    settings.processor = (css) => postcss(processorOptions)
+    .process(css, {
+      map: true,
+    })
+    .then((result) => result.css);
 
     const eventName = target.is.node ?
       'rollup-css-plugin-settings-configuration-for-node' :
