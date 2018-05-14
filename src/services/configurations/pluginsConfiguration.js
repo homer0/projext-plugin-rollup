@@ -281,6 +281,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
         [`/${paths.css}`],
       urls: [
         rules.images,
+        rules.favicon,
       ],
     };
 
