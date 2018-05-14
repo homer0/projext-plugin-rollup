@@ -196,10 +196,19 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
   }
 
   getStyleheetAssetsSettings(params) {
-    const { target, paths, rules } = params;
+    const {
+      target,
+      paths,
+      rules,
+      output,
+    } = params;
+
+    const stylesheet = target.css.inject ?
+      output.file :
+      `./${target.folders.build}/${paths.css}`;
 
     const settings = {
-      stylesheet: `./${target.folders.build}/${paths.css}`,
+      stylesheet,
       urls: [
         rules.fonts,
         rules.images,
