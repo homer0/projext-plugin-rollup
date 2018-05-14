@@ -16,10 +16,10 @@ class RollupURLsPlugin {
     this.name = name || 'rollup-plugin-urls';
 
     if (!this.options.urls.length) {
-      throw new Error(`${this.name}: You need define the urls`);
+      throw new Error(`${this.name}: You need to define the URLs`);
     }
 
-    this.options.urls = this.options.url.map((urlSettings) => Object.assign(
+    this.options.urls = this.options.urls.map((urlSettings) => Object.assign(
       urlSettings,
       {
         filter: rollupUtils.createFilter(
@@ -36,7 +36,7 @@ class RollupURLsPlugin {
 
   load(filepath) {
     let result = null;
-    const settings = this.options.urls.find((urlSettings) => urlSettings.filter(filepath));
+    const settings = this.options.urls.find((setting) => setting.filter(filepath));
     if (settings) {
       const info = path.parse(filepath);
       this._toCopy.push({
