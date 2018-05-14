@@ -1,8 +1,8 @@
-/* eslint-disable no-unused-vars */
 const path = require('path');
 const rollupUtils = require('rollup-pluginutils');
 const extend = require('extend');
 const fs = require('fs-extra');
+const RollupProjextUtils = require('../utils');
 
 class RollupStylesheetAssetsPlugin {
   constructor(options = {}, name) {
@@ -95,7 +95,7 @@ class RollupStylesheetAssetsPlugin {
   _extractJSBlocks(code) {
     const result = [];
     const fns = this.options.insertFnNames
-    .map((name) => this._escapeRegex(name))
+    .map((name) => RollupProjextUtils.escapeRegex(name))
     .join('|');
 
     const regexStr = `(${fns})\\s*\\(\\s*['|"](.*?)['|"]\\s*\\);\\s*\\n`;
@@ -166,12 +166,12 @@ class RollupStylesheetAssetsPlugin {
 
       const settings = this.options.urls.find((setting) => setting.filter(file));
       if (settings) {
-        const output = this._formatName(settings.output, info);
+        const output = RollupProjextUtils.formatPlaceholder(settings.output, info);
         const outputDir = path.dirname(output);
-        const urlBase = this._formatName(settings.url, info);
+        const urlBase = RollupProjextUtils.formatPlaceholder(settings.url, info);
         const url = `${urlBase}${query}`;
         const newLine = `url('${url}')`;
-        const lineRegex = new RegExp(this._escapeRegex(line.trim()), 'ig');
+        const lineRegex = new RegExp(RollupProjextUtils.escapeRegex(line.trim()), 'ig');
 
         if (!this._createdDirectoriesCache.includes(outputDir)) {
           fs.ensureDirSync(outputDir);
@@ -283,16 +283,6 @@ class RollupStylesheetAssetsPlugin {
       file,
       query,
     };
-  }
-
-  _formatName(placeholder, info) {
-    return placeholder
-    .replace(/\[name\]/g, info.name)
-    .replace(/\[ext\]/g, info.ext.substr(1));
-  }
-
-  _escapeRegex(expression) {
-    return expression.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
   }
 }
 

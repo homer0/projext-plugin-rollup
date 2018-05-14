@@ -2,6 +2,7 @@ const path = require('path');
 const rollupUtils = require('rollup-pluginutils');
 const extend = require('extend');
 const fs = require('fs-extra');
+const RollupProjextUtils = require('../utils');
 
 class RollupURLsPlugin {
   constructor(options = {}, name) {
@@ -41,10 +42,10 @@ class RollupURLsPlugin {
       const info = path.parse(filepath);
       this._toCopy.push({
         from: filepath,
-        to: this._formatName(settings.output, info),
+        to: RollupProjextUtils.formatPlaceholder(settings.output, info),
       });
 
-      const fileURL = this._formatName(settings.url, info);
+      const fileURL = RollupProjextUtils.formatPlaceholder(settings.url, info);
       result = `export default '${fileURL}';`;
     }
 
@@ -56,12 +57,6 @@ class RollupURLsPlugin {
       fs.ensureDirSync(path.dirname(toCopy.to));
       fs.copySync(toCopy.from, toCopy.to);
     });
-  }
-
-  _formatName(placeholder, info) {
-    return placeholder
-    .replace(/\[name\]/g, info.name)
-    .replace(/\[ext\]/g, info.ext.substr(1));
   }
 }
 
