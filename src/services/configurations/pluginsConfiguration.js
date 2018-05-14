@@ -161,10 +161,6 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     const settings = {
       include: rules.css.include,
       exclude: rules.css.exclude,
-      urls: [
-        rules.fonts,
-        rules.images,
-      ],
     };
 
     if (target.css.inject) {

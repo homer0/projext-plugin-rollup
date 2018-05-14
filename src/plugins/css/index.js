@@ -11,7 +11,6 @@ class RollupCSSPlugin {
       {
         include: [],
         exclude: [],
-        urls: [],
         insert: false,
         output: '',
         processor: null,
