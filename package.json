@@ -28,6 +28,7 @@
 
       "mime": "2.3.1",
       "opener": "1.4.3",
+      "node-zopfli": "2.0.2",
 
       "babel-core": "6.26.0",
       "babel-preset-env": "1.6.1"
