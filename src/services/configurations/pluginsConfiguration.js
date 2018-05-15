@@ -345,27 +345,29 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       port: devServer.port,
       contentBase: `./${target.folders.build}`,
       historyApiFallback: !!devServer.historyApiFallback,
+      https: null,
     };
 
-    let ssl = false;
-    const sslSettings = {
-      key: 'ssl_key',
-      cert: 'ssl_cert',
-      ca: 'ssl_ciphers',
-    };
-
-    Object.keys(sslSettings).forEach((sslSettingName) => {
+    const sslSettings = {};
+    let atLeastOneSSLSetting = false;
+    [
+      'key',
+      'cert',
+      'ca',
+    ].forEach((sslSettingName) => {
       const file = devServer.ssl[sslSettingName];
       if (typeof file === 'string') {
         const filepath = this.pathUtils.join(file);
         if (fs.pathExistsSync(filepath)) {
-          ssl = true;
-          settings[sslSettings[sslSettingName]] = fs.readFileSync(filepath, 'utf-8');
+          atLeastOneSSLSetting = true;
+          sslSettings[sslSettingName] = fs.readFileSync(filepath, 'utf-8');
         }
       }
     });
 
-    settings.ssl = ssl;
+    if (atLeastOneSSLSetting) {
+      settings.https = sslSettings;
+    }
 
     const eventName = params.target.is.node ?
       'rollup-devServer-plugin-settings-configuration-for-node' :
