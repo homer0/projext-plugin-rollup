@@ -320,7 +320,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       ...this.rollupPluginInfo.externals.map((dependencyName) => (
         `${this.rollupPluginInfo.name}/${dependencyName}`
       )),
-      ...target.excludeModules,
+      ...(target.excludeModules || []),
       ...Object.keys(this.packageInfo.dependencies),
       ...(buildType === 'development' ? Object.keys(this.packageInfo.devDependencies) : []),
     ];
@@ -433,6 +433,13 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       [eventName, 'rollup-nodeRuner-plugin-settings-configuration'],
       settings,
       params
+    );
+  }
+
+  _reduceConfig(events, config, params) {
+    return events.reduce(
+      (currentConfig, eventName) => this.events.reduce(eventName, currentConfig, params),
+      config
     );
   }
 }

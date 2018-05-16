@@ -61,6 +61,7 @@ class RollupConfiguration {
       target,
       definitions: this.getDefinitions(target, buildType),
       buildType,
+      paths,
       rules: null,
     };
 
