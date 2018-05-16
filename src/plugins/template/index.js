@@ -5,7 +5,7 @@ const fs = require('fs-extra');
 const RollupProjextUtils = require('../utils');
 
 class RollupTemplatePlugin {
-  constructor(options = {}, name) {
+  constructor(options = {}, name = 'rollup-plugin-template') {
     this._options = extend(
       true,
       {
@@ -20,13 +20,9 @@ class RollupTemplatePlugin {
       options
     );
 
-    this.name = name || 'rollup-plugin-template';
+    this.name = name;
 
-    if (!this._options.template) {
-      throw new Error(`${this.name}: You need to define the template file`);
-    } else if (!this._options.output) {
-      throw new Error(`${this.name}: You need to define an output file`);
-    }
+    this._validateOptions();
 
     this._options.urls = this._options.urls.map((urlSettings) => Object.assign(
       urlSettings,
@@ -49,6 +45,10 @@ class RollupTemplatePlugin {
     this._copyCache = [];
 
     this.ongenerate = this.ongenerate.bind(this);
+  }
+
+  getOptions() {
+    return this._options;
   }
 
   ongenerate() {
@@ -83,6 +83,14 @@ class RollupTemplatePlugin {
 
     fs.ensureDirSync(this._path);
     fs.writeFileSync(this._options.output, template);
+  }
+
+  _validateOptions() {
+    if (!this._options.template) {
+      throw new Error(`${this.name}: You need to define the template file`);
+    } else if (!this._options.output) {
+      throw new Error(`${this.name}: You need to define an output file`);
+    }
   }
 
   _parseTemplateExpressions(template) {

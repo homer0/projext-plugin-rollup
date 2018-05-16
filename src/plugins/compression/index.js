@@ -5,7 +5,7 @@ const fs = require('fs-extra');
 const zopfli = require('node-zopfli');
 
 class RollupCompressionPlugin {
-  constructor(options = {}, name) {
+  constructor(options = {}, name = 'rollup-plugin-compression') {
     this._options = extend(
       true,
       {
@@ -16,8 +16,10 @@ class RollupCompressionPlugin {
       options
     );
 
-    this.name = name || 'rollup-plugin-compression';
-    this._options.include = this._options.include || [/\.css$/i];
+    this.name = name;
+
+    this._validateOptions();
+
     this.filter = rollupUtils.createFilter(
       this._options.include,
       this._options.exclude
@@ -26,12 +28,23 @@ class RollupCompressionPlugin {
     this.ongenerate = this.ongenerate.bind(this);
   }
 
+  getOptions() {
+    return this._options;
+  }
+
   ongenerate() {
     return this._findAllTheFiles()
     .then((files) => Promise.all(files.map((file) => this._compressFile(file))))
     .catch((error) => {
       throw error;
     });
+  }
+
+  _validateOptions() {
+    const { include } = this._options;
+    if (!include || (Array.isArray(include) && !include.length)) {
+      throw new Error(`${this.name}: You need to specify which paths to include`);
+    }
   }
 
   _findAllTheFiles() {

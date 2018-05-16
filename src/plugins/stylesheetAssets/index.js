@@ -5,7 +5,7 @@ const fs = require('fs-extra');
 const RollupProjextUtils = require('../utils');
 
 class RollupStylesheetAssetsPlugin {
-  constructor(options = {}, name) {
+  constructor(options = {}, name = 'rollup-plugin-stylesheet-assets') {
     this._options = extend(
       true,
       {
@@ -19,13 +19,9 @@ class RollupStylesheetAssetsPlugin {
       options
     );
 
-    this.name = name || 'rollup-plugin-stylesheet-assets';
+    this.name = name;
 
-    if (!this._options.stylesheet) {
-      throw new Error(`${this.name}: You need to define the stylesheet path`);
-    } else if (!this._options.urls.length) {
-      throw new Error(`${this.name}: You need to define the URLs`);
-    }
+    this._validateOptions();
 
     this._options.urls = this._options.urls.map((urlSettings) => Object.assign(
       urlSettings,
@@ -56,6 +52,10 @@ class RollupStylesheetAssetsPlugin {
     this.ongenerate = this.ongenerate.bind(this);
   }
 
+  getOptions() {
+    return this._options;
+  }
+
   ongenerate() {
     const { stylesheet } = this._options;
     if (fs.pathExistsSync(stylesheet)) {
@@ -68,6 +68,14 @@ class RollupStylesheetAssetsPlugin {
         this._processCSS(code);
 
       fs.writeFileSync(stylesheet, processed);
+    }
+  }
+
+  _validateOptions() {
+    if (!this._options.stylesheet) {
+      throw new Error(`${this.name}: You need to define the stylesheet path`);
+    } else if (!this._options.urls.length) {
+      throw new Error(`${this.name}: You need to define the URLs`);
     }
   }
 

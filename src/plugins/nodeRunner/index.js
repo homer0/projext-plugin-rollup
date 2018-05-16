@@ -4,7 +4,7 @@ const extend = require('extend');
 const { Logger } = require('wootils/node/logger');
 
 class RollupNodeRunnerPlugin {
-  constructor(options = {}, name) {
+  constructor(options = {}, name = 'rollup-plugin-node-runner') {
     this._options = extend(
       true,
       {
@@ -16,12 +16,9 @@ class RollupNodeRunnerPlugin {
       options
     );
 
-    this.name = name || 'rollup-plugin-node-runner';
-    if (!this._options.file) {
-      throw new Error(`${this.name}: You need to specify the file to execute`);
-    } else if (!fs.pathExistsSync(this._options.file)) {
-      throw new Error(`${this.name}: The executable file doesn't exists`);
-    }
+    this.name = name;
+
+    this._validateOptions();
 
     this.start = {
       ongenerate: this._startExecution.bind(this),
@@ -35,6 +32,18 @@ class RollupNodeRunnerPlugin {
     this._terminationEvents = ['SIGINT', 'SIGTERM'];
 
     this._terminate = this._terminate.bind(this);
+  }
+
+  getOptions() {
+    return this._options;
+  }
+
+  _validateOptions() {
+    if (!this._options.file) {
+      throw new Error(`${this.name}: You need to specify the file to execute`);
+    } else if (!fs.pathExistsSync(this._options.file)) {
+      throw new Error(`${this.name}: The executable file doesn't exists`);
+    }
   }
 
   _createLogger() {

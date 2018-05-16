@@ -5,11 +5,11 @@ const fs = require('fs-extra');
 const insertStyle = require('./insert');
 
 class RollupCSSPlugin {
-  constructor(options = {}, name) {
+  constructor(options = {}, name = 'rollup-plugin-css') {
     this._options = extend(
       true,
       {
-        include: [],
+        include: options.include || [/\.css$/i],
         exclude: [],
         insert: false,
         output: '',
@@ -18,17 +18,12 @@ class RollupCSSPlugin {
       },
       options
     );
-
-    this._options.include = this._options.include || [/\.css$/i];
-    this._filter = rollupUtils.createFilter(
+    this.name = name;
+    this._validateOptions();
+    this.filter = rollupUtils.createFilter(
       this._options.include,
       this._options.exclude
     );
-    this.name = name || 'rollup-plugin-css';
-
-    if (!this._options.insert && !this._options.output) {
-      throw new Error(`${this.name}: You need to specify either insert or output`);
-    }
 
     this._files = [];
     this._toBundle = [];
@@ -49,7 +44,7 @@ class RollupCSSPlugin {
 
   transform(code, filepath) {
     let result = null;
-    if (this._filter(filepath)) {
+    if (this.filter(filepath)) {
       if (this._files[filepath]) {
         const css = code.trim();
         if (css) {
@@ -95,6 +90,12 @@ class RollupCSSPlugin {
         fs.ensureDirSync(path.dirname(output));
         fs.writeFileSync(output, code);
       }
+    }
+  }
+
+  _validateOptions() {
+    if (!this._options.insert && !this._options.output) {
+      throw new Error(`${this.name}: You need to specify either insert or output`);
     }
   }
 

@@ -5,7 +5,7 @@ const fs = require('fs-extra');
 const RollupProjextUtils = require('../utils');
 
 class RollupURLsPlugin {
-  constructor(options = {}, name) {
+  constructor(options = {}, name = 'rollup-plugin-urls') {
     this._options = extend(
       true,
       {
@@ -14,11 +14,9 @@ class RollupURLsPlugin {
       options
     );
 
-    this.name = name || 'rollup-plugin-urls';
+    this.name = name;
 
-    if (!this._options.urls.length) {
-      throw new Error(`${this.name}: You need to define the URLs`);
-    }
+    this._validateOptions();
 
     this._options.urls = this._options.urls.map((urlSettings) => Object.assign(
       urlSettings,
@@ -33,6 +31,10 @@ class RollupURLsPlugin {
     this._toCopy = [];
     this.load = this.load.bind(this);
     this.ongenerate = this.ongenerate.bind(this);
+  }
+
+  getOptions() {
+    return this._options;
   }
 
   load(filepath) {
@@ -57,6 +59,12 @@ class RollupURLsPlugin {
       fs.ensureDirSync(path.dirname(toCopy.to));
       fs.copySync(toCopy.from, toCopy.to);
     });
+  }
+
+  _validateOptions() {
+    if (!this._options.urls.length) {
+      throw new Error(`${this.name}: You need to define the URLs`);
+    }
   }
 }
 

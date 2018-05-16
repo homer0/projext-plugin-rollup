@@ -9,7 +9,7 @@ const statuses = require('statuses');
 const { Logger } = require('wootils/node/logger');
 
 class RollupDevServerPlugin {
-  constructor(options = {}, name) {
+  constructor(options = {}, name = 'rollup-plugin-dev-server') {
     this._options = extend(
       true,
       {
@@ -25,11 +25,10 @@ class RollupDevServerPlugin {
       },
       options
     );
-
-    this.name = name || 'rollup-plugin-dev-server';
-
     this._options.contentBase = this._normalizeContentBase();
 
+    this.name = name;
+    this.url = this._createServerURL();
     this.start = {
       ongenerate: this._startServer.bind(this),
     };
@@ -37,8 +36,7 @@ class RollupDevServerPlugin {
       load: this._stopServer.bind(this),
     };
 
-    const protocol = this._options.https ? 'https' : 'http';
-    this.url = `${protocol}://${this._options.host}:${this._options.port}`;
+    mime.default_type = 'text/plain';
 
     this._logger = this._createLogger();
     this._instance = null;
@@ -47,10 +45,17 @@ class RollupDevServerPlugin {
     this._NOT_FOUND_ERROR = 'ENOENT: no such file or directory';
     this._defaultFaviconPath = path.join(path.dirname(__filename), 'favicon.ico');
 
-    mime.default_type = 'text/plain';
-
     this._handler = this._handler.bind(this);
     this._terminate = this._terminate.bind(this);
+  }
+
+  getOptions() {
+    return this._options;
+  }
+
+  _createServerURL() {
+    const protocol = this._options.https ? 'https' : 'http';
+    return `${protocol}://${this._options.host}:${this._options.port}`;
   }
 
   _createLogger() {
