@@ -10,7 +10,7 @@ const { Logger } = require('wootils/node/logger');
 
 class RollupDevServerPlugin {
   constructor(options = {}, name) {
-    this.options = extend(
+    this._options = extend(
       true,
       {
         host: 'localhost',
@@ -28,17 +28,17 @@ class RollupDevServerPlugin {
 
     this.name = name || 'rollup-plugin-dev-server';
 
-    this.options.contentBase = this._normalizeContentBase();
+    this._options.contentBase = this._normalizeContentBase();
 
     this.start = {
-      overwrite: this._startServer.bind(this),
+      ongenerate: this._startServer.bind(this),
     };
     this.stop = {
       load: this._stopServer.bind(this),
     };
 
-    const protocol = this.options.https ? 'https' : 'http';
-    this.url = `${protocol}://${this.options.host}:${this.options.port}`;
+    const protocol = this._options.https ? 'https' : 'http';
+    this.url = `${protocol}://${this._options.host}:${this._options.port}`;
 
     this._logger = this._createLogger();
     this._instance = null;
@@ -55,11 +55,11 @@ class RollupDevServerPlugin {
 
   _createLogger() {
     let pluginLogger;
-    if (this.options.logger && !(this.options.logger instanceof Logger)) {
+    if (this._options.logger && !(this._options.logger instanceof Logger)) {
       throw new Error(`${this.name}: The logger must be an instance of wootils's Logger class`);
-    } else if (this.options.logger) {
-      pluginLogger = this.options.logger;
-      delete this.options.logger;
+    } else if (this._options.logger) {
+      pluginLogger = this._options.logger;
+      delete this._options.logger;
     } else {
       pluginLogger = new Logger();
     }
@@ -69,7 +69,7 @@ class RollupDevServerPlugin {
 
   _normalizeContentBase() {
     const newContentBase = [];
-    const { contentBase } = this.options;
+    const { contentBase } = this._options;
     if (Array.isArray(contentBase)) {
       if (contentBase.length) {
         contentBase.push(...contentBase);
@@ -85,7 +85,7 @@ class RollupDevServerPlugin {
 
   _startServer() {
     if (!this._instance) {
-      const { https, port } = this.options;
+      const { https, port } = this._options;
       this._instance = https ?
         createHTTPSServer(https, this._handler) :
         createHTTPServer(this._handler);
@@ -94,7 +94,7 @@ class RollupDevServerPlugin {
       this._logger.success(`Your app is running on the port ${port}`);
       this._startListeningForTermination();
       this._open();
-      this.options.onStart(this);
+      this._options.onStart(this);
     }
   }
 
@@ -103,12 +103,13 @@ class RollupDevServerPlugin {
       this._instance.close();
       this._instance = null;
       this._stopListeningForTermination();
-      this.options.onStop(this);
+      this._options.onStop(this);
     }
   }
 
   _terminate() {
     this._stopServer();
+    process.exit();
   }
 
   _startListeningForTermination() {
@@ -124,7 +125,7 @@ class RollupDevServerPlugin {
   }
 
   _open() {
-    if (!this._alreadyOpen && this.options.open) {
+    if (!this._alreadyOpen && this._options.open) {
       opener(this.url);
     }
   }
@@ -139,7 +140,7 @@ class RollupDevServerPlugin {
       if (error.message && error.message === this._NOT_FOUND_ERROR) {
         if (req.url === '/favicon.ico') {
           this._serveDefaultFavicon(res);
-        } else if (this.options.historyApiFallback) {
+        } else if (this._options.historyApiFallback) {
           this._fallback(res);
         } else {
           this._notFound(res, urlPath);
@@ -152,17 +153,17 @@ class RollupDevServerPlugin {
 
   _readFileFromContentBase(urlPath, contentBaseIndex = 0) {
     let result;
-    const contentBase = this.options.contentBase[contentBaseIndex];
+    const contentBase = this._options.contentBase[contentBaseIndex];
     if (!contentBase) {
       result = Promise.reject(new Error(this._NOT_FOUND_ERROR));
     } else {
-      let filepath = path.join(this.options.contentBase, urlPath);
+      let filepath = path.join(contentBase, urlPath);
       if (filepath.endsWith('/')) {
         filepath = `${filepath}/index.html`;
       }
 
       if (fs.pathExistsSync(filepath)) {
-        result = fs.readFile(filepath, 'utf-8');
+        result = fs.readFile(filepath);
       } else {
         result = this._readFileFromContentBase(urlPath, contentBaseIndex + 1);
       }
@@ -180,7 +181,7 @@ class RollupDevServerPlugin {
   }
 
   _serveDefaultFavicon(res) {
-    fs.readFile(this._defaultFaviconPath, 'utf-8')
+    fs.readFile(this._defaultFaviconPath)
     .then((favicon) => {
       this._serveFile(res, '/favicon.ico', favicon);
     })

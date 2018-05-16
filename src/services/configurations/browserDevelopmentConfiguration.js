@@ -65,6 +65,10 @@ class RollupBrowserDevelopmentConfiguration extends ConfigurationFile {
       plugins,
     };
 
+    if (target.runOnDevelopment) {
+      config.watch = pluginSettings.watch;
+    }
+
     return this.events.reduce(
       'rollup-browser-development-configuration',
       config,

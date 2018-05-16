@@ -43,6 +43,15 @@ class RollupFileRulesConfiguration extends ConfigurationFile {
         new RegExp(`${config}/.*?\\.jsx?$`, 'i'),
       ],
       exclude: [],
+      glob: {
+        include: [
+          `${target.paths.source}/**/*.{js,jsx}`,
+          ...target.includeModules.map((modName) => (
+            `node_modules/${modName}/**/*.{js,jsx}`
+          )),
+        ],
+        exclude: [],
+      },
     };
 
     const eventName = target.is.node ?

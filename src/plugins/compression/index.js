@@ -6,7 +6,7 @@ const zopfli = require('node-zopfli');
 
 class RollupCompressionPlugin {
   constructor(options = {}, name) {
-    this.options = extend(
+    this._options = extend(
       true,
       {
         folder: './dist',
@@ -17,10 +17,10 @@ class RollupCompressionPlugin {
     );
 
     this.name = name || 'rollup-plugin-compression';
-    this.options.include = this.options.include || [/\.css$/i];
+    this._options.include = this._options.include || [/\.css$/i];
     this.filter = rollupUtils.createFilter(
-      this.options.include,
-      this.options.exclude
+      this._options.include,
+      this._options.exclude
     );
 
     this.ongenerate = this.ongenerate.bind(this);
@@ -35,7 +35,7 @@ class RollupCompressionPlugin {
   }
 
   _findAllTheFiles() {
-    return this._readDirectory(this.options.folder);
+    return this._readDirectory(this._options.folder);
   }
 
   _readDirectory(directory) {

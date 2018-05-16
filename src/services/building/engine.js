@@ -34,10 +34,7 @@ class RollupBuildEngine {
 
     const optionsList = [];
 
-    if (
-      target.is.node &&
-      ((buildType === 'development' && target.runOnDevelopment) || forceRun)
-    ) {
+    if ((buildType === 'development' && target.runOnDevelopment) || forceRun) {
       optionsList.push('--watch');
     }
 

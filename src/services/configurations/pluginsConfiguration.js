@@ -92,8 +92,8 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       {},
       this.babelConfiguration.getConfigForTarget(target),
       {
-        include: rules.js.include,
-        exclude: rules.js.exclude,
+        include: rules.js.glob.include,
+        exclude: rules.js.glob.exclude,
       }
     );
 
@@ -278,6 +278,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     const settings = {
       template: this.targetsHTML.getFilepath(target),
       output: `./${target.folders.build}/${target.html.filename}`,
+      scripts: [`/${paths.js}`],
       stylesheets: target.css.inject ?
         [] :
         [`/${paths.css}`],

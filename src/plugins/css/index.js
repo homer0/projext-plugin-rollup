@@ -6,7 +6,7 @@ const insertStyle = require('./insert');
 
 class RollupCSSPlugin {
   constructor(options = {}, name) {
-    this.options = extend(
+    this._options = extend(
       true,
       {
         include: [],
@@ -19,14 +19,14 @@ class RollupCSSPlugin {
       options
     );
 
-    this.options.include = this.options.include || [/\.css$/i];
-    this.filter = rollupUtils.createFilter(
-      this.options.include,
-      this.options.exclude
+    this._options.include = this._options.include || [/\.css$/i];
+    this._filter = rollupUtils.createFilter(
+      this._options.include,
+      this._options.exclude
     );
     this.name = name || 'rollup-plugin-css';
 
-    if (!this.options.insert && !this.options.output) {
+    if (!this._options.insert && !this._options.output) {
       throw new Error(`${this.name}: You need to specify either insert or output`);
     }
 
@@ -40,8 +40,8 @@ class RollupCSSPlugin {
 
   intro() {
     let result = null;
-    if (this.options.insert) {
-      result = insertStyle.toString().replace(insertStyle.name, this.options.insertFnName);
+    if (this._options.insert) {
+      result = insertStyle.toString().replace(insertStyle.name, this._options.insertFnName);
     }
 
     return result;
@@ -49,16 +49,16 @@ class RollupCSSPlugin {
 
   transform(code, filepath) {
     let result = null;
-    if (this.filter(filepath)) {
+    if (this._filter(filepath)) {
       if (this._files[filepath]) {
         const css = code.trim();
         if (css) {
           result = this._process(css)
           .then((processed) => {
             let nextStep;
-            if (this.options.insert) {
+            if (this._options.insert) {
               const escaped = JSON.stringify(processed);
-              nextStep = this._formatTransform(`${this.options.insertFnName}(${escaped})`);
+              nextStep = this._formatTransform(`${this._options.insertFnName}(${escaped})`);
             } else {
               this._toBundle.push({
                 filepath,
@@ -81,8 +81,8 @@ class RollupCSSPlugin {
   }
 
   ongenerate() {
-    if (!this.options.insert && this._toBundle.length) {
-      const { output } = this.options;
+    if (!this._options.insert && this._toBundle.length) {
+      const { output } = this._options;
 
       const code = this._toBundle
       .map((file) => file.css)
@@ -99,8 +99,8 @@ class RollupCSSPlugin {
   }
 
   _process(css) {
-    return this.options.processor ?
-      this.options.processor(css) :
+    return this._options.processor ?
+      this._options.processor(css) :
       Promise.resolve(css);
   }
 

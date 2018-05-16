@@ -5,7 +5,7 @@ const { Logger } = require('wootils/node/logger');
 
 class RollupNodeRunnerPlugin {
   constructor(options = {}, name) {
-    this.options = extend(
+    this._options = extend(
       true,
       {
         file: null,
@@ -17,14 +17,14 @@ class RollupNodeRunnerPlugin {
     );
 
     this.name = name || 'rollup-plugin-node-runner';
-    if (!this.options.file) {
+    if (!this._options.file) {
       throw new Error(`${this.name}: You need to specify the file to execute`);
-    } else if (!fs.pathExistsSync(this.options.file)) {
+    } else if (!fs.pathExistsSync(this._options.file)) {
       throw new Error(`${this.name}: The executable file doesn't exists`);
     }
 
     this.start = {
-      overwrite: this._startExecution.bind(this),
+      ongenerate: this._startExecution.bind(this),
     };
     this.stop = {
       load: this._stopExecution.bind(this),
@@ -39,11 +39,11 @@ class RollupNodeRunnerPlugin {
 
   _createLogger() {
     let pluginLogger;
-    if (this.options.logger && !(this.options.logger instanceof Logger)) {
+    if (this._options.logger && !(this._options.logger instanceof Logger)) {
       throw new Error(`${this.name}: The logger must be an instance of wootils's Logger class`);
-    } else if (this.options.logger) {
-      pluginLogger = this.options.logger;
-      delete this.options.logger;
+    } else if (this._options.logger) {
+      pluginLogger = this._options.logger;
+      delete this._options.logger;
     } else {
       pluginLogger = new Logger();
     }
@@ -53,10 +53,10 @@ class RollupNodeRunnerPlugin {
 
   _startExecution() {
     if (!this._instance) {
-      this._logger.success(`Starting bundle execution: ${this.options.file}`);
-      this._instance = fork(this.options.file);
+      this._logger.success(`Starting bundle execution: ${this._options.file}`);
+      this._instance = fork(this._options.file);
       this._startListeningForTermination();
-      this.options.onOpen(this);
+      this._options.onOpen(this);
     }
   }
 
@@ -66,7 +66,7 @@ class RollupNodeRunnerPlugin {
       this._instance.kill();
       this._instance = null;
       this._stopListeningForTermination();
-      this.options.onStop(this);
+      this._options.onStop(this);
     }
   }
 

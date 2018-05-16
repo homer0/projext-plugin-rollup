@@ -6,7 +6,7 @@ const RollupProjextUtils = require('../utils');
 
 class RollupURLsPlugin {
   constructor(options = {}, name) {
-    this.options = extend(
+    this._options = extend(
       true,
       {
         urls: [],
@@ -16,11 +16,11 @@ class RollupURLsPlugin {
 
     this.name = name || 'rollup-plugin-urls';
 
-    if (!this.options.urls.length) {
+    if (!this._options.urls.length) {
       throw new Error(`${this.name}: You need to define the URLs`);
     }
 
-    this.options.urls = this.options.urls.map((urlSettings) => Object.assign(
+    this._options.urls = this._options.urls.map((urlSettings) => Object.assign(
       urlSettings,
       {
         filter: rollupUtils.createFilter(
@@ -37,7 +37,7 @@ class RollupURLsPlugin {
 
   load(filepath) {
     let result = null;
-    const settings = this.options.urls.find((setting) => setting.filter(filepath));
+    const settings = this._options.urls.find((setting) => setting.filter(filepath));
     if (settings) {
       const info = path.parse(filepath);
       this._toCopy.push({

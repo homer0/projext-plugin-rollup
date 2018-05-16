@@ -6,7 +6,7 @@ const RollupProjextUtils = require('../utils');
 
 class RollupStylesheetAssetsPlugin {
   constructor(options = {}, name) {
-    this.options = extend(
+    this._options = extend(
       true,
       {
         stylesheet: '',
@@ -21,13 +21,13 @@ class RollupStylesheetAssetsPlugin {
 
     this.name = name || 'rollup-plugin-stylesheet-assets';
 
-    if (!this.options.stylesheet) {
+    if (!this._options.stylesheet) {
       throw new Error(`${this.name}: You need to define the stylesheet path`);
-    } else if (!this.options.urls.length) {
+    } else if (!this._options.urls.length) {
       throw new Error(`${this.name}: You need to define the URLs`);
     }
 
-    this.options.urls = this.options.urls.map((urlSettings) => Object.assign(
+    this._options.urls = this._options.urls.map((urlSettings) => Object.assign(
       urlSettings,
       {
         filter: rollupUtils.createFilter(
@@ -57,7 +57,7 @@ class RollupStylesheetAssetsPlugin {
   }
 
   ongenerate() {
-    const { stylesheet } = this.options;
+    const { stylesheet } = this._options;
     if (fs.pathExistsSync(stylesheet)) {
       this._sourcesCache = {};
       this._createdDirectoriesCache = [];
@@ -94,7 +94,7 @@ class RollupStylesheetAssetsPlugin {
 
   _extractJSBlocks(code) {
     const result = [];
-    const fns = this.options.insertFnNames
+    const fns = this._options.insertFnNames
     .map((name) => RollupProjextUtils.escapeRegex(name))
     .join('|');
 
@@ -164,7 +164,7 @@ class RollupStylesheetAssetsPlugin {
         info,
       } = pathChange;
 
-      const settings = this.options.urls.find((setting) => setting.filter(file));
+      const settings = this._options.urls.find((setting) => setting.filter(file));
       if (settings) {
         const output = RollupProjextUtils.formatPlaceholder(settings.output, info);
         const outputDir = path.dirname(output);

@@ -6,7 +6,7 @@ const RollupProjextUtils = require('../utils');
 
 class RollupTemplatePlugin {
   constructor(options = {}, name) {
-    this.options = extend(
+    this._options = extend(
       true,
       {
         template: '',
@@ -22,13 +22,13 @@ class RollupTemplatePlugin {
 
     this.name = name || 'rollup-plugin-template';
 
-    if (!this.options.template) {
+    if (!this._options.template) {
       throw new Error(`${this.name}: You need to define the template file`);
-    } else if (!this.options.output) {
+    } else if (!this._options.output) {
       throw new Error(`${this.name}: You need to define an output file`);
     }
 
-    this.options.urls = this.options.urls.map((urlSettings) => Object.assign(
+    this._options.urls = this._options.urls.map((urlSettings) => Object.assign(
       urlSettings,
       {
         filter: rollupUtils.createFilter(
@@ -38,8 +38,8 @@ class RollupTemplatePlugin {
       }
     ));
 
-    this._base = path.dirname(this.template);
-    this._path = path.dirname(this.output);
+    this._base = path.dirname(this._options.template);
+    this._path = path.dirname(this._options.output);
     this._expressions = {
       url: /<%=\s*require\s*\(\s*['|"](.*?)['|"]\s*\).*?%>/ig,
       head: /([\t ]*)(<\/head>)/i,
@@ -54,21 +54,21 @@ class RollupTemplatePlugin {
   ongenerate() {
     this._createdDirectoriesCache = [];
     this._copyCache = [];
-    const async = this.options.scriptsAsync ? ' async="async"' : '';
-    const scripts = this.options.scripts
+    const async = this._options.scriptsAsync ? ' async="async"' : '';
+    const scripts = this._options.scripts
     .map((url) => `<script type="text/javascript" src="${url}"${async}></script>`);
-    const stylesheets = this.options.stylesheets
+    const stylesheets = this._options.stylesheets
     .map((url) => `<link href="${url}" rel="stylesheet" />`);
 
     const head = [stylesheets];
     const body = [];
-    if (this.options.scriptsOnBody) {
+    if (this._options.scriptsOnBody) {
       body.push(...scripts);
     } else {
       head.push(...scripts);
     }
 
-    let template = fs.readFileSync(this.options.template, 'utf-8');
+    let template = fs.readFileSync(this._options.template, 'utf-8');
     template = this._parseTemplateExpressions(template);
 
     if (head.length) {
@@ -82,7 +82,7 @@ class RollupTemplatePlugin {
     }
 
     fs.ensureDirSync(this._path);
-    fs.writeFileSync(this.output, template);
+    fs.writeFileSync(this._options.output, template);
   }
 
   _parseTemplateExpressions(template) {
