@@ -6,6 +6,7 @@ const ConfigurationFile = require('../../abstracts/configurationFile');
 
 class RollupPluginSettingsConfiguration extends ConfigurationFile {
   constructor(
+    appLogger,
     babelConfiguration,
     events,
     packageInfo,
@@ -15,6 +16,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
   ) {
     super(pathUtils, 'rollup/plugins.config.js');
 
+    this.appLogger = appLogger;
     this.babelConfiguration = babelConfiguration;
     this.events = events;
     this.packageInfo = packageInfo;
@@ -346,6 +348,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       contentBase: `./${target.folders.build}`,
       historyApiFallback: !!devServer.historyApiFallback,
       https: null,
+      logger: this.appLogger,
     };
 
     const sslSettings = {};
@@ -419,6 +422,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
 
     const settings = {
       file: output.file,
+      logger: this.appLogger,
     };
 
     const eventName = target.is.node ?
@@ -435,6 +439,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
 
 const rollupPluginSettingsConfiguration = provider((app) => {
   app.set('rollupPluginSettingsConfiguration', () => new RollupPluginSettingsConfiguration(
+    app.get('appLogger'),
     app.get('babelConfiguration'),
     app.get('events'),
     app.get('packageInfo'),

@@ -6,6 +6,7 @@ const fs = require('fs-extra');
 const extend = require('extend');
 const mime = require('mime');
 const statuses = require('statuses');
+const { Logger } = require('wootils/node/logger');
 
 class RollupDevServerPlugin {
   constructor(options = {}, name) {
@@ -18,21 +19,17 @@ class RollupDevServerPlugin {
         historyApiFallback: false,
         https: null,
         open: true,
+        logger: null,
         onStart: () => {},
         onStop: () => {},
       },
       options
     );
 
-    if (Array.isArray(this.options.contentBase)) {
-      if (!this.options.contentBase.length) {
-        this.options.contentBase.push('./');
-      }
-    } else {
-      this.options.contentBase = [this.options.contentBase];
-    }
-
     this.name = name || 'rollup-plugin-dev-server';
+
+    this.options.contentBase = this._normalizeContentBase();
+
     this.start = {
       overwrite: this._startServer.bind(this),
     };
@@ -43,6 +40,7 @@ class RollupDevServerPlugin {
     const protocol = this.options.https ? 'https' : 'http';
     this.url = `${protocol}://${this.options.host}:${this.options.port}`;
 
+    this._logger = this._createLogger();
     this._instance = null;
     this._terminationEvents = ['SIGINT', 'SIGTERM'];
     this._alreadyOpen = false;
@@ -55,6 +53,36 @@ class RollupDevServerPlugin {
     this._terminate = this._terminate.bind(this);
   }
 
+  _createLogger() {
+    let pluginLogger;
+    if (this.options.logger && !(this.options.logger instanceof Logger)) {
+      throw new Error(`${this.name}: The logger must be an instance of wootils's Logger class`);
+    } else if (this.options.logger) {
+      pluginLogger = this.options.logger;
+      delete this.options.logger;
+    } else {
+      pluginLogger = new Logger();
+    }
+
+    return pluginLogger;
+  }
+
+  _normalizeContentBase() {
+    const newContentBase = [];
+    const { contentBase } = this.options;
+    if (Array.isArray(contentBase)) {
+      if (contentBase.length) {
+        contentBase.push(...contentBase);
+      } else {
+        contentBase.push('./');
+      }
+    } else {
+      newContentBase.push(contentBase);
+    }
+
+    return newContentBase;
+  }
+
   _startServer() {
     if (!this._instance) {
       const { https, port } = this.options;
@@ -63,6 +91,7 @@ class RollupDevServerPlugin {
         createHTTPServer(this._handler);
 
       this._instance.listen(port);
+      this._logger.success(`Your app is running on the port ${port}`);
       this._startListeningForTermination();
       this._open();
       this.options.onStart(this);

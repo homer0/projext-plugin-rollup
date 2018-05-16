@@ -1,6 +1,7 @@
 const { fork } = require('child_process');
 const fs = require('fs-extra');
 const extend = require('extend');
+const { Logger } = require('wootils/node/logger');
 
 class RollupNodeRunnerPlugin {
   constructor(options = {}, name) {
@@ -8,6 +9,7 @@ class RollupNodeRunnerPlugin {
       true,
       {
         file: null,
+        logger: null,
         onStart: () => {},
         onStop: () => {},
       },
@@ -28,14 +30,30 @@ class RollupNodeRunnerPlugin {
       load: this._stopExecution.bind(this),
     };
 
+    this._logger = this._createLogger();
     this._instance = null;
     this._terminationEvents = ['SIGINT', 'SIGTERM'];
 
     this._terminate = this._terminate.bind(this);
   }
 
+  _createLogger() {
+    let pluginLogger;
+    if (this.options.logger && !(this.options.logger instanceof Logger)) {
+      throw new Error(`${this.name}: The logger must be an instance of wootils's Logger class`);
+    } else if (this.options.logger) {
+      pluginLogger = this.options.logger;
+      delete this.options.logger;
+    } else {
+      pluginLogger = new Logger();
+    }
+
+    return pluginLogger;
+  }
+
   _startExecution() {
     if (!this._instance) {
+      this._logger.success(`Starting bundle execution: ${this.options.file}`);
       this._instance = fork(this.options.file);
       this._startListeningForTermination();
       this.options.onOpen(this);
@@ -44,6 +62,7 @@ class RollupNodeRunnerPlugin {
 
   _stopExecution() {
     if (this._instance) {
+      this._logger.info('Stopping bundle execution');
       this._instance.kill();
       this._instance = null;
       this._stopListeningForTermination();
