@@ -14,9 +14,9 @@ class RollupBuildEngine {
     this.rollupPluginInfo = rollupPluginInfo;
 
     this.envVars = {
-      target: 'PROJEXT_WEBPACK_TARGET',
-      type: 'PROJEXT_WEBPACK_BUILD_TYPE',
-      run: 'PROJEXT_WEBPACK_RUN',
+      target: 'PROJEXT_ROLLUP_TARGET',
+      type: 'PROJEXT_ROLLUP_BUILD_TYPE',
+      run: 'PROJEXT_ROLLUP_RUN',
     };
   }
 
@@ -85,7 +85,8 @@ const rollupBuildEngine = provider((app) => {
   app.set('rollupBuildEngine', () => new RollupBuildEngine(
     app.get('environmentUtils'),
     app.get('targets'),
-    app.get('rollupConfiguration')
+    app.get('rollupConfiguration'),
+    app.get('rollupPluginInfo')
   ));
 });
 
