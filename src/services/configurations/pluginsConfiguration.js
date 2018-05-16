@@ -88,9 +88,25 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
 
   getBabelSettings(params) {
     const { target, rules } = params;
+    const babel = this.babelConfiguration.getConfigForTarget(target);
+
+    if (babel.presets && babel.presets.length) {
+      const envPreset = babel.presets.find((preset) => {
+        const [presetName] = preset;
+        return presetName === 'env';
+      });
+
+      if (envPreset) {
+        const [, envPresetOptions] = envPreset;
+        if (envPresetOptions) {
+          envPresetOptions.modules = false;
+        }
+      }
+    }
+
     const settings = Object.assign(
       {},
-      this.babelConfiguration.getConfigForTarget(target),
+      babel,
       {
         include: rules.js.glob.include,
         exclude: rules.js.glob.exclude,
