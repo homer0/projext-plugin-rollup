@@ -415,10 +415,10 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
   }
 
   getNodeRunnerSettings(params) {
-    const { target, paths } = params;
+    const { target, output } = params;
 
     const settings = {
-      folder: `./${target.paths.build}/${paths.js}`,
+      file: output.file,
     };
 
     const eventName = target.is.node ?
