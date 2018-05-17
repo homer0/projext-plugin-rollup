@@ -88,6 +88,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
 
   getBabelSettings(params) {
     const { target, rules } = params;
+
     const babel = this.babelConfiguration.getConfigForTarget(target);
 
     if (babel.presets && babel.presets.length) {
@@ -153,7 +154,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     if (target.css.inject) {
       settings.insert = true;
     } else {
-      settings.output = `./${target.folders.build}/${paths.css}`;
+      settings.output = `${target.paths.build}/${paths.css}`;
     }
 
     if (target.css.modules) {
@@ -184,7 +185,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     if (target.css.inject) {
       settings.insert = true;
     } else {
-      settings.output = `./${target.folders.build}/${paths.css}`;
+      settings.output = `${target.paths.build}/${paths.css}`;
     }
 
     const processorOptions = [];
@@ -219,7 +220,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
 
     const stylesheet = target.css.inject ?
       output.file :
-      `./${target.folders.build}/${paths.css}`;
+      `${target.paths.build}/${paths.css}`;
 
     const settings = {
       stylesheet,
@@ -293,11 +294,11 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     const { target, paths, rules } = params;
     const settings = {
       template: this.targetsHTML.getFilepath(target),
-      output: `./${target.folders.build}/${target.html.filename}`,
-      scripts: [`/${paths.js}`],
+      output: `${target.paths.build}/${target.html.filename}`,
       stylesheets: target.css.inject ?
         [] :
         [`/${paths.css}`],
+      scripts: [`/${paths.js}`],
       urls: [
         rules.images,
         rules.favicon,
@@ -362,7 +363,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     const settings = {
       host: devServer.host,
       port: devServer.port,
-      contentBase: `./${target.folders.build}`,
+      contentBase: target.paths.build,
       historyApiFallback: !!devServer.historyApiFallback,
       https: null,
       logger: this.appLogger,
@@ -418,7 +419,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     const { target, rules } = params;
 
     const settings = {
-      folder: `./${target.folders.build}`,
+      folder: target.paths.build,
       include: rules.all.include,
       exclude: rules.all.exclude,
     };

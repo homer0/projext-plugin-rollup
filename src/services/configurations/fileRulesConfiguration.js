@@ -115,7 +115,7 @@ class RollupFileRulesConfiguration extends ConfigurationFile {
         )),
       ],
       exclude: [],
-      output: `./${target.folders.build}/${paths.fonts}`,
+      output: `${target.paths.build}/${paths.fonts}`,
       url: `/${paths.fonts}`,
     };
 
@@ -143,7 +143,7 @@ class RollupFileRulesConfiguration extends ConfigurationFile {
           new RegExp(`/node_modules/${modName}/(?:.*?/)?fonts/.*?`)
         )),
       ],
-      output: `${target.folders.build}/${paths.images}`,
+      output: `${target.paths.build}/${paths.images}`,
       url: `/${paths.images}`,
     };
 
@@ -162,7 +162,7 @@ class RollupFileRulesConfiguration extends ConfigurationFile {
     const rule = {
       include: [/favicon\.(png|ico)$/i],
       exclude: [],
-      output: `${target.folders.build}/[name].[ext]`,
+      output: `${target.paths.build}/[name].[ext]`,
       url: '/[name].[ext]',
     };
 
