@@ -30,7 +30,7 @@ class RollupURLsPlugin {
 
     this._toCopy = [];
     this.load = this.load.bind(this);
-    this.ongenerate = this.ongenerate.bind(this);
+    this.onwrite = this.onwrite.bind(this);
   }
 
   getOptions() {
@@ -54,11 +54,13 @@ class RollupURLsPlugin {
     return result;
   }
 
-  ongenerate() {
+  onwrite() {
     this._toCopy.forEach((toCopy) => {
       fs.ensureDirSync(path.dirname(toCopy.to));
       fs.copySync(toCopy.from, toCopy.to);
     });
+
+    this._toCopy = [];
   }
 
   _validateOptions() {
