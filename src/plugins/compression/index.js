@@ -25,26 +25,15 @@ class RollupCompressionPlugin {
       this._options.exclude
     );
 
-    this.ongenerate = this.ongenerate.bind(this);
+    this.onwrite = this.onwrite.bind(this);
   }
 
   getOptions() {
     return this._options;
   }
 
-  ongenerate() {
-    return this._findAllTheFiles()
-    .then((files) => Promise.all(files.map((file) => this._compressFile(file))))
-    .catch((error) => {
-      throw error;
-    });
-  }
-
-  _validateOptions() {
-    const { include } = this._options;
-    if (!include || (Array.isArray(include) && !include.length)) {
-      throw new Error(`${this.name}: You need to specify which paths to include`);
-    }
+  onwrite() {
+    return this._findAllTheFiles().map((file) => this._compressFile(file));
   }
 
   _findAllTheFiles() {
@@ -55,13 +44,19 @@ class RollupCompressionPlugin {
     const result = [];
     fs.readdirSync(directory)
     .filter((item) => !item.startsWith('.') && !item.endsWith('.gz'))
-    .map((item) => path.join(directory, item))
-    .filter((item) => this.filter(item))
+    .map((item) => {
+      const itemPath = path.join(directory, item);
+      return {
+        path: itemPath,
+        isDirectory: fs.lstatSync(itemPath).isDirectory(),
+      };
+    })
+    .filter((item) => item.isDirectory || this.filter(item.path))
     .forEach((item) => {
-      if (fs.lstatSync(item).isDirectory()) {
-        result.push(...this._readDirectory(item));
+      if (item.isDirectory) {
+        result.push(...this._readDirectory(item.path));
       } else {
-        result.push(item);
+        result.push(item.path);
       }
     });
 
