@@ -44,14 +44,14 @@ class RollupTemplatePlugin {
     this._createdDirectoriesCache = [];
     this._copyCache = [];
 
-    this.ongenerate = this.ongenerate.bind(this);
+    this.onwrite = this.onwrite.bind(this);
   }
 
   getOptions() {
     return this._options;
   }
 
-  ongenerate() {
+  onwrite() {
     this._createdDirectoriesCache = [];
     this._copyCache = [];
     const async = this._options.scriptsAsync ? ' async="async"' : '';
