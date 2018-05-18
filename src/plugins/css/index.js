@@ -45,7 +45,8 @@ class RollupCSSPlugin {
   transform(code, filepath) {
     let result = null;
     if (this.filter(filepath)) {
-      if (this._files[filepath]) {
+      if (!this._files[filepath]) {
+        this._files.push(filepath);
         const css = code.trim();
         if (css) {
           result = this._process(css)
@@ -53,22 +54,22 @@ class RollupCSSPlugin {
             let nextStep;
             if (this._options.insert) {
               const escaped = JSON.stringify(processed);
-              nextStep = this._formatTransform(`${this._options.insertFnName}(${escaped})`);
+              nextStep = this._transformResult(`${this._options.insertFnName}(${escaped})`);
             } else {
               this._toBundle.push({
                 filepath,
                 css: processed,
               });
-              nextStep = this._formatTransform();
+              nextStep = this._transformResult();
             }
 
             return nextStep;
           });
         } else {
-          result = this._formatTransform();
+          result = this._transformResult();
         }
       } else {
-        result = this._formatTransform();
+        result = this._transformResult();
       }
     }
 
@@ -91,6 +92,9 @@ class RollupCSSPlugin {
         fs.writeFileSync(output, code);
       }
     }
+
+    this._files = [];
+    this._toBundle = [];
   }
 
   _validateOptions() {
