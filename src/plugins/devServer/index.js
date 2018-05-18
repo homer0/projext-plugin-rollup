@@ -29,12 +29,6 @@ class RollupDevServerPlugin {
 
     this.name = name;
     this.url = this._createServerURL();
-    this.start = {
-      ongenerate: this._startServer.bind(this),
-    };
-    this.stop = {
-      load: this._stopServer.bind(this),
-    };
 
     mime.default_type = 'text/plain';
 
@@ -45,12 +39,28 @@ class RollupDevServerPlugin {
     this._NOT_FOUND_ERROR = 'ENOENT: no such file or directory';
     this._defaultFaviconPath = path.join(path.dirname(__filename), 'favicon.ico');
 
+    this.onwrite = this.onwrite.bind(this);
     this._handler = this._handler.bind(this);
     this._terminate = this._terminate.bind(this);
   }
 
   getOptions() {
     return this._options;
+  }
+
+  onwrite() {
+    if (!this._instance) {
+      const { https, port } = this._options;
+      this._instance = https ?
+        createHTTPSServer(https, this._handler) :
+        createHTTPServer(this._handler);
+
+      this._instance.listen(port);
+      this._logger.success(`Your app is running on the port ${port}`);
+      this._startListeningForTermination();
+      this._open();
+      this._options.onStart(this);
+    }
   }
 
   _createServerURL() {
@@ -88,32 +98,14 @@ class RollupDevServerPlugin {
     return newContentBase;
   }
 
-  _startServer() {
-    if (!this._instance) {
-      const { https, port } = this._options;
-      this._instance = https ?
-        createHTTPSServer(https, this._handler) :
-        createHTTPServer(this._handler);
-
-      this._instance.listen(port);
-      this._logger.success(`Your app is running on the port ${port}`);
-      this._startListeningForTermination();
-      this._open();
-      this._options.onStart(this);
-    }
-  }
-
-  _stopServer() {
+  _terminate() {
     if (this._instance) {
       this._instance.close();
       this._instance = null;
       this._stopListeningForTermination();
       this._options.onStop(this);
     }
-  }
 
-  _terminate() {
-    this._stopServer();
     process.exit();
   }
 

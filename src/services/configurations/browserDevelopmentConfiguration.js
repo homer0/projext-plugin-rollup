@@ -33,15 +33,7 @@ class RollupBrowserDevelopmentConfiguration extends ConfigurationFile {
   createConfig(params) {
     const { input, output, target } = params;
     const pluginSettings = this.rollupPluginSettingsConfiguration.getConfig(params);
-    const plugins = [];
-
-    let server;
-    if (target.runOnDevelopment) {
-      server = devServer(pluginSettings.devServer);
-      plugins.push(server.stop);
-    }
-
-    plugins.push(...[
+    const plugins = [
       resolve(pluginSettings.resolve),
       babel(pluginSettings.babel),
       commonjs(pluginSettings.commonjs),
@@ -53,11 +45,7 @@ class RollupBrowserDevelopmentConfiguration extends ConfigurationFile {
       json(pluginSettings.json),
       urls(pluginSettings.urls),
       template(pluginSettings.template),
-    ]);
-
-    if (target.runOnDevelopment) {
-      plugins.push(server.start);
-    }
+    ];
 
     const config = {
       input,
@@ -67,6 +55,7 @@ class RollupBrowserDevelopmentConfiguration extends ConfigurationFile {
 
     if (target.runOnDevelopment) {
       config.watch = pluginSettings.watch;
+      config.plugins.push(devServer(pluginSettings.devServer));
     }
 
     return this.events.reduce(
