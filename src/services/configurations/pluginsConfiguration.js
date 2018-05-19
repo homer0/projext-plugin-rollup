@@ -36,18 +36,21 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       html: this.getHTMLSettings(params),
       json: this.getJSONSettings(params),
       urls: this.getURLsSettings(params),
-      template: this.getTemplateSettings(params),
       watch: this.getWatchSettings(params),
-      external: this.getExternalSettings(params),
-      devServer: this.getDevServerSettings(params),
       uglify: this.getUglifySettings(params),
       compression: this.getCompressionSettings(params),
-      nodeRunner: this.getNodeRunnerSettings(params),
     };
 
-    const eventName = params.target.is.node ?
-      'rollup-plugin-settings-configuration-for-node' :
-      'rollup-plugin-settings-configuration-for-browser';
+    let eventName;
+    if (params.target.is.node) {
+      eventName = 'rollup-plugin-settings-configuration-for-node';
+      settings.external = this.getExternalSettings(params);
+      settings.nodeRunner = this.getNodeRunnerSettings(params);
+    } else {
+      eventName = 'rollup-plugin-settings-configuration-for-browser';
+      settings.template = this.getTemplateSettings(params);
+      settings.devServer = this.getDevServerSettings(params);
+    }
 
     return this._reduceConfig(
       [eventName, 'rollup-plugin-settings-configuration'],
