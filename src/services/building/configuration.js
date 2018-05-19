@@ -51,7 +51,7 @@ class RollupConfiguration {
     const output = {
       file: `./${target.folders.build}/${paths.js}`,
       format: target.library ? this._getLibraryFormat(target.libraryOptions) : 'iife',
-      sourcemap: target.sourceMap.development,
+      sourcemap: target.sourceMap && target.sourceMap[buildType],
       name: target.name.replace(/-(\w)/ig, (match, letter) => letter.toUpperCase()),
     };
 
