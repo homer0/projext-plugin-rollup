@@ -85,6 +85,7 @@ class RollupNodeRunnerPlugin {
 
   _terminate() {
     this._stopExecution(false);
+    process.exit();
   }
 
   _startListeningForTermination() {
