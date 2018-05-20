@@ -48,10 +48,16 @@ class RollupConfiguration {
     const paths = target.output[buildType];
 
     const input = path.join(target.paths.source, target.entry[buildType]);
+
+    const defaultFormat = target.is.node ? 'cjs' : 'iife';
+    const format = target.library ?
+      this._getLibraryFormat(target.libraryOptions) :
+      defaultFormat;
+
     const output = {
       file: `./${target.folders.build}/${paths.js}`,
-      format: target.library ? this._getLibraryFormat(target.libraryOptions) : 'iife',
-      sourcemap: target.sourceMap && target.sourceMap[buildType],
+      format,
+      sourcemap: !!(target.sourceMap && target.sourceMap[buildType]),
       name: target.name.replace(/-(\w)/ig, (match, letter) => letter.toUpperCase()),
     };
 
