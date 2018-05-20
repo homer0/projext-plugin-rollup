@@ -41,8 +41,6 @@ class RollupNodeRunnerPlugin {
   _validateOptions() {
     if (!this._options.file) {
       throw new Error(`${this.name}: You need to specify the file to execute`);
-    } else if (!fs.pathExistsSync(this._options.file)) {
-      throw new Error(`${this.name}: The executable file doesn't exists`);
     }
   }
 
@@ -62,16 +60,23 @@ class RollupNodeRunnerPlugin {
 
   _startExecution() {
     if (!this._instance) {
+      if (!fs.pathExistsSync(this._options.file)) {
+        throw new Error(`${this.name}: The executable file doesn't exists`);
+      }
+
       this._logger.success(`Starting bundle execution: ${this._options.file}`);
       this._instance = fork(this._options.file);
       this._startListeningForTermination();
-      this._options.onOpen(this);
+      this._options.onStart(this);
     }
   }
 
-  _stopExecution() {
+  _stopExecution(logMessage = true) {
     if (this._instance) {
-      this._logger.info('Stopping bundle execution');
+      if (logMessage) {
+        this._logger.info('Stopping bundle execution');
+      }
+
       this._instance.kill();
       this._instance = null;
       this._stopListeningForTermination();
@@ -80,7 +85,7 @@ class RollupNodeRunnerPlugin {
   }
 
   _terminate() {
-    this._stopExecution();
+    this._stopExecution(false);
   }
 
   _startListeningForTermination() {
