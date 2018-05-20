@@ -2,7 +2,7 @@ const path = require('path');
 const rollupUtils = require('rollup-pluginutils');
 const extend = require('extend');
 const fs = require('fs-extra');
-const insertStyle = require('./insert');
+const insertStyle = require('./insertFn');
 
 class RollupCSSPlugin {
   constructor(options = {}, name = 'rollup-plugin-css') {
