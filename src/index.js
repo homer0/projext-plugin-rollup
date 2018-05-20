@@ -18,7 +18,7 @@ const loadPlugin = (app) => {
   app.set('rollupPluginInfo', () => ({
     name,
     configuration: 'src/rollup.config.js',
-    externals: [
+    external: [
       'express',
       'jimpex',
     ],

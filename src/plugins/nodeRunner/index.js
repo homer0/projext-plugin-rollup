@@ -20,22 +20,21 @@ class RollupNodeRunnerPlugin {
 
     this._validateOptions();
 
-    this.start = {
-      ongenerate: this._startExecution.bind(this),
-    };
-    this.stop = {
-      load: this._stopExecution.bind(this),
-    };
-
     this._logger = this._createLogger();
     this._instance = null;
     this._terminationEvents = ['SIGINT', 'SIGTERM'];
 
+    this.onwrite = this.onwrite.bind(this);
     this._terminate = this._terminate.bind(this);
   }
 
   getOptions() {
     return this._options;
+  }
+
+  onwrite() {
+    this._stopExecution();
+    this._startExecution();
   }
 
   _validateOptions() {

@@ -337,7 +337,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
 
   getExternalSettings(params) {
     const { target, buildType } = params;
-    const externals = [
+    const external = [
       ...this.rollupPluginInfo.externals.map((dependencyName) => (
         `${this.rollupPluginInfo.name}/${dependencyName}`
       )),
@@ -347,7 +347,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     ];
 
 
-    const settings = { externals };
+    const settings = { external };
 
     const eventName = params.target.is.node ?
       'rollup-external-plugin-settings-configuration-for-node' :

@@ -32,15 +32,7 @@ class RollupNodeDevelopmentConfiguration extends ConfigurationFile {
   createConfig(params) {
     const { input, output, target } = params;
     const pluginSettings = this.rollupPluginSettingsConfiguration.getConfig(params);
-    const plugins = [];
-
-    let runner;
-    if (target.runOnDevelopment) {
-      runner = nodeRunner(pluginSettings.nodeRunner);
-      plugins.push(runner.stop);
-    }
-
-    plugins.push(...[
+    const plugins = [
       resolve(pluginSettings.resolve),
       babel(pluginSettings.babel),
       commonjs(pluginSettings.commonjs),
@@ -51,18 +43,20 @@ class RollupNodeDevelopmentConfiguration extends ConfigurationFile {
       html(pluginSettings.html),
       json(pluginSettings.json),
       urls(pluginSettings.urls),
-    ]);
+    ];
+
+    const { external } = pluginSettings.external;
 
     const config = {
       input,
       output,
       plugins,
-      external: pluginSettings.external.externals,
+      external,
     };
 
     if (target.runOnDevelopment) {
-      config.plugins.push(runner.start);
       config.watch = pluginSettings.watch;
+      config.plugins.push(nodeRunner(pluginSettings.nodeRunner));
     }
 
     return this.events.reduce(
