@@ -156,8 +156,10 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
 
     if (target.css.inject) {
       settings.insert = true;
-    } else {
+    } else if (target.is.browser) {
       settings.output = `${target.paths.build}/${paths.css}`;
+    } else {
+      settings.output = false;
     }
 
     if (target.css.modules) {
@@ -187,8 +189,10 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
 
     if (target.css.inject) {
       settings.insert = true;
-    } else {
+    } else if (target.is.browser) {
       settings.output = `${target.paths.build}/${paths.css}`;
+    } else {
+      settings.output = false;
     }
 
     const processorOptions = [];
@@ -338,7 +342,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
   getExternalSettings(params) {
     const { target, buildType } = params;
     const external = [
-      ...this.rollupPluginInfo.externals.map((dependencyName) => (
+      ...this.rollupPluginInfo.external.map((dependencyName) => (
         `${this.rollupPluginInfo.name}/${dependencyName}`
       )),
       ...(target.excludeModules || []),
