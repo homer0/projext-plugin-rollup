@@ -18,8 +18,12 @@ class RollupCSSPlugin {
       },
       options
     );
+
+    if (!this._options.insert && !this._options.output) {
+      this._options.output = !!this._options.output;
+    }
+
     this.name = name;
-    this._validateOptions();
     this.filter = rollupUtils.createFilter(
       this._options.include,
       this._options.exclude
@@ -55,6 +59,8 @@ class RollupCSSPlugin {
             if (this._options.insert) {
               const escaped = JSON.stringify(processed);
               nextStep = this._transformResult(`${this._options.insertFnName}(${escaped})`);
+            } else if (this._options.output === false) {
+              nextStep = this._transformResult(processed);
             } else {
               this._toBundle.push({
                 filepath,
@@ -95,12 +101,6 @@ class RollupCSSPlugin {
 
     this._files = [];
     this._toBundle = [];
-  }
-
-  _validateOptions() {
-    if (!this._options.insert && !this._options.output) {
-      throw new Error(`${this.name}: You need to specify either insert or output`);
-    }
   }
 
   _process(css) {
