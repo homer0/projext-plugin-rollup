@@ -46,6 +46,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       eventName = 'rollup-plugin-settings-configuration-for-node';
       settings.external = this.getExternalSettings(params);
       settings.nodeRunner = this.getNodeRunnerSettings(params);
+      settings.stylesheetAssetsHelper = this.getStyleheetAssetsHelperSettings(params);
     } else {
       eventName = 'rollup-plugin-settings-configuration-for-browser';
       settings.template = this.getTemplateSettings(params);
@@ -225,7 +226,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       output,
     } = params;
 
-    const stylesheet = target.css.inject ?
+    const stylesheet = target.css.inject || target.is.node ?
       output.file :
       `${target.paths.build}/${paths.css}`;
 
@@ -243,6 +244,31 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
 
     return this._reduceConfig(
       [eventName, 'rollup-stylesheet-assets-plugin-settings-configuration'],
+      settings,
+      params
+    );
+  }
+
+  getStyleheetAssetsHelperSettings(params) {
+    const { target, rules } = params;
+
+    const settings = {
+      include: [
+        ...rules.css.include,
+        ...rules.scss.include,
+      ],
+      exclude: [
+        ...rules.css.exclude,
+        ...rules.scss.exclude,
+      ],
+    };
+
+    const eventName = target.is.node ?
+      'rollup-stylesheet-assets-helper-plugin-settings-configuration-for-node' :
+      'rollup-stylesheet-assets-helper-plugin-settings-configuration-for-browser';
+
+    return this._reduceConfig(
+      [eventName, 'rollup-stylesheet-assets-helper-plugin-settings-configuration'],
       settings,
       params
     );

@@ -38,6 +38,7 @@ class RollupNodeProductionConfiguration extends ConfigurationFile {
       replace(pluginSettings.replace),
       sass(pluginSettings.sass),
       css(pluginSettings.css),
+      stylesheetAssets.helper(pluginSettings.stylesheetAssetsHelper),
       stylesheetAssets(pluginSettings.stylesheetAssets),
       html(pluginSettings.html),
       json(pluginSettings.json),
