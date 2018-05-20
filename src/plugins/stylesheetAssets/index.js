@@ -3,6 +3,7 @@ const rollupUtils = require('rollup-pluginutils');
 const extend = require('extend');
 const fs = require('fs-extra');
 const RollupProjextUtils = require('../utils');
+const { stylesheetAssetsHelper } = require('./helper');
 
 class RollupStylesheetAssetsPlugin {
   constructor(options = {}, name = 'rollup-plugin-stylesheet-assets') {
@@ -13,6 +14,7 @@ class RollupStylesheetAssetsPlugin {
         insertFnNames: options.insertFnNames || [
           '___$insertCSSBlocks',
           '___$insertStyle',
+          '___$styleHelper',
         ],
         urls: [],
       },
@@ -87,7 +89,7 @@ class RollupStylesheetAssetsPlugin {
       .map((cssBlock) => this._updateCSSBlock(cssBlock).css)
       .join('\n\n');
       const escaped = JSON.stringify(css);
-      const newBlock = `${block.fn}(${escaped})\n\n`;
+      const newBlock = `${block.fn}(${escaped});\n\n`;
       newCode = newCode.replace(block.match, newBlock);
     });
 
@@ -295,6 +297,7 @@ class RollupStylesheetAssetsPlugin {
 }
 
 const stylesheetAssets = (options, name) => new RollupStylesheetAssetsPlugin(options, name);
+stylesheetAssets.helper = stylesheetAssetsHelper;
 
 module.exports = {
   RollupStylesheetAssetsPlugin,
