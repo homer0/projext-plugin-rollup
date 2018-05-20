@@ -53,17 +53,17 @@ class RollupNodeDevelopmentConfiguration extends ConfigurationFile {
       urls(pluginSettings.urls),
     ]);
 
-    if (target.runOnDevelopment) {
-      plugins.push(runner.start);
-    }
-
     const config = {
       input,
       output,
       plugins,
       external: pluginSettings.external.externals,
-      watchOptions: pluginSettings.watch,
     };
+
+    if (target.runOnDevelopment) {
+      config.plugins.push(runner.start);
+      config.watch = pluginSettings.watch;
+    }
 
     return this.events.reduce(
       'rollup-node-development-configuration',
