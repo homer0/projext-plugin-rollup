@@ -153,6 +153,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
         sourceMapEmbed: true,
         outputStyle: 'compressed',
       },
+      processor: this._getStylesProcessor(target.css.modules),
     };
 
     if (target.css.inject) {
@@ -161,12 +162,6 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       settings.output = `${target.paths.build}/${paths.css}`;
     } else {
       settings.output = false;
-    }
-
-    if (target.css.modules) {
-      settings.processor = (css) => postcss([postcssModules])
-      .process(css)
-      .then((result) => result.css);
     }
 
     const eventName = target.is.node ?
@@ -186,6 +181,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     const settings = {
       include: rules.css.include,
       exclude: rules.css.exclude,
+      processor: this._getStylesProcessor(false, { map: true }),
     };
 
     if (target.css.inject) {
@@ -195,17 +191,6 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     } else {
       settings.output = false;
     }
-
-    const processorOptions = [];
-    if (target.css.modules) {
-      processorOptions.push(postcssModules);
-    }
-
-    settings.processor = (css) => postcss(processorOptions)
-    .process(css, {
-      map: true,
-    })
-    .then((result) => result.css);
 
     const eventName = target.is.node ?
       'rollup-css-plugin-settings-configuration-for-node' :
@@ -485,6 +470,66 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       settings,
       params
     );
+  }
+
+  _getSourceMap(code) {
+    const regex = /(\/\*# sourceMappingURL=.*? \*\/)/i;
+    const match = regex.exec(code);
+    let result;
+    if (match) {
+      [result] = match;
+    }
+
+    return result;
+  }
+
+  _getStylesProcessor(modules, processorOptions = {}) {
+    const options = Object.assign(
+      {},
+      {
+        map: false,
+        from: undefined,
+      },
+      processorOptions
+    );
+
+    return (css, filepath) => {
+      let map;
+      if (options.map) {
+        options.from = filepath;
+      } else {
+        map = this._getSourceMap(css);
+      }
+
+      let names;
+      const plugins = [];
+      if (modules) {
+        plugins.push(postcssModules({
+          getJSON: (filename, json) => {
+            names = json;
+          },
+        }));
+      }
+
+      return postcss(plugins)
+      .process(css, options)
+      .then((processed) => {
+        const cssCode = options.map ?
+          `${processed.css}\n` :
+          `${processed.css}\n\n${map}\n`;
+        let result;
+        if (modules) {
+          result = {
+            css: cssCode,
+            names,
+          };
+        } else {
+          result = cssCode;
+        }
+
+        return result;
+      });
+    };
   }
 
   _reduceConfig(events, config, params) {
