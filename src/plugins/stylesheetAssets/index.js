@@ -39,6 +39,7 @@ class RollupStylesheetAssetsPlugin {
       url: /url\s*\(\s*(?:['|"])?(\.\.?\/.*?)(?:['|"])?\)/ig,
       map: /\/\*#.*?\*\//gi,
       js: /\.jsx?$/i,
+      fullMap: /(\/\*# sourceMappingURL=[\w:/]+;base64,((?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?) \*\/)/ig,
     };
 
     this._mapFragments = {
@@ -89,7 +90,7 @@ class RollupStylesheetAssetsPlugin {
       .map((cssBlock) => this._updateCSSBlock(cssBlock).css)
       .join('\n\n');
       const escaped = JSON.stringify(css);
-      const newBlock = `${block.fn}(${escaped});\n\n`;
+      const newBlock = `${block.fn}(${escaped}, ${block.names});\n\n`;
       newCode = newCode.replace(block.match, newBlock);
     });
 
@@ -108,26 +109,52 @@ class RollupStylesheetAssetsPlugin {
     .map((name) => RollupProjextUtils.escapeRegex(name))
     .join('|');
 
-    const regexStr = `(${fns})\\s*\\(\\s*['|"](.*?)['|"]\\s*\\);\\s*\\n`;
-    const regex = new RegExp(regexStr, 'ig');
-    let match = regex.exec(code);
-    while (match) {
-      const [fullMatch, fn, css] = match;
-      let parsed;
-      try {
-        parsed = (JSON.parse(`{"css": "${css}"}`).css);
-      } catch (ignore) {
-        parsed = css;
-      }
+    const time = Date.now();
+    const separators = {
+      block: `___STYLE-BLOCK-SEPARATOR-${time}__`,
+      map: `__STYLE-MAP-SEPARATOR-${time}__`,
+    };
 
-      result.push({
-        match: fullMatch,
-        css: this._extractCSSBlocks(parsed),
-        fn,
+    const fnsRegexStr = `(${fns}\\s*\\(\\s*['|"])`;
+    const fnsRegex = new RegExp(fnsRegexStr, 'ig');
+    const blockRegexStr = `^(${fns})\\s*\\(\\s*['|"](.*?)${separators.map}(?:\\\\n)?\\s*['|"]\\s*(?:,\\s*(\\{.*?\\}|['|"].*?['|"]|null))?\\s*\\);`;
+    const blockRegex = new RegExp(blockRegexStr, 'ig');
+
+    code
+    .replace(fnsRegex, `${separators.block}$1`)
+    .split(separators.block)
+    .forEach((part) => {
+      let map;
+      const partCode = part.replace(this._expressions.fullMap, (match) => {
+        map = match;
+        return separators.map;
       });
 
-      match = regex.exec(code);
-    }
+      if (map) {
+        let match = blockRegex.exec(partCode);
+        while (match) {
+          const [fullMatch, fn, css, names] = match;
+          let parsed;
+          try {
+            parsed = (JSON.parse(`{"css": "${css}"}`).css);
+          } catch (ignore) {
+            parsed = css;
+          }
+
+          result.push({
+            match: fullMatch.replace(separators.map, map),
+            css: [{
+              css: parsed.trim(),
+              map,
+            }],
+            fn,
+            names,
+          });
+
+          match = blockRegex.exec(partCode);
+        }
+      }
+    });
 
     return result;
   }
@@ -228,7 +255,7 @@ class RollupStylesheetAssetsPlugin {
     const codeRange = (map.length - fullPrefix.length - sufix.length);
     const code = map.substr(fullPrefix.length, codeRange).trim();
     const decoded = Buffer.from(code, 'base64').toString('ascii');
-    return JSON.parse(decoded);
+    return JSON.parse(decoded.trim());
   }
 
   _loadSources(sources) {
