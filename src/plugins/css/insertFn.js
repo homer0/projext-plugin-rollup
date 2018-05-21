@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-env browser */
 
-function __insertStyleFunctionName__(css) {
+function __insertStyleFunctionName__(css, names) {
   let result;
   if (css && window) {
     const style = document.createElement('style');
@@ -11,7 +11,7 @@ function __insertStyleFunctionName__(css) {
     result = css;
   }
 
-  return result;
+  return names || result;
 }
 
 module.exports = __insertStyleFunctionName__;

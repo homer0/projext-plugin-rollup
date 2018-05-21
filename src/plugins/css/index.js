@@ -53,20 +53,31 @@ class RollupCSSPlugin {
         this._files.push(filepath);
         const css = code.trim();
         if (css) {
-          result = this._process(css)
+          result = this._process(css, filepath)
           .then((processed) => {
+            let cssCode;
+            let modNames;
+            if (typeof processed !== 'string' && processed.names) {
+              cssCode = processed.css;
+              modNames = JSON.stringify(processed.names);
+            } else {
+              cssCode = processed;
+            }
+
             let nextStep;
             if (this._options.insert) {
-              const escaped = JSON.stringify(processed);
-              nextStep = this._transformResult(`${this._options.insertFnName}(${escaped})`);
+              const escaped = JSON.stringify(cssCode);
+              const namesParam = modNames || 'null';
+              const insertCall = `${this._options.insertFnName}(${escaped}, ${namesParam})`;
+              nextStep = this._transformResult(insertCall);
             } else if (this._options.output === false) {
-              nextStep = this._transformResult(processed);
+              nextStep = this._transformResult(processed, modNames);
             } else {
               this._toBundle.push({
                 filepath,
                 css: processed,
               });
-              nextStep = this._transformResult();
+              nextStep = this._transformResult('', modNames);
             }
 
             return nextStep;
@@ -103,15 +114,20 @@ class RollupCSSPlugin {
     this._toBundle = [];
   }
 
-  _process(css) {
+  _process(css, filepath) {
     return this._options.processor ?
-      this._options.processor(css) :
+      this._options.processor(css, filepath) :
       Promise.resolve(css);
   }
 
-  _transformResult(code = '\'\'') {
+  _transformResult(css = '\'\'', names = null) {
+    let code = `export default ${css};`;
+    if (names) {
+      code = `${code}\nexport const names = ${names};`;
+    }
+
     return Promise.resolve({
-      code: `export default ${code};`,
+      code,
       map: {
         mappings: '',
       },
