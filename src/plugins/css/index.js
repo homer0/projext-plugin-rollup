@@ -56,28 +56,30 @@ class RollupCSSPlugin {
           result = this._process(css, filepath)
           .then((processed) => {
             let cssCode;
-            let modNames;
-            if (typeof processed !== 'string' && processed.names) {
-              cssCode = processed.css;
-              modNames = JSON.stringify(processed.names);
-            } else {
+            let rest;
+            if (typeof processed === 'string') {
               cssCode = processed;
+            } else if (typeof processed.css !== 'string') {
+              throw new Error('You need to return the styles using the `css` property');
+            } else {
+              cssCode = processed.css;
+              rest = processed;
+              delete rest.css;
             }
 
             let nextStep;
             if (this._options.insert) {
               const escaped = JSON.stringify(cssCode);
-              const namesParam = modNames || 'null';
-              const insertCall = `${this._options.insertFnName}(${escaped}, ${namesParam})`;
-              nextStep = this._transformResult(insertCall);
+              const insertCall = `${this._options.insertFnName}(${escaped})`;
+              nextStep = this._transformResult(insertCall, rest);
             } else if (this._options.output === false) {
-              nextStep = this._transformResult(processed, modNames);
+              nextStep = this._transformResult(processed, rest);
             } else {
               this._toBundle.push({
                 filepath,
-                css: processed,
+                css: cssCode,
               });
-              nextStep = this._transformResult('', modNames);
+              nextStep = this._transformResult('', rest);
             }
 
             return nextStep;
@@ -120,10 +122,17 @@ class RollupCSSPlugin {
       Promise.resolve(css);
   }
 
-  _transformResult(css = '\'\'', names = null) {
+  _transformResult(css = '\'\'', rest = null) {
     let code = `export default ${css};`;
-    if (names) {
-      code = `${code}\nexport const names = ${names};`;
+    if (rest) {
+      const restCode = Object.keys(rest)
+      .map((name) => {
+        const value = JSON.stringify(rest[name]);
+        return `export const ${name} = ${value};`;
+      })
+      .join('\n');
+
+      code = `${code}\n${restCode}`;
     }
 
     return Promise.resolve({
