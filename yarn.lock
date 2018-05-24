@@ -3749,7 +3749,7 @@ jimpex@^2.1.0:
     urijs "1.19.0"
     wootils "^1.0.5"
 
-"jimple@github:homer0/jimple", jimple@homer0/jimple:
+jimple@homer0/jimple:
   version "1.4.6"
   resolved "https://codeload.github.com/homer0/jimple/tar.gz/1f123c2ba1f0aef14de159747455f877f70e0c9d"
 
@@ -5540,9 +5540,9 @@ rollup-plugin-replace@2.0.0:
     minimatch "^3.0.2"
     rollup-pluginutils "^2.0.1"
 
-rollup-plugin-sass@0.6.1:
-  version "0.6.1"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-sass/-/rollup-plugin-sass-0.6.1.tgz#f11e19800a0461d6119aeb01f65e60803af3b81d"
+rollup-plugin-sass@0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-sass/-/rollup-plugin-sass-0.7.0.tgz#da639845076c399f3b948eb3d030336e72c1a34c"
   dependencies:
     babel-runtime "^6.23.0"
     fs-extra "^0.30.0"
