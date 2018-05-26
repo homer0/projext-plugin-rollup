@@ -37,6 +37,10 @@ class RollupCSSPlugin {
     this.ongenerate = this.ongenerate.bind(this);
   }
 
+  getOptions() {
+    return this._options;
+  }
+
   intro() {
     let result = null;
     if (this._options.insert) {

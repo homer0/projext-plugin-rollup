@@ -90,7 +90,7 @@ class RollupStylesheetAssetsPlugin {
       .map((cssBlock) => this._updateCSSBlock(cssBlock).css)
       .join('\n\n');
       const escaped = JSON.stringify(css);
-      const newBlock = `${block.fn}(${escaped}, ${block.names});\n\n`;
+      const newBlock = `${block.fn}(${escaped});\n\n`;
       newCode = newCode.replace(block.match, newBlock);
     });
 
@@ -133,7 +133,7 @@ class RollupStylesheetAssetsPlugin {
       if (map) {
         let match = blockRegex.exec(partCode);
         while (match) {
-          const [fullMatch, fn, css, names] = match;
+          const [fullMatch, fn, css] = match;
           let parsed;
           try {
             parsed = (JSON.parse(`{"css": "${css}"}`).css);
@@ -148,7 +148,6 @@ class RollupStylesheetAssetsPlugin {
               map,
             }],
             fn,
-            names,
           });
 
           match = blockRegex.exec(partCode);

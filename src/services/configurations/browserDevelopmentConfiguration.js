@@ -14,6 +14,7 @@ const {
   stylesheetAssets,
   template,
   devServer,
+  stylesheetModulesFixer,
 } = require('../../plugins');
 
 class RollupBrowserDevelopmentConfiguration extends ConfigurationFile {
@@ -41,6 +42,11 @@ class RollupBrowserDevelopmentConfiguration extends ConfigurationFile {
       sass(pluginSettings.sass),
       css(pluginSettings.css),
       stylesheetAssets(pluginSettings.stylesheetAssets),
+      ...(
+        target.css.modules ?
+          [stylesheetModulesFixer(pluginSettings.stylesheetModulesFixer)] :
+          []
+      ),
       html(pluginSettings.html),
       json(pluginSettings.json),
       urls(pluginSettings.urls),

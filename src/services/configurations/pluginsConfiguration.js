@@ -26,19 +26,20 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
 
   createConfig(params) {
     const settings = {
-      resolve: this.getResolveSettings(params),
-      replace: this.getReplaceSettings(params),
-      babel: this.getBabelSettings(params),
-      commonjs: this.getCommonJSSettings(params),
-      sass: this.getSASSSettings(params),
-      css: this.getCSSSettings(params),
-      stylesheetAssets: this.getStyleheetAssetsSettings(params),
-      html: this.getHTMLSettings(params),
-      json: this.getJSONSettings(params),
-      urls: this.getURLsSettings(params),
-      watch: this.getWatchSettings(params),
-      uglify: this.getUglifySettings(params),
-      compression: this.getCompressionSettings(params),
+      resolve: this._getResolveSettings(params),
+      replace: this._getReplaceSettings(params),
+      babel: this._getBabelSettings(params),
+      commonjs: this._getCommonJSSettings(params),
+      sass: this._getSASSSettings(params),
+      css: this._getCSSSettings(params),
+      stylesheetAssets: this._getStyleheetAssetsSettings(params),
+      stylesheetModulesFixer: this._getStylesheetModulesFixerSettings(params),
+      html: this._getHTMLSettings(params),
+      json: this._getJSONSettings(params),
+      urls: this._getURLsSettings(params),
+      watch: this._getWatchSettings(params),
+      uglify: this._getUglifySettings(params),
+      compression: this._getCompressionSettings(params),
     };
 
     let eventName;
@@ -60,7 +61,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     );
   }
 
-  getResolveSettings(params) {
+  _getResolveSettings(params) {
     const settings = {
       extensions: ['.js', '.json', '.jsx'],
     };
@@ -76,7 +77,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     );
   }
 
-  getReplaceSettings(params) {
+  _getReplaceSettings(params) {
     const settings = Object.assign({}, params.definitions);
 
     const eventName = params.target.is.node ?
@@ -90,7 +91,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     );
   }
 
-  getBabelSettings(params) {
+  _getBabelSettings(params) {
     const { target, rules } = params;
 
     const babel = this.babelConfiguration.getConfigForTarget(target);
@@ -129,7 +130,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     );
   }
 
-  getCommonJSSettings(params) {
+  _getCommonJSSettings(params) {
     const settings = {};
 
     const eventName = params.target.is.node ?
@@ -143,7 +144,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     );
   }
 
-  getSASSSettings(params) {
+  _getSASSSettings(params) {
     const { target, paths, rules } = params;
 
     const settings = {
@@ -175,7 +176,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     );
   }
 
-  getCSSSettings(params) {
+  _getCSSSettings(params) {
     const { target, paths, rules } = params;
 
     const settings = {
@@ -203,7 +204,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     );
   }
 
-  getStyleheetAssetsSettings(params) {
+  _getStyleheetAssetsSettings(params) {
     const {
       target,
       paths,
@@ -234,6 +235,31 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     );
   }
 
+  _getStylesheetModulesFixerSettings(params) {
+    const { target, rules } = params;
+
+    const settings = {
+      include: [
+        ...rules.scss.include,
+        ...rules.css.include,
+      ],
+      exclude: [
+        ...rules.scss.exclude,
+        ...rules.css.exclude,
+      ],
+    };
+
+    const eventName = target.is.node ?
+      'rollup-stylesheet-modules-fixer-plugin-settings-configuration-for-node' :
+      'rollup-stylesheet-modules-fixer-plugin-settings-configuration-for-browser';
+
+    return this._reduceConfig(
+      [eventName, 'rollup-stylesheet-modules-fixer-plugin-settings-configuration'],
+      settings,
+      params
+    );
+  }
+
   getStyleheetAssetsHelperSettings(params) {
     const { target, rules } = params;
 
@@ -259,7 +285,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     );
   }
 
-  getHTMLSettings(params) {
+  _getHTMLSettings(params) {
     const settings = {};
 
     const eventName = params.target.is.node ?
@@ -273,7 +299,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     );
   }
 
-  getJSONSettings(params) {
+  _getJSONSettings(params) {
     const settings = {};
 
     const eventName = params.target.is.node ?
@@ -287,7 +313,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     );
   }
 
-  getURLsSettings(params) {
+  _getURLsSettings(params) {
     const { target, rules } = params;
     const settings = {
       urls: [
@@ -334,7 +360,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     );
   }
 
-  getWatchSettings(params) {
+  _getWatchSettings(params) {
     const settings = {
       clearScreen: false,
     };
@@ -419,7 +445,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     );
   }
 
-  getUglifySettings(params) {
+  _getUglifySettings(params) {
     const settings = {};
 
     const eventName = params.target.is.node ?
@@ -433,7 +459,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     );
   }
 
-  getCompressionSettings(params) {
+  _getCompressionSettings(params) {
     const { target, rules } = params;
 
     const settings = {
@@ -501,12 +527,12 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
         map = this._getSourceMap(css);
       }
 
-      let names;
+      let styles;
       const plugins = [];
       if (modules) {
         plugins.push(postcssModules({
           getJSON: (filename, json) => {
-            names = json;
+            styles = json;
           },
         }));
       }
@@ -521,7 +547,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
         if (modules) {
           result = {
             css: cssCode,
-            names,
+            styles,
           };
         } else {
           result = cssCode;
