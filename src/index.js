@@ -14,6 +14,10 @@ const {
   rollupPluginSettingsConfiguration,
 } = require('./services/configurations');
 
+const {
+  rollupMiddleware,
+} = require('./services/server');
+
 const loadPlugin = (app) => {
   app.set('rollupPluginInfo', () => ({
     name,
@@ -33,6 +37,8 @@ const loadPlugin = (app) => {
   app.register(rollupNodeDevelopmentConfiguration);
   app.register(rollupNodeProductionConfiguration);
   app.register(rollupPluginSettingsConfiguration);
+
+  app.register(rollupMiddleware);
 };
 
 module.exports = loadPlugin;
