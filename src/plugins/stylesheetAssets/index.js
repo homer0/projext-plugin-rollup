@@ -195,12 +195,11 @@ class RollupStylesheetAssetsPlugin {
       const {
         absPath,
         line,
-        file,
         query,
         info,
       } = pathChange;
 
-      const settings = this._options.urls.find((setting) => setting.filter(file));
+      const settings = this._options.urls.find((setting) => setting.filter(absPath));
       if (settings) {
         const output = RollupProjextUtils.formatPlaceholder(settings.output, info);
         const outputDir = path.dirname(output);
@@ -238,7 +237,7 @@ class RollupStylesheetAssetsPlugin {
           fs.pathExistsSync(pathFromFile);
 
         if (found) {
-          absPath = pathFromFile.replace(/\/\.\//ig, '/');
+          absPath = path.resolve(pathFromFile.replace(/\/\.\//ig, '/'));
         }
 
         return found;
