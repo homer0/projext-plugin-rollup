@@ -11,13 +11,13 @@ class RollupFileRulesConfiguration extends ConfigurationFile {
 
   createConfig(params) {
     const rules = {
-      js: this.getJSRule(params),
-      scss: this.getSCSSRule(params),
-      css: this.getCSSRule(params),
-      fonts: this.getFontsRule(params),
-      images: this.getImagesRule(params),
-      favicon: this.getFaviconRule(params),
-      all: this.getAllFilesRule(params),
+      js: this._getJSRule(params),
+      scss: this._getSCSSRule(params),
+      css: this._getCSSRule(params),
+      fonts: this._getFontsRule(params),
+      images: this._getImagesRule(params),
+      favicon: this._getFaviconRule(params),
+      all: this._getAllFilesRule(params),
     };
 
     const eventName = params.target.is.node ?
@@ -31,7 +31,7 @@ class RollupFileRulesConfiguration extends ConfigurationFile {
     );
   }
 
-  getJSRule(params) {
+  _getJSRule(params) {
     const { target } = params;
     const config = this.pathUtils.join('config');
     const rule = {
@@ -64,7 +64,7 @@ class RollupFileRulesConfiguration extends ConfigurationFile {
     );
   }
 
-  getSCSSRule(params) {
+  _getSCSSRule(params) {
     const { target } = params;
     const rule = {
       include: [
@@ -86,7 +86,7 @@ class RollupFileRulesConfiguration extends ConfigurationFile {
     );
   }
 
-  getCSSRule(params) {
+  _getCSSRule(params) {
     const { target } = params;
     const rule = {
       include: [/\.css$/i],
@@ -103,7 +103,7 @@ class RollupFileRulesConfiguration extends ConfigurationFile {
     );
   }
 
-  getFontsRule(params) {
+  _getFontsRule(params) {
     const { target, paths } = params;
     const rule = {
       include: [
@@ -129,7 +129,7 @@ class RollupFileRulesConfiguration extends ConfigurationFile {
     );
   }
 
-  getImagesRule(params) {
+  _getImagesRule(params) {
     const { target, paths } = params;
     const rule = {
       include: [
@@ -157,7 +157,7 @@ class RollupFileRulesConfiguration extends ConfigurationFile {
     );
   }
 
-  getFaviconRule(params) {
+  _getFaviconRule(params) {
     const { target } = params;
     const rule = {
       include: [/favicon\.(png|ico)$/i],
@@ -176,7 +176,7 @@ class RollupFileRulesConfiguration extends ConfigurationFile {
     );
   }
 
-  getAllFilesRule(params) {
+  _getAllFilesRule(params) {
     const { target } = params;
     const extensions = [
       'js',
