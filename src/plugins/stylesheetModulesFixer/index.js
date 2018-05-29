@@ -2,7 +2,7 @@ const rollupUtils = require('rollup-pluginutils');
 const extend = require('extend');
 
 class ProjextRollupStylesheetModulesFixerPlugin {
-  constructor(options = {}, name = 'projext-rollup-plugin-exports-renamer') {
+  constructor(options = {}, name = 'projext-rollup-plugin-stylesheet-modules-fixer') {
     this._options = extend(
       true,
       {
@@ -40,7 +40,12 @@ class ProjextRollupStylesheetModulesFixerPlugin {
       const fileExports = this._getFileExports(parts.exports);
       const updatedFileExports = this._updateFileExports(fileExports);
       const statements = this._generateFileExports(updatedFileExports);
-      result = `${parts.contents}\n${statements}`;
+      result = {
+        code: `${parts.contents}\n${statements}`,
+        map: {
+          mappings: '',
+        },
+      };
     }
 
     return result;
