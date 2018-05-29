@@ -15,6 +15,7 @@ class RollupCSSPlugin {
         output: '',
         processor: null,
         insertFnName: '___$insertCSSBlocks',
+        stats: () => {},
       },
       options
     );
@@ -113,6 +114,7 @@ class RollupCSSPlugin {
       } else {
         fs.ensureDirSync(path.dirname(output));
         fs.writeFileSync(output, code);
+        this._options.stats(this.name, output, 'generated');
       }
     }
 

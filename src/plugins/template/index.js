@@ -16,6 +16,7 @@ class RollupTemplatePlugin {
         scriptsOnBody: true,
         stylesheets: [],
         urls: [],
+        stats: () => {},
       },
       options
     );
@@ -83,6 +84,7 @@ class RollupTemplatePlugin {
 
     fs.ensureDirSync(this._path);
     fs.writeFileSync(this._options.output, template);
+    this._options.stats(this.name, this._options.output, 'generated');
   }
 
   _validateOptions() {
@@ -116,6 +118,7 @@ class RollupTemplatePlugin {
 
         if (!this._copyCache.includes(file)) {
           fs.copySync(file, output);
+          this._options.stats(this.name, output, 'copied');
         }
 
         newTemplate = newTemplate.replace(lineRegex, url);

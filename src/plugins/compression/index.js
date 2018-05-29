@@ -3,6 +3,7 @@ const rollupUtils = require('rollup-pluginutils');
 const extend = require('extend');
 const fs = require('fs-extra');
 const zopfli = require('node-zopfli');
+const { deferred } = require('wootils/shared');
 
 class RollupCompressionPlugin {
   constructor(options = {}, name = 'rollup-plugin-compression') {
@@ -12,13 +13,12 @@ class RollupCompressionPlugin {
         folder: './dist',
         include: [],
         exclude: [],
+        stats: () => {},
       },
       options
     );
 
     this.name = name;
-
-    this._validateOptions();
 
     this.filter = rollupUtils.createFilter(
       this._options.include,
@@ -64,17 +64,29 @@ class RollupCompressionPlugin {
   }
 
   _compressFile(filepath) {
+    const statsDeferred = deferred();
+    this._options.stats(statsDeferred.promise);
     return new Promise((resolve, reject) => {
       const newFilepath = `${filepath}.gz`;
       fs.createReadStream(filepath)
       .on('error', reject)
       .pipe(zopfli.createGzip())
       .pipe(fs.createWriteStream(newFilepath))
-      .on('error', reject)
-      .on('close', () => resolve({
-        original: filepath,
-        compressed: newFilepath,
-      }));
+      .on('error', (error) => {
+        statsDeferred.reject(error);
+        reject(error);
+      })
+      .on('close', () => {
+        statsDeferred.resolve({
+          plugin: this.name,
+          filepath: newFilepath,
+          detail: 'compressed',
+        });
+        resolve({
+          original: filepath,
+          compressed: newFilepath,
+        });
+      });
     });
   }
 }

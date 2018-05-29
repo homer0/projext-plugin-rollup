@@ -11,6 +11,7 @@ const ConfigurationFile = require('../../abstracts/configurationFile');
 const {
   css,
   urls,
+  stats,
   stylesheetAssets,
 } = require('../../plugins');
 
@@ -29,8 +30,16 @@ class RollupNodeProductionConfiguration extends ConfigurationFile {
   }
 
   createConfig(params) {
-    const { input, output } = params;
-    const pluginSettings = this.rollupPluginSettingsConfiguration.getConfig(params);
+    const { input, output, target } = params;
+    const statsPlugin = stats({
+      path: `${target.paths.build}/`,
+    });
+
+    const pluginSettings = this.rollupPluginSettingsConfiguration.getConfig(
+      params,
+      statsPlugin.add
+    );
+
     const plugins = [
       resolve(pluginSettings.resolve),
       babel(pluginSettings.babel),
@@ -43,13 +52,16 @@ class RollupNodeProductionConfiguration extends ConfigurationFile {
       html(pluginSettings.html),
       json(pluginSettings.json),
       urls(pluginSettings.urls),
+      statsPlugin.log(pluginSettings.statsLog),
     ];
+
+    const { external } = pluginSettings.external;
 
     const config = {
       input,
       output,
       plugins,
-      external: pluginSettings.external.externals,
+      external,
     };
 
     return this.events.reduce(

@@ -17,6 +17,7 @@ class RollupStylesheetAssetsPlugin {
           '___$styleHelper',
         ],
         urls: [],
+        stats: () => {},
       },
       options
     );
@@ -216,6 +217,7 @@ class RollupStylesheetAssetsPlugin {
         if (!this._copyCache.includes(absPath)) {
           this._copyCache.push(absPath);
           fs.copySync(absPath, output);
+          this._options.stats(this.name, output, 'copied');
         }
 
         css = css.replace(lineRegex, newLine);

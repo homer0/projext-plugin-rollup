@@ -10,6 +10,7 @@ class RollupURLsPlugin {
       true,
       {
         urls: [],
+        stats: () => {},
       },
       options
     );
@@ -58,6 +59,7 @@ class RollupURLsPlugin {
     this._toCopy.forEach((toCopy) => {
       fs.ensureDirSync(path.dirname(toCopy.to));
       fs.copySync(toCopy.from, toCopy.to);
+      this._options.stats(this.name, toCopy.to, 'copied');
     });
 
     this._toCopy = [];

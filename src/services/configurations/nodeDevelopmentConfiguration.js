@@ -13,6 +13,7 @@ const {
   urls,
   stylesheetAssets,
   nodeRunner,
+  stats,
 } = require('../../plugins');
 
 class RollupNodeDevelopmentConfiguration extends ConfigurationFile {
@@ -31,7 +32,15 @@ class RollupNodeDevelopmentConfiguration extends ConfigurationFile {
 
   createConfig(params) {
     const { input, output, target } = params;
-    const pluginSettings = this.rollupPluginSettingsConfiguration.getConfig(params);
+    const statsPlugin = stats({
+      path: `${target.paths.build}/`,
+    });
+
+    const pluginSettings = this.rollupPluginSettingsConfiguration.getConfig(
+      params,
+      statsPlugin.add
+    );
+
     const plugins = [
       resolve(pluginSettings.resolve),
       babel(pluginSettings.babel),
@@ -44,6 +53,7 @@ class RollupNodeDevelopmentConfiguration extends ConfigurationFile {
       html(pluginSettings.html),
       json(pluginSettings.json),
       urls(pluginSettings.urls),
+      statsPlugin.log(pluginSettings.statsLog),
     ];
 
     const { external } = pluginSettings.external;

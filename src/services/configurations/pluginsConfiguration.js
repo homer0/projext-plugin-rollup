@@ -24,34 +24,35 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     this.targetsHTML = targetsHTML;
   }
 
-  createConfig(params) {
+  createConfig(params, stats) {
     const settings = {
-      resolve: this._getResolveSettings(params),
-      replace: this._getReplaceSettings(params),
-      babel: this._getBabelSettings(params),
-      commonjs: this._getCommonJSSettings(params),
-      sass: this._getSASSSettings(params),
-      css: this._getCSSSettings(params),
-      stylesheetAssets: this._getStyleheetAssetsSettings(params),
-      stylesheetModulesFixer: this._getStylesheetModulesFixerSettings(params),
-      html: this._getHTMLSettings(params),
-      json: this._getJSONSettings(params),
-      urls: this._getURLsSettings(params),
-      watch: this._getWatchSettings(params),
-      uglify: this._getUglifySettings(params),
-      compression: this._getCompressionSettings(params),
+      resolve: this._getResolveSettings(params, stats),
+      replace: this._getReplaceSettings(params, stats),
+      babel: this._getBabelSettings(params, stats),
+      commonjs: this._getCommonJSSettings(params, stats),
+      sass: this._getSASSSettings(params, stats),
+      css: this._getCSSSettings(params, stats),
+      stylesheetAssets: this._getStyleheetAssetsSettings(params, stats),
+      stylesheetModulesFixer: this._getStylesheetModulesFixerSettings(params, stats),
+      html: this._getHTMLSettings(params, stats),
+      json: this._getJSONSettings(params, stats),
+      urls: this._getURLsSettings(params, stats),
+      watch: this._getWatchSettings(params, stats),
+      uglify: this._getUglifySettings(params, stats),
+      compression: this._getCompressionSettings(params, stats),
+      statsLog: this._getStatsLogSettings(params),
     };
 
     let eventName;
     if (params.target.is.node) {
       eventName = 'rollup-plugin-settings-configuration-for-node';
-      settings.external = this.getExternalSettings(params);
-      settings.nodeRunner = this.getNodeRunnerSettings(params);
-      settings.stylesheetAssetsHelper = this.getStyleheetAssetsHelperSettings(params);
+      settings.external = this._getExternalSettings(params);
+      settings.nodeRunner = this._getNodeRunnerSettings(params);
+      settings.stylesheetAssetsHelper = this._getStyleheetAssetsHelperSettings(params);
     } else {
       eventName = 'rollup-plugin-settings-configuration-for-browser';
-      settings.template = this.getTemplateSettings(params);
-      settings.devServer = this.getDevServerSettings(params);
+      settings.template = this._getTemplateSettings(params, stats);
+      settings.devServer = this._getDevServerSettings(params);
     }
 
     return this._reduceConfig(
@@ -176,13 +177,14 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     );
   }
 
-  _getCSSSettings(params) {
+  _getCSSSettings(params, stats) {
     const { target, paths, rules } = params;
 
     const settings = {
       include: rules.css.include,
       exclude: rules.css.exclude,
       processor: this._getStylesProcessor(false, { map: true }),
+      stats,
     };
 
     if (target.css.inject) {
@@ -204,7 +206,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     );
   }
 
-  _getStyleheetAssetsSettings(params) {
+  _getStyleheetAssetsSettings(params, stats) {
     const {
       target,
       paths,
@@ -218,6 +220,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
 
     const settings = {
       stylesheet,
+      stats,
       urls: [
         rules.fonts,
         rules.images,
@@ -260,7 +263,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     );
   }
 
-  getStyleheetAssetsHelperSettings(params) {
+  _getStyleheetAssetsHelperSettings(params) {
     const { target, rules } = params;
 
     const settings = {
@@ -313,7 +316,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     );
   }
 
-  _getURLsSettings(params) {
+  _getURLsSettings(params, stats) {
     const { target, rules } = params;
     const settings = {
       urls: [
@@ -321,6 +324,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
         rules.images,
         rules.favicon,
       ],
+      stats,
     };
 
     const eventName = target.is.node ?
@@ -334,7 +338,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     );
   }
 
-  getTemplateSettings(params) {
+  _getTemplateSettings(params, stats) {
     const { target, paths, rules } = params;
     const settings = {
       template: this.targetsHTML.getFilepath(target),
@@ -347,6 +351,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
         rules.images,
         rules.favicon,
       ],
+      stats,
     };
 
     const eventName = target.is.node ?
@@ -376,7 +381,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     );
   }
 
-  getExternalSettings(params) {
+  _getExternalSettings(params) {
     const { target, buildType } = params;
     const external = [
       ...this.rollupPluginInfo.external.map((dependencyName) => (
@@ -401,7 +406,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     );
   }
 
-  getDevServerSettings(params) {
+  _getDevServerSettings(params) {
     const { target } = params;
     const { devServer } = target;
     const settings = {
@@ -459,13 +464,14 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     );
   }
 
-  _getCompressionSettings(params) {
+  _getCompressionSettings(params, stats) {
     const { target, rules } = params;
 
     const settings = {
       folder: target.paths.build,
       include: rules.all.include,
       exclude: rules.all.exclude,
+      stats,
     };
 
     const eventName = target.is.node ?
@@ -479,7 +485,46 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     );
   }
 
-  getNodeRunnerSettings(params) {
+  _getStatsLogSettings(params) {
+    const { target, paths, buildType } = params;
+
+    const extraEntries = [
+      {
+        plugin: 'rollup',
+        filepath: `${target.paths.build}/${paths.js}`,
+      },
+    ];
+
+    if (target.sourceMap && target.sourceMap[buildType]) {
+      extraEntries.push({
+        plugin: 'rollup',
+        filepath: `${target.paths.build}/${paths.js}.map`,
+      });
+    }
+
+    if (target.is.browser && !target.css.inject) {
+      extraEntries.push({
+        plugin: 'rollup-plugin-sass',
+        filepath: `${target.paths.build}/${paths.css}`,
+      });
+    }
+
+    const settings = {
+      extraEntries,
+    };
+
+    const eventName = target.is.node ?
+      'rollup-stats-plugin-settings-configuration-for-node' :
+      'rollup-stats-plugin-settings-configuration-for-browser';
+
+    return this._reduceConfig(
+      [eventName, 'rollup-stats-plugin-settings-configuration'],
+      settings,
+      params
+    );
+  }
+
+  _getNodeRunnerSettings(params) {
     const { target, output } = params;
 
     const settings = {

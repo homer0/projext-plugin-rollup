@@ -15,6 +15,7 @@ const {
   stylesheetAssets,
   template,
   compression,
+  stats,
   stylesheetModulesFixer,
 } = require('../../plugins');
 
@@ -34,7 +35,15 @@ class RollupBrowserProductionConfiguration extends ConfigurationFile {
 
   createConfig(params) {
     const { target, input, output } = params;
-    const pluginSettings = this.rollupPluginSettingsConfiguration.getConfig(params);
+    const statsPlugin = stats({
+      path: `${target.paths.build}/`,
+    });
+
+    const pluginSettings = this.rollupPluginSettingsConfiguration.getConfig(
+      params,
+      statsPlugin.add
+    );
+
     const plugins = [
       resolve(pluginSettings.resolve),
       babel(pluginSettings.babel),
@@ -58,6 +67,8 @@ class RollupBrowserProductionConfiguration extends ConfigurationFile {
     if (!target.library || target.libraryOptions.compress) {
       plugins.push(compression(pluginSettings.compression));
     }
+
+    plugins.push(statsPlugin.log(pluginSettings.statsLog));
 
     const config = {
       input,
