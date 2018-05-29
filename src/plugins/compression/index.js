@@ -5,8 +5,8 @@ const fs = require('fs-extra');
 const zopfli = require('node-zopfli');
 const { deferred } = require('wootils/shared');
 
-class RollupCompressionPlugin {
-  constructor(options = {}, name = 'rollup-plugin-compression') {
+class ProjextRollupCompressionPlugin {
+  constructor(options = {}, name = 'projext-rollup-plugin-compression') {
     this._options = extend(
       true,
       {
@@ -91,9 +91,9 @@ class RollupCompressionPlugin {
   }
 }
 
-const compression = (options, name) => new RollupCompressionPlugin(options, name);
+const compression = (options, name) => new ProjextRollupCompressionPlugin(options, name);
 
 module.exports = {
-  RollupCompressionPlugin,
+  ProjextRollupCompressionPlugin,
   compression,
 };

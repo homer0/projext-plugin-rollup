@@ -4,8 +4,8 @@ const prettysize = require('prettysize');
 const colors = require('colors/safe');
 const { Logger } = require('wootils/node/logger');
 
-class RollupStatsPlugin {
-  constructor(options = {}, name = 'rollup-plugin-stats') {
+class ProjextRollupStatsPlugin {
+  constructor(options = {}, name = 'projext-rollup-plugin-stats') {
     this._options = extend(
       true,
       {
@@ -251,9 +251,9 @@ class RollupStatsPlugin {
   }
 }
 
-const stats = (options, name) => new RollupStatsPlugin(options, name);
+const stats = (options, name) => new ProjextRollupStatsPlugin(options, name);
 
 module.exports = {
-  RollupStatsPlugin,
+  ProjextRollupStatsPlugin,
   stats,
 };

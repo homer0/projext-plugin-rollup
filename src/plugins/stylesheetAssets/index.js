@@ -2,11 +2,11 @@ const path = require('path');
 const rollupUtils = require('rollup-pluginutils');
 const extend = require('extend');
 const fs = require('fs-extra');
-const RollupProjextUtils = require('../utils');
+const ProjextRollupUtils = require('../utils');
 const { stylesheetAssetsHelper } = require('./helper');
 
-class RollupStylesheetAssetsPlugin {
-  constructor(options = {}, name = 'rollup-plugin-stylesheet-assets') {
+class ProjextRollupStylesheetAssetsPlugin {
+  constructor(options = {}, name = 'projext-rollup-plugin-stylesheet-assets') {
     this._options = extend(
       true,
       {
@@ -107,7 +107,7 @@ class RollupStylesheetAssetsPlugin {
   _extractJSBlocks(code) {
     const result = [];
     const fns = this._options.insertFnNames
-    .map((name) => RollupProjextUtils.escapeRegex(name))
+    .map((name) => ProjextRollupUtils.escapeRegex(name))
     .join('|');
 
     const time = Date.now();
@@ -202,12 +202,12 @@ class RollupStylesheetAssetsPlugin {
 
       const settings = this._options.urls.find((setting) => setting.filter(absPath));
       if (settings) {
-        const output = RollupProjextUtils.formatPlaceholder(settings.output, info);
+        const output = ProjextRollupUtils.formatPlaceholder(settings.output, info);
         const outputDir = path.dirname(output);
-        const urlBase = RollupProjextUtils.formatPlaceholder(settings.url, info);
+        const urlBase = ProjextRollupUtils.formatPlaceholder(settings.url, info);
         const url = `${urlBase}${query}`;
         const newLine = `url('${url}')`;
-        const lineRegex = new RegExp(RollupProjextUtils.escapeRegex(line.trim()), 'ig');
+        const lineRegex = new RegExp(ProjextRollupUtils.escapeRegex(line.trim()), 'ig');
 
         if (!this._createdDirectoriesCache.includes(outputDir)) {
           fs.ensureDirSync(outputDir);
@@ -323,10 +323,11 @@ class RollupStylesheetAssetsPlugin {
   }
 }
 
-const stylesheetAssets = (options, name) => new RollupStylesheetAssetsPlugin(options, name);
+const stylesheetAssets = (options, name) =>
+  new ProjextRollupStylesheetAssetsPlugin(options, name);
 stylesheetAssets.helper = stylesheetAssetsHelper;
 
 module.exports = {
-  RollupStylesheetAssetsPlugin,
+  ProjextRollupStylesheetAssetsPlugin,
   stylesheetAssets,
 };

@@ -2,10 +2,10 @@ const path = require('path');
 const rollupUtils = require('rollup-pluginutils');
 const extend = require('extend');
 const fs = require('fs-extra');
-const RollupProjextUtils = require('../utils');
+const ProjextRollupUtils = require('../utils');
 
-class RollupURLsPlugin {
-  constructor(options = {}, name = 'rollup-plugin-urls') {
+class ProjextRollupURLsPlugin {
+  constructor(options = {}, name = 'projext-rollup-plugin-urls') {
     this._options = extend(
       true,
       {
@@ -45,10 +45,10 @@ class RollupURLsPlugin {
       const info = path.parse(filepath);
       this._toCopy.push({
         from: filepath,
-        to: RollupProjextUtils.formatPlaceholder(settings.output, info),
+        to: ProjextRollupUtils.formatPlaceholder(settings.output, info),
       });
 
-      const fileURL = RollupProjextUtils.formatPlaceholder(settings.url, info);
+      const fileURL = ProjextRollupUtils.formatPlaceholder(settings.url, info);
       result = `export default '${fileURL}';`;
     }
 
@@ -72,9 +72,9 @@ class RollupURLsPlugin {
   }
 }
 
-const urls = (options, name) => new RollupURLsPlugin(options, name);
+const urls = (options, name) => new ProjextRollupURLsPlugin(options, name);
 
 module.exports = {
-  RollupURLsPlugin,
+  ProjextRollupURLsPlugin,
   urls,
 };

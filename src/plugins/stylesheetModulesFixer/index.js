@@ -1,8 +1,8 @@
 const rollupUtils = require('rollup-pluginutils');
 const extend = require('extend');
 
-class RollupStylesheetModulesFixerPlugin {
-  constructor(options = {}, name = 'rollup-plugin-exports-renamer') {
+class ProjextRollupStylesheetModulesFixerPlugin {
+  constructor(options = {}, name = 'projext-rollup-plugin-exports-renamer') {
     this._options = extend(
       true,
       {
@@ -148,9 +148,9 @@ class RollupStylesheetModulesFixerPlugin {
 const stylesheetModulesFixer = (
   options,
   name
-) => new RollupStylesheetModulesFixerPlugin(options, name);
+) => new ProjextRollupStylesheetModulesFixerPlugin(options, name);
 
 module.exports = {
-  RollupStylesheetModulesFixerPlugin,
+  ProjextRollupStylesheetModulesFixerPlugin,
   stylesheetModulesFixer,
 };

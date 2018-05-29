@@ -2,10 +2,10 @@ const path = require('path');
 const rollupUtils = require('rollup-pluginutils');
 const extend = require('extend');
 const fs = require('fs-extra');
-const RollupProjextUtils = require('../utils');
+const ProjextRollupUtils = require('../utils');
 
-class RollupTemplatePlugin {
-  constructor(options = {}, name = 'rollup-plugin-template') {
+class ProjextRollupTemplatePlugin {
+  constructor(options = {}, name = 'projext-rollup-plugin-template') {
     this._options = extend(
       true,
       {
@@ -106,10 +106,10 @@ class RollupTemplatePlugin {
       } = pathChange;
       const settings = this.urls.find((setting) => setting.filter(file));
       if (settings) {
-        const output = RollupProjextUtils.formatPlaceholder(settings.output, info);
+        const output = ProjextRollupUtils.formatPlaceholder(settings.output, info);
         const outputDir = path.dirname(output);
-        const url = RollupProjextUtils.formatPlaceholder(settings.url, info);
-        const lineRegex = new RegExp(RollupProjextUtils.escapeRegex(line), 'ig');
+        const url = ProjextRollupUtils.formatPlaceholder(settings.url, info);
+        const lineRegex = new RegExp(ProjextRollupUtils.escapeRegex(line), 'ig');
 
         if (!this._createdDirectoriesCache.includes(outputDir)) {
           fs.ensureDirSync(outputDir);
@@ -152,9 +152,9 @@ class RollupTemplatePlugin {
   }
 }
 
-const template = (options, name) => new RollupTemplatePlugin(options, name);
+const template = (options, name) => new ProjextRollupTemplatePlugin(options, name);
 
 module.exports = {
-  RollupTemplatePlugin,
+  ProjextRollupTemplatePlugin,
   template,
 };

@@ -3,8 +3,8 @@ const fs = require('fs-extra');
 const extend = require('extend');
 const { Logger } = require('wootils/node/logger');
 
-class RollupNodeRunnerPlugin {
-  constructor(options = {}, name = 'rollup-plugin-node-runner') {
+class ProjextRollupNodeRunnerPlugin {
+  constructor(options = {}, name = 'projext-rollup-plugin-node-runner') {
     this._options = extend(
       true,
       {
@@ -101,9 +101,9 @@ class RollupNodeRunnerPlugin {
   }
 }
 
-const nodeRunner = (options, name) => new RollupNodeRunnerPlugin(options, name);
+const nodeRunner = (options, name) => new ProjextRollupNodeRunnerPlugin(options, name);
 
 module.exports = {
-  RollupNodeRunnerPlugin,
+  ProjextRollupNodeRunnerPlugin,
   nodeRunner,
 };

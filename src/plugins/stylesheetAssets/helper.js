@@ -2,8 +2,8 @@ const rollupUtils = require('rollup-pluginutils');
 const extend = require('extend');
 const helperFn = require('./helperFn');
 
-class RollupStylesheetAssetsHelperPlugin {
-  constructor(options = {}, name = 'rollup-plugin-stylesheet-assets-helper') {
+class ProjextRollupStylesheetAssetsHelperPlugin {
+  constructor(options = {}, name = 'projext-rollup-plugin-stylesheet-assets-helper') {
     this._options = extend(
       true,
       {
@@ -59,9 +59,9 @@ class RollupStylesheetAssetsHelperPlugin {
 const stylesheetAssetsHelper = (
   options,
   name
-) => new RollupStylesheetAssetsHelperPlugin(options, name);
+) => new ProjextRollupStylesheetAssetsHelperPlugin(options, name);
 
 module.exports = {
-  RollupStylesheetAssetsHelperPlugin,
+  ProjextRollupStylesheetAssetsHelperPlugin,
   stylesheetAssetsHelper,
 };

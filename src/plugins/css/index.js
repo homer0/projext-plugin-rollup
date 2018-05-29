@@ -4,8 +4,8 @@ const extend = require('extend');
 const fs = require('fs-extra');
 const insertStyle = require('./insertFn');
 
-class RollupCSSPlugin {
-  constructor(options = {}, name = 'rollup-plugin-css') {
+class ProjextRollupCSSPlugin {
+  constructor(options = {}, name = 'projext-rollup-plugin-css') {
     this._options = extend(
       true,
       {
@@ -150,9 +150,9 @@ class RollupCSSPlugin {
   }
 }
 
-const css = (options, name) => new RollupCSSPlugin(options, name);
+const css = (options, name) => new ProjextRollupCSSPlugin(options, name);
 
 module.exports = {
-  RollupCSSPlugin,
+  ProjextRollupCSSPlugin,
   css,
 };

@@ -1,4 +1,4 @@
-class RollupProjextUtils {
+class ProjextRollupUtils {
   static formatPlaceholder(placeholder, info) {
     return placeholder
     .replace(/\[name\]/g, info.name)
@@ -10,4 +10,4 @@ class RollupProjextUtils {
   }
 }
 
-module.exports = RollupProjextUtils;
+module.exports = ProjextRollupUtils;

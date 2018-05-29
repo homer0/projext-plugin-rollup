@@ -8,8 +8,8 @@ const mime = require('mime');
 const statuses = require('statuses');
 const { Logger } = require('wootils/node/logger');
 
-class RollupDevServerPlugin {
-  constructor(options = {}, name = 'rollup-plugin-dev-server') {
+class ProjextRollupDevServerPlugin {
+  constructor(options = {}, name = 'projext-rollup-plugin-dev-server') {
     this._options = extend(
       true,
       {
@@ -216,9 +216,9 @@ class RollupDevServerPlugin {
   }
 }
 
-const devServer = (options, name) => new RollupDevServerPlugin(options, name);
+const devServer = (options, name) => new ProjextRollupDevServerPlugin(options, name);
 
 module.exports = {
-  RollupDevServerPlugin,
+  ProjextRollupDevServerPlugin,
   devServer,
 };
