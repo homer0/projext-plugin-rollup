@@ -40,13 +40,13 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       watch: this._getWatchSettings(params, stats),
       uglify: this._getUglifySettings(params, stats),
       compression: this._getCompressionSettings(params, stats),
+      external: this._getExternalSettings(params),
       statsLog: this._getStatsLogSettings(params),
     };
 
     let eventName;
     if (params.target.is.node) {
       eventName = 'rollup-plugin-settings-configuration-for-node';
-      settings.external = this._getExternalSettings(params);
       settings.nodeRunner = this._getNodeRunnerSettings(params);
       settings.stylesheetAssetsHelper = this._getStyleheetAssetsHelperSettings(params);
     } else {
@@ -388,9 +388,14 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
         `${this.rollupPluginInfo.name}/${dependencyName}`
       )),
       ...(target.excludeModules || []),
-      ...Object.keys(this.packageInfo.dependencies),
-      ...(buildType === 'development' ? Object.keys(this.packageInfo.devDependencies) : []),
     ];
+
+    if (target.is.node) {
+      external.push(...Object.keys(this.packageInfo.dependencies));
+      if (buildType === 'development') {
+        external.push(...Object.keys(this.packageInfo.devDependencies));
+      }
+    }
 
 
     const settings = { external };

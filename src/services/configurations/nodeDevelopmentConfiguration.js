@@ -63,6 +63,7 @@ class RollupNodeDevelopmentConfiguration extends ConfigurationFile {
       output,
       plugins,
       external,
+      global: external,
     };
 
     if (target.runOnDevelopment) {

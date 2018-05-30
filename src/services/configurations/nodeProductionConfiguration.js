@@ -62,6 +62,7 @@ class RollupNodeProductionConfiguration extends ConfigurationFile {
       output,
       plugins,
       external,
+      global: external,
     };
 
     return this.events.reduce(

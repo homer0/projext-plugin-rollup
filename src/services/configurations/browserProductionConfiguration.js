@@ -70,10 +70,14 @@ class RollupBrowserProductionConfiguration extends ConfigurationFile {
 
     plugins.push(statsPlugin.log(pluginSettings.statsLog));
 
+    const { external } = pluginSettings.external;
+
     const config = {
       input,
       output,
       plugins,
+      external,
+      global: external,
     };
 
     return this.events.reduce(

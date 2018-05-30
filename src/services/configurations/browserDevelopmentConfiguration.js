@@ -63,10 +63,14 @@ class RollupBrowserDevelopmentConfiguration extends ConfigurationFile {
       statsPlugin.log(pluginSettings.statsLog),
     ];
 
+    const { external } = pluginSettings.external;
+
     const config = {
       input,
       output,
       plugins,
+      external,
+      global: external,
     };
 
     if (target.runOnDevelopment) {
