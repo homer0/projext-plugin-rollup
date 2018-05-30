@@ -61,8 +61,11 @@ class RollupBrowserProductionConfiguration extends ConfigurationFile {
       json(pluginSettings.json),
       urls(pluginSettings.urls),
       uglify(pluginSettings.uglify),
-      template(pluginSettings.template),
     ];
+
+    if (!target.library) {
+      template(pluginSettings.template);
+    }
 
     if (!target.library || target.libraryOptions.compress) {
       plugins.push(compression(pluginSettings.compression));
