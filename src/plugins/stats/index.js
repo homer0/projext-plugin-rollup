@@ -130,7 +130,9 @@ class ProjextRollupStatsPlugin {
   }
 
   _formatEntries(entries) {
-    return entries.map((entry) => {
+    return entries
+    .filter((entry) => fs.pathExistsSync(entry.filepath))
+    .map((entry) => {
       const { plugin, filepath } = entry;
       const file = this._resolveFilepath(filepath);
       const size = this._getPrettyFilesize(filepath);
