@@ -61,6 +61,10 @@ class RollupConfiguration {
       name: target.name.replace(/-(\w)/ig, (match, letter) => letter.toUpperCase()),
     };
 
+    if (target.library) {
+      output.exports = 'named';
+    }
+
     const params = {
       input,
       output,
