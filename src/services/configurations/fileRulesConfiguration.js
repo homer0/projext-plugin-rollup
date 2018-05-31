@@ -58,7 +58,7 @@ class RollupFileRulesConfiguration extends ConfigurationFile {
       'rollup-js-rule-configuration-for-node' :
       'rollup-js-rule-configuration-for-browser';
     return this._reduceConfig(
-      [eventName, 'webpack-js-rule-configuration'],
+      [eventName, 'rollup-js-rule-configuration'],
       rule,
       params
     );
@@ -80,7 +80,7 @@ class RollupFileRulesConfiguration extends ConfigurationFile {
       'rollup-scss-rule-configuration-for-node' :
       'rollup-scss-rule-configuration-for-browser';
     return this._reduceConfig(
-      [eventName, 'webpack-scss-rule-configuration'],
+      [eventName, 'rollup-scss-rule-configuration'],
       rule,
       params
     );
@@ -97,7 +97,7 @@ class RollupFileRulesConfiguration extends ConfigurationFile {
       'rollup-css-rule-configuration-for-node' :
       'rollup-css-rule-configuration-for-browser';
     return this._reduceConfig(
-      [eventName, 'webpack-css-rule-configuration'],
+      [eventName, 'rollup-css-rule-configuration'],
       rule,
       params
     );
@@ -123,7 +123,7 @@ class RollupFileRulesConfiguration extends ConfigurationFile {
       'rollup-fonts-rule-configuration-for-node' :
       'rollup-fonts-rule-configuration-for-browser';
     return this._reduceConfig(
-      [eventName, 'webpack-fonts-rule-configuration'],
+      [eventName, 'rollup-fonts-rule-configuration'],
       rule,
       params
     );
@@ -151,7 +151,7 @@ class RollupFileRulesConfiguration extends ConfigurationFile {
       'rollup-images-rule-configuration-for-node' :
       'rollup-images-rule-configuration-for-browser';
     return this._reduceConfig(
-      [eventName, 'webpack-images-rule-configuration'],
+      [eventName, 'rollup-images-rule-configuration'],
       rule,
       params
     );
@@ -170,7 +170,7 @@ class RollupFileRulesConfiguration extends ConfigurationFile {
       'rollup-favicon-rule-configuration-for-node' :
       'rollup-favicon-rule-configuration-for-browser';
     return this._reduceConfig(
-      [eventName, 'webpack-favicon-rule-configuration'],
+      [eventName, 'rollup-favicon-rule-configuration'],
       rule,
       params
     );
@@ -206,7 +206,7 @@ class RollupFileRulesConfiguration extends ConfigurationFile {
       'rollup-all-files-rule-configuration-for-node' :
       'rollup-all-files-rule-configuration-for-browser';
     return this._reduceConfig(
-      [eventName, 'webpack-all-files-rule-configuration'],
+      [eventName, 'rollup-all-files-rule-configuration'],
       rule,
       params
     );
