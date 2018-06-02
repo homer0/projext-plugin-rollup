@@ -6,7 +6,7 @@ const fs = require('fs-extra');
 const extend = require('extend');
 const mime = require('mime');
 const statuses = require('statuses');
-const { Logger } = require('wootils/node/logger');
+const ProjextRollupUtils = require('../utils');
 
 class ProjextRollupDevServerPlugin {
   constructor(options = {}, name = 'projext-rollup-plugin-dev-server') {
@@ -32,7 +32,7 @@ class ProjextRollupDevServerPlugin {
 
     mime.default_type = 'text/plain';
 
-    this._logger = this._createLogger();
+    this._logger = ProjextRollupUtils.createLogger(this.name, this._options.logger);
     this._instance = null;
     this._terminationEvents = ['SIGINT', 'SIGTERM'];
     this._alreadyOpen = false;
@@ -67,20 +67,6 @@ class ProjextRollupDevServerPlugin {
   _createServerURL() {
     const protocol = this._options.https ? 'https' : 'http';
     return `${protocol}://${this._options.host}:${this._options.port}`;
-  }
-
-  _createLogger() {
-    let pluginLogger;
-    if (this._options.logger && !(this._options.logger instanceof Logger)) {
-      throw new Error(`${this.name}: The logger must be an instance of wootils's Logger class`);
-    } else if (this._options.logger) {
-      pluginLogger = this._options.logger;
-      delete this._options.logger;
-    } else {
-      pluginLogger = new Logger();
-    }
-
-    return pluginLogger;
   }
 
   _normalizeContentBase() {

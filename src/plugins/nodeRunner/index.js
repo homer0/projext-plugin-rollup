@@ -1,7 +1,7 @@
 const { fork } = require('child_process');
 const fs = require('fs-extra');
 const extend = require('extend');
-const { Logger } = require('wootils/node/logger');
+const ProjextRollupUtils = require('../utils');
 
 class ProjextRollupNodeRunnerPlugin {
   constructor(options = {}, name = 'projext-rollup-plugin-node-runner') {
@@ -20,7 +20,7 @@ class ProjextRollupNodeRunnerPlugin {
 
     this._validateOptions();
 
-    this._logger = this._createLogger();
+    this._logger = ProjextRollupUtils.createLogger(this.name, this._options.logger);
     this._instance = null;
     this._terminationEvents = ['SIGINT', 'SIGTERM'];
 
@@ -41,20 +41,6 @@ class ProjextRollupNodeRunnerPlugin {
     if (!this._options.file) {
       throw new Error(`${this.name}: You need to specify the file to execute`);
     }
-  }
-
-  _createLogger() {
-    let pluginLogger;
-    if (this._options.logger && !(this._options.logger instanceof Logger)) {
-      throw new Error(`${this.name}: The logger must be an instance of wootils's Logger class`);
-    } else if (this._options.logger) {
-      pluginLogger = this._options.logger;
-      delete this._options.logger;
-    } else {
-      pluginLogger = new Logger();
-    }
-
-    return pluginLogger;
   }
 
   _startExecution() {
