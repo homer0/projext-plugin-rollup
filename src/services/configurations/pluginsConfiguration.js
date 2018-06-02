@@ -55,7 +55,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       settings.devServer = this._getDevServerSettings(params);
     }
 
-    return this._reduceConfig(
+    return this.events.reduce(
       [eventName, 'rollup-plugin-settings-configuration'],
       settings,
       params
@@ -71,7 +71,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       'rollup-resolve-plugin-settings-configuration-for-node' :
       'rollup-resolve-plugin-settings-configuration-for-browser';
 
-    return this._reduceConfig(
+    return this.events.reduce(
       [eventName, 'rollup-resolve-plugin-settings-configuration'],
       settings,
       params
@@ -85,7 +85,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       'rollup-replace-plugin-settings-configuration-for-node' :
       'rollup-replace-plugin-settings-configuration-for-browser';
 
-    return this._reduceConfig(
+    return this.events.reduce(
       [eventName, 'rollup-replace-plugin-settings-configuration'],
       settings,
       params
@@ -124,7 +124,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       'rollup-babel-plugin-settings-configuration-for-node' :
       'rollup-babel-plugin-settings-configuration-for-browser';
 
-    return this._reduceConfig(
+    return this.events.reduce(
       [eventName, 'rollup-babel-plugin-settings-configuration'],
       settings,
       params
@@ -138,7 +138,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       'rollup-commonjs-plugin-settings-configuration-for-node' :
       'rollup-commonjs-plugin-settings-configuration-for-browser';
 
-    return this._reduceConfig(
+    return this.events.reduce(
       [eventName, 'rollup-commonjs-plugin-settings-configuration'],
       settings,
       params
@@ -170,7 +170,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       'rollup-sass-plugin-settings-configuration-for-node' :
       'rollup-sass-plugin-settings-configuration-for-browser';
 
-    return this._reduceConfig(
+    return this.events.reduce(
       [eventName, 'rollup-sass-plugin-settings-configuration'],
       settings,
       params
@@ -199,7 +199,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       'rollup-css-plugin-settings-configuration-for-node' :
       'rollup-css-plugin-settings-configuration-for-browser';
 
-    return this._reduceConfig(
+    return this.events.reduce(
       [eventName, 'rollup-css-plugin-settings-configuration'],
       settings,
       params
@@ -231,7 +231,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       'rollup-stylesheet-assets-plugin-settings-configuration-for-node' :
       'rollup-stylesheet-assets-plugin-settings-configuration-for-browser';
 
-    return this._reduceConfig(
+    return this.events.reduce(
       [eventName, 'rollup-stylesheet-assets-plugin-settings-configuration'],
       settings,
       params
@@ -256,7 +256,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       'rollup-stylesheet-modules-fixer-plugin-settings-configuration-for-node' :
       'rollup-stylesheet-modules-fixer-plugin-settings-configuration-for-browser';
 
-    return this._reduceConfig(
+    return this.events.reduce(
       [eventName, 'rollup-stylesheet-modules-fixer-plugin-settings-configuration'],
       settings,
       params
@@ -281,7 +281,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       'rollup-stylesheet-assets-helper-plugin-settings-configuration-for-node' :
       'rollup-stylesheet-assets-helper-plugin-settings-configuration-for-browser';
 
-    return this._reduceConfig(
+    return this.events.reduce(
       [eventName, 'rollup-stylesheet-assets-helper-plugin-settings-configuration'],
       settings,
       params
@@ -295,7 +295,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       'rollup-html-plugin-settings-configuration-for-node' :
       'rollup-html-plugin-settings-configuration-for-browser';
 
-    return this._reduceConfig(
+    return this.events.reduce(
       [eventName, 'rollup-html-plugin-settings-configuration'],
       settings,
       params
@@ -309,7 +309,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       'rollup-json-plugin-settings-configuration-for-node' :
       'rollup-json-plugin-settings-configuration-for-browser';
 
-    return this._reduceConfig(
+    return this.events.reduce(
       [eventName, 'rollup-json-plugin-settings-configuration'],
       settings,
       params
@@ -331,7 +331,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       'rollup-urls-plugin-settings-configuration-for-node' :
       'rollup-urls-plugin-settings-configuration-for-browser';
 
-    return this._reduceConfig(
+    return this.events.reduce(
       [eventName, 'rollup-urls-plugin-settings-configuration'],
       settings,
       params
@@ -358,7 +358,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       'rollup-urls-plugin-settings-configuration-for-node' :
       'rollup-urls-plugin-settings-configuration-for-browser';
 
-    return this._reduceConfig(
+    return this.events.reduce(
       [eventName, 'rollup-urls-plugin-settings-configuration'],
       settings,
       params
@@ -374,7 +374,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       'rollup-watch-plugin-settings-configuration-for-node' :
       'rollup-watch-plugin-settings-configuration-for-browser';
 
-    return this._reduceConfig(
+    return this.events.reduce(
       [eventName, 'rollup-watch-plugin-settings-configuration'],
       settings,
       params
@@ -406,7 +406,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       'rollup-external-plugin-settings-configuration-for-node' :
       'rollup-external-plugin-settings-configuration-for-browser';
 
-    return this._reduceConfig(
+    return this.events.reduce(
       [eventName, 'rollup-external-plugin-settings-configuration'],
       settings,
       params
@@ -450,7 +450,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       'rollup-devServer-plugin-settings-configuration-for-node' :
       'rollup-devServer-plugin-settings-configuration-for-browser';
 
-    return this._reduceConfig(
+    return this.events.reduce(
       [eventName, 'rollup-devServer-plugin-settings-configuration'],
       settings,
       params
@@ -464,7 +464,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       'rollup-uglify-plugin-settings-configuration-for-node' :
       'rollup-uglify-plugin-settings-configuration-for-browser';
 
-    return this._reduceConfig(
+    return this.events.reduce(
       [eventName, 'rollup-uglify-plugin-settings-configuration'],
       settings,
       params
@@ -485,7 +485,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       'rollup-compression-plugin-settings-configuration-for-node' :
       'rollup-compression-plugin-settings-configuration-for-browser';
 
-    return this._reduceConfig(
+    return this.events.reduce(
       [eventName, 'rollup-compression-plugin-settings-configuration'],
       settings,
       params
@@ -524,7 +524,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       'rollup-stats-plugin-settings-configuration-for-node' :
       'rollup-stats-plugin-settings-configuration-for-browser';
 
-    return this._reduceConfig(
+    return this.events.reduce(
       [eventName, 'rollup-stats-plugin-settings-configuration'],
       settings,
       params
@@ -543,7 +543,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       'rollup-nodeRuner-plugin-settings-configuration-for-node' :
       'rollup-nodeRuner-plugin-settings-configuration-for-browser';
 
-    return this._reduceConfig(
+    return this.events.reduce(
       [eventName, 'rollup-nodeRuner-plugin-settings-configuration'],
       settings,
       params
@@ -608,13 +608,6 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
         return result;
       });
     };
-  }
-
-  _reduceConfig(events, config, params) {
-    return events.reduce(
-      (currentConfig, eventName) => this.events.reduce(eventName, currentConfig, params),
-      config
-    );
   }
 }
 
