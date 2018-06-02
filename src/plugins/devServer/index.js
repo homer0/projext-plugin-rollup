@@ -57,6 +57,7 @@ class ProjextRollupDevServerPlugin {
 
       this._instance.listen(port);
       this._logger.success(`Your app is running on the port ${port}`);
+      this._logger.info(this.url);
       this._startListeningForTermination();
       this._open();
       this._options.onStart(this);
