@@ -28,7 +28,8 @@ class RollupBuildEngine {
     });
 
     const config = path.join(
-      `node_modules/${this.rollupPluginInfo.name}`,
+      'node_modules',
+      this.rollupPluginInfo.name,
       this.rollupPluginInfo.configuration
     );
 
