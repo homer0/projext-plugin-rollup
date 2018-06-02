@@ -24,7 +24,7 @@ class RollupFileRulesConfiguration extends ConfigurationFile {
       'rollup-file-rules-configuration-for-node' :
       'rollup-file-rules-configuration-for-browser';
 
-    return this._reduceConfig(
+    return this.events.reduce(
       [eventName, 'rollup-file-rules-configuration'],
       rules,
       params
@@ -57,7 +57,7 @@ class RollupFileRulesConfiguration extends ConfigurationFile {
     const eventName = target.is.node ?
       'rollup-js-rule-configuration-for-node' :
       'rollup-js-rule-configuration-for-browser';
-    return this._reduceConfig(
+    return this.events.reduce(
       [eventName, 'rollup-js-rule-configuration'],
       rule,
       params
@@ -79,7 +79,7 @@ class RollupFileRulesConfiguration extends ConfigurationFile {
     const eventName = target.is.node ?
       'rollup-scss-rule-configuration-for-node' :
       'rollup-scss-rule-configuration-for-browser';
-    return this._reduceConfig(
+    return this.events.reduce(
       [eventName, 'rollup-scss-rule-configuration'],
       rule,
       params
@@ -96,7 +96,7 @@ class RollupFileRulesConfiguration extends ConfigurationFile {
     const eventName = target.is.node ?
       'rollup-css-rule-configuration-for-node' :
       'rollup-css-rule-configuration-for-browser';
-    return this._reduceConfig(
+    return this.events.reduce(
       [eventName, 'rollup-css-rule-configuration'],
       rule,
       params
@@ -122,7 +122,7 @@ class RollupFileRulesConfiguration extends ConfigurationFile {
     const eventName = target.is.node ?
       'rollup-fonts-rule-configuration-for-node' :
       'rollup-fonts-rule-configuration-for-browser';
-    return this._reduceConfig(
+    return this.events.reduce(
       [eventName, 'rollup-fonts-rule-configuration'],
       rule,
       params
@@ -150,7 +150,7 @@ class RollupFileRulesConfiguration extends ConfigurationFile {
     const eventName = target.is.node ?
       'rollup-images-rule-configuration-for-node' :
       'rollup-images-rule-configuration-for-browser';
-    return this._reduceConfig(
+    return this.events.reduce(
       [eventName, 'rollup-images-rule-configuration'],
       rule,
       params
@@ -169,7 +169,7 @@ class RollupFileRulesConfiguration extends ConfigurationFile {
     const eventName = target.is.node ?
       'rollup-favicon-rule-configuration-for-node' :
       'rollup-favicon-rule-configuration-for-browser';
-    return this._reduceConfig(
+    return this.events.reduce(
       [eventName, 'rollup-favicon-rule-configuration'],
       rule,
       params
@@ -205,17 +205,10 @@ class RollupFileRulesConfiguration extends ConfigurationFile {
     const eventName = target.is.node ?
       'rollup-all-files-rule-configuration-for-node' :
       'rollup-all-files-rule-configuration-for-browser';
-    return this._reduceConfig(
+    return this.events.reduce(
       [eventName, 'rollup-all-files-rule-configuration'],
       rule,
       params
-    );
-  }
-
-  _reduceConfig(events, config, params) {
-    return events.reduce(
-      (currentConfig, eventName) => this.events.reduce(eventName, currentConfig, params),
-      config
     );
   }
 }
