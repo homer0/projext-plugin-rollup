@@ -66,7 +66,10 @@ class RollupNodeProductionConfiguration extends ConfigurationFile {
     };
 
     return this.events.reduce(
-      'rollup-node-production-configuration',
+      [
+        'rollup-node-production-configuration',
+        'rollup-node-configuration',
+      ],
       config,
       params
     );

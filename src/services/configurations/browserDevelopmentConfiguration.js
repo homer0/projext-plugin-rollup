@@ -79,7 +79,10 @@ class RollupBrowserDevelopmentConfiguration extends ConfigurationFile {
     }
 
     return this.events.reduce(
-      'rollup-browser-development-configuration',
+      [
+        'rollup-browser-development-configuration',
+        'rollup-browser-configuration',
+      ],
       config,
       params
     );
