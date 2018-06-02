@@ -8,7 +8,7 @@ class ProjextRollupStylesheetModulesFixerPlugin {
       {
         include: [],
         exclude: [],
-        modulesExportName: 'styles',
+        modulesExportName: 'locals',
       },
       options
     );

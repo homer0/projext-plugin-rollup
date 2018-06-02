@@ -579,12 +579,12 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
         map = this._getSourceMap(css);
       }
 
-      let styles;
+      let locals;
       const plugins = [];
       if (modules) {
         plugins.push(postcssModules({
           getJSON: (filename, json) => {
-            styles = json;
+            locals = json;
           },
         }));
       }
@@ -599,7 +599,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
         if (modules) {
           result = {
             css: cssCode,
-            styles,
+            locals,
           };
         } else {
           result = cssCode;
