@@ -64,13 +64,15 @@ class RollupBrowserDevelopmentConfiguration extends ConfigurationFile {
     ];
 
     const { external } = pluginSettings.external;
+    const globals = output.globals ?
+      Object.assign({}, output.globals, pluginSettings.globals) :
+      pluginSettings.globals;
 
     const config = {
       input,
-      output,
+      output: Object.assign({}, output, { globals }),
       plugins,
       external,
-      global: external,
     };
 
     if (target.runOnDevelopment) {

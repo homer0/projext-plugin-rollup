@@ -25,7 +25,10 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
   }
 
   createConfig(params, stats) {
+    const external = this._getExternalSettings(params);
     const settings = {
+      external,
+      globals: this._getGlobalVariablesSettings(params, external.external),
       resolve: this._getResolveSettings(params, stats),
       replace: this._getReplaceSettings(params, stats),
       babel: this._getBabelSettings(params, stats),
@@ -40,7 +43,6 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       watch: this._getWatchSettings(params, stats),
       uglify: this._getUglifySettings(params, stats),
       compression: this._getCompressionSettings(params, stats),
-      external: this._getExternalSettings(params),
       statsLog: this._getStatsLogSettings(params),
     };
 
@@ -57,6 +59,58 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
 
     return this.events.reduce(
       [eventName, 'rollup-plugin-settings-configuration'],
+      settings,
+      params
+    );
+  }
+
+  _getExternalSettings(params) {
+    const { target, buildType } = params;
+    const external = [];
+
+    if (target.excludeModules) {
+      external.push(...target.excludeModules);
+    }
+
+    if (target.is.node) {
+      external.push(...this.rollupPluginInfo.external.map((dependencyName) => (
+        `${this.rollupPluginInfo.name}/${dependencyName}`
+      )));
+      external.push(...Object.keys(this.packageInfo.dependencies));
+      if (buildType === 'development') {
+        external.push(...Object.keys(this.packageInfo.devDependencies));
+      }
+    }
+
+
+    const settings = { external };
+
+    const eventName = target.is.node ?
+      'rollup-external-plugin-settings-configuration-for-node' :
+      'rollup-external-plugin-settings-configuration-for-browser';
+
+    return this.events.reduce(
+      [eventName, 'rollup-external-plugin-settings-configuration'],
+      settings,
+      params
+    );
+  }
+
+  _getGlobalVariablesSettings(params, external) {
+    const settings = {};
+    external.forEach((name) => {
+      const globalName = name
+      .replace(/\//g, '-')
+      .replace(/-(\w)/g, (match, letter) => letter.toUpperCase());
+      settings[name] = globalName;
+    });
+
+    const eventName = params.target.is.node ?
+      'rollup-global-variables-settings-configuration-for-node' :
+      'rollup-global-variables-settings-configuration-for-browser';
+
+    return this.events.reduce(
+      [eventName, 'rollup-global-variables-settings-configuration'],
       settings,
       params
     );
@@ -120,7 +174,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       }
     );
 
-    const eventName = params.target.is.node ?
+    const eventName = target.is.node ?
       'rollup-babel-plugin-settings-configuration-for-node' :
       'rollup-babel-plugin-settings-configuration-for-browser';
 
@@ -381,38 +435,6 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     );
   }
 
-  _getExternalSettings(params) {
-    const { target, buildType } = params;
-    const external = [];
-
-    if (target.excludeModules) {
-      external.push(...target.excludeModules);
-    }
-
-    if (target.is.node) {
-      external.push(...this.rollupPluginInfo.external.map((dependencyName) => (
-        `${this.rollupPluginInfo.name}/${dependencyName}`
-      )));
-      external.push(...Object.keys(this.packageInfo.dependencies));
-      if (buildType === 'development') {
-        external.push(...Object.keys(this.packageInfo.devDependencies));
-      }
-    }
-
-
-    const settings = { external };
-
-    const eventName = params.target.is.node ?
-      'rollup-external-plugin-settings-configuration-for-node' :
-      'rollup-external-plugin-settings-configuration-for-browser';
-
-    return this.events.reduce(
-      [eventName, 'rollup-external-plugin-settings-configuration'],
-      settings,
-      params
-    );
-  }
-
   _getDevServerSettings(params) {
     const { target } = params;
     const { devServer } = target;
@@ -446,7 +468,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       settings.https = sslSettings;
     }
 
-    const eventName = params.target.is.node ?
+    const eventName = target.is.node ?
       'rollup-devServer-plugin-settings-configuration-for-node' :
       'rollup-devServer-plugin-settings-configuration-for-browser';
 
