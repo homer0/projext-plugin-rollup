@@ -383,14 +383,16 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
 
   _getExternalSettings(params) {
     const { target, buildType } = params;
-    const external = [
-      ...this.rollupPluginInfo.external.map((dependencyName) => (
-        `${this.rollupPluginInfo.name}/${dependencyName}`
-      )),
-      ...(target.excludeModules || []),
-    ];
+    const external = [];
+
+    if (target.excludeModules) {
+      external.push(...target.excludeModules);
+    }
 
     if (target.is.node) {
+      external.push(...this.rollupPluginInfo.external.map((dependencyName) => (
+        `${this.rollupPluginInfo.name}/${dependencyName}`
+      )));
       external.push(...Object.keys(this.packageInfo.dependencies));
       if (buildType === 'development') {
         external.push(...Object.keys(this.packageInfo.devDependencies));
