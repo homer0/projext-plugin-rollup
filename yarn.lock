@@ -5018,9 +5018,9 @@ progress@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/progress/-/progress-2.0.0.tgz#8a1be366bf8fc23db2bd23f10c6fe920b4389d1f"
 
-projext@^4.0.0-beta.4:
-  version "4.0.0-beta.4"
-  resolved "http://local.npm/projext/-/projext-4.0.0-beta.4.tgz#ed99d967b0455191d7cc9d2518e6d1f2a21ba5f0"
+projext@^4.0.0-beta.5:
+  version "4.0.0-beta.5"
+  resolved "http://local.npm/projext/-/projext-4.0.0-beta.5.tgz#9f827cbfb630b3553d7bc73f70b8e800159c58f7"
   dependencies:
     babel-cli "6.26.0"
     babel-core "6.26.0"
