@@ -8,6 +8,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
   constructor(
     appLogger,
     babelConfiguration,
+    babelHelper,
     events,
     packageInfo,
     pathUtils,
@@ -18,6 +19,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
 
     this.appLogger = appLogger;
     this.babelConfiguration = babelConfiguration;
+    this.babelHelper = babelHelper;
     this.events = events;
     this.packageInfo = packageInfo;
     this.rollupPluginInfo = rollupPluginInfo;
@@ -149,25 +151,12 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
   _getBabelSettings(params) {
     const { target, rules } = params;
 
-    const babel = this.babelConfiguration.getConfigForTarget(target);
-
-    if (babel.presets && babel.presets.length) {
-      const envPreset = babel.presets.find((preset) => {
-        const [presetName] = preset;
-        return presetName === 'env';
-      });
-
-      if (envPreset) {
-        const [, envPresetOptions] = envPreset;
-        if (envPresetOptions) {
-          envPresetOptions.modules = false;
-        }
-      }
-    }
+    const baseConfiguration = this.babelConfiguration.getConfigForTarget(target);
+    const configuration = this.babelHelper.disableEnvPresetModules(baseConfiguration);
 
     const settings = Object.assign(
       {},
-      babel,
+      configuration,
       {
         include: rules.js.glob.include,
         exclude: rules.js.glob.exclude,
@@ -637,6 +626,7 @@ const rollupPluginSettingsConfiguration = provider((app) => {
   app.set('rollupPluginSettingsConfiguration', () => new RollupPluginSettingsConfiguration(
     app.get('appLogger'),
     app.get('babelConfiguration'),
+    app.get('babelHelper'),
     app.get('events'),
     app.get('packageInfo'),
     app.get('pathUtils'),
