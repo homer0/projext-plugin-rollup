@@ -8,7 +8,6 @@ const {
 const {
   rollupBrowserDevelopmentConfiguration,
   rollupBrowserProductionConfiguration,
-  rollupFileRulesConfiguration,
   rollupNodeDevelopmentConfiguration,
   rollupNodeProductionConfiguration,
   rollupPluginSettingsConfiguration,
@@ -33,7 +32,6 @@ const loadPlugin = (app) => {
 
   app.register(rollupBrowserDevelopmentConfiguration);
   app.register(rollupBrowserProductionConfiguration);
-  app.register(rollupFileRulesConfiguration);
   app.register(rollupNodeDevelopmentConfiguration);
   app.register(rollupNodeProductionConfiguration);
   app.register(rollupPluginSettingsConfiguration);

@@ -87,9 +87,9 @@ class RollupMiddleware {
           this._onError(target, event);
           break;
         case 'FATAL':
+        default:
           this._onError(target, event, true);
           break;
-        default:
         }
       });
     }

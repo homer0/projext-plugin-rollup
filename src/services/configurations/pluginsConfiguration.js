@@ -84,7 +84,6 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       }
     }
 
-
     const settings = { external };
 
     const eventName = target.is.node ?
@@ -149,7 +148,8 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
   }
 
   _getBabelSettings(params) {
-    const { target, rules } = params;
+    const { target, targetRules } = params;
+    const jsRule = targetRules.js.getRule();
 
     const baseConfiguration = this.babelConfiguration.getConfigForTarget(target);
     const configuration = this.babelHelper.disableEnvPresetModules(baseConfiguration);
@@ -158,8 +158,8 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       {},
       configuration,
       {
-        include: rules.js.glob.include,
-        exclude: rules.js.glob.exclude,
+        include: [...jsRule.files.glob.include],
+        exclude: [...jsRule.files.glob.exclude],
       }
     );
 
@@ -189,11 +189,12 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
   }
 
   _getSASSSettings(params) {
-    const { target, paths, rules } = params;
+    const { target, paths, targetRules } = params;
+    const scssRule = targetRules.scss.getRule();
 
     const settings = {
-      include: rules.scss.include,
-      exclude: rules.scss.exclude,
+      include: [...scssRule.files.include],
+      exclude: [...scssRule.files.exclude],
       options: {
         sourceMapEmbed: true,
         outputStyle: 'compressed',
@@ -221,11 +222,12 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
   }
 
   _getCSSSettings(params, stats) {
-    const { target, paths, rules } = params;
+    const { target, paths, targetRules } = params;
+    const cssRule = targetRules.css.getRule();
 
     const settings = {
-      include: rules.css.include,
-      exclude: rules.css.exclude,
+      include: [...cssRule.files.include],
+      exclude: [...cssRule.files.exclude],
       processor: this._getStylesProcessor(false, { map: true }),
       stats,
     };
@@ -253,9 +255,9 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     const {
       target,
       paths,
-      rules,
       output,
     } = params;
+    const assetsRules = this._getAssetsRules(params);
 
     const stylesheet = target.css.inject || target.is.node ?
       output.file :
@@ -265,8 +267,8 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       stylesheet,
       stats,
       urls: [
-        rules.fonts,
-        rules.images,
+        assetsRules.fonts,
+        assetsRules.images,
       ],
     };
 
@@ -282,16 +284,18 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
   }
 
   _getStylesheetModulesFixerSettings(params) {
-    const { target, rules } = params;
+    const { target, targetRules } = params;
+    const scssRule = targetRules.scss.getRule();
+    const cssRule = targetRules.css.getRule();
 
     const settings = {
       include: [
-        ...rules.scss.include,
-        ...rules.css.include,
+        ...scssRule.files.include,
+        ...cssRule.files.include,
       ],
       exclude: [
-        ...rules.scss.exclude,
-        ...rules.css.exclude,
+        ...scssRule.files.exclude,
+        ...cssRule.files.exclude,
       ],
     };
 
@@ -307,25 +311,23 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
   }
 
   _getStyleheetAssetsHelperSettings(params) {
-    const { target, rules } = params;
+    const { targetRules } = params;
+    const scssRule = targetRules.scss.getRule();
+    const cssRule = targetRules.css.getRule();
 
     const settings = {
       include: [
-        ...rules.css.include,
-        ...rules.scss.include,
+        ...scssRule.files.include,
+        ...cssRule.files.include,
       ],
       exclude: [
-        ...rules.css.exclude,
-        ...rules.scss.exclude,
+        ...scssRule.files.exclude,
+        ...cssRule.files.exclude,
       ],
     };
 
-    const eventName = target.is.node ?
-      'rollup-stylesheet-assets-helper-plugin-settings-configuration-for-node' :
-      'rollup-stylesheet-assets-helper-plugin-settings-configuration-for-browser';
-
     return this.events.reduce(
-      [eventName, 'rollup-stylesheet-assets-helper-plugin-settings-configuration'],
+      'rollup-stylesheet-assets-helper-plugin-settings-configuration',
       settings,
       params
     );
@@ -360,12 +362,13 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
   }
 
   _getURLsSettings(params, stats) {
-    const { target, rules } = params;
+    const { target } = params;
+    const assetsRules = this._getAssetsRules(params);
     const settings = {
       urls: [
-        rules.fonts,
-        rules.images,
-        rules.favicon,
+        assetsRules.fonts,
+        assetsRules.images,
+        assetsRules.favicon,
       ],
       stats,
     };
@@ -382,7 +385,8 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
   }
 
   _getTemplateSettings(params, stats) {
-    const { target, paths, rules } = params;
+    const { target, paths } = params;
+    const assetsRules = this._getAssetsRules(params);
     const settings = {
       template: this.targetsHTML.getFilepath(target),
       output: `${target.paths.build}/${target.html.filename}`,
@@ -391,18 +395,14 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
         [`/${paths.css}`],
       scripts: [`/${paths.js}`],
       urls: [
-        rules.images,
-        rules.favicon,
+        assetsRules.images,
+        assetsRules.favicon,
       ],
       stats,
     };
 
-    const eventName = target.is.node ?
-      'rollup-urls-plugin-settings-configuration-for-node' :
-      'rollup-urls-plugin-settings-configuration-for-browser';
-
     return this.events.reduce(
-      [eventName, 'rollup-urls-plugin-settings-configuration'],
+      'rollup-template-plugin-settings-configuration',
       settings,
       params
     );
@@ -457,12 +457,8 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       settings.https = sslSettings;
     }
 
-    const eventName = target.is.node ?
-      'rollup-devServer-plugin-settings-configuration-for-node' :
-      'rollup-devServer-plugin-settings-configuration-for-browser';
-
     return this.events.reduce(
-      [eventName, 'rollup-devServer-plugin-settings-configuration'],
+      'rollup-dev-server-plugin-settings-configuration',
       settings,
       params
     );
@@ -483,12 +479,13 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
   }
 
   _getCompressionSettings(params, stats) {
-    const { target, rules } = params;
+    const { target } = params;
+    const rule = this._getARuleForAllTheAssets(params);
 
     const settings = {
       folder: target.paths.build,
-      include: rules.all.include,
-      exclude: rules.all.exclude,
+      include: rule.include,
+      exclude: rule.exclude,
       stats,
     };
 
@@ -543,22 +540,80 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
   }
 
   _getNodeRunnerSettings(params) {
-    const { target, output } = params;
+    const { output } = params;
 
     const settings = {
       file: output.file,
       logger: this.appLogger,
     };
 
-    const eventName = target.is.node ?
-      'rollup-nodeRuner-plugin-settings-configuration-for-node' :
-      'rollup-nodeRuner-plugin-settings-configuration-for-browser';
-
     return this.events.reduce(
-      [eventName, 'rollup-nodeRuner-plugin-settings-configuration'],
+      'rollup-node-runner-plugin-settings-configuration',
       settings,
       params
     );
+  }
+
+  _getAssetsRules(params) {
+    const { target, targetRules, paths } = params;
+    const commonFontsRule = targetRules.fonts.common.getRule();
+    const svgFontsRule = targetRules.fonts.svg.getRule();
+    const imagesRule = targetRules.images.getRule();
+    const faviconRule = targetRules.favicon.getRule();
+
+    return {
+      fonts: {
+        include: [
+          ...commonFontsRule.files.include,
+          ...svgFontsRule.files.include,
+        ],
+        exclude: [
+          ...commonFontsRule.files.exclude,
+          ...svgFontsRule.files.exclude,
+        ],
+        output: `${target.paths.build}/${paths.fonts}`,
+        url: `/${paths.fonts}`,
+      },
+      images: {
+        include: [...imagesRule.files.include],
+        exclude: [...imagesRule.files.exclude],
+        output: `${target.paths.build}/${paths.images}`,
+        url: `/${paths.images}`,
+      },
+      favicon: {
+        include: [...faviconRule.files.include],
+        exclude: [...faviconRule.files.exclude],
+        output: `${target.paths.build}/[name].[ext]`,
+        url: '/[name].[ext]',
+      },
+    };
+  }
+
+  _getARuleForAllTheAssets(params) {
+    const { target } = params;
+    const extensions = [
+      'js',
+      'jsx',
+      'css',
+      'html',
+      'map',
+      'woff',
+      'woff2',
+      'ttf',
+      'eot',
+      'jpg',
+      'jpeg',
+      'png',
+      'gif',
+      'svg',
+      'ico',
+    ];
+    const extensionsStr = extensions.join('|');
+    const extensionsRegex = `\\.(?:${extensionsStr})$`;
+    return {
+      include: [new RegExp(`${target.paths.build}/.*?${extensionsRegex}`, 'i')],
+      exclude: [],
+    };
   }
 
   _getSourceMap(code) {
@@ -587,7 +642,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       if (options.map) {
         options.from = filepath;
       } else {
-        map = this._getSourceMap(css);
+        map = this._getSourceMap(css) || '';
       }
 
       let locals;

@@ -7,10 +7,6 @@ const {
 } = require('./browserProductionConfiguration');
 
 const {
-  rollupFileRulesConfiguration,
-} = require('./fileRulesConfiguration');
-
-const {
   rollupNodeDevelopmentConfiguration,
 } = require('./nodeDevelopmentConfiguration');
 
@@ -25,7 +21,6 @@ const {
 module.exports = {
   rollupBrowserDevelopmentConfiguration,
   rollupBrowserProductionConfiguration,
-  rollupFileRulesConfiguration,
   rollupNodeDevelopmentConfiguration,
   rollupNodeProductionConfiguration,
   rollupPluginSettingsConfiguration,

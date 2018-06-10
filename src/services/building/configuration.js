@@ -4,18 +4,16 @@ const { provider } = require('jimple');
 class RollupConfiguration {
   constructor(
     buildVersion,
-    pathUtils,
     targets,
+    targetsFileRules,
     targetConfiguration,
-    rollupConfigurations,
-    rollupFileRulesConfiguration
+    rollupConfigurations
   ) {
     this.buildVersion = buildVersion;
-    this.pathUtils = pathUtils;
     this.targets = targets;
+    this.targetsFileRules = targetsFileRules;
     this.targetConfiguration = targetConfiguration;
     this.rollupConfigurations = rollupConfigurations;
-    this.rollupFileRulesConfiguration = rollupFileRulesConfiguration;
   }
 
   getDefinitions(target, env) {
@@ -69,13 +67,11 @@ class RollupConfiguration {
       input,
       output,
       target,
+      targetRules: this.targetsFileRules.getRulesForTarget(target),
       definitions: this.getDefinitions(target, buildType),
       buildType,
       paths,
-      rules: null,
     };
-
-    params.rules = this.rollupFileRulesConfiguration.getConfig(params);
 
     let config = this.targetConfiguration(
       `rollup/${target.name}.config.js`,
@@ -121,11 +117,10 @@ const rollupConfiguration = provider((app) => {
 
     return new RollupConfiguration(
       app.get('buildVersion'),
-      app.get('pathUtils'),
       app.get('targets'),
+      app.get('targetsFileRules'),
       app.get('targetConfiguration'),
-      rollupConfigurations,
-      app.get('rollupFileRulesConfiguration')
+      rollupConfigurations
     );
   });
 });
