@@ -21,14 +21,12 @@ const {
 
 class RollupBrowserProductionConfiguration extends ConfigurationFile {
   constructor(
-    babelConfiguration,
     events,
     pathUtils,
     rollupPluginSettingsConfiguration
   ) {
     super(pathUtils, 'rollup/browser.production.config.js');
 
-    this.babelConfiguration = babelConfiguration;
     this.events = events;
     this.rollupPluginSettingsConfiguration = rollupPluginSettingsConfiguration;
   }
@@ -64,7 +62,7 @@ class RollupBrowserProductionConfiguration extends ConfigurationFile {
     ];
 
     if (!target.library) {
-      template(pluginSettings.template);
+      plugins.push(template(pluginSettings.template));
     }
 
     if (!target.library || target.libraryOptions.compress) {
@@ -98,7 +96,6 @@ class RollupBrowserProductionConfiguration extends ConfigurationFile {
 
 const rollupBrowserProductionConfiguration = provider((app) => {
   app.set('rollupBrowserProductionConfiguration', () => new RollupBrowserProductionConfiguration(
-    app.get('babelConfiguration'),
     app.get('events'),
     app.get('pathUtils'),
     app.get('rollupPluginSettingsConfiguration')

@@ -18,14 +18,12 @@ const {
 
 class RollupNodeDevelopmentConfiguration extends ConfigurationFile {
   constructor(
-    babelConfiguration,
     events,
     pathUtils,
     rollupPluginSettingsConfiguration
   ) {
     super(pathUtils, 'rollup/node.development.config.js');
 
-    this.babelConfiguration = babelConfiguration;
     this.events = events;
     this.rollupPluginSettingsConfiguration = rollupPluginSettingsConfiguration;
   }
@@ -86,7 +84,6 @@ class RollupNodeDevelopmentConfiguration extends ConfigurationFile {
 
 const rollupNodeDevelopmentConfiguration = provider((app) => {
   app.set('rollupNodeDevelopmentConfiguration', () => new RollupNodeDevelopmentConfiguration(
-    app.get('babelConfiguration'),
     app.get('events'),
     app.get('pathUtils'),
     app.get('rollupPluginSettingsConfiguration')

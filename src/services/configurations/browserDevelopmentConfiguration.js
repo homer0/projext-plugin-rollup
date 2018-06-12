@@ -20,14 +20,12 @@ const {
 
 class RollupBrowserDevelopmentConfiguration extends ConfigurationFile {
   constructor(
-    babelConfiguration,
     events,
     pathUtils,
     rollupPluginSettingsConfiguration
   ) {
     super(pathUtils, 'rollup/browser.development.config.js');
 
-    this.babelConfiguration = babelConfiguration;
     this.events = events;
     this.rollupPluginSettingsConfiguration = rollupPluginSettingsConfiguration;
   }
@@ -93,7 +91,6 @@ class RollupBrowserDevelopmentConfiguration extends ConfigurationFile {
 
 const rollupBrowserDevelopmentConfiguration = provider((app) => {
   app.set('rollupBrowserDevelopmentConfiguration', () => new RollupBrowserDevelopmentConfiguration(
-    app.get('babelConfiguration'),
     app.get('events'),
     app.get('pathUtils'),
     app.get('rollupPluginSettingsConfiguration')

@@ -33,7 +33,7 @@ class ProjextRollupCompressionPlugin {
   }
 
   onwrite() {
-    return this._findAllTheFiles().map((file) => this._compressFile(file));
+    return Promise.all(this._findAllTheFiles().map((file) => this._compressFile(file)));
   }
 
   _findAllTheFiles() {
