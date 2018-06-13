@@ -3,7 +3,7 @@
 
 function __insertStyleFunctionName__(css) {
   let result;
-  if (css && window) {
+  if (css) {
     const style = document.createElement('style');
     style.setAttribute('type', 'text/css');
     style.innerHTML = css;

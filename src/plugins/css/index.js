@@ -54,37 +54,43 @@ class ProjextRollupCSSPlugin {
   transform(code, filepath) {
     let result = null;
     if (this.filter(filepath)) {
-      if (!this._files[filepath]) {
-        this._files.push(filepath);
+      if (!this._files.includes(filepath) || !this._options.output) {
+        if (this._options.output) {
+          this._files.push(filepath);
+        }
         const css = code.trim();
         if (css) {
           result = this._process(css, filepath)
           .then((processed) => {
             let cssCode;
             let rest;
+            let nextStep;
             if (typeof processed === 'string') {
               cssCode = processed;
             } else if (typeof processed.css !== 'string') {
-              throw new Error('You need to return the styles using the `css` property');
+              const error = new Error('You need to return the styles using the `css` property');
+              nextStep = Promise.reject(error);
             } else {
               cssCode = processed.css;
               rest = processed;
               delete rest.css;
             }
 
-            let nextStep;
-            if (this._options.insert) {
-              const escaped = JSON.stringify(cssCode);
-              const insertCall = `${this._options.insertFnName}(${escaped})`;
-              nextStep = this._transformResult(insertCall, rest);
-            } else if (this._options.output === false) {
-              nextStep = this._transformResult(processed, rest);
-            } else {
-              this._toBundle.push({
-                filepath,
-                css: cssCode,
-              });
-              nextStep = this._transformResult('', rest);
+            if (!nextStep) {
+              if (this._options.insert) {
+                const escaped = JSON.stringify(cssCode);
+                const insertCall = `${this._options.insertFnName}(${escaped})`;
+                nextStep = this._transformResult(insertCall, rest);
+              } else if (this._options.output === false) {
+                const escaped = JSON.stringify(cssCode);
+                nextStep = this._transformResult(escaped, rest);
+              } else {
+                this._toBundle.push({
+                  filepath,
+                  css: cssCode,
+                });
+                nextStep = this._transformResult('', rest);
+              }
             }
 
             return nextStep;
@@ -101,9 +107,12 @@ class ProjextRollupCSSPlugin {
   }
 
   ongenerate() {
-    if (!this._options.insert && this._toBundle.length) {
-      const { output } = this._options;
-
+    const { insert, output } = this._options;
+    if (
+      !insert &&
+      output &&
+      this._toBundle.length
+    ) {
       const code = this._toBundle
       .map((file) => file.css)
       .join('\n');
@@ -128,8 +137,9 @@ class ProjextRollupCSSPlugin {
       Promise.resolve(css);
   }
 
-  _transformResult(css = '\'\'', rest = null) {
-    let code = `export default ${css};`;
+  _transformResult(css, rest = null) {
+    const cssCode = css || '\'\'';
+    let code = `export default ${cssCode};`;
     if (rest) {
       const restCode = Object.keys(rest)
       .map((name) => {
