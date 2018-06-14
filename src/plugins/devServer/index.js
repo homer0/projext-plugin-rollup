@@ -74,14 +74,13 @@ class ProjextRollupDevServerPlugin {
     const { contentBase } = this._options;
     if (Array.isArray(contentBase)) {
       if (contentBase.length) {
-        contentBase.push(...contentBase);
+        newContentBase.push(...contentBase);
       } else {
-        contentBase.push('./');
+        newContentBase.push('./');
       }
     } else {
       newContentBase.push(contentBase);
     }
-
     return newContentBase;
   }
 
@@ -110,28 +109,30 @@ class ProjextRollupDevServerPlugin {
 
   _open() {
     if (!this._alreadyOpen && this._options.open) {
+      this._alreadyOpen = true;
       opener(this.url);
     }
   }
 
   _handler(req, res) {
     const urlPath = decodeURI(req.url.split('?').shift());
-    this._readFileFromContentBase(urlPath)
-    .then((contents) => {
-      this._serveFile(res, urlPath, contents);
-    })
+    return this._readFileFromContentBase(urlPath)
+    .then((contents) => this._serveFile(res, urlPath, contents))
     .catch((error) => {
+      let result = null;
       if (error.message && error.message === this._NOT_FOUND_ERROR) {
         if (req.url === '/favicon.ico') {
-          this._serveDefaultFavicon(res);
+          result = this._serveDefaultFavicon(res);
         } else if (this._options.historyApiFallback) {
-          this._fallback(res);
+          result = res.redirect('/index.html');
         } else {
-          this._notFound(res, urlPath);
+          result = this._notFound(res, urlPath);
         }
       } else {
-        this._internalError(res, error);
+        result = this._internalError(res, error);
       }
+
+      return result;
     });
   }
 
@@ -143,7 +144,7 @@ class ProjextRollupDevServerPlugin {
     } else {
       let filepath = path.join(contentBase, urlPath);
       if (filepath.endsWith('/')) {
-        filepath = `${filepath}/index.html`;
+        filepath = `${filepath}index.html`;
       }
 
       if (fs.pathExistsSync(filepath)) {
@@ -157,15 +158,18 @@ class ProjextRollupDevServerPlugin {
   }
 
   _serveFile(res, urlPath, file) {
+    const mimeType = urlPath.endsWith('/') ?
+      'text/html' :
+      mime.getType(urlPath);
     res.writeHead(statuses.ok, {
-      'Content-Type': mime.getType(urlPath),
+      'Content-Type': mimeType,
     });
 
     res.end(file, 'utf-8');
   }
 
   _serveDefaultFavicon(res) {
-    fs.readFile(this._defaultFaviconPath)
+    return fs.readFile(this._defaultFaviconPath)
     .then((favicon) => {
       this._serveFile(res, '/favicon.ico', favicon);
     })
