@@ -28,6 +28,10 @@ class ProjextRollupStylesheetAssetsHelperPlugin {
     this.transform = this.transform.bind(this);
   }
 
+  getOptions() {
+    return this._options;
+  }
+
   intro() {
     return helperFn.toString().replace(helperFn.name, this._options.fnName);
   }

@@ -205,12 +205,10 @@ describe('plugins:compression', () => {
       expect(statsMainJS).toEqual({
         plugin: sut.name,
         filepath: `${options.folder}/${items.mainJS}.gz`,
-        detail: 'compressed',
       });
       expect(statsSubJS).toEqual({
         plugin: sut.name,
         filepath: `${options.folder}/${subFolder}/${items.subJS}.gz`,
-        detail: 'compressed',
       });
     })
     .catch((error) => {

@@ -4,7 +4,7 @@ const extend = require('extend');
 const ProjextRollupUtils = require('../utils');
 
 class ProjextRollupNodeRunnerPlugin {
-  constructor(options = {}, name = 'projext-rollup-plugin-node-runner') {
+  constructor(options, name = 'projext-rollup-plugin-node-runner') {
     this._options = extend(
       true,
       {
@@ -44,16 +44,14 @@ class ProjextRollupNodeRunnerPlugin {
   }
 
   _startExecution() {
-    if (!this._instance) {
-      if (!fs.pathExistsSync(this._options.file)) {
-        throw new Error(`${this.name}: The executable file doesn't exists`);
-      }
-
-      this._logger.success(`Starting bundle execution: ${this._options.file}`);
-      this._instance = fork(this._options.file);
-      this._startListeningForTermination();
-      this._options.onStart(this);
+    if (!fs.pathExistsSync(this._options.file)) {
+      throw new Error(`${this.name}: The executable file doesn't exist`);
     }
+
+    this._logger.success(`Starting bundle execution: ${this._options.file}`);
+    this._instance = fork(this._options.file);
+    this._startListeningForTermination();
+    this._options.onStart(this);
   }
 
   _stopExecution(logMessage = true) {

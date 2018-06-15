@@ -39,17 +39,14 @@ class ProjextRollupStatsPlugin {
       options
     );
 
-    if (newOptions.logger) {
-      if (!(newOptions.logger instanceof Logger)) {
-        throw new Error(`${this.name}: The logger must be an instance of wootils's Logger class`);
-      } else {
-        this._logger = newOptions.logger;
-        delete newOptions.logger;
-      }
+    const logger = this._validateLogger(newOptions.logger);
+    if (logger) {
+      this._logger = logger;
+      delete newOptions.logger;
     }
 
     newOptions.extraEntries.forEach((entry) => {
-      this.add(entry.plugin, entry.filepath, entry.detail || '');
+      this.add(entry.plugin, entry.filepath);
     });
 
     return {
@@ -57,18 +54,34 @@ class ProjextRollupStatsPlugin {
     };
   }
 
-  add(plugin, filepath, detail = '', index = null) {
+  add(plugin, filepath, index = null) {
     const entry = this._isPromise(plugin) ? plugin : {
       plugin,
       filepath,
-      detail,
     };
 
-    if (index) {
+    if (typeof index === 'number') {
       this._entries[index] = entry;
     } else {
       this._entries.push(entry);
     }
+  }
+
+  _validateLogger(logger) {
+    let result = null;
+    if (
+      logger &&
+      (
+        logger instanceof Logger ||
+        typeof logger.log === 'function'
+      )
+    ) {
+      result = logger;
+    } else if (logger) {
+      throw new Error(`${this.name}: The logger must be an instance of wootils' Logger class`);
+    }
+
+    return result;
   }
 
   _logStats() {
@@ -111,7 +124,7 @@ class ProjextRollupStatsPlugin {
     return entryInfo
     .entry
     .then((newEntry) => {
-      this.add(newEntry.plugin, newEntry.filepath, newEntry.detail || '', entryInfo.index);
+      this.add(newEntry.plugin, newEntry.filepath, entryInfo.index);
     });
   }
 
@@ -154,19 +167,6 @@ class ProjextRollupStatsPlugin {
   _getPrettyFilesize(filepath) {
     return prettysize(fs.lstatSync(filepath).size)
     .replace(/ Bytes$/g, ' B');
-  }
-
-  _normalizeDetail(detail) {
-    let result;
-    if (detail) {
-      const firstLetter = detail.substr(0, 1).toUpperCase();
-      const rest = detail.substr(1);
-      result = `${firstLetter}${rest}`;
-    } else {
-      result = '-';
-    }
-
-    return result;
   }
 
   _generateStats(entries) {

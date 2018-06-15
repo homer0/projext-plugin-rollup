@@ -5,7 +5,7 @@ const fs = require('fs-extra');
 const ProjextRollupUtils = require('../utils');
 
 class ProjextRollupURLsPlugin {
-  constructor(options = {}, name = 'projext-rollup-plugin-urls') {
+  constructor(options, name = 'projext-rollup-plugin-urls') {
     this._options = extend(
       true,
       {
@@ -59,7 +59,7 @@ class ProjextRollupURLsPlugin {
     this._toCopy.forEach((toCopy) => {
       fs.ensureDirSync(path.dirname(toCopy.to));
       fs.copySync(toCopy.from, toCopy.to);
-      this._options.stats(this.name, toCopy.to, 'copied');
+      this._options.stats(this.name, toCopy.to);
     });
 
     this._toCopy = [];

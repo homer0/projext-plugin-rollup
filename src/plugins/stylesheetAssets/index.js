@@ -6,7 +6,11 @@ const ProjextRollupUtils = require('../utils');
 const { stylesheetAssetsHelper } = require('./helper');
 
 class ProjextRollupStylesheetAssetsPlugin {
-  constructor(options = {}, name = 'projext-rollup-plugin-stylesheet-assets') {
+  static get helper() {
+    return stylesheetAssetsHelper;
+  }
+
+  constructor(options, name = 'projext-rollup-plugin-stylesheet-assets') {
     this._options = extend(
       true,
       {
@@ -51,7 +55,6 @@ class ProjextRollupStylesheetAssetsPlugin {
 
     this._sourcesCache = {};
     this._createdDirectoriesCache = [];
-    this._copyCache = [];
 
     this.onwrite = this.onwrite.bind(this);
   }
@@ -65,7 +68,6 @@ class ProjextRollupStylesheetAssetsPlugin {
     if (fs.pathExistsSync(stylesheet)) {
       this._sourcesCache = {};
       this._createdDirectoriesCache = [];
-      this._copyCache = [];
       const code = fs.readFileSync(stylesheet, 'utf-8');
       const processed = stylesheet.match(this._expressions.js) ?
         this._processJS(code) :
@@ -89,9 +91,9 @@ class ProjextRollupStylesheetAssetsPlugin {
     blocks.forEach((block) => {
       const css = block.css
       .map((cssBlock) => this._updateCSSBlock(cssBlock).css)
-      .join('\n\n');
+      .join('\n');
       const escaped = JSON.stringify(css);
-      const newBlock = `${block.fn}(${escaped});\n\n`;
+      const newBlock = `${block.fn}(${escaped});`;
       newCode = newCode.replace(block.match, newBlock);
     });
 
@@ -135,12 +137,7 @@ class ProjextRollupStylesheetAssetsPlugin {
         let match = blockRegex.exec(partCode);
         while (match) {
           const [fullMatch, fn, css] = match;
-          let parsed;
-          try {
-            parsed = (JSON.parse(`{"css": "${css}"}`).css);
-          } catch (ignore) {
-            parsed = css;
-          }
+          const parsed = JSON.parse(`{"css": "${css}"}`).css;
 
           result.push({
             match: fullMatch.replace(separators.map, map),
@@ -192,7 +189,9 @@ class ProjextRollupStylesheetAssetsPlugin {
   _updateCSSBlock(block) {
     const paths = this._getPathsForCSSBlock(block);
     let { css } = block;
-    paths.forEach((pathChange) => {
+    paths
+    .filter((pathChange) => !!pathChange.absPath)
+    .forEach((pathChange) => {
       const {
         absPath,
         line,
@@ -214,11 +213,8 @@ class ProjextRollupStylesheetAssetsPlugin {
           this._createdDirectoriesCache.push(outputDir);
         }
 
-        if (!this._copyCache.includes(absPath)) {
-          this._copyCache.push(absPath);
-          fs.copySync(absPath, output);
-          this._options.stats(this.name, output, 'copied');
-        }
+        fs.copySync(absPath, output);
+        this._options.stats(this.name, output);
 
         css = css.replace(lineRegex, newLine);
       }
@@ -323,9 +319,10 @@ class ProjextRollupStylesheetAssetsPlugin {
   }
 }
 
-const stylesheetAssets = (options, name) =>
-  new ProjextRollupStylesheetAssetsPlugin(options, name);
-stylesheetAssets.helper = stylesheetAssetsHelper;
+const stylesheetAssets = (
+  options,
+  name
+) => new ProjextRollupStylesheetAssetsPlugin(options, name);
 
 module.exports = {
   ProjextRollupStylesheetAssetsPlugin,

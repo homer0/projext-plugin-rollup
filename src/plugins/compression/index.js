@@ -80,7 +80,6 @@ class ProjextRollupCompressionPlugin {
         statsDeferred.resolve({
           plugin: this.name,
           filepath: newFilepath,
-          detail: 'compressed',
         });
         resolve({
           original: filepath,

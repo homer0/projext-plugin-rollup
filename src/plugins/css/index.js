@@ -123,7 +123,7 @@ class ProjextRollupCSSPlugin {
       } else {
         fs.ensureDirSync(path.dirname(output));
         fs.writeFileSync(output, code);
-        this._options.stats(this.name, output, 'generated');
+        this._options.stats(this.name, output);
       }
     }
 

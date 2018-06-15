@@ -103,7 +103,7 @@ describe('plugins:css', () => {
     expect(result).toMatch(insert.toString().replace(insert.name, options.insertFnName));
   });
 
-  it('shouldnt return the insert function on the `intro` method if `insert` is `false`', () => {
+  it('shouldn\'t return the insert function on the `intro` method if `insert` is `false`', () => {
     // Given
     let sut = null;
     let result = null;
@@ -359,7 +359,7 @@ describe('plugins:css', () => {
       expect(fs.writeFileSync).toHaveBeenCalledTimes(1);
       expect(fs.writeFileSync).toHaveBeenCalledWith(options.output, code);
       expect(stats).toHaveBeenCalledTimes(1);
-      expect(stats).toHaveBeenCalledWith(sut.name, options.output, 'generated');
+      expect(stats).toHaveBeenCalledWith(sut.name, options.output);
     })
     .catch((error) => {
       throw error;

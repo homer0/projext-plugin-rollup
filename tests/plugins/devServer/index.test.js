@@ -22,7 +22,7 @@ const originalProcessOn = process.on;
 const originalProcessRemoveListener = process.removeListener;
 const originalProcessExit = process.exit;
 
-describe('plugins:css', () => {
+describe('plugins:devServer', () => {
   beforeEach(() => {
     ProjextRollupUtils.createLogger.mockClear();
     createHTTPServer.mockClear();
