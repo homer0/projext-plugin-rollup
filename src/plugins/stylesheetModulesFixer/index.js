@@ -120,12 +120,17 @@ class ProjextRollupStylesheetModulesFixerPlugin {
     let result;
     if (modulesExport) {
       const defaultExport = fileExports.default;
+      /**
+       * TEMP: This is only for browser targets, where you can only create a stylesheet or inject
+       * it, so if the default export is empty, it means that is's using a stylesheet, otherwise,
+       * the default export is the function to inject them;
+       */
       if (defaultExport.value.match(this._expressions.empty)) {
         defaultExport.value = modulesExport.value;
       } else {
         defaultExport.value = [
           '(() => {',
-          `  ${defaultExport.value}`,
+          `  ${defaultExport.value};`,
           `  return ${modulesExport.value};`,
           '})()',
         ]

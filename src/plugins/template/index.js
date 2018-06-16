@@ -43,7 +43,6 @@ class ProjextRollupTemplatePlugin {
       body: /([\t ]*)(<\/body>)/i,
     };
     this._createdDirectoriesCache = [];
-    this._copyCache = [];
 
     this.onwrite = this.onwrite.bind(this);
   }
@@ -54,14 +53,14 @@ class ProjextRollupTemplatePlugin {
 
   onwrite() {
     this._createdDirectoriesCache = [];
-    this._copyCache = [];
     const async = this._options.scriptsAsync ? ' async="async"' : '';
     const scripts = this._options.scripts
     .map((url) => `<script type="text/javascript" src="${url}"${async}></script>`);
     const stylesheets = this._options.stylesheets
     .map((url) => `<link href="${url}" rel="stylesheet" />`);
 
-    const head = [stylesheets];
+    const head = [];
+    head.push(...stylesheets);
     const body = [];
     if (this._options.scriptsOnBody) {
       body.push(...scripts);
@@ -83,8 +82,8 @@ class ProjextRollupTemplatePlugin {
     }
 
     fs.ensureDirSync(this._path);
-    fs.writeFileSync(this._options.output, template);
-    this._options.stats(this.name, this._options.output, 'generated');
+    fs.writeFileSync(this._options.output, template.trim());
+    this._options.stats(this.name, this._options.output);
   }
 
   _validateOptions() {
@@ -104,7 +103,7 @@ class ProjextRollupTemplatePlugin {
         line,
         info,
       } = pathChange;
-      const settings = this.urls.find((setting) => setting.filter(file));
+      const settings = this._options.urls.find((setting) => setting.filter(file));
       if (settings) {
         const output = ProjextRollupUtils.formatPlaceholder(settings.output, info);
         const outputDir = path.dirname(output);
@@ -116,11 +115,8 @@ class ProjextRollupTemplatePlugin {
           this._createdDirectoriesCache.push(outputDir);
         }
 
-        if (!this._copyCache.includes(file)) {
-          fs.copySync(file, output);
-          this._options.stats(this.name, output, 'copied');
-        }
-
+        fs.copySync(file, output);
+        this._options.stats(this.name, output);
         newTemplate = newTemplate.replace(lineRegex, url);
       }
     });
@@ -147,7 +143,6 @@ class ProjextRollupTemplatePlugin {
       }
       match = this._expressions.url.exec(code);
     }
-
     return result;
   }
 }

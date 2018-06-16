@@ -96,10 +96,10 @@ class ProjextRollupCSSPlugin {
             return nextStep;
           });
         } else {
-          result = this._transformResult();
+          result = Promise.resolve(this._transformResult());
         }
       } else {
-        result = this._transformResult();
+        result = Promise.resolve(this._transformResult());
       }
     }
 
@@ -151,12 +151,12 @@ class ProjextRollupCSSPlugin {
       code = `${code}\n${restCode}`;
     }
 
-    return Promise.resolve({
+    return {
       code,
       map: {
         mappings: '',
       },
-    });
+    };
   }
 }
 

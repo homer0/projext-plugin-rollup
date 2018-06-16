@@ -22,7 +22,7 @@ class ProjextRollupUtils {
       .find((method) => typeof logger[method] !== 'function');
 
       if (unsupportedMethod) {
-        throw new Error(`${plugin}: The logger must be an instance of wootils's Logger class`);
+        throw new Error(`${plugin}: The logger must be an instance of the wootils's Logger class`);
       } else {
         result = logger;
       }
