@@ -1,6 +1,11 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-env browser */
-
+/**
+ * This is a dummy function {@link ProjextRollupStylesheetAssetsHelperPlugin} uses in order to
+ * wrap code so {@link ProjextRollupStylesheetAssetsPlugin} can find it and process it.
+ * @param {string} code A block of CSS code.
+ * @return {string}
+ */
 function __helperStyleFunctionName__(code) {
   return code;
 }

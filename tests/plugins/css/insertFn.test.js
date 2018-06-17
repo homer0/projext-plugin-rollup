@@ -28,7 +28,7 @@ describe('plugins:css/insert', () => {
     // When
     result = insert(code);
     // Then
-    expect(result).toBeUndefined();
+    expect(result).toBeNull();
     expect(global.document.head.children.length).toBe(0);
   });
 });
