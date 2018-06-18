@@ -12,7 +12,7 @@ class ProjextRollupCompressionPlugin {
   /**
    * @param {ProjextRollupCompressionPluginOptions} [options={}]
    * The options to customize the plugin behaviour.
-   * @param {String} [name='projext-rollup-plugin-compression']
+   * @param {string} [name='projext-rollup-plugin-compression']
    * The name of the plugin's instance.
    */
   constructor(options = {}, name = 'projext-rollup-plugin-compression') {

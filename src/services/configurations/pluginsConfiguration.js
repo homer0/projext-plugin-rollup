@@ -141,6 +141,8 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
    *                                           target information, its entry settings, output
    *                                           paths, etc.
    * @return {Object}
+   * @access protected
+   * @ignore
    */
   _getExternalSettings(params) {
     const { target, buildType } = params;
@@ -193,6 +195,8 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
    * @param {Array}                     external The list of modules that will be handled as
    *                                             external dependencies.
    * @return {Object}
+   * @access protected
+   * @ignore
    */
   _getGlobalVariablesSettings(params, external) {
     // Define the settings dictionary.
@@ -229,6 +233,8 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
    *                                           target information, its entry settings, output
    *                                           paths, etc.
    * @return {Object}
+   * @access protected
+   * @ignore
    */
   _getResolveSettings(params) {
     const settings = {
@@ -258,6 +264,8 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
    *                                           target information, its entry settings, output
    *                                           paths, etc.
    * @return {Object}
+   * @access protected
+   * @ignore
    */
   _getReplaceSettings(params) {
     // Add the target definitions as the settings.
@@ -285,6 +293,8 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
    *                                           target information, its entry settings, output
    *                                           paths, etc.
    * @return {Object}
+   * @access protected
+   * @ignore
    */
   _getBabelSettings(params) {
     const { target, targetRules } = params;
@@ -327,6 +337,8 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
    *                                           target information, its entry settings, output
    *                                           paths, etc.
    * @return {Object}
+   * @access protected
+   * @ignore
    */
   _getCommonJSSettings(params) {
     /**
@@ -357,6 +369,8 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
    *                                           target information, its entry settings, output
    *                                           paths, etc.
    * @return {Object}
+   * @access protected
+   * @ignore
    */
   _getSASSSettings(params) {
     const { target, paths, targetRules } = params;
@@ -409,6 +423,8 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
    * @param {Function}                  stats  A function to send to the plugins that support
    *                                           logging stats entries.
    * @return {Object}
+   * @access protected
+   * @ignore
    */
   _getCSSSettings(params, stats) {
     const { target, paths, targetRules } = params;
@@ -459,6 +475,8 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
    * @param {Function}                  stats  A function to send to the plugins that support
    *                                           logging stats entries.
    * @return {Object}
+   * @access protected
+   * @ignore
    */
   _getStyleheetAssetsSettings(params, stats) {
     const {
@@ -512,6 +530,8 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
    *                                           target information, its entry settings, output
    *                                           paths, etc.
    * @return {Object}
+   * @access protected
+   * @ignore
    */
   _getStylesheetModulesFixerSettings(params) {
     const { target, targetRules } = params;
@@ -553,6 +573,8 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
    *                                           target information, its entry settings, output
    *                                           paths, etc.
    * @return {Object}
+   * @access protected
+   * @ignore
    */
   _getStyleheetAssetsHelperSettings(params) {
     const { targetRules } = params;
@@ -588,6 +610,8 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
    *                                           target information, its entry settings, output
    *                                           paths, etc.
    * @return {Object}
+   * @access protected
+   * @ignore
    */
   _getHTMLSettings(params) {
     /**
@@ -617,6 +641,8 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
    *                                           target information, its entry settings, output
    *                                           paths, etc.
    * @return {Object}
+   * @access protected
+   * @ignore
    */
   _getJSONSettings(params) {
     /**
@@ -650,6 +676,8 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
    * @param {Function}                  stats  A function to send to the plugins that support
    *                                           logging stats entries.
    * @return {Object}
+   * @access protected
+   * @ignore
    */
   _getURLsSettings(params, stats) {
     const { target } = params;
@@ -689,6 +717,8 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
    * @param {Function}                  stats  A function to send to the plugins that support
    *                                           logging stats entries.
    * @return {Object}
+   * @access protected
+   * @ignore
    */
   _getTemplateSettings(params, stats) {
     const { target, paths } = params;
@@ -725,9 +755,9 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
    *                                           the configuration and that includes things like the
    *                                           target information, its entry settings, output
    *                                           paths, etc.
-   * @param {Function}                  stats  A function to send to the plugins that support
-   *                                           logging stats entries.
    * @return {Object}
+   * @access protected
+   * @ignore
    */
   _getWatchSettings(params) {
     // Define the plugin settings.
@@ -745,10 +775,23 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       params
     );
   }
-
+  /**
+   * Defines the settings for the `devServer` plugin, which is a projext's plugin for running web
+   * apps while on development.
+   * This method uses the reducer event `rollup-dev-server-plugin-settings-configuration`, it
+   * receives the settings, the `params` and expects new settings on return.
+   * @param {RollupConfigurationParams} params A dictionary generated by the top service building
+   *                                           the configuration and that includes things like the
+   *                                           target information, its entry settings, output
+   *                                           paths, etc.
+   * @return {Object}
+   * @access protected
+   * @ignore
+   */
   _getDevServerSettings(params) {
     const { target } = params;
     const { devServer } = target;
+    // Define the basic settings.
     const settings = {
       host: devServer.host,
       port: devServer.port,
@@ -757,8 +800,12 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       https: null,
       logger: this.appLogger,
     };
-
+    // Loop the SSL settings and load the file for those which have a valid file path.
     const sslSettings = {};
+    /**
+     * The idea of this flag is that if none of the SSL settings has value, the `ssl` setting
+     * won't be added.
+     */
     let atLeastOneSSLSetting = false;
     [
       'key',
@@ -766,44 +813,86 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       'ca',
     ].forEach((sslSettingName) => {
       const file = devServer.ssl[sslSettingName];
+      // Make sure the setting value is a string.
       if (typeof file === 'string') {
         const filepath = this.pathUtils.join(file);
+        // Verify that the file exists.
         if (fs.pathExistsSync(filepath)) {
+          // Turn on the flag.
           atLeastOneSSLSetting = true;
+          // Set the value of the setting with the contents of the file.
           sslSettings[sslSettingName] = fs.readFileSync(filepath, 'utf-8');
         }
       }
     });
-
+    /**
+     * If there's at least one setting implemented, set it for the plugin to use, otherwise keep
+     * it as `undefined`.
+     */
     if (atLeastOneSSLSetting) {
       settings.https = sslSettings;
     }
-
+    // Return the reduced configuration.
     return this.events.reduce(
       'rollup-dev-server-plugin-settings-configuration',
       settings,
       params
     );
   }
-
+  /**
+   * Defines the settings for the `ugify` plugin.
+   * This method uses the reducer event `rollup-uglify-plugin-settings-configuration-for-browser`
+   * or `rollup-uglify-plugin-settings-configuration-for-node`, depending on the target type, and
+   * then `rollup-uglify-plugin-settings-configuration`. The event receives the settings, the
+   * `params` and expects new settings on return.
+   * @param {RollupConfigurationParams} params A dictionary generated by the top service building
+   *                                           the configuration and that includes things like the
+   *                                           target information, its entry settings, output
+   *                                           paths, etc.
+   * @return {Object}
+   * @access protected
+   * @ignore
+   */
   _getUglifySettings(params) {
+    /**
+     * There are no settings, but because the plugin is used, the method reduces the empty
+     * configuration so other plugins/services can update it if needed.
+     */
     const settings = {};
 
     const eventName = params.target.is.node ?
       'rollup-uglify-plugin-settings-configuration-for-node' :
       'rollup-uglify-plugin-settings-configuration-for-browser';
-
+    // Return the reduced configuration.
     return this.events.reduce(
       [eventName, 'rollup-uglify-plugin-settings-configuration'],
       settings,
       params
     );
   }
-
+  /**
+   * Defines the settings for the `compression` plugin, which is a projext's plugin that takes care
+   * of compressing the generated assets using Gzip.
+   * This method uses the reducer event
+   * `rollup-compression-plugin-settings-configuration-for-browser` or
+   * `rollup-compression-plugin-settings-configuration-for-node`, depending on the target type,
+   * and then `rollup-compression-plugin-settings-configuration`. The event receives the settings,
+   * the `params` and expects new settings on return.
+   * @param {RollupConfigurationParams} params A dictionary generated by the top service building
+   *                                           the configuration and that includes things like the
+   *                                           target information, its entry settings, output
+   *                                           paths, etc.
+   * @param {Function}                  stats  A function to send to the plugins that support
+   *                                           logging stats entries.
+   * @return {Object}
+   * @access protected
+   * @ignore
+   */
   _getCompressionSettings(params, stats) {
     const { target } = params;
+    // Get the rule to find ALL generated assets.
     const rule = this._getARuleForAllTheAssets(params);
-
+    // Define the plugin settings.
     const settings = {
       folder: target.paths.build,
       include: rule.include,
@@ -814,38 +903,60 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     const eventName = target.is.node ?
       'rollup-compression-plugin-settings-configuration-for-node' :
       'rollup-compression-plugin-settings-configuration-for-browser';
-
+    // Return the reduced configuration.
     return this.events.reduce(
       [eventName, 'rollup-compression-plugin-settings-configuration'],
       settings,
       params
     );
   }
-
+  /**
+   * Defines the settings for the `stats` plugin `log` _"sub plugin"_. The `stats` plugin is a
+   * projext plugin that allows other plugins and services to add stats entries to eventually
+   * show a report table when the bundle process finishes. The `log` _"sub plugin"_ is the method
+   * that you would add to the Rollup plugins queue and that it actually logs the report table.
+   * This method uses the reducer event
+   * `rollup-stats-plugin-settings-configuration-for-browser` or
+   * `rollup-stats-plugin-settings-configuration-for-node`, depending on the target type,
+   * and then `rollup-stats-plugin-settings-configuration`. The event receives the settings,
+   * the `params` and expects new settings on return.
+   * @param {RollupConfigurationParams} params A dictionary generated by the top service building
+   *                                           the configuration and that includes things like the
+   *                                           target information, its entry settings, output
+   *                                           paths, etc.
+   * @return {Object}
+   * @access protected
+   * @ignore
+   */
   _getStatsLogSettings(params) {
     const { target, paths, buildType } = params;
-
+    // As the first extra entry, add the bundle generated by Rollup.
     const extraEntries = [
       {
         plugin: 'rollup',
         filepath: `${target.paths.build}/${paths.js}`,
       },
     ];
-
+    // If the target implements source maps, add the entry for the source map.
     if (target.sourceMap && target.sourceMap[buildType]) {
       extraEntries.push({
         plugin: 'rollup',
         filepath: `${target.paths.build}/${paths.js}.map`,
       });
     }
-
+    /**
+     * If the target is for browser and is not injecting the styles, assume the `sass` plugin
+     * has generated a bundle, so add and entry for it.
+     * @todo This should be on the `processor` to be able to know if it was the `sass` or `css`
+     *       plugin.
+     */
     if (target.is.browser && !target.css.inject) {
       extraEntries.push({
         plugin: 'rollup-plugin-sass',
         filepath: `${target.paths.build}/${paths.css}`,
       });
     }
-
+    // Define the plugin settings.
     const settings = {
       extraEntries,
     };
@@ -853,29 +964,52 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     const eventName = target.is.node ?
       'rollup-stats-plugin-settings-configuration-for-node' :
       'rollup-stats-plugin-settings-configuration-for-browser';
-
+    // Return the reduced configuration.
     return this.events.reduce(
       [eventName, 'rollup-stats-plugin-settings-configuration'],
       settings,
       params
     );
   }
-
+  /**
+   * Defines the settings for the `nodeRunner` plugin, which is a projext's plugin for running Node
+   * apps while on development.
+   * This method uses the reducer event `rollup-node-runner-plugin-settings-configuration`, it
+   * receives the settings, the `params` and expects new settings on return.
+   * @param {RollupConfigurationParams} params A dictionary generated by the top service building
+   *                                           the configuration and that includes things like the
+   *                                           target information, its entry settings, output
+   *                                           paths, etc.
+   * @return {Object}
+   * @access protected
+   * @ignore
+   */
   _getNodeRunnerSettings(params) {
     const { output } = params;
-
+    // Define the plugin settings.
     const settings = {
       file: output.file,
       logger: this.appLogger,
     };
-
+    // Return the reduced configuration.
     return this.events.reduce(
       'rollup-node-runner-plugin-settings-configuration',
       settings,
       params
     );
   }
-
+  /**
+   * This a helper method that generates a dictionary of {@link ProjextRollupPluginURL}
+   * definitions for common assets (fonts, images and the favicon). These definitions can be used
+   * on different plugin settings.
+   * @param {RollupConfigurationParams} params A dictionary generated by the top service building
+   *                                           the configuration and that includes things like the
+   *                                           target information, its entry settings, output
+   *                                           paths, etc.
+   * @return {Object}
+   * @access protected
+   * @ignore
+   */
   _getAssetsRules(params) {
     const { target, targetRules, paths } = params;
     const commonFontsRule = targetRules.fonts.common.getRule();
@@ -910,7 +1044,17 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       },
     };
   }
-
+  /**
+   * This a helper method that generates a set of `include` and `exclude` rules to match all
+   * possible generated assets on the output directory.
+   * @param {RollupConfigurationParams} params A dictionary generated by the top service building
+   *                                           the configuration and that includes things like the
+   *                                           target information, its entry settings, output
+   *                                           paths, etc.
+   * @return {Object}
+   * @access protected
+   * @ignore
+   */
   _getARuleForAllTheAssets(params) {
     const { target } = params;
     const extensions = [
@@ -937,38 +1081,76 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       exclude: [],
     };
   }
-
+  /**
+   * Helper method for the stylsheet processor. It searches and retrieves a source map comment
+   * from a given CSS code.
+   * @param {string} code The CSS code where the source map will be retrieved from.
+   * @return {?string} If the source map it's found, it will return it, otherwise, it will return
+   *                   `null`.
+   * @access protected
+   * @ignore
+   */
   _getSourceMap(code) {
     const regex = /(\/\*# sourceMappingURL=.*? \*\/)/i;
     const match = regex.exec(code);
-    let result;
+    let result = null;
     if (match) {
       [result] = match;
     }
 
     return result;
   }
-
+  /**
+   * This is a custom stylesheet processor for the `sass` and `css` plugin. It makes sure all
+   * generated styles have a source map that plugins like `stylesheetAssets` can use. It also
+   * takes care of implementing CSS modules if the target has them enabled.
+   * @param {boolean} modules                      Whether or not CSS modules are enabled.
+   * @param {Object}  [processorOptions={}]        Custom options for the processor.
+   * @param {boolean} [processorOptions.map=false] Whether or not a source map should be generated
+   *                                               for the stylesheet. When generated with the
+   *                                               `sass` plugin, the source map already comes
+   *                                               with the code; but when generated with the
+   *                                               `css` plugin, it should be added.
+   * @return {function}
+   * @access protected
+   * @ignore
+   */
   _getStylesProcessor(modules, processorOptions = {}) {
+    // Merge the default options with the received custom options.
     const options = Object.assign(
       {},
       {
         map: false,
+        /**
+         * If the file already has a source map, this value will be filled with the path to
+         * the file being processed, as required by `postcss`.
+         */
         from: undefined,
       },
       processorOptions
     );
-
+    // Return the processor function.
     return (css, filepath) => {
       let map;
+      /**
+       * If the stylesheet needs a source map, complete the `from` option; otherwise, read it from
+       * the code.
+       * The reason the source map is being extracted before processing the stylesheet is because
+       * `postcss` may update it and the reference for the original sources may get lost.
+       */
       if (options.map) {
         options.from = filepath;
       } else {
         map = this._getSourceMap(css) || '';
       }
-
+      // Define the variable that will be used to store the CSS modules locals if enabled.
       let locals;
+      // Define the list of plugins for `postcss`.
       const plugins = [];
+      /**
+       * If CSS modules are enabled for the target, push the plugin with a callback to obtain the
+       * locals names.
+       */
       if (modules) {
         plugins.push(postcssModules({
           getJSON: (filename, json) => {
@@ -978,12 +1160,19 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       }
 
       return postcss(plugins)
+      // Process the stylesheet code.
       .process(css, options)
       .then((processed) => {
+        // Add the source map if needed.
         const cssCode = options.map ?
           `${processed.css}\n` :
           `${processed.css}\n\n${map}\n`;
+        // Define the return object.
         let result;
+        /**
+         * If CSS modules are enabled for the target, return a dictionary with the code and the
+         * locals, otherwise just return the code.
+         */
         if (modules) {
           result = {
             css: cssCode,
@@ -998,7 +1187,16 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     };
   }
 }
-
+/**
+ * The service provider that once registered on the app container will set an instance of
+ * `RollupPluginSettingsConfiguration` as the `rollupPluginSettingsConfiguration` service.
+ * @example
+ * // Register it on the container
+ * container.register(rollupPluginSettingsConfiguration);
+ * // Getting access to the service instance
+ * const rollupPluginSettingsConfiguration = container.get('rollupPluginSettingsConfiguration');
+ * @type {Provider}
+ */
 const rollupPluginSettingsConfiguration = provider((app) => {
   app.set('rollupPluginSettingsConfiguration', () => new RollupPluginSettingsConfiguration(
     app.get('appLogger'),

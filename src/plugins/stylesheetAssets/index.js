@@ -23,7 +23,7 @@ class ProjextRollupStylesheetAssetsPlugin {
   /**
    * @param {ProjextRollupStylesheetAssetsPluginOptions} [options={}]
    * The options to customize the plugin behaviour.
-   * @param {String} [name='projext-rollup-plugin-stylesheet-assets']
+   * @param {string} [name='projext-rollup-plugin-stylesheet-assets']
    * The name of the plugin's instance.
    */
   constructor(options, name = 'projext-rollup-plugin-stylesheet-assets') {
@@ -518,7 +518,7 @@ class ProjextRollupStylesheetAssetsPlugin {
   }
   /**
    * Parse a URL in order to separate a file from a query.
-   * @param {string} url The URL to parse.
+   * @param {string} urlPath The URL to parse.
    * @return {Object} A dictionary with the keys `file` and `query`.
    * @access protected
    * @ignore

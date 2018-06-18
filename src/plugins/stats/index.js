@@ -27,7 +27,7 @@ class ProjextRollupStatsPlugin {
   /**
    * @param {ProjextRollupStatsPluginOptions} [options={}]
    * The options to customize the plugin behaviour.
-   * @param {String} [name='projext-rollup-plugin-node-stats']
+   * @param {string} [name='projext-rollup-plugin-node-stats']
    * The name of the plugin's instance.
    */
   constructor(options = {}, name = 'projext-rollup-plugin-stats') {
@@ -242,7 +242,6 @@ class ProjextRollupStatsPlugin {
    * Resolves a single promise based entry.
    * @param {Object}                entryInfo       The information of the entry to be resolved.
    * @param {Promise<Object,Error>} entryInfo.entry The promise to resolve.
-   * @param {number}                index           The index of the entry on the list.
    * @return {Promise<undefined,Error>}
    * @access protected
    * @ignore

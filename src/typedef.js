@@ -5,6 +5,106 @@
  */
 
 /**
+ * @external {Jimple}
+ * https://yarnpkg.com/en/package/jimple
+ */
+
+/**
+ * @external {Jimpex}
+ * https://yarnpkg.com/en/package/jimpex
+ */
+
+/**
+ * @external {Express}
+ * https://expressjs.com
+ */
+
+/**
+ * @external {FileSystem}
+ * https://nodejs.org/api/fs.html
+ */
+
+/**
+ * @external {PathUtils}
+ * https://homer0.github.io/wootils/class/wootils/node/pathUtils.js~PathUtils.html
+ */
+
+/**
+ * @external {Logger}
+ * https://homer0.github.io/wootils/class/wootils/node/logger.js~Logger.html
+ */
+
+/**
+ * @external {EnvironmentUtils}
+ * https://homer0.github.io/wootils/class/wootils/node/environmentUtils.js~EnvironmentUtils.html
+ */
+
+/**
+ * @external {Projext}
+ * https://homer0.github.io/projext/class/src/app/index.js~Projext.html
+ */
+
+/**
+ * @external {BuildVersion}
+ * https://homer0.github.io/projext/class/src/services/building/buildVersion.js~BuildVersion.html
+ */
+
+/**
+ * @external {Events}
+ * https://homer0.github.io/projext/class/src/services/common/events.js~Events.html
+ */
+
+/**
+ * @external {Targets}
+ * https://homer0.github.io/projext/class/src/services/targets/targets.js~Targets.html
+ */
+
+/**
+ * @external {TargetsFileRules}
+ *  ttps://homer0.github.io/projext/class/src/services/targets/targetsFileRules/targetsFileRules.js~TargetsFileRules.html
+  */
+
+/**
+ * @external {TargetFileRules}
+ * https://homer0.github.io/projext/typedef/index.html#static-typedef-TargetFileRules
+ */
+
+/**
+ * @external {TargetsHTML}
+ * https://homer0.github.io/projext/class/src/services/targets/targetsHTML.js~TargetsHTML.html
+ */
+
+/**
+ * @external {Target}
+ * https://homer0.github.io/projext/typedef/index.html#static-typedef-Target
+ */
+
+/**
+ * @external {TargetConfigurationCreator}
+ * https://homer0.github.io/projext/typedef/index.html#static-typedef-TargetConfigurationCreator
+ */
+
+/**
+ * @external {BabelConfiguration}
+ *  ttps://homer0.github.io/projext/class/src/services/configurations/babelConfiguration.js~BabelConfiguration.html
+  */
+
+/**
+ * @external {Middleware}
+ * http://expressjs.com/en/guide/using-middleware.html
+ */
+
+/**
+ * @external {HTTPRequest}
+ * https://nodejs.org/api/http.html#http_class_http_clientrequest
+ */
+
+/**
+ * @external {HTTPResponse}
+ * https://nodejs.org/api/http.html#http_class_http_serverresponse
+ */
+
+/**
  * ================================================================================================
  * Plugins > Commons
  * ================================================================================================
@@ -19,7 +119,7 @@
 /**
  * @typedef {function} RollupStylesheetProcessor
  * @param {string} code The style code to process.
- * @return {Promise<(string|Object),Error>} If the Promise gets resolved as a string, that would
+ * @return {Promise<StringOrObject,Error>} If the Promise gets resolved as a string, that would
  *                                          be used as the style code to either return or inject.
  *                                          But if it gets resolved as an `Object`, it's expected
  *                                          for it to have a `css`  key with the style code, the
@@ -289,4 +389,127 @@
  *                                             where to copy them and which URL to use.
  * @property {ProjextRollupPluginsStats} stats The function the plugin will call in order to
  *                                             inform a file was copied.
+ */
+
+/**
+ * ================================================================================================
+ * Middleware
+ * ================================================================================================
+ */
+
+/**
+ * @typedef {function} MiddlewareGetDirectory
+ * @return {string}
+ * The build directory of the target implementing the middleware.
+ */
+
+/**
+ * @typedef {function} MiddlewareGetFileSystem
+ * @return {Promise<FileSystem,Error>}
+ * The reason this is resolved on a promise is to avoid trying to accessing files before they are
+ * generated.
+ */
+
+/**
+ * @typedef {Object} MiddlewareInformation
+ * @property {Middleware} middleware
+ * The middleware that implements the Rollup build process.
+ * @property {MiddlewareGetDirectory} getDirectory
+ * To access the target implementing the middleware build directory.
+ * @property {MiddlewareGetFileSystem} getFileSystem
+ * To access the file system only when the middleware finishes the build process.
+ */
+
+/**
+ * ================================================================================================
+ * Configurations
+ * ================================================================================================
+ */
+
+/**
+ * @typedef {Object} RollupConfigurationsByEnvironment
+ * @property {ConfigurationFile} production
+ * The configuration service for a the target type production build.
+ * @property {ConfigurationFile} development
+ * The configuration service for a the target type development build.
+ */
+
+/**
+ * @typedef {Object} RollupConfigurations
+ * @property {RollupConfigurationsByEnvironment} node
+ * The build types configurations for a Node target.
+ * @property {RollupConfigurationsByEnvironment} browser
+ * The build types configurations for a browser target.
+ */
+
+/**
+ * ================================================================================================
+ * Others
+ * ================================================================================================
+ */
+
+/**
+ * @typedef {Object} RollupConfigurationOutputParams
+ * @property {string}  file      The path where the bundle will be generated.
+ * @property {string}  format    The format of the bundle (`iife`, `cjs` or `umd`).
+ * @property {boolean} sourcemap Whether or not a source map should be generated for the bundle.
+ * @property {string}  name      The export name of the bundle.
+ * @property {?string} exports   This is implemented when the target is a library. It allows the
+ *                               bundle to have named exports.
+ */
+
+/**
+ * @typedef {Object} RollupConfigurationPathsParams
+ * @property {string} js
+ * The filename format and path for the bundle, on the distribution directory.
+ * @property {string} css
+ * The filename format and path for the generated stylesheet, on the distribution directory.
+ * @property {string} images
+ * The filename format and path for the images that are going to be copied to the distribution
+ * directory.
+ * @property {string} fonts
+ * The filename format and path for the font files that are going to be copied to the distribution
+ * directory.
+ */
+
+/**
+ * @typedef {Object} RollupConfigurationParams
+ * @property {string}                          input       The path for the entry file.
+ * @property {RollupConfigurationOutputParams} output      The Rollup settings for the bundle
+ *                                                         generation.
+ * @property {Target}                          target      The information of the target being
+ *                                                         bundled.
+ * @property {TargetFileRules}                 targetRules The rules to find the different file
+ *                                                         types a target may use.
+ * @property {Object}                          definitions A dictionary of defined variables that
+ *                                                         will be replaced on the bundled code.
+ * @property {string}                          buildType   The intended build type: `development`
+ *                                                         or `production`.
+ * @property {RollupConfigurationPathsParams}  paths       A dictionary with the filenames formats
+ *                                                         and paths of the different files the
+ *                                                         bundle can generate.
+
+/**
+ * @typedef {Object} RollupPluginInfo
+ * @property {string} name          The name of the plugin.
+ * @property {string} configuration The path to the Rollup configuration file.
+ * @property {Array}  external      The list of subpaths the plugin exposes and that should be
+ *                                  handled as external dependencies, in order to avoid bundling
+ *                                  them.
+ */
+
+/**
+ * @typedef {function} ProviderRegisterMethod
+ * @param {Jimple} app
+ * A reference to the dependency injection container.
+ */
+
+/**
+ * @typedef {Object} Provider
+ * @property {ProviderRegisterMethod} register
+ * The method that gets called when registering the provider.
+ */
+
+/**
+ * @typedef {string|Object} StringOrObject
  */

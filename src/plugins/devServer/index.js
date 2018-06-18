@@ -1,5 +1,5 @@
-const { createServer: createHTTPSServer } = require('https');
-const { createServer: createHTTPServer } = require('http');
+const https = require('https');
+const http = require('http');
 const path = require('path');
 const opener = require('opener');
 const fs = require('fs-extra');
@@ -8,13 +8,21 @@ const mime = require('mime');
 const statuses = require('statuses');
 const ProjextRollupUtils = require('../utils');
 /**
+ * @ignore
+ */
+const createHTTPSServer = https.createServer;
+/**
+ * @ignore
+ */
+const createHTTPServer = http.createServer;
+/**
  * This a Rollup plugin that runs a dev server for a bundled application.
  */
 class ProjextRollupDevServerPlugin {
   /**
    * @param {ProjextRollupDevServerPluginOptions} [options={}]
    * The options to customize the plugin behaviour.
-   * @param {String} [name='projext-rollup-plugin-dev-server']
+   * @param {string} [name='projext-rollup-plugin-dev-server']
    * The name of the plugin's instance.
    */
   constructor(options = {}, name = 'projext-rollup-plugin-dev-server') {
@@ -128,10 +136,10 @@ class ProjextRollupDevServerPlugin {
     // Validate that there's no instance already running.
     if (!this._instance) {
       // Get the server basic options.
-      const { https, port } = this._options;
+      const { https: httpsSettings, port } = this._options;
       // Create the server instance.
-      this._instance = https ?
-        createHTTPSServer(https, this._handler) :
+      this._instance = httpsSettings ?
+        createHTTPSServer(httpsSettings, this._handler) :
         createHTTPServer(this._handler);
 
       // Start listening for requests.
@@ -280,7 +288,7 @@ class ProjextRollupDevServerPlugin {
    * If the method doesn't find a file on directory, it will call itself recursively with the next
    * directory until it finds it or returns a Not Found error.
    * @param {string} urlPath              The filepath received by the server.
-   * @param {Number} [contentBaseIndex=0] The index of the dictionary it should try on the
+   * @param {number} [contentBaseIndex=0] The index of the dictionary it should try on the
    *                                      `contentBase` list.
    * @return {Promise<string,Error>}
    * @access protected

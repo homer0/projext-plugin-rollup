@@ -12,7 +12,7 @@ class ProjextRollupCSSPlugin {
   /**
    * @param {ProjextRollupCSSPluginOptions} [options={}]
    * The options to customize the plugin behaviour.
-   * @param {String} [name='projext-rollup-plugin-css']
+   * @param {string} [name='projext-rollup-plugin-css']
    * The name of the plugin's instance.
    */
   constructor(options = {}, name = 'projext-rollup-plugin-css') {
@@ -239,7 +239,7 @@ class ProjextRollupCSSPlugin {
    * the process should start with a promise or be sync, as this method always returns a promise.
    * @param {string} css      The code to process.
    * @param {string} filepath The path of the file which code will be processed.
-   * @return {Promise<(string|Object),Error>}
+   * @return {Promise<StringOrObject,Error>}
    * @access protected
    * @ignore
    */

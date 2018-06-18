@@ -10,7 +10,7 @@ class ProjextRollupNodeRunnerPlugin {
   /**
    * @param {ProjextRollupNodeRunnerPluginOptions} [options={}]
    * The options to customize the plugin behaviour.
-   * @param {String} [name='projext-rollup-plugin-node-runner']
+   * @param {string} [name='projext-rollup-plugin-node-runner']
    * The name of the plugin's instance.
    */
   constructor(options, name = 'projext-rollup-plugin-node-runner') {

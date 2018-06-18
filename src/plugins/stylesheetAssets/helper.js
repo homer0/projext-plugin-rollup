@@ -9,7 +9,7 @@ class ProjextRollupStylesheetAssetsHelperPlugin {
   /**
    * @param {ProjextRollupStylesheetAssetsHelperPluginOptions} [options={}]
    * The options to customize the plugin behaviour.
-   * @param {String} [name='projext-rollup-plugin-stylesheet-assets-helper']
+   * @param {string} [name='projext-rollup-plugin-stylesheet-assets-helper']
    * The name of the plugin's instance.
    */
   constructor(options = {}, name = 'projext-rollup-plugin-stylesheet-assets-helper') {

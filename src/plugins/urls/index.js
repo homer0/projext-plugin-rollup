@@ -11,7 +11,7 @@ class ProjextRollupURLsPlugin {
   /**
    * @param {ProjextRollupURLsPluginOptions} [options={}]
    * The options to customize the plugin behaviour.
-   * @param {String} [name='projext-rollup-plugin-urls']
+   * @param {string} [name='projext-rollup-plugin-urls']
    * The name of the plugin's instance.
    */
   constructor(options, name = 'projext-rollup-plugin-urls') {

@@ -122,7 +122,7 @@ class RollupMiddleware {
   /**
    * Gets the middleware the will serve the bundled files.
    * @param {Target} target The information of the target to bundle.
-   * @return {ExpressMiddleware}
+   * @return {Middleware}
    * @access protected
    * @ignore
    */

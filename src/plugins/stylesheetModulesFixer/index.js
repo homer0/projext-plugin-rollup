@@ -10,7 +10,7 @@ class ProjextRollupStylesheetModulesFixerPlugin {
   /**
    * @param {ProjextRollupStylesheetModulesFixerPluginOptions} [options={}]
    * The options to customize the plugin behaviour.
-   * @param {String} [name='projext-rollup-plugin-stylesheet-modules-fixer']
+   * @param {string} [name='projext-rollup-plugin-stylesheet-modules-fixer']
    * The name of the plugin's instance.
    */
   constructor(options = {}, name = 'projext-rollup-plugin-stylesheet-modules-fixer') {

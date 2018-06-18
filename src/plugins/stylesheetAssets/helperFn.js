@@ -5,6 +5,7 @@
  * wrap code so {@link ProjextRollupStylesheetAssetsPlugin} can find it and process it.
  * @param {string} code A block of CSS code.
  * @return {string}
+ * @ignore
  */
 function __helperStyleFunctionName__(code) {
   return code;
