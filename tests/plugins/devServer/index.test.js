@@ -557,7 +557,7 @@ describe('plugins:devServer', () => {
       expect(fs.pathExistsSync).toHaveBeenCalledTimes(1);
       expect(fs.pathExistsSync).toHaveBeenCalledWith(path.join(contentBase, req.url));
       expect(res.redirect).toHaveBeenCalledTimes(1);
-      expect(res.redirect).toHaveBeenCalledWith('/index.html');
+      expect(res.redirect).toHaveBeenCalledWith('/');
     })
     .catch((error) => {
       throw error;

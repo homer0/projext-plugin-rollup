@@ -269,7 +269,7 @@ class ProjextRollupDevServerPlugin {
           result = this._serveDefaultFavicon(res);
         } else if (this._options.historyApiFallback) {
           // If `historyApiFallback` is enabled, redirect to the `index.html`.
-          result = res.redirect('/index.html');
+          result = res.redirect('/');
         } else {
           // Otherwise, respond with a Not Found.
           result = this._notFound(res, urlPath);
