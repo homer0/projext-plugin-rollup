@@ -1,5 +1,10 @@
 # projext plugin for Rollup
 
+[![Travis](https://img.shields.io/travis/homer0/projext-plugin-rollup.svg?style=flat-square)](https://travis-ci.org/homer0/projext-plugin-rollup)
+[![Coveralls github](https://img.shields.io/coveralls/github/homer0/projext-plugin-rollup.svg?style=flat-square)](https://coveralls.io/github/homer0/projext-plugin-rollup?branch=master)
+[![David](https://img.shields.io/david/homer0/projext-plugin-rollup.svg?style=flat-square)](https://david-dm.org/homer0/projext-plugin-rollup)
+[![David](https://img.shields.io/david/dev/homer0/projext-plugin-rollup.svg?style=flat-square)](https://david-dm.org/homer0/projext-plugin-rollup)
+
 Allows [projext](https://yarnpkg.com/en/package/projext) to use [Rollup](https://rollupjs.org) as a build engine.
 
 ## Introduction
