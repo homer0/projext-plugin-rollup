@@ -10,7 +10,7 @@ jest.mock('rollup-plugin-replace');
 jest.mock('rollup-plugin-sass');
 jest.mock('rollup-plugin-html');
 jest.mock('rollup-plugin-json');
-jest.mock('rollup-plugin-uglify');
+jest.mock('rollup-plugin-uglify', () => jest.fn());
 jest.mock('/src/abstracts/configurationFile', () => ConfigurationFileMock);
 jest.unmock('/src/services/configurations/browserProductionConfiguration');
 

@@ -4,7 +4,7 @@ const ConfigurationFileMock = require('/tests/mocks/configurationFile.mock');
 jest.mock('jimple', () => JimpleMock);
 jest.mock('fs-extra');
 jest.mock('postcss');
-jest.mock('postcss-modules');
+jest.mock('postcss-modules', () => jest.fn());
 jest.mock('/src/abstracts/configurationFile', () => ConfigurationFileMock);
 jest.unmock('/src/services/configurations/pluginsConfiguration');
 
