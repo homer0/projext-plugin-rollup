@@ -129,6 +129,38 @@ describe('plugins:stats', () => {
     });
   });
 
+  it('shouldn\'t log anything if the queue is reseted', () => {
+    // Given
+    console.log = jest.fn();
+    colors.white = jest.fn((str) => str);
+    colors.green = jest.fn();
+    colors.gray = jest.fn();
+    let mainPlugin = null;
+    let sut = null;
+    // When
+    mainPlugin = new ProjextRollupStatsPlugin();
+    mainPlugin.add('my-plugin', 'charito.js');
+    mainPlugin.reset().intro();
+    sut = mainPlugin.log();
+    return sut.onwrite()
+    .then(() => {
+      // Then
+      expect(fs.pathExistsSync).toHaveBeenCalledTimes(0);
+      expect(fs.lstatSync).toHaveBeenCalledTimes(0);
+      expect(prettysize).toHaveBeenCalledTimes(0);
+      expect(colors.white).toHaveBeenCalledTimes(3);
+      expect(colors.green).toHaveBeenCalledTimes(0);
+      expect(colors.gray).toHaveBeenCalledTimes(0);
+      expect(colors.white).toHaveBeenCalledWith('Asset');
+      expect(colors.white).toHaveBeenCalledWith('Size');
+      expect(colors.white).toHaveBeenCalledWith('Plugin');
+      expect(console.log).toHaveBeenCalledTimes(1);
+    })
+    .catch((error) => {
+      throw error;
+    });
+  });
+
   it('should log multiple entries', () => {
     // Given
     console.log = jest.fn();

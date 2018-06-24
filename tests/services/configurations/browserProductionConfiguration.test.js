@@ -39,6 +39,7 @@ const uglify = require('rollup-plugin-uglify');
 
 describe('services/configurations:browserProductionConfiguration', () => {
   const getPlugins = () => {
+    const statsResetValue = 'stats-reset';
     const statsLogValue = 'stats-log';
     const values = {
       css: 'css-plugin',
@@ -47,6 +48,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
       template: 'template-plugin',
       compression: 'compression-plugin',
       stats: {
+        reset: jest.fn(() => statsResetValue),
         log: jest.fn(() => statsLogValue),
         add: 'add-entry',
       },
@@ -60,6 +62,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
       json: 'json-plugin',
       uglify: 'uglify-plugin',
     };
+    values.statsReset = statsResetValue;
     values.statsLog = statsLogValue;
     css.mockImplementationOnce(() => values.css);
     urls.mockImplementationOnce(() => values.urls);
@@ -83,6 +86,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
       template,
       compression,
       stats,
+      statsReset: values.stats.reset,
       statsLog: values.stats.log,
       stylesheetModulesFixer,
       resolve,
@@ -198,6 +202,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
         globals: plugins.settings.globals,
       }),
       plugins: [
+        plugins.values.statsReset,
         plugins.values.resolve,
         plugins.values.babel,
         plugins.values.commonjs,
@@ -228,6 +233,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
     expect(plugins.mocks.stats).toHaveBeenCalledWith({
       path: `${target.paths.build}/`,
     });
+    expect(plugins.mocks.statsReset).toHaveBeenCalledTimes(1);
     expect(plugins.mocks.resolve).toHaveBeenCalledTimes(1);
     expect(plugins.mocks.resolve).toHaveBeenCalledWith(plugins.settings.resolve);
     expect(plugins.mocks.babel).toHaveBeenCalledTimes(1);
@@ -306,6 +312,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
         globals: plugins.settings.globals,
       }),
       plugins: [
+        plugins.values.statsReset,
         plugins.values.resolve,
         plugins.values.babel,
         plugins.values.commonjs,
@@ -374,6 +381,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
         globals: Object.assign({}, output.globals, plugins.settings.globals),
       }),
       plugins: [
+        plugins.values.statsReset,
         plugins.values.resolve,
         plugins.values.babel,
         plugins.values.commonjs,
@@ -435,6 +443,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
         globals: plugins.settings.globals,
       }),
       plugins: [
+        plugins.values.statsReset,
         plugins.values.resolve,
         plugins.values.babel,
         plugins.values.commonjs,
@@ -499,6 +508,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
         globals: plugins.settings.globals,
       }),
       plugins: [
+        plugins.values.statsReset,
         plugins.values.resolve,
         plugins.values.babel,
         plugins.values.commonjs,

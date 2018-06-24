@@ -89,6 +89,20 @@ class ProjextRollupStatsPlugin {
     return this._options;
   }
   /**
+   * Generates a _"sub plugin"_ to add to the plugins queue and that will reset the entries list.
+   * The reason this exists is because when Rollup is on _"watch mode"_, the plugins can run more
+   * than once, and if the queue is not reseted, the report table will show the entries for ALL
+   * the times the plugin ran.
+   * @return {ProjextRollupStatsPluginReset}
+   */
+  reset() {
+    return {
+      intro: () => {
+        this._entries = [];
+      },
+    };
+  }
+  /**
    * Generates a _"sub plugin"_ to add to the plugins queue and that will take care of logging
    * all the added entries on a report table.
    * @param {ProjextRollupStatsPluginLogOptions} [options={}] Custom options for the _"sub plugin"_.

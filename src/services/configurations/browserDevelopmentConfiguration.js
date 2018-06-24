@@ -71,6 +71,7 @@ class RollupBrowserDevelopmentConfiguration extends ConfigurationFile {
     );
     // Define the plugins list.
     const plugins = [
+      statsPlugin.reset(),
       resolve(pluginSettings.resolve),
       babel(pluginSettings.babel),
       commonjs(pluginSettings.commonjs),

@@ -34,6 +34,7 @@ const json = require('rollup-plugin-json');
 
 describe('services/configurations:nodeProductionConfiguration', () => {
   const getPlugins = () => {
+    const statsResetValue = 'stats-reset';
     const statsLogValue = 'stats-log';
     const values = {
       css: 'css-plugin',
@@ -41,6 +42,7 @@ describe('services/configurations:nodeProductionConfiguration', () => {
       stylesheetAssets: 'stylesheetAssets-plugin',
       stylesheetAssetsHelper: 'stylesheetAssetsHelper-plugin',
       stats: {
+        reset: jest.fn(() => statsResetValue),
         log: jest.fn(() => statsLogValue),
         add: 'add-entry',
       },
@@ -52,6 +54,7 @@ describe('services/configurations:nodeProductionConfiguration', () => {
       html: 'html-plugin',
       json: 'json-plugin',
     };
+    values.statsReset = statsResetValue;
     values.statsLog = statsLogValue;
     css.mockImplementationOnce(() => values.css);
     urls.mockImplementationOnce(() => values.urls);
@@ -70,6 +73,7 @@ describe('services/configurations:nodeProductionConfiguration', () => {
       urls,
       stylesheetAssets,
       stats,
+      statsReset: values.stats.reset,
       statsLog: values.stats.log,
       resolve,
       babel,
@@ -177,6 +181,7 @@ describe('services/configurations:nodeProductionConfiguration', () => {
         globals: plugins.settings.globals,
       }),
       plugins: [
+        plugins.values.statsReset,
         plugins.values.resolve,
         plugins.values.babel,
         plugins.values.commonjs,
@@ -205,6 +210,7 @@ describe('services/configurations:nodeProductionConfiguration', () => {
     expect(plugins.mocks.stats).toHaveBeenCalledWith({
       path: `${target.paths.build}/`,
     });
+    expect(plugins.mocks.statsReset).toHaveBeenCalledTimes(1);
     expect(plugins.mocks.resolve).toHaveBeenCalledTimes(1);
     expect(plugins.mocks.resolve).toHaveBeenCalledWith(plugins.settings.resolve);
     expect(plugins.mocks.babel).toHaveBeenCalledTimes(1);
@@ -284,6 +290,7 @@ describe('services/configurations:nodeProductionConfiguration', () => {
         globals: Object.assign({}, output.globals, plugins.settings.globals),
       }),
       plugins: [
+        plugins.values.statsReset,
         plugins.values.resolve,
         plugins.values.babel,
         plugins.values.commonjs,

@@ -279,6 +279,13 @@
  */
 
 /**
+ * @typedef {Object} ProjextRollupStatsPluginReset
+ * @property {function} intro The method Rollup calls to get code to add on the top of the bundle.
+ *                            The plugin uses it as a _"hook"_ in order to reset the entries list
+ *                            and thus, avoid duplicated entries when Rollup is on _"watch mode"_.
+ */
+
+/**
  * @typedef {Object} ProjextRollupStatsPluginLogOptions
  * @property {Array}   extraEntries A list of extra entries to add.
  * @property {?Logger} logger       A custom instance of {@link Logger} to log the report table.
