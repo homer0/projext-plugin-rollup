@@ -10,7 +10,7 @@ jest.mock('rollup-plugin-replace');
 jest.mock('rollup-plugin-sass');
 jest.mock('rollup-plugin-html');
 jest.mock('rollup-plugin-json');
-jest.mock('rollup-plugin-uglify', () => jest.fn());
+jest.mock('rollup-plugin-uglify');
 jest.mock('/src/abstracts/configurationFile', () => ConfigurationFileMock);
 jest.unmock('/src/services/configurations/browserProductionConfiguration');
 
@@ -36,7 +36,7 @@ const replace = require('rollup-plugin-replace');
 const sass = require('rollup-plugin-sass');
 const html = require('rollup-plugin-html');
 const json = require('rollup-plugin-json');
-const uglify = require('rollup-plugin-uglify');
+const { uglify } = require('rollup-plugin-uglify');
 
 describe('services/configurations:browserProductionConfiguration', () => {
   const getPlugins = () => {
