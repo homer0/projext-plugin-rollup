@@ -341,13 +341,19 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
    * @ignore
    */
   _getCommonJSSettings(params) {
-    /**
-     * There are no settings, but because the plugin is used, the method reduces the empty
-     * configuration so other plugins/services can update it if needed.
-     */
-    const settings = {};
+    const { target, targetRules } = params;
+    // Get the rule for JS files.
+    const jsRule = targetRules.js.getRule();
 
-    const eventName = params.target.is.node ?
+    // Define the plugin settings.
+    const settings = {
+      include: [
+        ...jsRule.paths.include,
+        /node_modules\//i,
+      ],
+    };
+
+    const eventName = target.is.node ?
       'rollup-commonjs-plugin-settings-configuration-for-node' :
       'rollup-commonjs-plugin-settings-configuration-for-browser';
 
@@ -384,8 +390,10 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       options: {
         sourceMapEmbed: true,
         outputStyle: 'compressed',
+        includePaths: ['node_modules'],
       },
       processor: this._getStylesProcessor(target.css.modules),
+      failOnError: true,
     };
 
     // If the CSS should be injected, turn on the flag.

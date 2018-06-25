@@ -189,8 +189,8 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
       plugins: [
         plugins.values.statsReset,
         plugins.values.resolve,
-        plugins.values.babel,
         plugins.values.commonjs,
+        plugins.values.babel,
         plugins.values.replace,
         plugins.values.sass,
         plugins.values.css,
@@ -298,8 +298,8 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
       plugins: [
         plugins.values.statsReset,
         plugins.values.resolve,
-        plugins.values.babel,
         plugins.values.commonjs,
+        plugins.values.babel,
         plugins.values.replace,
         plugins.values.sass,
         plugins.values.css,
@@ -356,8 +356,8 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
       plugins: [
         plugins.values.statsReset,
         plugins.values.resolve,
-        plugins.values.babel,
         plugins.values.commonjs,
+        plugins.values.babel,
         plugins.values.replace,
         plugins.values.sass,
         plugins.values.css,

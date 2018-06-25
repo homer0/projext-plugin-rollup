@@ -93,6 +93,10 @@ describe('services/configurations:plugins', () => {
     };
     const rules = {
       js: {
+        paths: {
+          include: ['js-paths-include'],
+          exclude: ['js-paths-exclude'],
+        },
         files: {
           glob: {
             include: ['js-files-include-glob'],
@@ -259,14 +263,21 @@ describe('services/configurations:plugins', () => {
         include: rules.js.files.glob.include,
         exclude: rules.js.files.glob.exclude,
       }),
-      commonjs: {},
+      commonjs: {
+        include: [
+          ...rules.js.paths.include,
+          /node_modules\//i,
+        ],
+      },
       sass: {
         include: rules.scss.files.include,
         exclude: rules.scss.files.exclude,
         options: {
           sourceMapEmbed: true,
           outputStyle: 'compressed',
+          includePaths: ['node_modules'],
         },
+        failOnError: true,
         processor: expect.any(Function),
         output: false,
       },
@@ -527,6 +538,10 @@ describe('services/configurations:plugins', () => {
     };
     const rules = {
       js: {
+        paths: {
+          include: ['js-paths-include'],
+          exclude: ['js-paths-exclude'],
+        },
         files: {
           glob: {
             include: ['js-files-include-glob'],
@@ -691,14 +706,21 @@ describe('services/configurations:plugins', () => {
         include: rules.js.files.glob.include,
         exclude: rules.js.files.glob.exclude,
       }),
-      commonjs: {},
+      commonjs: {
+        include: [
+          ...rules.js.paths.include,
+          /node_modules\//i,
+        ],
+      },
       sass: {
         include: rules.scss.files.include,
         exclude: rules.scss.files.exclude,
         options: {
           sourceMapEmbed: true,
           outputStyle: 'compressed',
+          includePaths: ['node_modules'],
         },
+        failOnError: true,
         processor: expect.any(Function),
         output: false,
       },
@@ -971,6 +993,10 @@ describe('services/configurations:plugins', () => {
     };
     const rules = {
       js: {
+        paths: {
+          include: ['js-paths-include'],
+          exclude: ['js-paths-exclude'],
+        },
         files: {
           glob: {
             include: ['js-files-include-glob'],
@@ -1129,14 +1155,21 @@ describe('services/configurations:plugins', () => {
         include: rules.js.files.glob.include,
         exclude: rules.js.files.glob.exclude,
       }),
-      commonjs: {},
+      commonjs: {
+        include: [
+          ...rules.js.paths.include,
+          /node_modules\//i,
+        ],
+      },
       sass: {
         include: rules.scss.files.include,
         exclude: rules.scss.files.exclude,
         options: {
           sourceMapEmbed: true,
           outputStyle: 'compressed',
+          includePaths: ['node_modules'],
         },
+        failOnError: true,
         processor: expect.any(Function),
         output: `${target.paths.build}/${paths.css}`,
       },
@@ -1419,6 +1452,10 @@ describe('services/configurations:plugins', () => {
     };
     const rules = {
       js: {
+        paths: {
+          include: ['js-paths-include'],
+          exclude: ['js-paths-exclude'],
+        },
         files: {
           glob: {
             include: ['js-files-include-glob'],
@@ -1577,14 +1614,21 @@ describe('services/configurations:plugins', () => {
         include: rules.js.files.glob.include,
         exclude: rules.js.files.glob.exclude,
       }),
-      commonjs: {},
+      commonjs: {
+        include: [
+          ...rules.js.paths.include,
+          /node_modules\//i,
+        ],
+      },
       sass: {
         include: rules.scss.files.include,
         exclude: rules.scss.files.exclude,
         options: {
           sourceMapEmbed: true,
           outputStyle: 'compressed',
+          includePaths: ['node_modules'],
         },
+        failOnError: true,
         processor: expect.any(Function),
         insert: true,
       },
@@ -1870,6 +1914,10 @@ describe('services/configurations:plugins', () => {
     };
     const rules = {
       js: {
+        paths: {
+          include: ['js-paths-include'],
+          exclude: ['js-paths-exclude'],
+        },
         files: {
           glob: {
             include: ['js-files-include-glob'],
@@ -2030,14 +2078,21 @@ describe('services/configurations:plugins', () => {
         include: rules.js.files.glob.include,
         exclude: rules.js.files.glob.exclude,
       }),
-      commonjs: {},
+      commonjs: {
+        include: [
+          ...rules.js.paths.include,
+          /node_modules\//i,
+        ],
+      },
       sass: {
         include: rules.scss.files.include,
         exclude: rules.scss.files.exclude,
         options: {
           sourceMapEmbed: true,
           outputStyle: 'compressed',
+          includePaths: ['node_modules'],
         },
+        failOnError: true,
         processor: expect.any(Function),
         output: `${target.paths.build}/${paths.css}`,
       },
@@ -2324,6 +2379,10 @@ describe('services/configurations:plugins', () => {
     };
     const rules = {
       js: {
+        paths: {
+          include: ['js-paths-include'],
+          exclude: ['js-paths-exclude'],
+        },
         files: {
           glob: {
             include: ['js-files-include-glob'],
@@ -2482,14 +2541,21 @@ describe('services/configurations:plugins', () => {
         include: rules.js.files.glob.include,
         exclude: rules.js.files.glob.exclude,
       }),
-      commonjs: {},
+      commonjs: {
+        include: [
+          ...rules.js.paths.include,
+          /node_modules\//i,
+        ],
+      },
       sass: {
         include: rules.scss.files.include,
         exclude: rules.scss.files.exclude,
         options: {
           sourceMapEmbed: true,
           outputStyle: 'compressed',
+          includePaths: ['node_modules'],
         },
+        failOnError: true,
         processor: expect.any(Function),
         output: `${target.paths.build}/${paths.css}`,
       },
@@ -2782,6 +2848,10 @@ describe('services/configurations:plugins', () => {
     };
     const rules = {
       js: {
+        paths: {
+          include: ['js-paths-include'],
+          exclude: ['js-paths-exclude'],
+        },
         files: {
           glob: {
             include: ['js-files-include-glob'],
@@ -2984,6 +3054,10 @@ describe('services/configurations:plugins', () => {
     };
     const rules = {
       js: {
+        paths: {
+          include: ['js-paths-include'],
+          exclude: ['js-paths-exclude'],
+        },
         files: {
           glob: {
             include: ['js-files-include-glob'],
@@ -3181,6 +3255,10 @@ describe('services/configurations:plugins', () => {
     };
     const rules = {
       js: {
+        paths: {
+          include: ['js-paths-include'],
+          exclude: ['js-paths-exclude'],
+        },
         files: {
           glob: {
             include: ['js-files-include-glob'],

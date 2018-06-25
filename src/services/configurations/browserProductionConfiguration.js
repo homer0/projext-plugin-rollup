@@ -74,8 +74,8 @@ class RollupBrowserProductionConfiguration extends ConfigurationFile {
     const plugins = [
       statsPlugin.reset(),
       resolve(pluginSettings.resolve),
-      babel(pluginSettings.babel),
       commonjs(pluginSettings.commonjs),
+      babel(pluginSettings.babel),
       replace(pluginSettings.replace),
       sass(pluginSettings.sass),
       css(pluginSettings.css),
