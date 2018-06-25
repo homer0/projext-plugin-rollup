@@ -16,6 +16,7 @@ const {
   devServer,
   stats,
   stylesheetModulesFixer,
+  windowAsGlobal,
 } = require('../../plugins');
 /**
  * Creates the specifics of a Rollup configuration for a browser target development build.
@@ -75,6 +76,7 @@ class RollupBrowserDevelopmentConfiguration extends ConfigurationFile {
       resolve(pluginSettings.resolve),
       commonjs(pluginSettings.commonjs),
       babel(pluginSettings.babel),
+      windowAsGlobal(),
       replace(pluginSettings.replace),
       sass(pluginSettings.sass),
       css(pluginSettings.css),

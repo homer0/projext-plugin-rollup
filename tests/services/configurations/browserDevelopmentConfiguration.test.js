@@ -26,6 +26,7 @@ const {
   devServer,
   stats,
   stylesheetModulesFixer,
+  windowAsGlobal,
 } = require('/src/plugins');
 const resolve = require('rollup-plugin-node-resolve');
 const babel = require('rollup-plugin-babel');
@@ -51,6 +52,7 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
         add: 'add-entry',
       },
       stylesheetModulesFixer: 'stylesheetModulesFixer-plugin',
+      windowAsGlobal: 'windowAsGlobal-plugin',
       resolve: 'resolve-plugin',
       babel: 'babel-plugin',
       commonjs: 'commonjs-plugin',
@@ -68,6 +70,7 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
     devServer.mockImplementationOnce(() => values.devServer);
     stats.mockImplementationOnce(() => values.stats);
     stylesheetModulesFixer.mockImplementationOnce(() => values.stylesheetModulesFixer);
+    windowAsGlobal.mockImplementationOnce(() => values.windowAsGlobal);
     resolve.mockImplementationOnce(() => values.resolve);
     babel.mockImplementationOnce(() => values.babel);
     commonjs.mockImplementationOnce(() => values.commonjs);
@@ -85,6 +88,7 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
       statsReset: values.stats.reset,
       statsLog: values.stats.log,
       stylesheetModulesFixer,
+      windowAsGlobal,
       resolve,
       babel,
       commonjs,
@@ -132,6 +136,7 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
     devServer.mockClear();
     stats.mockClear();
     stylesheetModulesFixer.mockClear();
+    windowAsGlobal.mockClear();
     resolve.mockClear();
     babel.mockClear();
     commonjs.mockClear();
@@ -200,6 +205,7 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
         plugins.values.resolve,
         plugins.values.commonjs,
         plugins.values.babel,
+        plugins.values.windowAsGlobal,
         plugins.values.replace,
         plugins.values.sass,
         plugins.values.css,
@@ -232,6 +238,7 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
     expect(plugins.mocks.babel).toHaveBeenCalledWith(plugins.settings.babel);
     expect(plugins.mocks.commonjs).toHaveBeenCalledTimes(1);
     expect(plugins.mocks.commonjs).toHaveBeenCalledWith(plugins.settings.commonjs);
+    expect(plugins.mocks.windowAsGlobal).toHaveBeenCalledTimes(1);
     expect(plugins.mocks.replace).toHaveBeenCalledTimes(1);
     expect(plugins.mocks.replace).toHaveBeenCalledWith(plugins.settings.replace);
     expect(plugins.mocks.sass).toHaveBeenCalledTimes(1);
@@ -306,6 +313,7 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
         plugins.values.resolve,
         plugins.values.commonjs,
         plugins.values.babel,
+        plugins.values.windowAsGlobal,
         plugins.values.replace,
         plugins.values.sass,
         plugins.values.css,
@@ -373,6 +381,7 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
         plugins.values.resolve,
         plugins.values.commonjs,
         plugins.values.babel,
+        plugins.values.windowAsGlobal,
         plugins.values.replace,
         plugins.values.sass,
         plugins.values.css,
@@ -434,6 +443,7 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
         plugins.values.resolve,
         plugins.values.commonjs,
         plugins.values.babel,
+        plugins.values.windowAsGlobal,
         plugins.values.replace,
         plugins.values.sass,
         plugins.values.css,

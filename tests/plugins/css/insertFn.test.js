@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 jest.unmock('/src/plugins/css/insertFn');
 
 const insert = require('/src/plugins/css/insertFn');

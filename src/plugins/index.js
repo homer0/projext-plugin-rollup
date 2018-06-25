@@ -7,6 +7,7 @@ const { stylesheetAssets } = require('./stylesheetAssets');
 const { stylesheetModulesFixer } = require('./stylesheetModulesFixer');
 const { template } = require('./template');
 const { urls } = require('./urls');
+const { windowAsGlobal } = require('./windowAsGlobal');
 
 module.exports = {
   compression,
@@ -18,4 +19,5 @@ module.exports = {
   stylesheetModulesFixer,
   template,
   urls,
+  windowAsGlobal,
 };
