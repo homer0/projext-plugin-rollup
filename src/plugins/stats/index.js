@@ -125,13 +125,20 @@ class ProjextRollupStatsPlugin {
       this._logger = logger;
       delete newOptions.logger;
     }
-    // Add any extra entry specified on the options.
-    newOptions.extraEntries.forEach((entry) => {
-      this.add(entry.plugin, entry.filepath);
-    });
     // Return the _"sub plugin"_.
     return {
-      onwrite: this._logStats.bind(this),
+      onwrite: () => {
+        /**
+         * Add any extra entry specified on the options. The reason they're being added here
+         * instead of the parent scope it's because the `reset` _"sub plugin"_ may remove them
+         * if they are added out of the plugins cycle.
+         */
+        newOptions.extraEntries.forEach((entry) => {
+          this.add(entry.plugin, entry.filepath);
+        });
+        // Log the report table.
+        return this._logStats();
+      },
     };
   }
   /**
