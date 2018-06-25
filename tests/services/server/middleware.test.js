@@ -17,10 +17,13 @@ const {
   rollupMiddleware,
 } = require('/src/services/server/middleware');
 
+const originalProcessExit = process.exit;
+
 describe('services/server:middleware', () => {
   beforeEach(() => {
     fs.pathExistsSync.mockReset();
     rollup.watch.mockReset();
+    process.exit = originalProcessExit;
   });
 
   it('should be instantiated with all its dependencies', () => {
@@ -581,6 +584,7 @@ describe('services/server:middleware', () => {
 
   it('should log an error message when Rollup fails to build a target', () => {
     // Given
+    process.exit = jest.fn();
     const rollupWatch = {
       on: jest.fn(),
     };
@@ -619,9 +623,7 @@ describe('services/server:middleware', () => {
     };
     const fatalEvent = {
       code: 'FATAL',
-    };
-    const unknownEvent = {
-      code: 'UNKNOWN',
+      error: new Error('Some fatal error'),
     };
     let sut = null;
     let info = null;
@@ -633,9 +635,18 @@ describe('services/server:middleware', () => {
     [[, eventHandler]] = rollupWatch.on.mock.calls;
     eventHandler(errorEvent);
     eventHandler(fatalEvent);
-    eventHandler(unknownEvent);
     // Then
-    expect(appLogger.error).toHaveBeenCalledTimes(['error', 'fatal', 'unknown'].length);
+    expect(appLogger.error).toHaveBeenCalledTimes([
+      'error',
+      'fatal',
+      'fatal-error',
+    ].length);
+    expect(appLogger.error).toHaveBeenCalledWith('The Rollup build can\'t be created');
+    expect(appLogger.error)
+    .toHaveBeenCalledWith('There was a problem while creating the Rollup build');
+    expect(appLogger.error).toHaveBeenCalledWith(fatalEvent.error);
+    expect(process.exit).toHaveBeenCalledTimes(1);
+    expect(process.exit).toHaveBeenCalledWith(1);
   });
 
   it('should include a provider for the DIC', () => {

@@ -184,6 +184,7 @@ class RollupMiddleware {
       this._watcher = rollup.watch(configuration);
       // Listen for the watcher events.
       this._watcher.on('event', (event) => {
+        // eslint-disable-next-line default-case
         switch (event.code) {
         case 'START':
           this._onStart(target);
@@ -195,7 +196,6 @@ class RollupMiddleware {
           this._onError(target, event);
           break;
         case 'FATAL':
-        default:
           this._onError(target, event, true);
           break;
         }
@@ -238,8 +238,17 @@ class RollupMiddleware {
    * @access protected
    * @ignore
    */
-  _onError() {
-    this.appLogger.error('There was a problem while creating the Rollup build');
+  _onError(target, event, fatal = false) {
+    const message = fatal ?
+      'The Rollup build can\'t be created' :
+      'There was a problem while creating the Rollup build';
+    this.appLogger.error(message);
+    if (event.error) {
+      this.appLogger.error(event.error);
+    }
+    if (fatal) {
+      process.exit(1);
+    }
   }
 }
 /**
