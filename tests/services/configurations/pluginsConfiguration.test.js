@@ -265,7 +265,6 @@ describe('services/configurations:plugins', () => {
       }),
       commonjs: {
         include: [
-          ...rules.js.paths.include,
           /node_modules\//i,
         ],
       },
@@ -708,7 +707,6 @@ describe('services/configurations:plugins', () => {
       }),
       commonjs: {
         include: [
-          ...rules.js.paths.include,
           /node_modules\//i,
         ],
       },
@@ -1157,7 +1155,6 @@ describe('services/configurations:plugins', () => {
       }),
       commonjs: {
         include: [
-          ...rules.js.paths.include,
           /node_modules\//i,
         ],
       },
@@ -1616,7 +1613,6 @@ describe('services/configurations:plugins', () => {
       }),
       commonjs: {
         include: [
-          ...rules.js.paths.include,
           /node_modules\//i,
         ],
       },
@@ -2080,7 +2076,6 @@ describe('services/configurations:plugins', () => {
       }),
       commonjs: {
         include: [
-          ...rules.js.paths.include,
           /node_modules\//i,
         ],
       },
@@ -2543,7 +2538,6 @@ describe('services/configurations:plugins', () => {
       }),
       commonjs: {
         include: [
-          ...rules.js.paths.include,
           /node_modules\//i,
         ],
       },

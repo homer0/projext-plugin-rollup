@@ -341,19 +341,14 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
    * @ignore
    */
   _getCommonJSSettings(params) {
-    const { target, targetRules } = params;
-    // Get the rule for JS files.
-    const jsRule = targetRules.js.getRule();
-
     // Define the plugin settings.
     const settings = {
       include: [
-        ...jsRule.paths.include,
         /node_modules\//i,
       ],
     };
 
-    const eventName = target.is.node ?
+    const eventName = params.target.is.node ?
       'rollup-commonjs-plugin-settings-configuration-for-node' :
       'rollup-commonjs-plugin-settings-configuration-for-browser';
 
