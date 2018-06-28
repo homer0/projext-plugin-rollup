@@ -344,6 +344,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     // Define the plugin settings.
     const settings = {
       include: [
+        new RegExp(this.pathUtils.join('config'), 'i'),
         /node_modules\//i,
       ],
     };

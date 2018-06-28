@@ -199,7 +199,9 @@ describe('services/configurations:plugins', () => {
         colors: 'next',
       },
     };
-    const pathUtils = 'pathUtils';
+    const pathUtils = {
+      join: jest.fn((rest) => rest),
+    };
     const pluginName = 'plugin';
     const rollupPluginExternal = 'jimpexExt';
     const rollupPluginExternalNormalized = 'JimpexExt';
@@ -265,6 +267,7 @@ describe('services/configurations:plugins', () => {
       }),
       commonjs: {
         include: [
+          /config/i,
           /node_modules\//i,
         ],
       },
@@ -506,6 +509,8 @@ describe('services/configurations:plugins', () => {
         params
       );
     });
+    expect(pathUtils.join).toHaveBeenCalledTimes(1);
+    expect(pathUtils.join).toHaveBeenCalledWith('config');
   });
 
   it('shouldn\'t include the dev dependencies as externals for a Node production build', () => {
@@ -643,7 +648,9 @@ describe('services/configurations:plugins', () => {
         colors: 'next',
       },
     };
-    const pathUtils = 'pathUtils';
+    const pathUtils = {
+      join: jest.fn((rest) => rest),
+    };
     const pluginName = 'plugin';
     const rollupPluginExternal = 'jimpexExt';
     const rollupPluginExternalNormalized = 'JimpexExt';
@@ -707,6 +714,7 @@ describe('services/configurations:plugins', () => {
       }),
       commonjs: {
         include: [
+          /config/i,
           /node_modules\//i,
         ],
       },
@@ -1097,7 +1105,9 @@ describe('services/configurations:plugins', () => {
         colors: 'next',
       },
     };
-    const pathUtils = 'pathUtils';
+    const pathUtils = {
+      join: jest.fn((rest) => rest),
+    };
     const pluginName = 'plugin';
     const rollupPluginInfo = {
       name: pluginName,
@@ -1155,6 +1165,7 @@ describe('services/configurations:plugins', () => {
       }),
       commonjs: {
         include: [
+          /config/i,
           /node_modules\//i,
         ],
       },
@@ -1555,7 +1566,9 @@ describe('services/configurations:plugins', () => {
         colors: 'next',
       },
     };
-    const pathUtils = 'pathUtils';
+    const pathUtils = {
+      join: jest.fn((rest) => rest),
+    };
     const pluginName = 'plugin';
     const rollupPluginInfo = {
       name: pluginName,
@@ -1613,6 +1626,7 @@ describe('services/configurations:plugins', () => {
       }),
       commonjs: {
         include: [
+          /config/i,
           /node_modules\//i,
         ],
       },
@@ -2076,6 +2090,7 @@ describe('services/configurations:plugins', () => {
       }),
       commonjs: {
         include: [
+          /config/i,
           /node_modules\//i,
         ],
       },
@@ -2480,7 +2495,9 @@ describe('services/configurations:plugins', () => {
         colors: 'next',
       },
     };
-    const pathUtils = 'pathUtils';
+    const pathUtils = {
+      join: jest.fn((rest) => rest),
+    };
     const pluginName = 'plugin';
     const rollupPluginInfo = {
       name: pluginName,
@@ -2538,6 +2555,7 @@ describe('services/configurations:plugins', () => {
       }),
       commonjs: {
         include: [
+          /config/i,
           /node_modules\//i,
         ],
       },
@@ -2948,7 +2966,9 @@ describe('services/configurations:plugins', () => {
         colors: 'next',
       },
     };
-    const pathUtils = 'pathUtils';
+    const pathUtils = {
+      join: jest.fn((rest) => rest),
+    };
     const pluginName = 'plugin';
     const rollupPluginInfo = {
       name: pluginName,
@@ -3154,7 +3174,9 @@ describe('services/configurations:plugins', () => {
         colors: 'next',
       },
     };
-    const pathUtils = 'pathUtils';
+    const pathUtils = {
+      join: jest.fn((rest) => rest),
+    };
     const pluginName = 'plugin';
     const rollupPluginInfo = {
       name: pluginName,
@@ -3355,7 +3377,9 @@ describe('services/configurations:plugins', () => {
         colors: 'next',
       },
     };
-    const pathUtils = 'pathUtils';
+    const pathUtils = {
+      join: jest.fn((rest) => rest),
+    };
     const pluginName = 'plugin';
     const rollupPluginInfo = {
       name: pluginName,
