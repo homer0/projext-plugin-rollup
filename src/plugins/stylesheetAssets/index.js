@@ -547,6 +547,7 @@ const stylesheetAssets = (
   options,
   name
 ) => new ProjextRollupStylesheetAssetsPlugin(options, name);
+stylesheetAssets.helper = ProjextRollupStylesheetAssetsPlugin.helper;
 
 module.exports = {
   ProjextRollupStylesheetAssetsPlugin,

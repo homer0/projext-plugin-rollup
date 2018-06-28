@@ -454,5 +454,6 @@ describe('plugins:stylesheetAssets', () => {
     expect(sut.onwrite).toBeFunction();
     expect(rollupUtils.createFilter).toHaveBeenCalledTimes(1);
     expect(rollupUtils.createFilter).toHaveBeenCalledWith(url.include, url.exclude);
+    expect(stylesheetAssets.helper).toBe(ProjextRollupStylesheetAssetsPlugin.helper);
   });
 });
