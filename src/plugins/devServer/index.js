@@ -268,8 +268,8 @@ class ProjextRollupDevServerPlugin {
         if (req.url === '/favicon.ico') {
           result = this._serveDefaultFavicon(res);
         } else if (this._options.historyApiFallback) {
-          // If `historyApiFallback` is enabled, redirect to the `index.html`.
-          result = res.redirect('/');
+          // If `historyApiFallback` is enabled, try to serve the `index.html`.
+          result = this._serveFallback(res, urlPath);
         } else {
           // Otherwise, respond with a Not Found.
           result = this._notFound(res, urlPath);
@@ -347,7 +347,7 @@ class ProjextRollupDevServerPlugin {
     res.end(file, 'utf-8');
   }
   /**
-   * This method gets called when the server recived a a request for `/favicon.ico` and the file
+   * This method gets called when the server recived a request for `/favicon.ico` and the file
    * doesn't exist. It tries to load the plugin's favicon and serve it.
    * @param {HTTPResponse} res The response information.
    * @return {Promise<undefined,Error>}
@@ -364,6 +364,36 @@ class ProjextRollupDevServerPlugin {
     // If something went wrong, respond with an Internal Error.
     .catch((error) => {
       this._internalError(res, error);
+    });
+  }
+  /**
+   * This method gets called when the server received a request for a path that doesn't exist and
+   * `historyApiFallback` is enabled. The method will try to serve the contents of `/index.html`.
+   * @param {HTTPResponse} res          The response information.
+   * @param {string}       originalPath The file path originally requested.
+   * @return {Promise<undefined,Error>}
+   * @access protected
+   * @ignore
+   */
+  _serveFallback(res, originalPath) {
+    const urlPath = 'index.html';
+    return this._readFileFromContentBase(urlPath)
+    // Serve the file.
+    .then((contents) => {
+      this._serveFile(res, urlPath, contents);
+    })
+    // In case of failure...
+    .catch((error) => {
+      let result = null;
+      // If the file couldn't be found...
+      if (error.message && error.message === this._NOT_FOUND_ERROR) {
+        result = this._notFound(res, originalPath);
+      } else {
+        // If the error is unknown, respond with an Internal Error.
+        result = this._internalError(res, error);
+      }
+
+      return result;
     });
   }
   /**

@@ -467,152 +467,6 @@ describe('plugins:devServer', () => {
     });
   });
 
-  it('should serve the default favicon', () => {
-    // Given
-    process.on = jest.fn();
-    const contentBase = './';
-    const req = {
-      url: '/favicon.ico',
-    };
-    const res = {
-      writeHead: jest.fn(),
-      end: jest.fn(),
-    };
-    const options = {
-      contentBase,
-      historyApiFallback: false,
-    };
-    const mimeType = 'image/ico';
-    mime.getType.mockImplementationOnce(() => mimeType);
-    fs.pathExistsSync.mockImplementationOnce(() => false);
-    const fileContents = 'favicon-code';
-    fs.readFile.mockImplementationOnce(() => Promise.resolve(fileContents));
-    const server = {
-      listen: jest.fn(),
-    };
-    createHTTPServer.mockImplementationOnce(() => server);
-    const logger = {
-      success: jest.fn(),
-      info: jest.fn(),
-    };
-    ProjextRollupUtils.createLogger.mockImplementationOnce(() => logger);
-    let sut = null;
-    let handler = null;
-    // When
-    sut = new ProjextRollupDevServerPlugin(options);
-    sut.onwrite();
-    [[handler]] = createHTTPServer.mock.calls;
-    return handler(req, res)
-    .then(() => {
-      expect(fs.pathExistsSync).toHaveBeenCalledTimes(1);
-      expect(fs.pathExistsSync).toHaveBeenCalledWith(path.join(contentBase, req.url));
-      expect(fs.readFile).toHaveBeenCalledTimes(1);
-      expect(fs.readFile).toHaveBeenCalledWith(expect.any(String));
-      expect(mime.getType).toHaveBeenCalledTimes(1);
-      expect(mime.getType).toHaveBeenCalledWith(req.url);
-      expect(res.writeHead).toHaveBeenCalledTimes(1);
-      expect(res.writeHead).toHaveBeenCalledWith(200, {
-        'Content-Type': mimeType,
-      });
-      expect(res.end).toHaveBeenCalledTimes(1);
-      expect(res.end).toHaveBeenCalledWith(fileContents, 'utf-8');
-    })
-    .catch((error) => {
-      throw error;
-    });
-  });
-
-  it('should redirect to the index when a file is not found', () => {
-    // Given
-    process.on = jest.fn();
-    const contentBase = './';
-    const req = {
-      url: '/something',
-    };
-    const res = {
-      redirect: jest.fn(),
-    };
-    const options = {
-      contentBase,
-      historyApiFallback: true,
-    };
-    fs.pathExistsSync.mockImplementationOnce(() => false);
-    const server = {
-      listen: jest.fn(),
-    };
-    createHTTPServer.mockImplementationOnce(() => server);
-    const logger = {
-      success: jest.fn(),
-      info: jest.fn(),
-    };
-    ProjextRollupUtils.createLogger.mockImplementationOnce(() => logger);
-    let sut = null;
-    let handler = null;
-    // When
-    sut = new ProjextRollupDevServerPlugin(options);
-    sut.onwrite();
-    [[handler]] = createHTTPServer.mock.calls;
-    return handler(req, res)
-    .then(() => {
-      expect(fs.pathExistsSync).toHaveBeenCalledTimes(1);
-      expect(fs.pathExistsSync).toHaveBeenCalledWith(path.join(contentBase, req.url));
-      expect(res.redirect).toHaveBeenCalledTimes(1);
-      expect(res.redirect).toHaveBeenCalledWith('/');
-    })
-    .catch((error) => {
-      throw error;
-    });
-  });
-
-  it('should fail to serve the default favicon', () => {
-    // Given
-    process.on = jest.fn();
-    const contentBase = './';
-    const req = {
-      url: '/favicon.ico',
-    };
-    const res = {
-      writeHead: jest.fn(),
-      end: jest.fn(),
-    };
-    const options = {
-      contentBase,
-      historyApiFallback: false,
-    };
-    fs.pathExistsSync.mockImplementationOnce(() => false);
-    const readError = new Error('Unknown error');
-    fs.readFile.mockImplementationOnce(() => Promise.reject(readError));
-    const server = {
-      listen: jest.fn(),
-    };
-    createHTTPServer.mockImplementationOnce(() => server);
-    const logger = {
-      success: jest.fn(),
-      info: jest.fn(),
-    };
-    ProjextRollupUtils.createLogger.mockImplementationOnce(() => logger);
-    let sut = null;
-    let handler = null;
-    // When
-    sut = new ProjextRollupDevServerPlugin(options);
-    sut.onwrite();
-    [[handler]] = createHTTPServer.mock.calls;
-    return handler(req, res)
-    .then(() => {
-      expect(fs.pathExistsSync).toHaveBeenCalledTimes(1);
-      expect(fs.pathExistsSync).toHaveBeenCalledWith(path.join(contentBase, req.url));
-      expect(fs.readFile).toHaveBeenCalledTimes(1);
-      expect(fs.readFile).toHaveBeenCalledWith(expect.any(String));
-      expect(res.writeHead).toHaveBeenCalledTimes(1);
-      expect(res.writeHead).toHaveBeenCalledWith(500);
-      expect(res.end).toHaveBeenCalledTimes(1);
-      expect(res.end).toHaveBeenCalledWith(expect.any(String), 'utf-8');
-    })
-    .catch((error) => {
-      throw error;
-    });
-  });
-
   it('should fail to serve a file', () => {
     // Given
     process.on = jest.fn();
@@ -697,6 +551,274 @@ describe('plugins:devServer', () => {
     .then(() => {
       expect(fs.pathExistsSync).toHaveBeenCalledTimes(1);
       expect(fs.pathExistsSync).toHaveBeenCalledWith(path.join(contentBase, req.url));
+      expect(res.writeHead).toHaveBeenCalledTimes(1);
+      expect(res.writeHead).toHaveBeenCalledWith(404);
+      expect(res.end).toHaveBeenCalledTimes(1);
+      expect(res.end).toHaveBeenCalledWith(
+        `404 Not Found\n\n${req.url}\n\n${sut.name}`,
+        'utf-8'
+      );
+    })
+    .catch((error) => {
+      throw error;
+    });
+  });
+
+  it('should serve the default favicon', () => {
+    // Given
+    process.on = jest.fn();
+    const contentBase = './';
+    const req = {
+      url: '/favicon.ico',
+    };
+    const res = {
+      writeHead: jest.fn(),
+      end: jest.fn(),
+    };
+    const options = {
+      contentBase,
+      historyApiFallback: false,
+    };
+    const mimeType = 'image/ico';
+    mime.getType.mockImplementationOnce(() => mimeType);
+    fs.pathExistsSync.mockImplementationOnce(() => false);
+    const fileContents = 'favicon-code';
+    fs.readFile.mockImplementationOnce(() => Promise.resolve(fileContents));
+    const server = {
+      listen: jest.fn(),
+    };
+    createHTTPServer.mockImplementationOnce(() => server);
+    const logger = {
+      success: jest.fn(),
+      info: jest.fn(),
+    };
+    ProjextRollupUtils.createLogger.mockImplementationOnce(() => logger);
+    let sut = null;
+    let handler = null;
+    // When
+    sut = new ProjextRollupDevServerPlugin(options);
+    sut.onwrite();
+    [[handler]] = createHTTPServer.mock.calls;
+    return handler(req, res)
+    .then(() => {
+      expect(fs.pathExistsSync).toHaveBeenCalledTimes(1);
+      expect(fs.pathExistsSync).toHaveBeenCalledWith(path.join(contentBase, req.url));
+      expect(fs.readFile).toHaveBeenCalledTimes(1);
+      expect(fs.readFile).toHaveBeenCalledWith(expect.any(String));
+      expect(mime.getType).toHaveBeenCalledTimes(1);
+      expect(mime.getType).toHaveBeenCalledWith(req.url);
+      expect(res.writeHead).toHaveBeenCalledTimes(1);
+      expect(res.writeHead).toHaveBeenCalledWith(200, {
+        'Content-Type': mimeType,
+      });
+      expect(res.end).toHaveBeenCalledTimes(1);
+      expect(res.end).toHaveBeenCalledWith(fileContents, 'utf-8');
+    })
+    .catch((error) => {
+      throw error;
+    });
+  });
+
+  it('should fail to serve the default favicon', () => {
+    // Given
+    process.on = jest.fn();
+    const contentBase = './';
+    const req = {
+      url: '/favicon.ico',
+    };
+    const res = {
+      writeHead: jest.fn(),
+      end: jest.fn(),
+    };
+    const options = {
+      contentBase,
+      historyApiFallback: false,
+    };
+    fs.pathExistsSync.mockImplementationOnce(() => false);
+    const readError = new Error('Unknown error');
+    fs.readFile.mockImplementationOnce(() => Promise.reject(readError));
+    const server = {
+      listen: jest.fn(),
+    };
+    createHTTPServer.mockImplementationOnce(() => server);
+    const logger = {
+      success: jest.fn(),
+      info: jest.fn(),
+    };
+    ProjextRollupUtils.createLogger.mockImplementationOnce(() => logger);
+    let sut = null;
+    let handler = null;
+    // When
+    sut = new ProjextRollupDevServerPlugin(options);
+    sut.onwrite();
+    [[handler]] = createHTTPServer.mock.calls;
+    return handler(req, res)
+    .then(() => {
+      expect(fs.pathExistsSync).toHaveBeenCalledTimes(1);
+      expect(fs.pathExistsSync).toHaveBeenCalledWith(path.join(contentBase, req.url));
+      expect(fs.readFile).toHaveBeenCalledTimes(1);
+      expect(fs.readFile).toHaveBeenCalledWith(expect.any(String));
+      expect(res.writeHead).toHaveBeenCalledTimes(1);
+      expect(res.writeHead).toHaveBeenCalledWith(500);
+      expect(res.end).toHaveBeenCalledTimes(1);
+      expect(res.end).toHaveBeenCalledWith(expect.any(String), 'utf-8');
+    })
+    .catch((error) => {
+      throw error;
+    });
+  });
+
+  it('should serve the index when a file is not found', () => {
+    // Given
+    process.on = jest.fn();
+    const contentBase = './';
+    const req = {
+      url: '/something',
+    };
+    const res = {
+      writeHead: jest.fn(),
+      end: jest.fn(),
+    };
+    const options = {
+      contentBase,
+      historyApiFallback: true,
+    };
+    const mimeType = 'text/something';
+    mime.getType.mockImplementationOnce(() => mimeType);
+    fs.pathExistsSync.mockImplementationOnce(() => false);
+    fs.pathExistsSync.mockImplementationOnce(() => true);
+    const fileContents = 'some-code';
+    fs.readFile.mockImplementationOnce(() => Promise.resolve(fileContents));
+    const server = {
+      listen: jest.fn(),
+    };
+    createHTTPServer.mockImplementationOnce(() => server);
+    const logger = {
+      success: jest.fn(),
+      info: jest.fn(),
+    };
+    ProjextRollupUtils.createLogger.mockImplementationOnce(() => logger);
+    let sut = null;
+    let handler = null;
+    const expectedIndex = 'index.html';
+    const expectedIndexPath = path.join(contentBase, expectedIndex);
+    // When
+    sut = new ProjextRollupDevServerPlugin(options);
+    sut.onwrite();
+    [[handler]] = createHTTPServer.mock.calls;
+    return handler(req, res)
+    .then(() => {
+      expect(fs.pathExistsSync).toHaveBeenCalledTimes(2);
+      expect(fs.pathExistsSync).toHaveBeenCalledWith(path.join(contentBase, req.url));
+      expect(fs.pathExistsSync).toHaveBeenCalledWith(expectedIndexPath);
+      expect(fs.readFile).toHaveBeenCalledTimes(1);
+      expect(fs.readFile).toHaveBeenCalledWith(expectedIndexPath);
+      expect(mime.getType).toHaveBeenCalledTimes(1);
+      expect(mime.getType).toHaveBeenCalledWith(expectedIndex);
+      expect(res.writeHead).toHaveBeenCalledTimes(1);
+      expect(res.writeHead).toHaveBeenCalledWith(200, {
+        'Content-Type': mimeType,
+      });
+      expect(res.end).toHaveBeenCalledTimes(1);
+      expect(res.end).toHaveBeenCalledWith(fileContents, 'utf-8');
+    })
+    .catch((error) => {
+      throw error;
+    });
+  });
+
+  it('should fail to serve the fallback', () => {
+    // Given
+    process.on = jest.fn();
+    const contentBase = './';
+    const req = {
+      url: '/something',
+    };
+    const res = {
+      writeHead: jest.fn(),
+      end: jest.fn(),
+    };
+    const options = {
+      contentBase,
+      historyApiFallback: true,
+    };
+    fs.pathExistsSync.mockImplementationOnce(() => false);
+    fs.pathExistsSync.mockImplementationOnce(() => true);
+    const readError = 'Some unknown error';
+    fs.readFile.mockImplementationOnce(() => Promise.reject(readError));
+    const server = {
+      listen: jest.fn(),
+    };
+    createHTTPServer.mockImplementationOnce(() => server);
+    const logger = {
+      success: jest.fn(),
+      info: jest.fn(),
+    };
+    ProjextRollupUtils.createLogger.mockImplementationOnce(() => logger);
+    let sut = null;
+    let handler = null;
+    const expectedIndex = 'index.html';
+    const expectedIndexPath = path.join(contentBase, expectedIndex);
+    // When
+    sut = new ProjextRollupDevServerPlugin(options);
+    sut.onwrite();
+    [[handler]] = createHTTPServer.mock.calls;
+    return handler(req, res)
+    .then(() => {
+      expect(fs.pathExistsSync).toHaveBeenCalledTimes(2);
+      expect(fs.pathExistsSync).toHaveBeenCalledWith(path.join(contentBase, req.url));
+      expect(fs.pathExistsSync).toHaveBeenCalledWith(expectedIndexPath);
+      expect(fs.readFile).toHaveBeenCalledTimes(1);
+      expect(fs.readFile).toHaveBeenCalledWith(expectedIndexPath);
+      expect(res.writeHead).toHaveBeenCalledTimes(1);
+      expect(res.writeHead).toHaveBeenCalledWith(500);
+      expect(res.end).toHaveBeenCalledTimes(1);
+      expect(res.end).toHaveBeenCalledWith(expect.any(String), 'utf-8');
+    })
+    .catch((error) => {
+      throw error;
+    });
+  });
+
+  it('shouldn\'t find the fallback file', () => {
+    // Given
+    process.on = jest.fn();
+    const contentBase = './';
+    const req = {
+      url: '/something',
+    };
+    const res = {
+      writeHead: jest.fn(),
+      end: jest.fn(),
+    };
+    const options = {
+      contentBase,
+      historyApiFallback: true,
+    };
+    fs.pathExistsSync.mockImplementationOnce(() => false);
+    fs.pathExistsSync.mockImplementationOnce(() => false);
+    const server = {
+      listen: jest.fn(),
+    };
+    createHTTPServer.mockImplementationOnce(() => server);
+    const logger = {
+      success: jest.fn(),
+      info: jest.fn(),
+    };
+    ProjextRollupUtils.createLogger.mockImplementationOnce(() => logger);
+    let sut = null;
+    let handler = null;
+    const expectedIndex = 'index.html';
+    const expectedIndexPath = path.join(contentBase, expectedIndex);
+    // When
+    sut = new ProjextRollupDevServerPlugin(options);
+    sut.onwrite();
+    [[handler]] = createHTTPServer.mock.calls;
+    return handler(req, res)
+    .then(() => {
+      expect(fs.pathExistsSync).toHaveBeenCalledTimes(2);
+      expect(fs.pathExistsSync).toHaveBeenCalledWith(path.join(contentBase, req.url));
+      expect(fs.pathExistsSync).toHaveBeenCalledWith(expectedIndexPath);
       expect(res.writeHead).toHaveBeenCalledTimes(1);
       expect(res.writeHead).toHaveBeenCalledWith(404);
       expect(res.end).toHaveBeenCalledTimes(1);
