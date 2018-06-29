@@ -1,6 +1,7 @@
 const fs = require('fs-extra');
 const postcss = require('postcss');
 const postcssModules = require('postcss-modules');
+const builtinModules = require('builtin-modules');
 const { provider } = require('jimple');
 const ConfigurationFile = require('../../abstracts/configurationFile');
 /**
@@ -155,6 +156,8 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     }
     // If the target is for Node...
     if (target.is.node) {
+      // Push all the Node builtin modules
+      external.push(...builtinModules);
       // Push the plugin _"sub modules"_.
       external.push(...this.rollupPluginInfo.external.map((dependencyName) => (
         `${this.rollupPluginInfo.name}/${dependencyName}`

@@ -12,6 +12,7 @@ require('jasmine-expect');
 const fs = require('fs-extra');
 const postcss = require('postcss');
 const postcssModules = require('postcss-modules');
+const builtinModules = require('builtin-modules');
 const {
   RollupPluginSettingsConfiguration,
   rollupPluginSettingsConfiguration,
@@ -216,6 +217,7 @@ describe('services/configurations:plugins', () => {
       [`${pluginName}/${rollupPluginExternal}`]: `${pluginName}${rollupPluginExternalNormalized}`,
     };
     [
+      ...builtinModules,
       ...Object.keys(packageInfo.dependencies),
       ...Object.keys(packageInfo.devDependencies),
     ].forEach((name) => {
@@ -250,6 +252,7 @@ describe('services/configurations:plugins', () => {
     const expectedSettings = {
       external: {
         external: [
+          ...builtinModules,
           `${pluginName}/${rollupPluginExternal}`,
           ...Object.keys(packageInfo.dependencies),
           ...Object.keys(packageInfo.devDependencies),
@@ -665,6 +668,7 @@ describe('services/configurations:plugins', () => {
       [`${pluginName}/${rollupPluginExternal}`]: `${pluginName}${rollupPluginExternalNormalized}`,
     };
     [
+      ...builtinModules,
       ...Object.keys(packageInfo.dependencies),
     ].forEach((name) => {
       expectedGlobals[name] = name;
@@ -698,6 +702,7 @@ describe('services/configurations:plugins', () => {
     const expectedSettings = {
       external: {
         external: [
+          ...builtinModules,
           `${pluginName}/${rollupPluginExternal}`,
           ...Object.keys(packageInfo.dependencies),
         ],
