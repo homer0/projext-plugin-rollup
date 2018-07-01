@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../../">
+  <title data-ice="title">src/plugins/stylesheetModulesFixer/index.js | projext-plugin-rollup</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Allows projext to use Rollup as a build engine."><meta property="twitter:card" content="summary"><meta property="twitter:title" content="projext-plugin-rollup"><meta property="twitter:description" content="Allows projext to use Rollup as a build engine."></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/homer0/projext-plugin-rollup"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-useExpress">useExpress</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-useJimpex">useJimpex</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-MiddlewareGetDirectory">MiddlewareGetDirectory</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-MiddlewareGetFileSystem">MiddlewareGetFileSystem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-MiddlewareInformation">MiddlewareInformation</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupCSSPluginOptions">ProjextRollupCSSPluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupCompressionPluginEntry">ProjextRollupCompressionPluginEntry</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupCompressionPluginOptions">ProjextRollupCompressionPluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupDevServerPluginEvent">ProjextRollupDevServerPluginEvent</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupDevServerPluginOptions">ProjextRollupDevServerPluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupNodeRunnerPluginEvent">ProjextRollupNodeRunnerPluginEvent</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupNodeRunnerPluginOptions">ProjextRollupNodeRunnerPluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupPluginURL">ProjextRollupPluginURL</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupPluginsStats">ProjextRollupPluginsStats</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupStatsPluginCellsWidth">ProjextRollupStatsPluginCellsWidth</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupStatsPluginLog">ProjextRollupStatsPluginLog</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupStatsPluginLogOptions">ProjextRollupStatsPluginLogOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupStatsPluginOptions">ProjextRollupStatsPluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupStatsPluginReset">ProjextRollupStatsPluginReset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupStylesheetAssetsHelperPluginOptions">ProjextRollupStylesheetAssetsHelperPluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupStylesheetAssetsPluginOptions">ProjextRollupStylesheetAssetsPluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupStylesheetModulesFixerPluginOptions">ProjextRollupStylesheetModulesFixerPluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupTemplatePluginOptions">ProjextRollupTemplatePluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupURLsPluginOptions">ProjextRollupURLsPluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProviderRegisterMethod">ProviderRegisterMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RollupConfigurationOutputParams">RollupConfigurationOutputParams</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RollupConfigurationPathsParams">RollupConfigurationPathsParams</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RollupConfigurations">RollupConfigurations</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RollupConfigurationsByEnvironment">RollupConfigurationsByEnvironment</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RollupFileDefinition">RollupFileDefinition</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RollupFilter">RollupFilter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RollupPluginInfo">RollupPluginInfo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RollupStylesheetProcessor">RollupStylesheetProcessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-StringOrObject">StringOrObject</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="ttps://homer0.github.io/projext/class/src/services/configurations/babelConfiguration.js~BabelConfiguration.html">BabelConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/class/src/services/building/buildVersion.js~BuildVersion.html">BuildVersion</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/environmentUtils.js~EnvironmentUtils.html">EnvironmentUtils</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/class/src/services/common/events.js~Events.html">Events</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://expressjs.com">Express</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://nodejs.org/api/fs.html">FileSystem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://nodejs.org/api/http.html#http_class_http_clientrequest">HTTPRequest</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://nodejs.org/api/http.html#http_class_http_serverresponse">HTTPResponse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://yarnpkg.com/en/package/jimpex">Jimpex</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://yarnpkg.com/en/package/jimple">Jimple</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/logger.js~Logger.html">Logger</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="http://expressjs.com/en/guide/using-middleware.html">Middleware</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/pathUtils.js~PathUtils.html">PathUtils</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/class/src/app/index.js~Projext.html">Projext</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/typedef/index.html#static-typedef-Target">Target</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/typedef/index.html#static-typedef-TargetConfigurationCreator">TargetConfigurationCreator</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/typedef/index.html#static-typedef-TargetFileRules">TargetFileRules</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/class/src/services/targets/targets.js~Targets.html">Targets</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="ttps://homer0.github.io/projext/class/src/services/targets/targetsFileRules/targetsFileRules.js~TargetsFileRules.html">TargetsFileRules</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/class/src/services/targets/targetsHTML.js~TargetsHTML.html">TargetsHTML</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#abstracts">abstracts</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/abstracts/configurationFile.js~ConfigurationFile.html">ConfigurationFile</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#jimpex">jimpex</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/jimpex/frontendFs.js~RollupFrontendFs.html">RollupFrontendFs</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/jimpex/sendFile.js~RollupSendFile.html">RollupSendFile</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-rollupFrontendFs">rollupFrontendFs</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rollupSendFile">rollupSendFile</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins">plugins</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/utils.js~ProjextRollupUtils.html">ProjextRollupUtils</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-compression">plugins/compression</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/compression/index.js~ProjextRollupCompressionPlugin.html">ProjextRollupCompressionPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-compression">compression</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-css">plugins/css</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/css/index.js~ProjextRollupCSSPlugin.html">ProjextRollupCSSPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-css">css</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-devserver">plugins/devServer</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/devServer/index.js~ProjextRollupDevServerPlugin.html">ProjextRollupDevServerPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-devServer">devServer</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-noderunner">plugins/nodeRunner</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/nodeRunner/index.js~ProjextRollupNodeRunnerPlugin.html">ProjextRollupNodeRunnerPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-nodeRunner">nodeRunner</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-stats">plugins/stats</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/stats/index.js~ProjextRollupStatsPlugin.html">ProjextRollupStatsPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-stats">stats</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-stylesheetassets">plugins/stylesheetAssets</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/stylesheetAssets/helper.js~ProjextRollupStylesheetAssetsHelperPlugin.html">ProjextRollupStylesheetAssetsHelperPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/stylesheetAssets/index.js~ProjextRollupStylesheetAssetsPlugin.html">ProjextRollupStylesheetAssetsPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-stylesheetAssetsHelper">stylesheetAssetsHelper</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-stylesheetAssets">stylesheetAssets</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-stylesheetmodulesfixer">plugins/stylesheetModulesFixer</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/stylesheetModulesFixer/index.js~ProjextRollupStylesheetModulesFixerPlugin.html">ProjextRollupStylesheetModulesFixerPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-stylesheetModulesFixer">stylesheetModulesFixer</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-template">plugins/template</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/template/index.js~ProjextRollupTemplatePlugin.html">ProjextRollupTemplatePlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-template">template</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-urls">plugins/urls</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/urls/index.js~ProjextRollupURLsPlugin.html">ProjextRollupURLsPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-urls">urls</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-windowasglobal">plugins/windowAsGlobal</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/windowAsGlobal/index.js~ProjextRollupWindowAsGlobalPlugin.html">ProjextRollupWindowAsGlobalPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-windowAsGlobal">windowAsGlobal</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#services-building">services/building</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/building/configuration.js~RollupConfiguration.html">RollupConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/building/engine.js~RollupBuildEngine.html">RollupBuildEngine</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rollupConfiguration">rollupConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rollupBuildEngine">rollupBuildEngine</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#services-configurations">services/configurations</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/configurations/browserDevelopmentConfiguration.js~RollupBrowserDevelopmentConfiguration.html">RollupBrowserDevelopmentConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/configurations/browserProductionConfiguration.js~RollupBrowserProductionConfiguration.html">RollupBrowserProductionConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/configurations/nodeDevelopmentConfiguration.js~RollupNodeDevelopmentConfiguration.html">RollupNodeDevelopmentConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/configurations/nodeProductionConfiguration.js~RollupNodeProductionConfiguration.html">RollupNodeProductionConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/configurations/pluginsConfiguration.js~RollupPluginSettingsConfiguration.html">RollupPluginSettingsConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rollupBrowserDevelopmentConfiguration">rollupBrowserDevelopmentConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rollupBrowserProductionConfiguration">rollupBrowserProductionConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rollupNodeDevelopmentConfiguration">rollupNodeDevelopmentConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rollupNodeProductionConfiguration">rollupNodeProductionConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rollupPluginSettingsConfiguration">rollupPluginSettingsConfiguration</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#services-server">services/server</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/server/middleware.js~RollupMiddleware.html">RollupMiddleware</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rollupMiddleware">rollupMiddleware</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/plugins/stylesheetModulesFixer/index.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const rollupUtils = require(&apos;rollup-pluginutils&apos;);
+const extend = require(&apos;extend&apos;);
+/**
+ * This is a Rollup plugin that replaces the default export statements of stylesheet modules with
+ * the CSS modules local names.
+ * This is for web apps that either inject CSS using functions or bundle all on separated files,
+ * because it searches for functions (inject) or empty strings (bundle) on exports.
+ */
+class ProjextRollupStylesheetModulesFixerPlugin {
+  /**
+   * @param {ProjextRollupStylesheetModulesFixerPluginOptions} [options={}]
+   * The options to customize the plugin behaviour.
+   * @param {string} [name=&apos;projext-rollup-plugin-stylesheet-modules-fixer&apos;]
+   * The name of the plugin&apos;s instance.
+   */
+  constructor(options = {}, name = &apos;projext-rollup-plugin-stylesheet-modules-fixer&apos;) {
+    /**
+     * The plugin options.
+     * @type {ProjextRollupStylesheetModulesFixerPluginOptions}
+     * @access protected
+     * @ignore
+     */
+    this._options = extend(
+      true,
+      {
+        include: [],
+        exclude: [],
+        modulesExportName: &apos;locals&apos;,
+      },
+      options
+    );
+    /**
+     * The name of the plugin&apos;s instance.
+     * @type {string}
+     */
+    this.name = name;
+    /**
+     * The filter to decide which files will be processed and which won&apos;t.
+     * @type {RollupFilter}
+     */
+    this.filter = rollupUtils.createFilter(
+      this._options.include,
+      this._options.exclude
+    );
+    /**
+     * A dictionary of common expressions the plugin uses while parsing files.
+     * @type {Object}
+     * @property {RegExp} firstExport Finds the first export statement.
+     * @property {RexExp} line        Matches an export statement line.
+     * @property {RegExp} definition  Gets the parts of a named export.
+     * @property {RegExp} empty       Matches an empty export.
+     * @access protected
+     * @ignore
+     */
+    this._expressions = {
+      firstExport: /^(export\s*)/mi,
+      line: /^((?:\w+(?: \w+)?)\s*=|default)\s*([\s\S]*?);$/ig,
+      definition: /^(\w+)\s*([\S\s]*?)\s*=/,
+      empty: /[&apos;|&quot;]{2}/,
+    };
+    /**
+     * @ignore
+     */
+    this.transform = this.transform.bind(this);
+  }
+  /**
+   * Gets the plugin options
+   * @return {ProjextRollupStylesheetModulesFixerPluginOptions}
+   */
+  getOptions() {
+    return this._options;
+  }
+  /**
+   * This is called by Rollup when is parsing a file.
+   * @param {string} code     The file contents.
+   * @param {string} filepath The file path.
+   * @return {?RollupFileDefinition} If the file matches the plugin filter, it will parse it and
+   *                                 return a new definition, otherwise it will just return `null`.
+   */
+  transform(code, filepath) {
+    // Define the variable to return.
+    let result = null;
+    // Make sure the file matches the filter and that it has an export statement.
+    if (this.filter(filepath)) {
+      // Separate the file into _&quot;contents and exports&quot;_.
+      const parts = this._getFileParts(code);
+      // Parse the export statements.
+      const fileExports = this._getFileExports(parts.exports);
+      // Update the export statements.
+      const updatedFileExports = this._updateFileExports(fileExports);
+      // Generate the export lines.
+      const statements = this._generateFileExports(updatedFileExports);
+      // Update the file definition.
+      result = {
+        code: `${parts.contents}\n${statements}`,
+        map: {
+          mappings: &apos;&apos;,
+        },
+      };
+    }
+
+    return result;
+  }
+  /**
+   * Seprates the file into two parts: `content`, everything before the first export, and export
+   * statements.
+   * @param {string} code The file code.
+   * @return {Object}
+   * @access protected
+   * @ignore
+   */
+  _getFileParts(code) {
+    // Generate a unique separator.
+    const time = Date.now();
+    const separator = `__EXPORTS-BLOCK-SEPARATOR-${time}__`;
+    const [contents, exports] = code
+    // Add the separator before the first export.
+    .replace(this._expressions.firstExport, `${separator}$1`)
+    // Split the code using the separator.
+    .split(separator);
+    // Return the file parts.
+    return {
+      contents,
+      exports,
+    };
+  }
+  /**
+   * Parses the exports statements of a file.
+   * @param {string} code The part of the file contents with the export statements.
+   * @return {Object} A dictionary with the keys `default`, for the default export, `modules`, for
+   *                  the CSS modules locals export, and `all`, with all the statements found.
+   * @access protected
+   * @ignore
+   */
+  _getFileExports(code) {
+    // Define the variables that will hold the indexes for the default and locals exports.
+    let defaultExportIndex = -1;
+    let modulesExportIndex = -1;
+    const fileExports = code
+    // Split the code using the statements.
+    .split(&apos;export&apos;)
+    /**
+     * Remove extra spaces from all the statements (because with the `split`, `export` was also
+     * removed, leaving a leading space on each line).
+     */
+    .map((line) =&gt; line.trim())
+    // Filter empty lines and lines that don&apos;t match an export statement.
+    .filter((line) =&gt; !!line &amp;&amp; line.match(this._expressions.line))
+    // Loop all the filtered lines.
+    .map((line, index) =&gt; {
+      // Define a dictionary with the export information.
+      const info = {
+        isDefault: false,
+        name: &apos;&apos;,
+        value: &apos;&apos;,
+        type: null,
+      };
+      // Get the name of the export and its value.
+      let [, name, value] = this._expressions.line.exec(line);
+      this._expressions.line.lastIndex = 0;
+
+      // Remove any trailing semicolon, as the final method will add them.
+      let endsWithSemi = value.endsWith(&apos;;&apos;);
+      while (endsWithSemi) {
+        value = value.substr(0, value.length - 1);
+        endsWithSemi = value.endsWith(&apos;;&apos;);
+      }
+      // Define a variable to hold the export type.
+      let type;
+      // If the statement is the default export.
+      if (name === &apos;default&apos;) {
+        // Save its index.
+        defaultExportIndex = index;
+        // Set the flag to true on its properties.
+        info.isDefault = true;
+      } else {
+        // If is not the default export, parse the type and name.
+        [, type, name] = this._expressions.definition.exec(line);
+        this._expressions.definition.lastIndex = 0;
+      }
+      // If the name of the export matches the one for CSS modules, save its index.
+      if (name === this._options.modulesExportName) {
+        modulesExportIndex = index;
+      }
+      // Assign the found properties.
+      info.name = name;
+      info.value = value;
+      info.type = type;
+      // Return the object information.
+      return info;
+    });
+    // Return the dictionary with all the findings.
+    return {
+      // The default export, or `null`.
+      default: defaultExportIndex &gt; -1 ? fileExports[defaultExportIndex] : null,
+      // The export for the CSS modules locals, or `null`.
+      modules: modulesExportIndex &gt; -1 ? fileExports[modulesExportIndex] : null,
+      // All the exports.
+      all: fileExports,
+    };
+  }
+  /**
+   * Gets the updated export statements for a file.
+   * @param {Object} fileExports The result of `_getFileExports`, with all the export statements
+   *                             information.
+   * @return {Array} A list of the final export statements.
+   * @access protected
+   * @ignore
+   */
+  _updateFileExports(fileExports) {
+    // Define the variable to return.
+    let result;
+    // Get the export for CSS modules locals.
+    const modulesExport = fileExports.modules;
+    // If there&apos;s an export for the CSS modules locals...
+    if (modulesExport) {
+      // ...then get the default export information.
+      const defaultExport = fileExports.default;
+      /**
+       * If the default export matches an empty string, it means that its code was sent to a
+       * different bundle, so the method can just switch the default export value with the one from
+       * the CSS Modules locals.
+       * But if is not an empty string, then there&apos;s a function to inject the CSS code, so the
+       * method will wrap it with another function that calls it and then returns the CSS
+       * Modules locals.
+       */
+      if (defaultExport.value.match(this._expressions.empty)) {
+        defaultExport.value = modulesExport.value;
+      } else {
+        defaultExport.value = [
+          &apos;(() =&gt; {&apos;,
+          `  ${defaultExport.value};`,
+          `  return ${modulesExport.value};`,
+          &apos;})()&apos;,
+        ]
+        .join(&apos;\n&apos;);
+      }
+      /**
+       * Finally, as the CSS Modules export is already the new default export, set to return a
+       * list of all the export statements, except for that one.
+       */
+      result = fileExports.all.filter((info) =&gt; info.name !== modulesExport.name);
+    } else {
+      // If no CSS Module export was found, set to return all the exports.
+      result = fileExports.all;
+    }
+
+    return result;
+  }
+  /**
+   * Generates the code for a list of export statements.
+   * @param {Array} fileExports The list of export statements information generated by
+   *                            `_updateFileExports`.
+   * @return {string}
+   * @access protected
+   * @ignore
+   */
+  _generateFileExports(fileExports) {
+    return fileExports
+    .map((info) =&gt; {
+      const name = info.isDefault ? &apos;default&apos; : `${info.type} ${info.name} =`;
+      return `export ${name} ${info.value};`;
+    })
+    .join(&apos;\n&apos;);
+  }
+}
+/**
+ * Shorthand method to create an instance of {@link ProjextRollupStylesheetModulesFixerPlugin}.
+ * @param {ProjextRollupStylesheetModulesFixerPluginOptions} options
+ * The options to customize the plugin behaviour.
+ * @param {string} name
+ * The name of the plugin&apos;s instance.
+ * @return {ProjextRollupStylesheetModulesFixerPlugin}
+ */
+const stylesheetModulesFixer = (
+  options,
+  name
+) =&gt; new ProjextRollupStylesheetModulesFixerPlugin(options, name);
+
+module.exports = {
+  ProjextRollupStylesheetModulesFixerPlugin,
+  stylesheetModulesFixer,
+};
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

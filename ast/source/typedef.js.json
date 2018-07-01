@@ -1,0 +1,3282 @@
+{
+  "type": "File",
+  "start": 0,
+  "end": 23722,
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 0
+    },
+    "end": {
+      "line": 523,
+      "column": 0
+    }
+  },
+  "program": {
+    "type": "Program",
+    "start": 0,
+    "end": 23722,
+    "loc": {
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 523,
+        "column": 0
+      }
+    },
+    "sourceType": "module",
+    "body": [],
+    "directives": [],
+    "leadingComments": null,
+    "innerComments": [
+      {
+        "type": "CommentBlock",
+        "value": "*\n * ================================================================================================\n * Externals\n * ================================================================================================\n ",
+        "start": 0,
+        "end": 220,
+        "loc": {
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 5,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @external {Jimple}\n * https://yarnpkg.com/en/package/jimple\n ",
+        "start": 222,
+        "end": 292,
+        "loc": {
+          "start": {
+            "line": 7,
+            "column": 0
+          },
+          "end": {
+            "line": 10,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @external {Jimpex}\n * https://yarnpkg.com/en/package/jimpex\n ",
+        "start": 294,
+        "end": 364,
+        "loc": {
+          "start": {
+            "line": 12,
+            "column": 0
+          },
+          "end": {
+            "line": 15,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @external {Express}\n * https://expressjs.com\n ",
+        "start": 366,
+        "end": 421,
+        "loc": {
+          "start": {
+            "line": 17,
+            "column": 0
+          },
+          "end": {
+            "line": 20,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @external {FileSystem}\n * https://nodejs.org/api/fs.html\n ",
+        "start": 423,
+        "end": 490,
+        "loc": {
+          "start": {
+            "line": 22,
+            "column": 0
+          },
+          "end": {
+            "line": 25,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @external {PathUtils}\n * https://homer0.github.io/wootils/class/wootils/node/pathUtils.js~PathUtils.html\n ",
+        "start": 492,
+        "end": 607,
+        "loc": {
+          "start": {
+            "line": 27,
+            "column": 0
+          },
+          "end": {
+            "line": 30,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @external {Logger}\n * https://homer0.github.io/wootils/class/wootils/node/logger.js~Logger.html\n ",
+        "start": 609,
+        "end": 715,
+        "loc": {
+          "start": {
+            "line": 32,
+            "column": 0
+          },
+          "end": {
+            "line": 35,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @external {EnvironmentUtils}\n * https://homer0.github.io/wootils/class/wootils/node/environmentUtils.js~EnvironmentUtils.html\n ",
+        "start": 717,
+        "end": 853,
+        "loc": {
+          "start": {
+            "line": 37,
+            "column": 0
+          },
+          "end": {
+            "line": 40,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @external {Projext}\n * https://homer0.github.io/projext/class/src/app/index.js~Projext.html\n ",
+        "start": 855,
+        "end": 957,
+        "loc": {
+          "start": {
+            "line": 42,
+            "column": 0
+          },
+          "end": {
+            "line": 45,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @external {BuildVersion}\n * https://homer0.github.io/projext/class/src/services/building/buildVersion.js~BuildVersion.html\n ",
+        "start": 959,
+        "end": 1092,
+        "loc": {
+          "start": {
+            "line": 47,
+            "column": 0
+          },
+          "end": {
+            "line": 50,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @external {Events}\n * https://homer0.github.io/projext/class/src/services/common/events.js~Events.html\n ",
+        "start": 1094,
+        "end": 1207,
+        "loc": {
+          "start": {
+            "line": 52,
+            "column": 0
+          },
+          "end": {
+            "line": 55,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @external {Targets}\n * https://homer0.github.io/projext/class/src/services/targets/targets.js~Targets.html\n ",
+        "start": 1209,
+        "end": 1326,
+        "loc": {
+          "start": {
+            "line": 57,
+            "column": 0
+          },
+          "end": {
+            "line": 60,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @external {TargetsFileRules}\n *  ttps://homer0.github.io/projext/class/src/services/targets/targetsFileRules/targetsFileRules.js~TargetsFileRules.html\n  ",
+        "start": 1328,
+        "end": 1490,
+        "loc": {
+          "start": {
+            "line": 62,
+            "column": 0
+          },
+          "end": {
+            "line": 65,
+            "column": 4
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @external {TargetFileRules}\n * https://homer0.github.io/projext/typedef/index.html#static-typedef-TargetFileRules\n ",
+        "start": 1492,
+        "end": 1616,
+        "loc": {
+          "start": {
+            "line": 67,
+            "column": 0
+          },
+          "end": {
+            "line": 70,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @external {TargetsHTML}\n * https://homer0.github.io/projext/class/src/services/targets/targetsHTML.js~TargetsHTML.html\n ",
+        "start": 1618,
+        "end": 1747,
+        "loc": {
+          "start": {
+            "line": 72,
+            "column": 0
+          },
+          "end": {
+            "line": 75,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @external {Target}\n * https://homer0.github.io/projext/typedef/index.html#static-typedef-Target\n ",
+        "start": 1749,
+        "end": 1855,
+        "loc": {
+          "start": {
+            "line": 77,
+            "column": 0
+          },
+          "end": {
+            "line": 80,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @external {TargetConfigurationCreator}\n * https://homer0.github.io/projext/typedef/index.html#static-typedef-TargetConfigurationCreator\n ",
+        "start": 1857,
+        "end": 2003,
+        "loc": {
+          "start": {
+            "line": 82,
+            "column": 0
+          },
+          "end": {
+            "line": 85,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @external {BabelConfiguration}\n *  ttps://homer0.github.io/projext/class/src/services/configurations/babelConfiguration.js~BabelConfiguration.html\n  ",
+        "start": 2005,
+        "end": 2163,
+        "loc": {
+          "start": {
+            "line": 87,
+            "column": 0
+          },
+          "end": {
+            "line": 90,
+            "column": 4
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @external {Middleware}\n * http://expressjs.com/en/guide/using-middleware.html\n ",
+        "start": 2165,
+        "end": 2253,
+        "loc": {
+          "start": {
+            "line": 92,
+            "column": 0
+          },
+          "end": {
+            "line": 95,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @external {HTTPRequest}\n * https://nodejs.org/api/http.html#http_class_http_clientrequest\n ",
+        "start": 2255,
+        "end": 2355,
+        "loc": {
+          "start": {
+            "line": 97,
+            "column": 0
+          },
+          "end": {
+            "line": 100,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @external {HTTPResponse}\n * https://nodejs.org/api/http.html#http_class_http_serverresponse\n ",
+        "start": 2357,
+        "end": 2459,
+        "loc": {
+          "start": {
+            "line": 102,
+            "column": 0
+          },
+          "end": {
+            "line": 105,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * ================================================================================================\n * Plugins > Commons\n * ================================================================================================\n ",
+        "start": 2461,
+        "end": 2689,
+        "loc": {
+          "start": {
+            "line": 107,
+            "column": 0
+          },
+          "end": {
+            "line": 111,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {function} RollupFilter\n * @param {string} filepath The path to validate.\n * @return {boolean} Whether or not the path is valid.\n ",
+        "start": 2691,
+        "end": 2839,
+        "loc": {
+          "start": {
+            "line": 113,
+            "column": 0
+          },
+          "end": {
+            "line": 117,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {function} RollupStylesheetProcessor\n * @param {string} code The style code to process.\n * @return {Promise<StringOrObject,Error>} If the Promise gets resolved as a string, that would\n *                                          be used as the style code to either return or inject.\n *                                          But if it gets resolved as an `Object`, it's expected\n *                                          for it to have a `css`  key with the style code, the\n *                                          rest of the keys will be added as named exports.\n ",
+        "start": 2841,
+        "end": 3430,
+        "loc": {
+          "start": {
+            "line": 119,
+            "column": 0
+          },
+          "end": {
+            "line": 127,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} RollupFileDefinition\n * @param {string} code The file contents.\n * @param {Object} map Extra information for the file map.\n ",
+        "start": 3432,
+        "end": 3583,
+        "loc": {
+          "start": {
+            "line": 129,
+            "column": 0
+          },
+          "end": {
+            "line": 133,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {function} ProjextRollupPluginsStats\n * @param {string} plugin   The name of the plugin that generated/copied the file.\n * @param {string} filepath The file that was generated/copied.\n ",
+        "start": 3585,
+        "end": 3788,
+        "loc": {
+          "start": {
+            "line": 135,
+            "column": 0
+          },
+          "end": {
+            "line": 139,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} ProjextRollupPluginURL\n * @property {Array}  include A list of expressions the name of a file should match in order to be\n *                            processed by the plugin.\n * @property {Array}  exclude A list of expressions the name of a file shouldn't match in order to\n *                            be processed by the plugin.\n * @property {string} output  The path to the where the a file would be copied. It supports the\n *                            placeholders `[name]` for the file name and `[ext]` for its\n *                            extension.\n * @property {string} url     The URL for the file. It supports the placeholders `[name]` for the\n *                            file name and `[ext]` for its extension.\n ",
+        "start": 3790,
+        "end": 4548,
+        "loc": {
+          "start": {
+            "line": 141,
+            "column": 0
+          },
+          "end": {
+            "line": 152,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * ================================================================================================\n * Plugins > Compression\n * ================================================================================================\n ",
+        "start": 4550,
+        "end": 4782,
+        "loc": {
+          "start": {
+            "line": 154,
+            "column": 0
+          },
+          "end": {
+            "line": 158,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} ProjextRollupCompressionPluginOptions\n * @property {string}                    folder  The directory where the plugin will search for\n *                                               files.\n * @property {Array}                     include A list of expressions the name of a file should\n *                                               match in order to be processed by the plugin.\n * @property {Array}                     exclude A list of expressions the name of a file\n *                                               shouldn't match in order to be processed by the\n *                                               plugin.\n * @property {ProjextRollupPluginsStats} stats   The function the plugin will call in order to\n *                                               inform a file was created.\n ",
+        "start": 4784,
+        "end": 5609,
+        "loc": {
+          "start": {
+            "line": 160,
+            "column": 0
+          },
+          "end": {
+            "line": 171,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} ProjextRollupCompressionPluginEntry\n * @property {string} original   The path to the file that was compressed.\n * @property {string} compressed The path to the compressed file.\n ",
+        "start": 5611,
+        "end": 5816,
+        "loc": {
+          "start": {
+            "line": 173,
+            "column": 0
+          },
+          "end": {
+            "line": 177,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * ================================================================================================\n * Plugins > CSS\n * ================================================================================================\n ",
+        "start": 5818,
+        "end": 6042,
+        "loc": {
+          "start": {
+            "line": 179,
+            "column": 0
+          },
+          "end": {
+            "line": 183,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} ProjextRollupCSSPluginOptions\n * @property {Array}                      include      A list of expressions the name of a file\n *                                                     should match in order to be processed by\n *                                                     the plugin.\n * @property {Array}                      exclude      A list of expressions the name of a file\n *                                                     shouldn't match in order to be processed by\n *                                                     the plugin.\n * @property {boolean}                    insert       Whether the styles should be injected on\n *                                                     the app `<head >` when the bundle finishes\n *                                                     loading.\n * @property {string|boolean}             output       This can be the name a file where all the\n *                                                     files that match the filter would be\n *                                                     bundled. The option can also be set to\n *                                                     `false` so the styles would be returned as\n *                                                     a string when `require`d.\n * @property {?RollupStylesheetProcessor} processor    A custom function to processed the styles.\n * @property {string}                     insertFnName If `insert` is `true`, this will be used as\n *                                                     the name of the function in charge of\n *                                                     injecting the styles.\n * @property {ProjextRollupPluginsStats}  stats        The function the plugin will call in order\n *                                                     to inform a file was created.\n ",
+        "start": 6044,
+        "end": 7893,
+        "loc": {
+          "start": {
+            "line": 185,
+            "column": 0
+          },
+          "end": {
+            "line": 207,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * ================================================================================================\n * Plugins > DevServer\n * ================================================================================================\n ",
+        "start": 7895,
+        "end": 8125,
+        "loc": {
+          "start": {
+            "line": 209,
+            "column": 0
+          },
+          "end": {
+            "line": 213,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {function} ProjextRollupDevServerPluginEvent\n * @param {ProjextRollupDevServerPlugin} plugin\n ",
+        "start": 8127,
+        "end": 8239,
+        "loc": {
+          "start": {
+            "line": 215,
+            "column": 0
+          },
+          "end": {
+            "line": 218,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} ProjextRollupDevServerPluginOptions\n * @property {string}                            host               The server hostname.\n * @property {number}                            port               The server port.\n * @property {Array|string}                      contentBase        The directory from where the\n *                                                                  files are going to be served.\n *                                                                  It can be a single directory\n *                                                                  or a list of them.\n * @property {boolean}                           historyApiFallback Whether or not the server\n *                                                                  should redirect the user to\n *                                                                  the `index.html` after a\n *                                                                  `404`.\n * @property {null|HTTPSOptions}                 https              The required files to run the\n *                                                                  server on HTTPs. They are the\n *                                                                  same that `https.createServer`\n *                                                                  supports.\n * @property {boolean}                           open               Whether or not the browser\n *                                                                  should be opened after\n *                                                                  starting the server.\n * @property {?Logger}                           logger             A custom logger to log the\n *                                                                  server events.\n * @property {ProjextRollupDevServerPluginEvent} onStart            A callback to be called when\n *                                                                  the server starts.\n * @property {ProjextRollupDevServerPluginEvent} onStop             A callback to be called when\n *                                                                  the server stops.\n ",
+        "start": 8241,
+        "end": 10409,
+        "loc": {
+          "start": {
+            "line": 220,
+            "column": 0
+          },
+          "end": {
+            "line": 245,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * ================================================================================================\n * Plugins > NodeRunner\n * ================================================================================================\n ",
+        "start": 10411,
+        "end": 10642,
+        "loc": {
+          "start": {
+            "line": 247,
+            "column": 0
+          },
+          "end": {
+            "line": 251,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {function} ProjextRollupNodeRunnerPluginEvent\n * @param {ProjextRollupNodeRunnerPlugin} plugin\n ",
+        "start": 10644,
+        "end": 10758,
+        "loc": {
+          "start": {
+            "line": 253,
+            "column": 0
+          },
+          "end": {
+            "line": 256,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} ProjextRollupNodeRunnerPluginOptions\n * @property {string}                             file    The file to execute\n * @property {?Logger}                            logger  A custom logger to log the server\n *                                                        events.\n * @property {ProjextRollupNodeRunnerPluginEvent} onStart A callback to be called when the\n *                                                        execution starts.\n * @property {ProjextRollupNodeRunnerPluginEvent} onStop  A callback to be called when the\n *                                                        execution stops.\n ",
+        "start": 10760,
+        "end": 11394,
+        "loc": {
+          "start": {
+            "line": 258,
+            "column": 0
+          },
+          "end": {
+            "line": 267,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * ================================================================================================\n * Plugins > Stats\n * ================================================================================================\n ",
+        "start": 11396,
+        "end": 11622,
+        "loc": {
+          "start": {
+            "line": 269,
+            "column": 0
+          },
+          "end": {
+            "line": 273,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} ProjextRollupStatsPluginOptions\n * @property {string} path The path to the directory where all the files are generated. The plugin\n *                         needs it so it can be removed when showing the files list.\n ",
+        "start": 11624,
+        "end": 11869,
+        "loc": {
+          "start": {
+            "line": 275,
+            "column": 0
+          },
+          "end": {
+            "line": 279,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} ProjextRollupStatsPluginReset\n * @property {function} intro The method Rollup calls to get code to add on the top of the bundle.\n *                            The plugin uses it as a _\"hook\"_ in order to reset the entries list\n *                            and thus, avoid duplicated entries when Rollup is on _\"watch mode\"_.\n ",
+        "start": 11871,
+        "end": 12225,
+        "loc": {
+          "start": {
+            "line": 281,
+            "column": 0
+          },
+          "end": {
+            "line": 286,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} ProjextRollupStatsPluginLogOptions\n * @property {Array}   extraEntries A list of extra entries to add.\n * @property {?Logger} logger       A custom instance of {@link Logger} to log the report table.\n ",
+        "start": 12227,
+        "end": 12455,
+        "loc": {
+          "start": {
+            "line": 288,
+            "column": 0
+          },
+          "end": {
+            "line": 292,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} ProjextRollupStatsPluginLog\n * @property {function} onwrite The method Rollup calls after writing the files on the file system.\n *                              When this happens, the plugin will log the report table on the\n *                              console.\n ",
+        "start": 12457,
+        "end": 12749,
+        "loc": {
+          "start": {
+            "line": 294,
+            "column": 0
+          },
+          "end": {
+            "line": 299,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} ProjextRollupStatsPluginCellsWidth\n * @property {number} plugin The width for the plugin's cell.\n * @property {number} file   The width for the file path cell.\n * @property {number} size   The width for the file size cell.\n ",
+        "start": 12751,
+        "end": 13002,
+        "loc": {
+          "start": {
+            "line": 301,
+            "column": 0
+          },
+          "end": {
+            "line": 306,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * ================================================================================================\n * Plugins > Stylesheet Assets\n * ================================================================================================\n ",
+        "start": 13004,
+        "end": 13242,
+        "loc": {
+          "start": {
+            "line": 308,
+            "column": 0
+          },
+          "end": {
+            "line": 312,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} ProjextRollupStylesheetAssetsPluginOptions\n * @property {string}                    stylesheet    The path to the CSS or JS file where the\n *                                                     styles should be fixed.\n * @property {Array}                     insertFnNames In case the `stylesheet` is a JS file, it's\n *                                                     possible that the styles are being injected\n *                                                     by a function, so this option can be used\n *                                                     the different function names the plugin\n *                                                     should search for in order to find CSS\n *                                                     blocks.\n * @property {ProjextRollupPluginURL}    urls          The set of URLs the plugin will use to\n *                                                     validate the files inside the stylesheet in\n *                                                     order to know if they should be processed,\n *                                                     where to copy them and which URL to use.\n * @property {ProjextRollupPluginsStats} stats         The function the plugin will call in order\n *                                                     to inform a file was created.\n ",
+        "start": 13244,
+        "end": 14607,
+        "loc": {
+          "start": {
+            "line": 314,
+            "column": 0
+          },
+          "end": {
+            "line": 330,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} ProjextRollupStylesheetAssetsHelperPluginOptions\n * @property {Array}  include A list of expressions the name of a file should match in order to be\n *                            processed by the plugin.\n * @property {Array}  exclude A list of expressions the name of a file shouldn't match in order to\n *                            be processed by the plugin.\n * @property {string} fnName  The name of the function that will be used to wrap the code.\n ",
+        "start": 14609,
+        "end": 15088,
+        "loc": {
+          "start": {
+            "line": 332,
+            "column": 0
+          },
+          "end": {
+            "line": 339,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * ================================================================================================\n * Plugins > Stylesheet Modules Fixer\n * ================================================================================================\n ",
+        "start": 15090,
+        "end": 15335,
+        "loc": {
+          "start": {
+            "line": 341,
+            "column": 0
+          },
+          "end": {
+            "line": 345,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} ProjextRollupStylesheetModulesFixerPluginOptions\n * @property {Array}  include           A list of expressions the name of a file should match in\n *                                      order to be processed by the plugin.\n * @property {Array}  exclude           A list of expressions the name of a file shouldn't match\n *                                      in order to be processed by the plugin.\n * @property {string} modulesExportName The name of the export statement for the CSS modules\n *                                      locals.\n ",
+        "start": 15337,
+        "end": 15906,
+        "loc": {
+          "start": {
+            "line": 347,
+            "column": 0
+          },
+          "end": {
+            "line": 355,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * ================================================================================================\n * Plugins > Template\n * ================================================================================================\n ",
+        "start": 15908,
+        "end": 16137,
+        "loc": {
+          "start": {
+            "line": 357,
+            "column": 0
+          },
+          "end": {
+            "line": 361,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} ProjextRollupTemplatePluginOptions\n * @property {string}                    template      The path to the template file the plugin\n *                                                     will use to inject the JS and CSS files.\n * @property {string}                    output        The path where the final file will be\n *                                                     written.\n * @property {Array}                     scripts       A list of JS files that will be linked on\n *                                                     the template.\n * @property {boolean}                   scriptsAsync  Whether or not to use `async` attribute on\n *                                                     the script tags.\n * @property {boolean}                   scriptsOnBody Whether or not to place the script tags on\n *                                                     the body.\n * @property {Array}                     stylesheets   A list of CSS files that will be linked on\n *                                                     the template.\n * @property {ProjextRollupPluginURL}    urls          The set of URLs the plugin will use to\n *                                                     validate the files `require`d on the\n *                                                     template in order to know if they should be\n *                                                     processed, where to copy them and which URL\n *                                                     to use.\n * @property {ProjextRollupPluginsStats} stats         The function the plugin will call in order\n *                                                     to inform a file was copied.\n ",
+        "start": 16139,
+        "end": 17846,
+        "loc": {
+          "start": {
+            "line": 363,
+            "column": 0
+          },
+          "end": {
+            "line": 384,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * ================================================================================================\n * Plugins > URLS\n * ================================================================================================\n ",
+        "start": 17848,
+        "end": 18073,
+        "loc": {
+          "start": {
+            "line": 386,
+            "column": 0
+          },
+          "end": {
+            "line": 390,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} ProjextRollupURLsPluginOptions\n * @property {ProjextRollupPluginURL}    urls  The set of URLs the plugin will use to validate the\n *                                             files in order to know if they should be processed,\n *                                             where to copy them and which URL to use.\n * @property {ProjextRollupPluginsStats} stats The function the plugin will call in order to\n *                                             inform a file was copied.\n ",
+        "start": 18075,
+        "end": 18586,
+        "loc": {
+          "start": {
+            "line": 392,
+            "column": 0
+          },
+          "end": {
+            "line": 399,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * ================================================================================================\n * Middleware\n * ================================================================================================\n ",
+        "start": 18588,
+        "end": 18809,
+        "loc": {
+          "start": {
+            "line": 401,
+            "column": 0
+          },
+          "end": {
+            "line": 405,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {function} MiddlewareGetDirectory\n * @return {string}\n * The build directory of the target implementing the middleware.\n ",
+        "start": 18811,
+        "end": 18950,
+        "loc": {
+          "start": {
+            "line": 407,
+            "column": 0
+          },
+          "end": {
+            "line": 411,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {function} MiddlewareGetFileSystem\n * @return {Promise<FileSystem,Error>}\n * The reason this is resolved on a promise is to avoid trying to accessing files before they are\n * generated.\n ",
+        "start": 18952,
+        "end": 19157,
+        "loc": {
+          "start": {
+            "line": 413,
+            "column": 0
+          },
+          "end": {
+            "line": 418,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} MiddlewareInformation\n * @property {Middleware} middleware\n * The middleware that implements the Rollup build process.\n * @property {MiddlewareGetDirectory} getDirectory\n * To access the target implementing the middleware build directory.\n * @property {MiddlewareGetFileSystem} getFileSystem\n * To access the file system only when the middleware finishes the build process.\n ",
+        "start": 19159,
+        "end": 19561,
+        "loc": {
+          "start": {
+            "line": 420,
+            "column": 0
+          },
+          "end": {
+            "line": 428,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * ================================================================================================\n * Configurations\n * ================================================================================================\n ",
+        "start": 19563,
+        "end": 19788,
+        "loc": {
+          "start": {
+            "line": 430,
+            "column": 0
+          },
+          "end": {
+            "line": 434,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} RollupConfigurationsByEnvironment\n * @property {ConfigurationFile} production\n * The configuration service for a the target type production build.\n * @property {ConfigurationFile} development\n * The configuration service for a the target type development build.\n ",
+        "start": 19790,
+        "end": 20080,
+        "loc": {
+          "start": {
+            "line": 436,
+            "column": 0
+          },
+          "end": {
+            "line": 442,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} RollupConfigurations\n * @property {RollupConfigurationsByEnvironment} node\n * The build types configurations for a Node target.\n * @property {RollupConfigurationsByEnvironment} browser\n * The build types configurations for a browser target.\n ",
+        "start": 20082,
+        "end": 20351,
+        "loc": {
+          "start": {
+            "line": 444,
+            "column": 0
+          },
+          "end": {
+            "line": 450,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * ================================================================================================\n * Others\n * ================================================================================================\n ",
+        "start": 20353,
+        "end": 20570,
+        "loc": {
+          "start": {
+            "line": 452,
+            "column": 0
+          },
+          "end": {
+            "line": 456,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} RollupConfigurationOutputParams\n * @property {string}  file      The path where the bundle will be generated.\n * @property {string}  format    The format of the bundle (`iife`, `cjs` or `umd`).\n * @property {boolean} sourcemap Whether or not a source map should be generated for the bundle.\n * @property {string}  name      The export name of the bundle.\n * @property {?string} exports   This is implemented when the target is a library. It allows the\n *                               bundle to have named exports.\n ",
+        "start": 20572,
+        "end": 21115,
+        "loc": {
+          "start": {
+            "line": 458,
+            "column": 0
+          },
+          "end": {
+            "line": 466,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} RollupConfigurationPathsParams\n * @property {string} js\n * The filename format and path for the bundle, on the distribution directory.\n * @property {string} css\n * The filename format and path for the generated stylesheet, on the distribution directory.\n * @property {string} images\n * The filename format and path for the images that are going to be copied to the distribution\n * directory.\n * @property {string} fonts\n * The filename format and path for the font files that are going to be copied to the distribution\n * directory.\n ",
+        "start": 21117,
+        "end": 21678,
+        "loc": {
+          "start": {
+            "line": 468,
+            "column": 0
+          },
+          "end": {
+            "line": 480,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} RollupConfigurationParams\n * @property {string}                          input       The path for the entry file.\n * @property {RollupConfigurationOutputParams} output      The Rollup settings for the bundle\n *                                                         generation.\n * @property {Target}                          target      The information of the target being\n *                                                         bundled.\n * @property {TargetFileRules}                 targetRules The rules to find the different file\n *                                                         types a target may use.\n * @property {Object}                          definitions A dictionary of defined variables that\n *                                                         will be replaced on the bundled code.\n * @property {string}                          buildType   The intended build type: `development`\n *                                                         or `production`.\n * @property {RollupConfigurationPathsParams}  paths       A dictionary with the filenames formats\n *                                                         and paths of the different files the\n *                                                         bundle can generate.\n\n/**\n * @typedef {Object} RollupPluginInfo\n * @property {string} name          The name of the plugin.\n * @property {string} configuration The path to the Rollup configuration file.\n * @property {Array}  external      The list of subpaths the plugin exposes and that should be\n *                                  handled as external dependencies, in order to avoid bundling\n *                                  them.\n ",
+        "start": 21680,
+        "end": 23389,
+        "loc": {
+          "start": {
+            "line": 482,
+            "column": 0
+          },
+          "end": {
+            "line": 506,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {function} ProviderRegisterMethod\n * @param {Jimple} app\n * A reference to the dependency injection container.\n ",
+        "start": 23391,
+        "end": 23521,
+        "loc": {
+          "start": {
+            "line": 508,
+            "column": 0
+          },
+          "end": {
+            "line": 512,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} Provider\n * @property {ProviderRegisterMethod} register\n * The method that gets called when registering the provider.\n ",
+        "start": 23523,
+        "end": 23669,
+        "loc": {
+          "start": {
+            "line": 514,
+            "column": 0
+          },
+          "end": {
+            "line": 518,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {string|Object} StringOrObject\n ",
+        "start": 23671,
+        "end": 23721,
+        "loc": {
+          "start": {
+            "line": 520,
+            "column": 0
+          },
+          "end": {
+            "line": 522,
+            "column": 3
+          }
+        }
+      }
+    ]
+  },
+  "comments": [
+    {
+      "type": "CommentBlock",
+      "value": "*\n * ================================================================================================\n * Externals\n * ================================================================================================\n ",
+      "start": 0,
+      "end": 220,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 5,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {Jimple}\n * https://yarnpkg.com/en/package/jimple\n ",
+      "start": 222,
+      "end": 292,
+      "loc": {
+        "start": {
+          "line": 7,
+          "column": 0
+        },
+        "end": {
+          "line": 10,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {Jimpex}\n * https://yarnpkg.com/en/package/jimpex\n ",
+      "start": 294,
+      "end": 364,
+      "loc": {
+        "start": {
+          "line": 12,
+          "column": 0
+        },
+        "end": {
+          "line": 15,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {Express}\n * https://expressjs.com\n ",
+      "start": 366,
+      "end": 421,
+      "loc": {
+        "start": {
+          "line": 17,
+          "column": 0
+        },
+        "end": {
+          "line": 20,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {FileSystem}\n * https://nodejs.org/api/fs.html\n ",
+      "start": 423,
+      "end": 490,
+      "loc": {
+        "start": {
+          "line": 22,
+          "column": 0
+        },
+        "end": {
+          "line": 25,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {PathUtils}\n * https://homer0.github.io/wootils/class/wootils/node/pathUtils.js~PathUtils.html\n ",
+      "start": 492,
+      "end": 607,
+      "loc": {
+        "start": {
+          "line": 27,
+          "column": 0
+        },
+        "end": {
+          "line": 30,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {Logger}\n * https://homer0.github.io/wootils/class/wootils/node/logger.js~Logger.html\n ",
+      "start": 609,
+      "end": 715,
+      "loc": {
+        "start": {
+          "line": 32,
+          "column": 0
+        },
+        "end": {
+          "line": 35,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {EnvironmentUtils}\n * https://homer0.github.io/wootils/class/wootils/node/environmentUtils.js~EnvironmentUtils.html\n ",
+      "start": 717,
+      "end": 853,
+      "loc": {
+        "start": {
+          "line": 37,
+          "column": 0
+        },
+        "end": {
+          "line": 40,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {Projext}\n * https://homer0.github.io/projext/class/src/app/index.js~Projext.html\n ",
+      "start": 855,
+      "end": 957,
+      "loc": {
+        "start": {
+          "line": 42,
+          "column": 0
+        },
+        "end": {
+          "line": 45,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {BuildVersion}\n * https://homer0.github.io/projext/class/src/services/building/buildVersion.js~BuildVersion.html\n ",
+      "start": 959,
+      "end": 1092,
+      "loc": {
+        "start": {
+          "line": 47,
+          "column": 0
+        },
+        "end": {
+          "line": 50,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {Events}\n * https://homer0.github.io/projext/class/src/services/common/events.js~Events.html\n ",
+      "start": 1094,
+      "end": 1207,
+      "loc": {
+        "start": {
+          "line": 52,
+          "column": 0
+        },
+        "end": {
+          "line": 55,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {Targets}\n * https://homer0.github.io/projext/class/src/services/targets/targets.js~Targets.html\n ",
+      "start": 1209,
+      "end": 1326,
+      "loc": {
+        "start": {
+          "line": 57,
+          "column": 0
+        },
+        "end": {
+          "line": 60,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {TargetsFileRules}\n *  ttps://homer0.github.io/projext/class/src/services/targets/targetsFileRules/targetsFileRules.js~TargetsFileRules.html\n  ",
+      "start": 1328,
+      "end": 1490,
+      "loc": {
+        "start": {
+          "line": 62,
+          "column": 0
+        },
+        "end": {
+          "line": 65,
+          "column": 4
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {TargetFileRules}\n * https://homer0.github.io/projext/typedef/index.html#static-typedef-TargetFileRules\n ",
+      "start": 1492,
+      "end": 1616,
+      "loc": {
+        "start": {
+          "line": 67,
+          "column": 0
+        },
+        "end": {
+          "line": 70,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {TargetsHTML}\n * https://homer0.github.io/projext/class/src/services/targets/targetsHTML.js~TargetsHTML.html\n ",
+      "start": 1618,
+      "end": 1747,
+      "loc": {
+        "start": {
+          "line": 72,
+          "column": 0
+        },
+        "end": {
+          "line": 75,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {Target}\n * https://homer0.github.io/projext/typedef/index.html#static-typedef-Target\n ",
+      "start": 1749,
+      "end": 1855,
+      "loc": {
+        "start": {
+          "line": 77,
+          "column": 0
+        },
+        "end": {
+          "line": 80,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {TargetConfigurationCreator}\n * https://homer0.github.io/projext/typedef/index.html#static-typedef-TargetConfigurationCreator\n ",
+      "start": 1857,
+      "end": 2003,
+      "loc": {
+        "start": {
+          "line": 82,
+          "column": 0
+        },
+        "end": {
+          "line": 85,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {BabelConfiguration}\n *  ttps://homer0.github.io/projext/class/src/services/configurations/babelConfiguration.js~BabelConfiguration.html\n  ",
+      "start": 2005,
+      "end": 2163,
+      "loc": {
+        "start": {
+          "line": 87,
+          "column": 0
+        },
+        "end": {
+          "line": 90,
+          "column": 4
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {Middleware}\n * http://expressjs.com/en/guide/using-middleware.html\n ",
+      "start": 2165,
+      "end": 2253,
+      "loc": {
+        "start": {
+          "line": 92,
+          "column": 0
+        },
+        "end": {
+          "line": 95,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {HTTPRequest}\n * https://nodejs.org/api/http.html#http_class_http_clientrequest\n ",
+      "start": 2255,
+      "end": 2355,
+      "loc": {
+        "start": {
+          "line": 97,
+          "column": 0
+        },
+        "end": {
+          "line": 100,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {HTTPResponse}\n * https://nodejs.org/api/http.html#http_class_http_serverresponse\n ",
+      "start": 2357,
+      "end": 2459,
+      "loc": {
+        "start": {
+          "line": 102,
+          "column": 0
+        },
+        "end": {
+          "line": 105,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * ================================================================================================\n * Plugins > Commons\n * ================================================================================================\n ",
+      "start": 2461,
+      "end": 2689,
+      "loc": {
+        "start": {
+          "line": 107,
+          "column": 0
+        },
+        "end": {
+          "line": 111,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {function} RollupFilter\n * @param {string} filepath The path to validate.\n * @return {boolean} Whether or not the path is valid.\n ",
+      "start": 2691,
+      "end": 2839,
+      "loc": {
+        "start": {
+          "line": 113,
+          "column": 0
+        },
+        "end": {
+          "line": 117,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {function} RollupStylesheetProcessor\n * @param {string} code The style code to process.\n * @return {Promise<StringOrObject,Error>} If the Promise gets resolved as a string, that would\n *                                          be used as the style code to either return or inject.\n *                                          But if it gets resolved as an `Object`, it's expected\n *                                          for it to have a `css`  key with the style code, the\n *                                          rest of the keys will be added as named exports.\n ",
+      "start": 2841,
+      "end": 3430,
+      "loc": {
+        "start": {
+          "line": 119,
+          "column": 0
+        },
+        "end": {
+          "line": 127,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} RollupFileDefinition\n * @param {string} code The file contents.\n * @param {Object} map Extra information for the file map.\n ",
+      "start": 3432,
+      "end": 3583,
+      "loc": {
+        "start": {
+          "line": 129,
+          "column": 0
+        },
+        "end": {
+          "line": 133,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {function} ProjextRollupPluginsStats\n * @param {string} plugin   The name of the plugin that generated/copied the file.\n * @param {string} filepath The file that was generated/copied.\n ",
+      "start": 3585,
+      "end": 3788,
+      "loc": {
+        "start": {
+          "line": 135,
+          "column": 0
+        },
+        "end": {
+          "line": 139,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjextRollupPluginURL\n * @property {Array}  include A list of expressions the name of a file should match in order to be\n *                            processed by the plugin.\n * @property {Array}  exclude A list of expressions the name of a file shouldn't match in order to\n *                            be processed by the plugin.\n * @property {string} output  The path to the where the a file would be copied. It supports the\n *                            placeholders `[name]` for the file name and `[ext]` for its\n *                            extension.\n * @property {string} url     The URL for the file. It supports the placeholders `[name]` for the\n *                            file name and `[ext]` for its extension.\n ",
+      "start": 3790,
+      "end": 4548,
+      "loc": {
+        "start": {
+          "line": 141,
+          "column": 0
+        },
+        "end": {
+          "line": 152,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * ================================================================================================\n * Plugins > Compression\n * ================================================================================================\n ",
+      "start": 4550,
+      "end": 4782,
+      "loc": {
+        "start": {
+          "line": 154,
+          "column": 0
+        },
+        "end": {
+          "line": 158,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjextRollupCompressionPluginOptions\n * @property {string}                    folder  The directory where the plugin will search for\n *                                               files.\n * @property {Array}                     include A list of expressions the name of a file should\n *                                               match in order to be processed by the plugin.\n * @property {Array}                     exclude A list of expressions the name of a file\n *                                               shouldn't match in order to be processed by the\n *                                               plugin.\n * @property {ProjextRollupPluginsStats} stats   The function the plugin will call in order to\n *                                               inform a file was created.\n ",
+      "start": 4784,
+      "end": 5609,
+      "loc": {
+        "start": {
+          "line": 160,
+          "column": 0
+        },
+        "end": {
+          "line": 171,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjextRollupCompressionPluginEntry\n * @property {string} original   The path to the file that was compressed.\n * @property {string} compressed The path to the compressed file.\n ",
+      "start": 5611,
+      "end": 5816,
+      "loc": {
+        "start": {
+          "line": 173,
+          "column": 0
+        },
+        "end": {
+          "line": 177,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * ================================================================================================\n * Plugins > CSS\n * ================================================================================================\n ",
+      "start": 5818,
+      "end": 6042,
+      "loc": {
+        "start": {
+          "line": 179,
+          "column": 0
+        },
+        "end": {
+          "line": 183,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjextRollupCSSPluginOptions\n * @property {Array}                      include      A list of expressions the name of a file\n *                                                     should match in order to be processed by\n *                                                     the plugin.\n * @property {Array}                      exclude      A list of expressions the name of a file\n *                                                     shouldn't match in order to be processed by\n *                                                     the plugin.\n * @property {boolean}                    insert       Whether the styles should be injected on\n *                                                     the app `<head >` when the bundle finishes\n *                                                     loading.\n * @property {string|boolean}             output       This can be the name a file where all the\n *                                                     files that match the filter would be\n *                                                     bundled. The option can also be set to\n *                                                     `false` so the styles would be returned as\n *                                                     a string when `require`d.\n * @property {?RollupStylesheetProcessor} processor    A custom function to processed the styles.\n * @property {string}                     insertFnName If `insert` is `true`, this will be used as\n *                                                     the name of the function in charge of\n *                                                     injecting the styles.\n * @property {ProjextRollupPluginsStats}  stats        The function the plugin will call in order\n *                                                     to inform a file was created.\n ",
+      "start": 6044,
+      "end": 7893,
+      "loc": {
+        "start": {
+          "line": 185,
+          "column": 0
+        },
+        "end": {
+          "line": 207,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * ================================================================================================\n * Plugins > DevServer\n * ================================================================================================\n ",
+      "start": 7895,
+      "end": 8125,
+      "loc": {
+        "start": {
+          "line": 209,
+          "column": 0
+        },
+        "end": {
+          "line": 213,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {function} ProjextRollupDevServerPluginEvent\n * @param {ProjextRollupDevServerPlugin} plugin\n ",
+      "start": 8127,
+      "end": 8239,
+      "loc": {
+        "start": {
+          "line": 215,
+          "column": 0
+        },
+        "end": {
+          "line": 218,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjextRollupDevServerPluginOptions\n * @property {string}                            host               The server hostname.\n * @property {number}                            port               The server port.\n * @property {Array|string}                      contentBase        The directory from where the\n *                                                                  files are going to be served.\n *                                                                  It can be a single directory\n *                                                                  or a list of them.\n * @property {boolean}                           historyApiFallback Whether or not the server\n *                                                                  should redirect the user to\n *                                                                  the `index.html` after a\n *                                                                  `404`.\n * @property {null|HTTPSOptions}                 https              The required files to run the\n *                                                                  server on HTTPs. They are the\n *                                                                  same that `https.createServer`\n *                                                                  supports.\n * @property {boolean}                           open               Whether or not the browser\n *                                                                  should be opened after\n *                                                                  starting the server.\n * @property {?Logger}                           logger             A custom logger to log the\n *                                                                  server events.\n * @property {ProjextRollupDevServerPluginEvent} onStart            A callback to be called when\n *                                                                  the server starts.\n * @property {ProjextRollupDevServerPluginEvent} onStop             A callback to be called when\n *                                                                  the server stops.\n ",
+      "start": 8241,
+      "end": 10409,
+      "loc": {
+        "start": {
+          "line": 220,
+          "column": 0
+        },
+        "end": {
+          "line": 245,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * ================================================================================================\n * Plugins > NodeRunner\n * ================================================================================================\n ",
+      "start": 10411,
+      "end": 10642,
+      "loc": {
+        "start": {
+          "line": 247,
+          "column": 0
+        },
+        "end": {
+          "line": 251,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {function} ProjextRollupNodeRunnerPluginEvent\n * @param {ProjextRollupNodeRunnerPlugin} plugin\n ",
+      "start": 10644,
+      "end": 10758,
+      "loc": {
+        "start": {
+          "line": 253,
+          "column": 0
+        },
+        "end": {
+          "line": 256,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjextRollupNodeRunnerPluginOptions\n * @property {string}                             file    The file to execute\n * @property {?Logger}                            logger  A custom logger to log the server\n *                                                        events.\n * @property {ProjextRollupNodeRunnerPluginEvent} onStart A callback to be called when the\n *                                                        execution starts.\n * @property {ProjextRollupNodeRunnerPluginEvent} onStop  A callback to be called when the\n *                                                        execution stops.\n ",
+      "start": 10760,
+      "end": 11394,
+      "loc": {
+        "start": {
+          "line": 258,
+          "column": 0
+        },
+        "end": {
+          "line": 267,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * ================================================================================================\n * Plugins > Stats\n * ================================================================================================\n ",
+      "start": 11396,
+      "end": 11622,
+      "loc": {
+        "start": {
+          "line": 269,
+          "column": 0
+        },
+        "end": {
+          "line": 273,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjextRollupStatsPluginOptions\n * @property {string} path The path to the directory where all the files are generated. The plugin\n *                         needs it so it can be removed when showing the files list.\n ",
+      "start": 11624,
+      "end": 11869,
+      "loc": {
+        "start": {
+          "line": 275,
+          "column": 0
+        },
+        "end": {
+          "line": 279,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjextRollupStatsPluginReset\n * @property {function} intro The method Rollup calls to get code to add on the top of the bundle.\n *                            The plugin uses it as a _\"hook\"_ in order to reset the entries list\n *                            and thus, avoid duplicated entries when Rollup is on _\"watch mode\"_.\n ",
+      "start": 11871,
+      "end": 12225,
+      "loc": {
+        "start": {
+          "line": 281,
+          "column": 0
+        },
+        "end": {
+          "line": 286,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjextRollupStatsPluginLogOptions\n * @property {Array}   extraEntries A list of extra entries to add.\n * @property {?Logger} logger       A custom instance of {@link Logger} to log the report table.\n ",
+      "start": 12227,
+      "end": 12455,
+      "loc": {
+        "start": {
+          "line": 288,
+          "column": 0
+        },
+        "end": {
+          "line": 292,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjextRollupStatsPluginLog\n * @property {function} onwrite The method Rollup calls after writing the files on the file system.\n *                              When this happens, the plugin will log the report table on the\n *                              console.\n ",
+      "start": 12457,
+      "end": 12749,
+      "loc": {
+        "start": {
+          "line": 294,
+          "column": 0
+        },
+        "end": {
+          "line": 299,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjextRollupStatsPluginCellsWidth\n * @property {number} plugin The width for the plugin's cell.\n * @property {number} file   The width for the file path cell.\n * @property {number} size   The width for the file size cell.\n ",
+      "start": 12751,
+      "end": 13002,
+      "loc": {
+        "start": {
+          "line": 301,
+          "column": 0
+        },
+        "end": {
+          "line": 306,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * ================================================================================================\n * Plugins > Stylesheet Assets\n * ================================================================================================\n ",
+      "start": 13004,
+      "end": 13242,
+      "loc": {
+        "start": {
+          "line": 308,
+          "column": 0
+        },
+        "end": {
+          "line": 312,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjextRollupStylesheetAssetsPluginOptions\n * @property {string}                    stylesheet    The path to the CSS or JS file where the\n *                                                     styles should be fixed.\n * @property {Array}                     insertFnNames In case the `stylesheet` is a JS file, it's\n *                                                     possible that the styles are being injected\n *                                                     by a function, so this option can be used\n *                                                     the different function names the plugin\n *                                                     should search for in order to find CSS\n *                                                     blocks.\n * @property {ProjextRollupPluginURL}    urls          The set of URLs the plugin will use to\n *                                                     validate the files inside the stylesheet in\n *                                                     order to know if they should be processed,\n *                                                     where to copy them and which URL to use.\n * @property {ProjextRollupPluginsStats} stats         The function the plugin will call in order\n *                                                     to inform a file was created.\n ",
+      "start": 13244,
+      "end": 14607,
+      "loc": {
+        "start": {
+          "line": 314,
+          "column": 0
+        },
+        "end": {
+          "line": 330,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjextRollupStylesheetAssetsHelperPluginOptions\n * @property {Array}  include A list of expressions the name of a file should match in order to be\n *                            processed by the plugin.\n * @property {Array}  exclude A list of expressions the name of a file shouldn't match in order to\n *                            be processed by the plugin.\n * @property {string} fnName  The name of the function that will be used to wrap the code.\n ",
+      "start": 14609,
+      "end": 15088,
+      "loc": {
+        "start": {
+          "line": 332,
+          "column": 0
+        },
+        "end": {
+          "line": 339,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * ================================================================================================\n * Plugins > Stylesheet Modules Fixer\n * ================================================================================================\n ",
+      "start": 15090,
+      "end": 15335,
+      "loc": {
+        "start": {
+          "line": 341,
+          "column": 0
+        },
+        "end": {
+          "line": 345,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjextRollupStylesheetModulesFixerPluginOptions\n * @property {Array}  include           A list of expressions the name of a file should match in\n *                                      order to be processed by the plugin.\n * @property {Array}  exclude           A list of expressions the name of a file shouldn't match\n *                                      in order to be processed by the plugin.\n * @property {string} modulesExportName The name of the export statement for the CSS modules\n *                                      locals.\n ",
+      "start": 15337,
+      "end": 15906,
+      "loc": {
+        "start": {
+          "line": 347,
+          "column": 0
+        },
+        "end": {
+          "line": 355,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * ================================================================================================\n * Plugins > Template\n * ================================================================================================\n ",
+      "start": 15908,
+      "end": 16137,
+      "loc": {
+        "start": {
+          "line": 357,
+          "column": 0
+        },
+        "end": {
+          "line": 361,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjextRollupTemplatePluginOptions\n * @property {string}                    template      The path to the template file the plugin\n *                                                     will use to inject the JS and CSS files.\n * @property {string}                    output        The path where the final file will be\n *                                                     written.\n * @property {Array}                     scripts       A list of JS files that will be linked on\n *                                                     the template.\n * @property {boolean}                   scriptsAsync  Whether or not to use `async` attribute on\n *                                                     the script tags.\n * @property {boolean}                   scriptsOnBody Whether or not to place the script tags on\n *                                                     the body.\n * @property {Array}                     stylesheets   A list of CSS files that will be linked on\n *                                                     the template.\n * @property {ProjextRollupPluginURL}    urls          The set of URLs the plugin will use to\n *                                                     validate the files `require`d on the\n *                                                     template in order to know if they should be\n *                                                     processed, where to copy them and which URL\n *                                                     to use.\n * @property {ProjextRollupPluginsStats} stats         The function the plugin will call in order\n *                                                     to inform a file was copied.\n ",
+      "start": 16139,
+      "end": 17846,
+      "loc": {
+        "start": {
+          "line": 363,
+          "column": 0
+        },
+        "end": {
+          "line": 384,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * ================================================================================================\n * Plugins > URLS\n * ================================================================================================\n ",
+      "start": 17848,
+      "end": 18073,
+      "loc": {
+        "start": {
+          "line": 386,
+          "column": 0
+        },
+        "end": {
+          "line": 390,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjextRollupURLsPluginOptions\n * @property {ProjextRollupPluginURL}    urls  The set of URLs the plugin will use to validate the\n *                                             files in order to know if they should be processed,\n *                                             where to copy them and which URL to use.\n * @property {ProjextRollupPluginsStats} stats The function the plugin will call in order to\n *                                             inform a file was copied.\n ",
+      "start": 18075,
+      "end": 18586,
+      "loc": {
+        "start": {
+          "line": 392,
+          "column": 0
+        },
+        "end": {
+          "line": 399,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * ================================================================================================\n * Middleware\n * ================================================================================================\n ",
+      "start": 18588,
+      "end": 18809,
+      "loc": {
+        "start": {
+          "line": 401,
+          "column": 0
+        },
+        "end": {
+          "line": 405,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {function} MiddlewareGetDirectory\n * @return {string}\n * The build directory of the target implementing the middleware.\n ",
+      "start": 18811,
+      "end": 18950,
+      "loc": {
+        "start": {
+          "line": 407,
+          "column": 0
+        },
+        "end": {
+          "line": 411,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {function} MiddlewareGetFileSystem\n * @return {Promise<FileSystem,Error>}\n * The reason this is resolved on a promise is to avoid trying to accessing files before they are\n * generated.\n ",
+      "start": 18952,
+      "end": 19157,
+      "loc": {
+        "start": {
+          "line": 413,
+          "column": 0
+        },
+        "end": {
+          "line": 418,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} MiddlewareInformation\n * @property {Middleware} middleware\n * The middleware that implements the Rollup build process.\n * @property {MiddlewareGetDirectory} getDirectory\n * To access the target implementing the middleware build directory.\n * @property {MiddlewareGetFileSystem} getFileSystem\n * To access the file system only when the middleware finishes the build process.\n ",
+      "start": 19159,
+      "end": 19561,
+      "loc": {
+        "start": {
+          "line": 420,
+          "column": 0
+        },
+        "end": {
+          "line": 428,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * ================================================================================================\n * Configurations\n * ================================================================================================\n ",
+      "start": 19563,
+      "end": 19788,
+      "loc": {
+        "start": {
+          "line": 430,
+          "column": 0
+        },
+        "end": {
+          "line": 434,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} RollupConfigurationsByEnvironment\n * @property {ConfigurationFile} production\n * The configuration service for a the target type production build.\n * @property {ConfigurationFile} development\n * The configuration service for a the target type development build.\n ",
+      "start": 19790,
+      "end": 20080,
+      "loc": {
+        "start": {
+          "line": 436,
+          "column": 0
+        },
+        "end": {
+          "line": 442,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} RollupConfigurations\n * @property {RollupConfigurationsByEnvironment} node\n * The build types configurations for a Node target.\n * @property {RollupConfigurationsByEnvironment} browser\n * The build types configurations for a browser target.\n ",
+      "start": 20082,
+      "end": 20351,
+      "loc": {
+        "start": {
+          "line": 444,
+          "column": 0
+        },
+        "end": {
+          "line": 450,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * ================================================================================================\n * Others\n * ================================================================================================\n ",
+      "start": 20353,
+      "end": 20570,
+      "loc": {
+        "start": {
+          "line": 452,
+          "column": 0
+        },
+        "end": {
+          "line": 456,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} RollupConfigurationOutputParams\n * @property {string}  file      The path where the bundle will be generated.\n * @property {string}  format    The format of the bundle (`iife`, `cjs` or `umd`).\n * @property {boolean} sourcemap Whether or not a source map should be generated for the bundle.\n * @property {string}  name      The export name of the bundle.\n * @property {?string} exports   This is implemented when the target is a library. It allows the\n *                               bundle to have named exports.\n ",
+      "start": 20572,
+      "end": 21115,
+      "loc": {
+        "start": {
+          "line": 458,
+          "column": 0
+        },
+        "end": {
+          "line": 466,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} RollupConfigurationPathsParams\n * @property {string} js\n * The filename format and path for the bundle, on the distribution directory.\n * @property {string} css\n * The filename format and path for the generated stylesheet, on the distribution directory.\n * @property {string} images\n * The filename format and path for the images that are going to be copied to the distribution\n * directory.\n * @property {string} fonts\n * The filename format and path for the font files that are going to be copied to the distribution\n * directory.\n ",
+      "start": 21117,
+      "end": 21678,
+      "loc": {
+        "start": {
+          "line": 468,
+          "column": 0
+        },
+        "end": {
+          "line": 480,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} RollupConfigurationParams\n * @property {string}                          input       The path for the entry file.\n * @property {RollupConfigurationOutputParams} output      The Rollup settings for the bundle\n *                                                         generation.\n * @property {Target}                          target      The information of the target being\n *                                                         bundled.\n * @property {TargetFileRules}                 targetRules The rules to find the different file\n *                                                         types a target may use.\n * @property {Object}                          definitions A dictionary of defined variables that\n *                                                         will be replaced on the bundled code.\n * @property {string}                          buildType   The intended build type: `development`\n *                                                         or `production`.\n * @property {RollupConfigurationPathsParams}  paths       A dictionary with the filenames formats\n *                                                         and paths of the different files the\n *                                                         bundle can generate.\n\n/**\n * @typedef {Object} RollupPluginInfo\n * @property {string} name          The name of the plugin.\n * @property {string} configuration The path to the Rollup configuration file.\n * @property {Array}  external      The list of subpaths the plugin exposes and that should be\n *                                  handled as external dependencies, in order to avoid bundling\n *                                  them.\n ",
+      "start": 21680,
+      "end": 23389,
+      "loc": {
+        "start": {
+          "line": 482,
+          "column": 0
+        },
+        "end": {
+          "line": 506,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {function} ProviderRegisterMethod\n * @param {Jimple} app\n * A reference to the dependency injection container.\n ",
+      "start": 23391,
+      "end": 23521,
+      "loc": {
+        "start": {
+          "line": 508,
+          "column": 0
+        },
+        "end": {
+          "line": 512,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} Provider\n * @property {ProviderRegisterMethod} register\n * The method that gets called when registering the provider.\n ",
+      "start": 23523,
+      "end": 23669,
+      "loc": {
+        "start": {
+          "line": 514,
+          "column": 0
+        },
+        "end": {
+          "line": 518,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {string|Object} StringOrObject\n ",
+      "start": 23671,
+      "end": 23721,
+      "loc": {
+        "start": {
+          "line": 520,
+          "column": 0
+        },
+        "end": {
+          "line": 522,
+          "column": 3
+        }
+      }
+    }
+  ],
+  "tokens": [
+    {
+      "type": "CommentBlock",
+      "value": "*\n * ================================================================================================\n * Externals\n * ================================================================================================\n ",
+      "start": 0,
+      "end": 220,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 5,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {Jimple}\n * https://yarnpkg.com/en/package/jimple\n ",
+      "start": 222,
+      "end": 292,
+      "loc": {
+        "start": {
+          "line": 7,
+          "column": 0
+        },
+        "end": {
+          "line": 10,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {Jimpex}\n * https://yarnpkg.com/en/package/jimpex\n ",
+      "start": 294,
+      "end": 364,
+      "loc": {
+        "start": {
+          "line": 12,
+          "column": 0
+        },
+        "end": {
+          "line": 15,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {Express}\n * https://expressjs.com\n ",
+      "start": 366,
+      "end": 421,
+      "loc": {
+        "start": {
+          "line": 17,
+          "column": 0
+        },
+        "end": {
+          "line": 20,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {FileSystem}\n * https://nodejs.org/api/fs.html\n ",
+      "start": 423,
+      "end": 490,
+      "loc": {
+        "start": {
+          "line": 22,
+          "column": 0
+        },
+        "end": {
+          "line": 25,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {PathUtils}\n * https://homer0.github.io/wootils/class/wootils/node/pathUtils.js~PathUtils.html\n ",
+      "start": 492,
+      "end": 607,
+      "loc": {
+        "start": {
+          "line": 27,
+          "column": 0
+        },
+        "end": {
+          "line": 30,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {Logger}\n * https://homer0.github.io/wootils/class/wootils/node/logger.js~Logger.html\n ",
+      "start": 609,
+      "end": 715,
+      "loc": {
+        "start": {
+          "line": 32,
+          "column": 0
+        },
+        "end": {
+          "line": 35,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {EnvironmentUtils}\n * https://homer0.github.io/wootils/class/wootils/node/environmentUtils.js~EnvironmentUtils.html\n ",
+      "start": 717,
+      "end": 853,
+      "loc": {
+        "start": {
+          "line": 37,
+          "column": 0
+        },
+        "end": {
+          "line": 40,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {Projext}\n * https://homer0.github.io/projext/class/src/app/index.js~Projext.html\n ",
+      "start": 855,
+      "end": 957,
+      "loc": {
+        "start": {
+          "line": 42,
+          "column": 0
+        },
+        "end": {
+          "line": 45,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {BuildVersion}\n * https://homer0.github.io/projext/class/src/services/building/buildVersion.js~BuildVersion.html\n ",
+      "start": 959,
+      "end": 1092,
+      "loc": {
+        "start": {
+          "line": 47,
+          "column": 0
+        },
+        "end": {
+          "line": 50,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {Events}\n * https://homer0.github.io/projext/class/src/services/common/events.js~Events.html\n ",
+      "start": 1094,
+      "end": 1207,
+      "loc": {
+        "start": {
+          "line": 52,
+          "column": 0
+        },
+        "end": {
+          "line": 55,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {Targets}\n * https://homer0.github.io/projext/class/src/services/targets/targets.js~Targets.html\n ",
+      "start": 1209,
+      "end": 1326,
+      "loc": {
+        "start": {
+          "line": 57,
+          "column": 0
+        },
+        "end": {
+          "line": 60,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {TargetsFileRules}\n *  ttps://homer0.github.io/projext/class/src/services/targets/targetsFileRules/targetsFileRules.js~TargetsFileRules.html\n  ",
+      "start": 1328,
+      "end": 1490,
+      "loc": {
+        "start": {
+          "line": 62,
+          "column": 0
+        },
+        "end": {
+          "line": 65,
+          "column": 4
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {TargetFileRules}\n * https://homer0.github.io/projext/typedef/index.html#static-typedef-TargetFileRules\n ",
+      "start": 1492,
+      "end": 1616,
+      "loc": {
+        "start": {
+          "line": 67,
+          "column": 0
+        },
+        "end": {
+          "line": 70,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {TargetsHTML}\n * https://homer0.github.io/projext/class/src/services/targets/targetsHTML.js~TargetsHTML.html\n ",
+      "start": 1618,
+      "end": 1747,
+      "loc": {
+        "start": {
+          "line": 72,
+          "column": 0
+        },
+        "end": {
+          "line": 75,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {Target}\n * https://homer0.github.io/projext/typedef/index.html#static-typedef-Target\n ",
+      "start": 1749,
+      "end": 1855,
+      "loc": {
+        "start": {
+          "line": 77,
+          "column": 0
+        },
+        "end": {
+          "line": 80,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {TargetConfigurationCreator}\n * https://homer0.github.io/projext/typedef/index.html#static-typedef-TargetConfigurationCreator\n ",
+      "start": 1857,
+      "end": 2003,
+      "loc": {
+        "start": {
+          "line": 82,
+          "column": 0
+        },
+        "end": {
+          "line": 85,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {BabelConfiguration}\n *  ttps://homer0.github.io/projext/class/src/services/configurations/babelConfiguration.js~BabelConfiguration.html\n  ",
+      "start": 2005,
+      "end": 2163,
+      "loc": {
+        "start": {
+          "line": 87,
+          "column": 0
+        },
+        "end": {
+          "line": 90,
+          "column": 4
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {Middleware}\n * http://expressjs.com/en/guide/using-middleware.html\n ",
+      "start": 2165,
+      "end": 2253,
+      "loc": {
+        "start": {
+          "line": 92,
+          "column": 0
+        },
+        "end": {
+          "line": 95,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {HTTPRequest}\n * https://nodejs.org/api/http.html#http_class_http_clientrequest\n ",
+      "start": 2255,
+      "end": 2355,
+      "loc": {
+        "start": {
+          "line": 97,
+          "column": 0
+        },
+        "end": {
+          "line": 100,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {HTTPResponse}\n * https://nodejs.org/api/http.html#http_class_http_serverresponse\n ",
+      "start": 2357,
+      "end": 2459,
+      "loc": {
+        "start": {
+          "line": 102,
+          "column": 0
+        },
+        "end": {
+          "line": 105,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * ================================================================================================\n * Plugins > Commons\n * ================================================================================================\n ",
+      "start": 2461,
+      "end": 2689,
+      "loc": {
+        "start": {
+          "line": 107,
+          "column": 0
+        },
+        "end": {
+          "line": 111,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {function} RollupFilter\n * @param {string} filepath The path to validate.\n * @return {boolean} Whether or not the path is valid.\n ",
+      "start": 2691,
+      "end": 2839,
+      "loc": {
+        "start": {
+          "line": 113,
+          "column": 0
+        },
+        "end": {
+          "line": 117,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {function} RollupStylesheetProcessor\n * @param {string} code The style code to process.\n * @return {Promise<StringOrObject,Error>} If the Promise gets resolved as a string, that would\n *                                          be used as the style code to either return or inject.\n *                                          But if it gets resolved as an `Object`, it's expected\n *                                          for it to have a `css`  key with the style code, the\n *                                          rest of the keys will be added as named exports.\n ",
+      "start": 2841,
+      "end": 3430,
+      "loc": {
+        "start": {
+          "line": 119,
+          "column": 0
+        },
+        "end": {
+          "line": 127,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} RollupFileDefinition\n * @param {string} code The file contents.\n * @param {Object} map Extra information for the file map.\n ",
+      "start": 3432,
+      "end": 3583,
+      "loc": {
+        "start": {
+          "line": 129,
+          "column": 0
+        },
+        "end": {
+          "line": 133,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {function} ProjextRollupPluginsStats\n * @param {string} plugin   The name of the plugin that generated/copied the file.\n * @param {string} filepath The file that was generated/copied.\n ",
+      "start": 3585,
+      "end": 3788,
+      "loc": {
+        "start": {
+          "line": 135,
+          "column": 0
+        },
+        "end": {
+          "line": 139,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjextRollupPluginURL\n * @property {Array}  include A list of expressions the name of a file should match in order to be\n *                            processed by the plugin.\n * @property {Array}  exclude A list of expressions the name of a file shouldn't match in order to\n *                            be processed by the plugin.\n * @property {string} output  The path to the where the a file would be copied. It supports the\n *                            placeholders `[name]` for the file name and `[ext]` for its\n *                            extension.\n * @property {string} url     The URL for the file. It supports the placeholders `[name]` for the\n *                            file name and `[ext]` for its extension.\n ",
+      "start": 3790,
+      "end": 4548,
+      "loc": {
+        "start": {
+          "line": 141,
+          "column": 0
+        },
+        "end": {
+          "line": 152,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * ================================================================================================\n * Plugins > Compression\n * ================================================================================================\n ",
+      "start": 4550,
+      "end": 4782,
+      "loc": {
+        "start": {
+          "line": 154,
+          "column": 0
+        },
+        "end": {
+          "line": 158,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjextRollupCompressionPluginOptions\n * @property {string}                    folder  The directory where the plugin will search for\n *                                               files.\n * @property {Array}                     include A list of expressions the name of a file should\n *                                               match in order to be processed by the plugin.\n * @property {Array}                     exclude A list of expressions the name of a file\n *                                               shouldn't match in order to be processed by the\n *                                               plugin.\n * @property {ProjextRollupPluginsStats} stats   The function the plugin will call in order to\n *                                               inform a file was created.\n ",
+      "start": 4784,
+      "end": 5609,
+      "loc": {
+        "start": {
+          "line": 160,
+          "column": 0
+        },
+        "end": {
+          "line": 171,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjextRollupCompressionPluginEntry\n * @property {string} original   The path to the file that was compressed.\n * @property {string} compressed The path to the compressed file.\n ",
+      "start": 5611,
+      "end": 5816,
+      "loc": {
+        "start": {
+          "line": 173,
+          "column": 0
+        },
+        "end": {
+          "line": 177,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * ================================================================================================\n * Plugins > CSS\n * ================================================================================================\n ",
+      "start": 5818,
+      "end": 6042,
+      "loc": {
+        "start": {
+          "line": 179,
+          "column": 0
+        },
+        "end": {
+          "line": 183,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjextRollupCSSPluginOptions\n * @property {Array}                      include      A list of expressions the name of a file\n *                                                     should match in order to be processed by\n *                                                     the plugin.\n * @property {Array}                      exclude      A list of expressions the name of a file\n *                                                     shouldn't match in order to be processed by\n *                                                     the plugin.\n * @property {boolean}                    insert       Whether the styles should be injected on\n *                                                     the app `<head >` when the bundle finishes\n *                                                     loading.\n * @property {string|boolean}             output       This can be the name a file where all the\n *                                                     files that match the filter would be\n *                                                     bundled. The option can also be set to\n *                                                     `false` so the styles would be returned as\n *                                                     a string when `require`d.\n * @property {?RollupStylesheetProcessor} processor    A custom function to processed the styles.\n * @property {string}                     insertFnName If `insert` is `true`, this will be used as\n *                                                     the name of the function in charge of\n *                                                     injecting the styles.\n * @property {ProjextRollupPluginsStats}  stats        The function the plugin will call in order\n *                                                     to inform a file was created.\n ",
+      "start": 6044,
+      "end": 7893,
+      "loc": {
+        "start": {
+          "line": 185,
+          "column": 0
+        },
+        "end": {
+          "line": 207,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * ================================================================================================\n * Plugins > DevServer\n * ================================================================================================\n ",
+      "start": 7895,
+      "end": 8125,
+      "loc": {
+        "start": {
+          "line": 209,
+          "column": 0
+        },
+        "end": {
+          "line": 213,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {function} ProjextRollupDevServerPluginEvent\n * @param {ProjextRollupDevServerPlugin} plugin\n ",
+      "start": 8127,
+      "end": 8239,
+      "loc": {
+        "start": {
+          "line": 215,
+          "column": 0
+        },
+        "end": {
+          "line": 218,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjextRollupDevServerPluginOptions\n * @property {string}                            host               The server hostname.\n * @property {number}                            port               The server port.\n * @property {Array|string}                      contentBase        The directory from where the\n *                                                                  files are going to be served.\n *                                                                  It can be a single directory\n *                                                                  or a list of them.\n * @property {boolean}                           historyApiFallback Whether or not the server\n *                                                                  should redirect the user to\n *                                                                  the `index.html` after a\n *                                                                  `404`.\n * @property {null|HTTPSOptions}                 https              The required files to run the\n *                                                                  server on HTTPs. They are the\n *                                                                  same that `https.createServer`\n *                                                                  supports.\n * @property {boolean}                           open               Whether or not the browser\n *                                                                  should be opened after\n *                                                                  starting the server.\n * @property {?Logger}                           logger             A custom logger to log the\n *                                                                  server events.\n * @property {ProjextRollupDevServerPluginEvent} onStart            A callback to be called when\n *                                                                  the server starts.\n * @property {ProjextRollupDevServerPluginEvent} onStop             A callback to be called when\n *                                                                  the server stops.\n ",
+      "start": 8241,
+      "end": 10409,
+      "loc": {
+        "start": {
+          "line": 220,
+          "column": 0
+        },
+        "end": {
+          "line": 245,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * ================================================================================================\n * Plugins > NodeRunner\n * ================================================================================================\n ",
+      "start": 10411,
+      "end": 10642,
+      "loc": {
+        "start": {
+          "line": 247,
+          "column": 0
+        },
+        "end": {
+          "line": 251,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {function} ProjextRollupNodeRunnerPluginEvent\n * @param {ProjextRollupNodeRunnerPlugin} plugin\n ",
+      "start": 10644,
+      "end": 10758,
+      "loc": {
+        "start": {
+          "line": 253,
+          "column": 0
+        },
+        "end": {
+          "line": 256,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjextRollupNodeRunnerPluginOptions\n * @property {string}                             file    The file to execute\n * @property {?Logger}                            logger  A custom logger to log the server\n *                                                        events.\n * @property {ProjextRollupNodeRunnerPluginEvent} onStart A callback to be called when the\n *                                                        execution starts.\n * @property {ProjextRollupNodeRunnerPluginEvent} onStop  A callback to be called when the\n *                                                        execution stops.\n ",
+      "start": 10760,
+      "end": 11394,
+      "loc": {
+        "start": {
+          "line": 258,
+          "column": 0
+        },
+        "end": {
+          "line": 267,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * ================================================================================================\n * Plugins > Stats\n * ================================================================================================\n ",
+      "start": 11396,
+      "end": 11622,
+      "loc": {
+        "start": {
+          "line": 269,
+          "column": 0
+        },
+        "end": {
+          "line": 273,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjextRollupStatsPluginOptions\n * @property {string} path The path to the directory where all the files are generated. The plugin\n *                         needs it so it can be removed when showing the files list.\n ",
+      "start": 11624,
+      "end": 11869,
+      "loc": {
+        "start": {
+          "line": 275,
+          "column": 0
+        },
+        "end": {
+          "line": 279,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjextRollupStatsPluginReset\n * @property {function} intro The method Rollup calls to get code to add on the top of the bundle.\n *                            The plugin uses it as a _\"hook\"_ in order to reset the entries list\n *                            and thus, avoid duplicated entries when Rollup is on _\"watch mode\"_.\n ",
+      "start": 11871,
+      "end": 12225,
+      "loc": {
+        "start": {
+          "line": 281,
+          "column": 0
+        },
+        "end": {
+          "line": 286,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjextRollupStatsPluginLogOptions\n * @property {Array}   extraEntries A list of extra entries to add.\n * @property {?Logger} logger       A custom instance of {@link Logger} to log the report table.\n ",
+      "start": 12227,
+      "end": 12455,
+      "loc": {
+        "start": {
+          "line": 288,
+          "column": 0
+        },
+        "end": {
+          "line": 292,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjextRollupStatsPluginLog\n * @property {function} onwrite The method Rollup calls after writing the files on the file system.\n *                              When this happens, the plugin will log the report table on the\n *                              console.\n ",
+      "start": 12457,
+      "end": 12749,
+      "loc": {
+        "start": {
+          "line": 294,
+          "column": 0
+        },
+        "end": {
+          "line": 299,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjextRollupStatsPluginCellsWidth\n * @property {number} plugin The width for the plugin's cell.\n * @property {number} file   The width for the file path cell.\n * @property {number} size   The width for the file size cell.\n ",
+      "start": 12751,
+      "end": 13002,
+      "loc": {
+        "start": {
+          "line": 301,
+          "column": 0
+        },
+        "end": {
+          "line": 306,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * ================================================================================================\n * Plugins > Stylesheet Assets\n * ================================================================================================\n ",
+      "start": 13004,
+      "end": 13242,
+      "loc": {
+        "start": {
+          "line": 308,
+          "column": 0
+        },
+        "end": {
+          "line": 312,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjextRollupStylesheetAssetsPluginOptions\n * @property {string}                    stylesheet    The path to the CSS or JS file where the\n *                                                     styles should be fixed.\n * @property {Array}                     insertFnNames In case the `stylesheet` is a JS file, it's\n *                                                     possible that the styles are being injected\n *                                                     by a function, so this option can be used\n *                                                     the different function names the plugin\n *                                                     should search for in order to find CSS\n *                                                     blocks.\n * @property {ProjextRollupPluginURL}    urls          The set of URLs the plugin will use to\n *                                                     validate the files inside the stylesheet in\n *                                                     order to know if they should be processed,\n *                                                     where to copy them and which URL to use.\n * @property {ProjextRollupPluginsStats} stats         The function the plugin will call in order\n *                                                     to inform a file was created.\n ",
+      "start": 13244,
+      "end": 14607,
+      "loc": {
+        "start": {
+          "line": 314,
+          "column": 0
+        },
+        "end": {
+          "line": 330,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjextRollupStylesheetAssetsHelperPluginOptions\n * @property {Array}  include A list of expressions the name of a file should match in order to be\n *                            processed by the plugin.\n * @property {Array}  exclude A list of expressions the name of a file shouldn't match in order to\n *                            be processed by the plugin.\n * @property {string} fnName  The name of the function that will be used to wrap the code.\n ",
+      "start": 14609,
+      "end": 15088,
+      "loc": {
+        "start": {
+          "line": 332,
+          "column": 0
+        },
+        "end": {
+          "line": 339,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * ================================================================================================\n * Plugins > Stylesheet Modules Fixer\n * ================================================================================================\n ",
+      "start": 15090,
+      "end": 15335,
+      "loc": {
+        "start": {
+          "line": 341,
+          "column": 0
+        },
+        "end": {
+          "line": 345,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjextRollupStylesheetModulesFixerPluginOptions\n * @property {Array}  include           A list of expressions the name of a file should match in\n *                                      order to be processed by the plugin.\n * @property {Array}  exclude           A list of expressions the name of a file shouldn't match\n *                                      in order to be processed by the plugin.\n * @property {string} modulesExportName The name of the export statement for the CSS modules\n *                                      locals.\n ",
+      "start": 15337,
+      "end": 15906,
+      "loc": {
+        "start": {
+          "line": 347,
+          "column": 0
+        },
+        "end": {
+          "line": 355,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * ================================================================================================\n * Plugins > Template\n * ================================================================================================\n ",
+      "start": 15908,
+      "end": 16137,
+      "loc": {
+        "start": {
+          "line": 357,
+          "column": 0
+        },
+        "end": {
+          "line": 361,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjextRollupTemplatePluginOptions\n * @property {string}                    template      The path to the template file the plugin\n *                                                     will use to inject the JS and CSS files.\n * @property {string}                    output        The path where the final file will be\n *                                                     written.\n * @property {Array}                     scripts       A list of JS files that will be linked on\n *                                                     the template.\n * @property {boolean}                   scriptsAsync  Whether or not to use `async` attribute on\n *                                                     the script tags.\n * @property {boolean}                   scriptsOnBody Whether or not to place the script tags on\n *                                                     the body.\n * @property {Array}                     stylesheets   A list of CSS files that will be linked on\n *                                                     the template.\n * @property {ProjextRollupPluginURL}    urls          The set of URLs the plugin will use to\n *                                                     validate the files `require`d on the\n *                                                     template in order to know if they should be\n *                                                     processed, where to copy them and which URL\n *                                                     to use.\n * @property {ProjextRollupPluginsStats} stats         The function the plugin will call in order\n *                                                     to inform a file was copied.\n ",
+      "start": 16139,
+      "end": 17846,
+      "loc": {
+        "start": {
+          "line": 363,
+          "column": 0
+        },
+        "end": {
+          "line": 384,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * ================================================================================================\n * Plugins > URLS\n * ================================================================================================\n ",
+      "start": 17848,
+      "end": 18073,
+      "loc": {
+        "start": {
+          "line": 386,
+          "column": 0
+        },
+        "end": {
+          "line": 390,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjextRollupURLsPluginOptions\n * @property {ProjextRollupPluginURL}    urls  The set of URLs the plugin will use to validate the\n *                                             files in order to know if they should be processed,\n *                                             where to copy them and which URL to use.\n * @property {ProjextRollupPluginsStats} stats The function the plugin will call in order to\n *                                             inform a file was copied.\n ",
+      "start": 18075,
+      "end": 18586,
+      "loc": {
+        "start": {
+          "line": 392,
+          "column": 0
+        },
+        "end": {
+          "line": 399,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * ================================================================================================\n * Middleware\n * ================================================================================================\n ",
+      "start": 18588,
+      "end": 18809,
+      "loc": {
+        "start": {
+          "line": 401,
+          "column": 0
+        },
+        "end": {
+          "line": 405,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {function} MiddlewareGetDirectory\n * @return {string}\n * The build directory of the target implementing the middleware.\n ",
+      "start": 18811,
+      "end": 18950,
+      "loc": {
+        "start": {
+          "line": 407,
+          "column": 0
+        },
+        "end": {
+          "line": 411,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {function} MiddlewareGetFileSystem\n * @return {Promise<FileSystem,Error>}\n * The reason this is resolved on a promise is to avoid trying to accessing files before they are\n * generated.\n ",
+      "start": 18952,
+      "end": 19157,
+      "loc": {
+        "start": {
+          "line": 413,
+          "column": 0
+        },
+        "end": {
+          "line": 418,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} MiddlewareInformation\n * @property {Middleware} middleware\n * The middleware that implements the Rollup build process.\n * @property {MiddlewareGetDirectory} getDirectory\n * To access the target implementing the middleware build directory.\n * @property {MiddlewareGetFileSystem} getFileSystem\n * To access the file system only when the middleware finishes the build process.\n ",
+      "start": 19159,
+      "end": 19561,
+      "loc": {
+        "start": {
+          "line": 420,
+          "column": 0
+        },
+        "end": {
+          "line": 428,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * ================================================================================================\n * Configurations\n * ================================================================================================\n ",
+      "start": 19563,
+      "end": 19788,
+      "loc": {
+        "start": {
+          "line": 430,
+          "column": 0
+        },
+        "end": {
+          "line": 434,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} RollupConfigurationsByEnvironment\n * @property {ConfigurationFile} production\n * The configuration service for a the target type production build.\n * @property {ConfigurationFile} development\n * The configuration service for a the target type development build.\n ",
+      "start": 19790,
+      "end": 20080,
+      "loc": {
+        "start": {
+          "line": 436,
+          "column": 0
+        },
+        "end": {
+          "line": 442,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} RollupConfigurations\n * @property {RollupConfigurationsByEnvironment} node\n * The build types configurations for a Node target.\n * @property {RollupConfigurationsByEnvironment} browser\n * The build types configurations for a browser target.\n ",
+      "start": 20082,
+      "end": 20351,
+      "loc": {
+        "start": {
+          "line": 444,
+          "column": 0
+        },
+        "end": {
+          "line": 450,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * ================================================================================================\n * Others\n * ================================================================================================\n ",
+      "start": 20353,
+      "end": 20570,
+      "loc": {
+        "start": {
+          "line": 452,
+          "column": 0
+        },
+        "end": {
+          "line": 456,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} RollupConfigurationOutputParams\n * @property {string}  file      The path where the bundle will be generated.\n * @property {string}  format    The format of the bundle (`iife`, `cjs` or `umd`).\n * @property {boolean} sourcemap Whether or not a source map should be generated for the bundle.\n * @property {string}  name      The export name of the bundle.\n * @property {?string} exports   This is implemented when the target is a library. It allows the\n *                               bundle to have named exports.\n ",
+      "start": 20572,
+      "end": 21115,
+      "loc": {
+        "start": {
+          "line": 458,
+          "column": 0
+        },
+        "end": {
+          "line": 466,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} RollupConfigurationPathsParams\n * @property {string} js\n * The filename format and path for the bundle, on the distribution directory.\n * @property {string} css\n * The filename format and path for the generated stylesheet, on the distribution directory.\n * @property {string} images\n * The filename format and path for the images that are going to be copied to the distribution\n * directory.\n * @property {string} fonts\n * The filename format and path for the font files that are going to be copied to the distribution\n * directory.\n ",
+      "start": 21117,
+      "end": 21678,
+      "loc": {
+        "start": {
+          "line": 468,
+          "column": 0
+        },
+        "end": {
+          "line": 480,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} RollupConfigurationParams\n * @property {string}                          input       The path for the entry file.\n * @property {RollupConfigurationOutputParams} output      The Rollup settings for the bundle\n *                                                         generation.\n * @property {Target}                          target      The information of the target being\n *                                                         bundled.\n * @property {TargetFileRules}                 targetRules The rules to find the different file\n *                                                         types a target may use.\n * @property {Object}                          definitions A dictionary of defined variables that\n *                                                         will be replaced on the bundled code.\n * @property {string}                          buildType   The intended build type: `development`\n *                                                         or `production`.\n * @property {RollupConfigurationPathsParams}  paths       A dictionary with the filenames formats\n *                                                         and paths of the different files the\n *                                                         bundle can generate.\n\n/**\n * @typedef {Object} RollupPluginInfo\n * @property {string} name          The name of the plugin.\n * @property {string} configuration The path to the Rollup configuration file.\n * @property {Array}  external      The list of subpaths the plugin exposes and that should be\n *                                  handled as external dependencies, in order to avoid bundling\n *                                  them.\n ",
+      "start": 21680,
+      "end": 23389,
+      "loc": {
+        "start": {
+          "line": 482,
+          "column": 0
+        },
+        "end": {
+          "line": 506,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {function} ProviderRegisterMethod\n * @param {Jimple} app\n * A reference to the dependency injection container.\n ",
+      "start": 23391,
+      "end": 23521,
+      "loc": {
+        "start": {
+          "line": 508,
+          "column": 0
+        },
+        "end": {
+          "line": 512,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} Provider\n * @property {ProviderRegisterMethod} register\n * The method that gets called when registering the provider.\n ",
+      "start": 23523,
+      "end": 23669,
+      "loc": {
+        "start": {
+          "line": 514,
+          "column": 0
+        },
+        "end": {
+          "line": 518,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {string|Object} StringOrObject\n ",
+      "start": 23671,
+      "end": 23721,
+      "loc": {
+        "start": {
+          "line": 520,
+          "column": 0
+        },
+        "end": {
+          "line": 522,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "eof",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 23722,
+      "end": 23722,
+      "loc": {
+        "start": {
+          "line": 523,
+          "column": 0
+        },
+        "end": {
+          "line": 523,
+          "column": 0
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl">
+  <title data-ice="title">Home | projext-plugin-rollup</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Allows projext to use Rollup as a build engine."><meta property="twitter:card" content="summary"><meta property="twitter:title" content="projext-plugin-rollup"><meta property="twitter:description" content="Allows projext to use Rollup as a build engine."></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/homer0/projext-plugin-rollup"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-useExpress">useExpress</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-useJimpex">useJimpex</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-MiddlewareGetDirectory">MiddlewareGetDirectory</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-MiddlewareGetFileSystem">MiddlewareGetFileSystem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-MiddlewareInformation">MiddlewareInformation</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupCSSPluginOptions">ProjextRollupCSSPluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupCompressionPluginEntry">ProjextRollupCompressionPluginEntry</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupCompressionPluginOptions">ProjextRollupCompressionPluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupDevServerPluginEvent">ProjextRollupDevServerPluginEvent</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupDevServerPluginOptions">ProjextRollupDevServerPluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupNodeRunnerPluginEvent">ProjextRollupNodeRunnerPluginEvent</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupNodeRunnerPluginOptions">ProjextRollupNodeRunnerPluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupPluginURL">ProjextRollupPluginURL</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupPluginsStats">ProjextRollupPluginsStats</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupStatsPluginCellsWidth">ProjextRollupStatsPluginCellsWidth</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupStatsPluginLog">ProjextRollupStatsPluginLog</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupStatsPluginLogOptions">ProjextRollupStatsPluginLogOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupStatsPluginOptions">ProjextRollupStatsPluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupStatsPluginReset">ProjextRollupStatsPluginReset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupStylesheetAssetsHelperPluginOptions">ProjextRollupStylesheetAssetsHelperPluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupStylesheetAssetsPluginOptions">ProjextRollupStylesheetAssetsPluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupStylesheetModulesFixerPluginOptions">ProjextRollupStylesheetModulesFixerPluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupTemplatePluginOptions">ProjextRollupTemplatePluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupURLsPluginOptions">ProjextRollupURLsPluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProviderRegisterMethod">ProviderRegisterMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RollupConfigurationOutputParams">RollupConfigurationOutputParams</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RollupConfigurationPathsParams">RollupConfigurationPathsParams</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RollupConfigurations">RollupConfigurations</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RollupConfigurationsByEnvironment">RollupConfigurationsByEnvironment</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RollupFileDefinition">RollupFileDefinition</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RollupFilter">RollupFilter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RollupPluginInfo">RollupPluginInfo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RollupStylesheetProcessor">RollupStylesheetProcessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-StringOrObject">StringOrObject</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="ttps://homer0.github.io/projext/class/src/services/configurations/babelConfiguration.js~BabelConfiguration.html">BabelConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/class/src/services/building/buildVersion.js~BuildVersion.html">BuildVersion</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/environmentUtils.js~EnvironmentUtils.html">EnvironmentUtils</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/class/src/services/common/events.js~Events.html">Events</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://expressjs.com">Express</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://nodejs.org/api/fs.html">FileSystem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://nodejs.org/api/http.html#http_class_http_clientrequest">HTTPRequest</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://nodejs.org/api/http.html#http_class_http_serverresponse">HTTPResponse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://yarnpkg.com/en/package/jimpex">Jimpex</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://yarnpkg.com/en/package/jimple">Jimple</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/logger.js~Logger.html">Logger</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="http://expressjs.com/en/guide/using-middleware.html">Middleware</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/pathUtils.js~PathUtils.html">PathUtils</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/class/src/app/index.js~Projext.html">Projext</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/typedef/index.html#static-typedef-Target">Target</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/typedef/index.html#static-typedef-TargetConfigurationCreator">TargetConfigurationCreator</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/typedef/index.html#static-typedef-TargetFileRules">TargetFileRules</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/class/src/services/targets/targets.js~Targets.html">Targets</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="ttps://homer0.github.io/projext/class/src/services/targets/targetsFileRules/targetsFileRules.js~TargetsFileRules.html">TargetsFileRules</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/class/src/services/targets/targetsHTML.js~TargetsHTML.html">TargetsHTML</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#abstracts">abstracts</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/abstracts/configurationFile.js~ConfigurationFile.html">ConfigurationFile</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#jimpex">jimpex</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/jimpex/frontendFs.js~RollupFrontendFs.html">RollupFrontendFs</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/jimpex/sendFile.js~RollupSendFile.html">RollupSendFile</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-rollupFrontendFs">rollupFrontendFs</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rollupSendFile">rollupSendFile</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins">plugins</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/utils.js~ProjextRollupUtils.html">ProjextRollupUtils</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-compression">plugins/compression</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/compression/index.js~ProjextRollupCompressionPlugin.html">ProjextRollupCompressionPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-compression">compression</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-css">plugins/css</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/css/index.js~ProjextRollupCSSPlugin.html">ProjextRollupCSSPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-css">css</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-devserver">plugins/devServer</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/devServer/index.js~ProjextRollupDevServerPlugin.html">ProjextRollupDevServerPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-devServer">devServer</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-noderunner">plugins/nodeRunner</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/nodeRunner/index.js~ProjextRollupNodeRunnerPlugin.html">ProjextRollupNodeRunnerPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-nodeRunner">nodeRunner</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-stats">plugins/stats</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/stats/index.js~ProjextRollupStatsPlugin.html">ProjextRollupStatsPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-stats">stats</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-stylesheetassets">plugins/stylesheetAssets</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/stylesheetAssets/helper.js~ProjextRollupStylesheetAssetsHelperPlugin.html">ProjextRollupStylesheetAssetsHelperPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/stylesheetAssets/index.js~ProjextRollupStylesheetAssetsPlugin.html">ProjextRollupStylesheetAssetsPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-stylesheetAssetsHelper">stylesheetAssetsHelper</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-stylesheetAssets">stylesheetAssets</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-stylesheetmodulesfixer">plugins/stylesheetModulesFixer</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/stylesheetModulesFixer/index.js~ProjextRollupStylesheetModulesFixerPlugin.html">ProjextRollupStylesheetModulesFixerPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-stylesheetModulesFixer">stylesheetModulesFixer</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-template">plugins/template</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/template/index.js~ProjextRollupTemplatePlugin.html">ProjextRollupTemplatePlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-template">template</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-urls">plugins/urls</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/urls/index.js~ProjextRollupURLsPlugin.html">ProjextRollupURLsPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-urls">urls</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-windowasglobal">plugins/windowAsGlobal</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/windowAsGlobal/index.js~ProjextRollupWindowAsGlobalPlugin.html">ProjextRollupWindowAsGlobalPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-windowAsGlobal">windowAsGlobal</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#services-building">services/building</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/building/configuration.js~RollupConfiguration.html">RollupConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/building/engine.js~RollupBuildEngine.html">RollupBuildEngine</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rollupConfiguration">rollupConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rollupBuildEngine">rollupBuildEngine</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#services-configurations">services/configurations</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/configurations/browserDevelopmentConfiguration.js~RollupBrowserDevelopmentConfiguration.html">RollupBrowserDevelopmentConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/configurations/browserProductionConfiguration.js~RollupBrowserProductionConfiguration.html">RollupBrowserProductionConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/configurations/nodeDevelopmentConfiguration.js~RollupNodeDevelopmentConfiguration.html">RollupNodeDevelopmentConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/configurations/nodeProductionConfiguration.js~RollupNodeProductionConfiguration.html">RollupNodeProductionConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/configurations/pluginsConfiguration.js~RollupPluginSettingsConfiguration.html">RollupPluginSettingsConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rollupBrowserDevelopmentConfiguration">rollupBrowserDevelopmentConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rollupBrowserProductionConfiguration">rollupBrowserProductionConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rollupNodeDevelopmentConfiguration">rollupNodeDevelopmentConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rollupNodeProductionConfiguration">rollupNodeProductionConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rollupPluginSettingsConfiguration">rollupPluginSettingsConfiguration</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#services-server">services/server</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/server/middleware.js~RollupMiddleware.html">RollupMiddleware</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rollupMiddleware">rollupMiddleware</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="projext-plugin-for-rollup">projext plugin for Rollup</h1><p><a href="https://travis-ci.org/homer0/projext-plugin-rollup"><img src="https://img.shields.io/travis/homer0/projext-plugin-rollup.svg?style=flat-square" alt="Travis"></a>
+<a href="https://coveralls.io/github/homer0/projext-plugin-rollup?branch=master"><img src="https://img.shields.io/coveralls/github/homer0/projext-plugin-rollup.svg?style=flat-square" alt="Coveralls github"></a>
+<a href="https://david-dm.org/homer0/projext-plugin-rollup"><img src="https://img.shields.io/david/homer0/projext-plugin-rollup.svg?style=flat-square" alt="David"></a>
+<a href="https://david-dm.org/homer0/projext-plugin-rollup"><img src="https://img.shields.io/david/dev/homer0/projext-plugin-rollup.svg?style=flat-square" alt="David"></a></p>
+<p>Allows <a href="https://yarnpkg.com/en/package/projext">projext</a> to use <a href="https://rollupjs.org">Rollup</a> as a build engine.</p>
+<h2 id="introduction">Introduction</h2><p><a href="https://yarnpkg.com/en/package/projext">projext</a> allows you to configure a project without adding specific settings for a module bundler, then you can decide which build engine to use. This plugin allows you to bundle your projext project targets using <a href="https://rollupjs.org">Rollup</a>.</p>
+<h2 id="information">Information</h2><table>
+<thead>
+<tr>
+<th>-</th>
+<th>-</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Package</td>
+<td>projext-plugin-rollup</td>
+</tr>
+<tr>
+<td>Description</td>
+<td>Allows projext to use Rollup as a build engine.</td>
+</tr>
+<tr>
+<td>Node Version</td>
+<td>&gt;= v6.10.0</td>
+</tr>
+</tbody>
+</table>
+<h2 id="usage">Usage</h2><p>Since projext automatically detects this plugin as a <em>&quot;known build engine&quot;</em>, after you install it, there&apos;s nothing else to do, just run the build command and the plugin will take care of the rest:</p>
+<pre><code class="lang-bash"><code class="source-code prettyprint">projext build [target-name]</code>
+</code></pre>
+<h3 id="middleware-implementation">Middleware implementation</h3><p>This plugin provides a development middleware for implementing on <a href="https://expressjs.com">Express</a> and <a href="https://yarnpkg.com/en/package/jimpex">Jimpex</a> very easy:</p>
+<h4 id="express">Express</h4><pre><code class="lang-js"><code class="source-code prettyprint">// Require the function for the implementation
+const useExpress = require(&apos;projext-plugin-rollup/express&apos;);
+
+// Require Express to create a dummy app
+const express = require(&apos;express&apos;);
+
+// Create the app
+const app = express();
+
+// Tell the plugin to configure the middleware for the `myApp` target to be served by the
+// `myServer` target
+useExpress(app, &apos;myApp&apos;, &apos;myServer&apos;);
+
+// Start the app
+app.listen(...);</code>
+</code></pre>
+<h4 id="jimpex">Jimpex</h4><pre><code class="lang-js"><code class="source-code prettyprint">// Require the function for the implementation
+const useJimpex = require(&apos;projext-plugin-rollup/jimpex&apos;);
+
+// Require Jimpex to create a dummy app
+const { Jimpex } = require(&apos;jimpex&apos;);
+
+// Define the Jimpex app
+class DevApp extends Jimpex {
+  boot() {
+    // This method needs to be created.
+  }
+}
+
+// Create the app
+const app = new DevApp();
+
+// Tell the plugin to configure the middleware for the `myApp` target to be served by the
+// `myServer` target
+useJimpex(app, &apos;myApp&apos;, &apos;myServer&apos;);
+
+// Start the app
+app.start();</code>
+</code></pre>
+<h4 id="accessing-the-file-system">Accessing the file system</h4><p>Both <code>useExpress</code> and <code>useJimpex</code> return and object with the following properties:</p>
+<ul>
+<li><code>middleware</code>: A function that returns the actual middleware.</li>
+<li><code>getDirectory</code>: A function that returns the build directory of the target implementing the middleware.</li>
+<li><code>getFileSystem</code>: A function that returns a promise that eventually gets resolved with an instance of <a href="https://yarnpkg.com/en/package/jimpex"><code>fs-extra</code></a>. The reason of this function is so the file system would be blocked while Rollup is processing the bundle.</li>
+</ul>
+<h3 id="extending-overwriting-the-configuration">Extending/Overwriting the configuration</h3><p>This plugin has <code>5</code> different configuration services:</p>
+<ul>
+<li>Plugins settings configuration.</li>
+<li>Browser targets configuration for development.</li>
+<li>Browser targets configuration for production.</li>
+<li>Node targets configuration for development.</li>
+<li>Node targets configuration for production.</li>
+</ul>
+<p>They can be easily extended/overwritten by creating a file on your project with an specific name.</p>
+<p>All the configurations receive a single object parameter with the following properties:</p>
+<ul>
+<li><code>target</code>: It has all the information for the target being bundled.</li>
+<li><code>targetRules</code>: The rules to find the target files on the file system.</li>
+<li><code>input</code>: The path to the target entry file</li>
+<li><code>output</code>: The Rollup output settings for the target.</li>
+<li><code>paths</code>: A dictionary with the filenames formats and paths of the different files the bundle can generate (<code>js</code>, <code>css</code>, <code>images</code> and <code>fonts</code>).</li>
+<li><code>definitions</code>: A dictionary of defined variables that will be replaced on the bundled code.</li>
+<li><code>buildType</code>: The indented build type (<code>development</code> or <code>production</code>).</li>
+</ul>
+<h4 id="plugins-configuration">Plugins configuration</h4><p>This configuration is a big dictionary where each key is the name of a plugin it contains settings for.</p>
+<p>To extend/overwrite this configuration you would need to create a file with the following path: <code>config/rollup/plugins.plugins.js</code>. For example:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">// config/rollup/plugins.config.js
+
+module.exports = (params) =&gt; ({
+  resolve: {
+       // Add the `.tsx` extension.
+    extensions: [&apos;.js&apos;, &apos;.json&apos;, &apos;.jsx&apos;, &apos;.tsx&apos;],
+  },
+});</code>
+</code></pre>
+<h4 id="browser-targets-configuration-for-development-and-production">Browser targets configuration for development and production</h4><p>These services have all the specific configuration for building a browser target.</p>
+<p>To extend/overwrite these configurations you would need to create a file with the following path: <code>config/rollup/browser.development.config.js</code> or <code>config/rollup/browser.production.config.js</code>. For example:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">// config/rollup/browser.development.config.js
+
+module.exports = (params) =&gt; ({
+  output: {
+    globals: {
+      &apos;some-lib&apos;: &apos;someLib&apos;,
+    },
+  },
+});</code>
+</code></pre>
+<h3 id="node-targets-configuration-for-development-and-production">Node targets configuration for development and production</h3><p>These services have all the specific configuration for building a Node target.</p>
+<p>To extend/overwrite these configurations you would need to create a file with the following path: <code>config/rollup/node.development.config.js</code> or <code>config/rollup/node.production.config.js</code>. For example:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">// config/rollup/node.production.config.js
+
+module.exports = (params) =&gt; ({
+  output: {
+    exports: &apos;named&apos;,
+  },
+});</code>
+</code></pre>
+<h3 id="extending-overwriting-a-target-configuration">Extending/Overwriting a target configuration</h3><p>The methods above allow you to extend/overwrite a configuration service for all the targets, but there are two ways of extending/overwriting configurations for an specific target:</p>
+<p><strong><code>config/rollup/[target].config.js</code></strong></p>
+<p>This file allows you to overwrite the Rollup configuration generated for an specific target, no matter the build type:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">// config/rollup/myApp.config.js
+
+module.exports = (params) =&gt; ({
+  output: {
+    exports: &apos;named&apos;,
+  },
+});</code>
+</code></pre>
+<p>That change will only be applied when building the target <code>myApp</code>.</p>
+<p><strong><code>config/rollup/[target].[build-type].config.js</code></strong></p>
+<p>This file allows you to overwrite the Rollup configuration generated for an specific target and build type.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">// config/rollup/myApp.production.config.js
+
+module.exports = (params) =&gt; ({
+  output: {
+    globals: {
+      &apos;some-lib&apos;: &apos;someLib&apos;,
+    },
+  },
+});</code>
+</code></pre>
+<p>That change will only be applied when building the target <code>myApp</code> on a production build.</p>
+<h2 id="making-a-plugin">Making a plugin</h2><p>If you want to write a plugin that works with this one (like a framework plugin), there are a lot of reducer events you can listen for and use to modify the Rollup configuration:</p>
+<h3 id="node-target-configuration">Node target configuration</h3><ul>
+<li>Name: <code>rollup-node-configuration</code></li>
+<li>Reduces: A Rollup configuration for a Node target.</li>
+<li>Parameters:<ul>
+<li><code>params</code>: The same dictionary sent to all the files that extend a configuration. Check the <em>&quot;Extending/Overwriting the configuration&quot;</em> section for more information.</li>
+</ul>
+</li>
+</ul>
+<p>This is called after generating the configuration for a Node target and before using it.</p>
+<h3 id="browser-target-configuration">Browser target configuration</h3><ul>
+<li>Name: <code>rollup-browser-configuration</code></li>
+<li>Reduces: A Rollup configuration for a browser target.</li>
+<li>Parameters:<ul>
+<li><code>params</code>: The same dictionary sent to all the files that extend a configuration. Check the <em>&quot;Extending/Overwriting the configuration&quot;</em> section for more information.</li>
+</ul>
+</li>
+</ul>
+<p>This is called after generating the configuration for a browser target and before using it.</p>
+<h3 id="plugins-configuration">Plugins configuration</h3><ul>
+<li>Name: <code>rollup-plugin-settings-configuration</code></li>
+<li>Reduces: A dictionary with all the settings a target may use.</li>
+<li>Parameters:<ul>
+<li><code>params</code>: The same dictionary sent to all the files that extend a configuration. Check the <em>&quot;Extending/Overwriting the configuration&quot;</em> section for more information.</li>
+</ul>
+</li>
+</ul>
+<p>This is called after defining all the settings for plugins a target may use and before sending them to the main configuration.</p>
+<blockquote>
+<p>There are a LOT more reducer events, check the project documentation.</p>
+</blockquote>
+<h2 id="development">Development</h2><p>Before doing anything, install the repository hooks:</p>
+<pre><code class="lang-bash"><code class="source-code prettyprint"># You can either use npm or yarn, it doesn&apos;t matter
+yarn run hooks</code>
+</code></pre>
+<h3 id="npm-yarn-tasks">NPM/Yarn Tasks</h3><table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>yarn run hooks</code></td>
+<td>Install the GIT repository hooks.</td>
+</tr>
+<tr>
+<td><code>yarn test</code></td>
+<td>Run the project unit tests.</td>
+</tr>
+<tr>
+<td><code>yarn run lint</code></td>
+<td>Lint the modified files.</td>
+</tr>
+<tr>
+<td><code>yarn run lint:full</code></td>
+<td>Lint the project code.</td>
+</tr>
+<tr>
+<td><code>yarn run docs</code></td>
+<td>Generate the project documentation.</td>
+</tr>
+<tr>
+<td><code>yarn run todo</code></td>
+<td>List all the pending to-do&apos;s.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="testing">Testing</h3><p>I use <a href="https://facebook.github.io/jest/">Jest</a> with <a href="https://yarnpkg.com/en/package/jest-ex">Jest-Ex</a> to test the project. The configuration file is on <code>./.jestrc</code>, the tests and mocks are on <code>./tests</code> and the script that runs it is on <code>./utils/scripts/test</code>.</p>
+<h3 id="linting">Linting</h3><p>I use <a href="http://eslint.org">ESlint</a> to validate all our JS code. The configuration file for the project code is on <code>./.eslintrc</code> and for the tests on <code>./tests/.eslintrc</code> (which inherits from the one on the root), there&apos;s also an <code>./.eslintignore</code> to ignore some files on the process, and the script that runs it is on <code>./utils/scripts/lint</code>.</p>
+<h3 id="documentation">Documentation</h3><p>I use <a href="http://esdoc.org">ESDoc</a> to generate HTML documentation for the project. The configuration file is on <code>./.esdocrc</code> and the script that runs it is on <code>./utils/scripts/docs</code>.</p>
+<h3 id="to-dos">To-Dos</h3><p>I use <code>@todo</code> comments to write all the pending improvements and fixes, and <a href="https://yarnpkg.com/en/package/leasot">Leasot</a> to generate a report. The script that runs it is on <code>./utils/scripts/todo</code>.</p>
+</div>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

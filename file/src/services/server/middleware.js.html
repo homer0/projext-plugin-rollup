@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../../">
+  <title data-ice="title">src/services/server/middleware.js | projext-plugin-rollup</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Allows projext to use Rollup as a build engine."><meta property="twitter:card" content="summary"><meta property="twitter:title" content="projext-plugin-rollup"><meta property="twitter:description" content="Allows projext to use Rollup as a build engine."></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/homer0/projext-plugin-rollup"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-useExpress">useExpress</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-useJimpex">useJimpex</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-MiddlewareGetDirectory">MiddlewareGetDirectory</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-MiddlewareGetFileSystem">MiddlewareGetFileSystem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-MiddlewareInformation">MiddlewareInformation</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupCSSPluginOptions">ProjextRollupCSSPluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupCompressionPluginEntry">ProjextRollupCompressionPluginEntry</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupCompressionPluginOptions">ProjextRollupCompressionPluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupDevServerPluginEvent">ProjextRollupDevServerPluginEvent</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupDevServerPluginOptions">ProjextRollupDevServerPluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupNodeRunnerPluginEvent">ProjextRollupNodeRunnerPluginEvent</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupNodeRunnerPluginOptions">ProjextRollupNodeRunnerPluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupPluginURL">ProjextRollupPluginURL</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupPluginsStats">ProjextRollupPluginsStats</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupStatsPluginCellsWidth">ProjextRollupStatsPluginCellsWidth</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupStatsPluginLog">ProjextRollupStatsPluginLog</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupStatsPluginLogOptions">ProjextRollupStatsPluginLogOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupStatsPluginOptions">ProjextRollupStatsPluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupStatsPluginReset">ProjextRollupStatsPluginReset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupStylesheetAssetsHelperPluginOptions">ProjextRollupStylesheetAssetsHelperPluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupStylesheetAssetsPluginOptions">ProjextRollupStylesheetAssetsPluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupStylesheetModulesFixerPluginOptions">ProjextRollupStylesheetModulesFixerPluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupTemplatePluginOptions">ProjextRollupTemplatePluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupURLsPluginOptions">ProjextRollupURLsPluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProviderRegisterMethod">ProviderRegisterMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RollupConfigurationOutputParams">RollupConfigurationOutputParams</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RollupConfigurationPathsParams">RollupConfigurationPathsParams</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RollupConfigurations">RollupConfigurations</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RollupConfigurationsByEnvironment">RollupConfigurationsByEnvironment</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RollupFileDefinition">RollupFileDefinition</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RollupFilter">RollupFilter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RollupPluginInfo">RollupPluginInfo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RollupStylesheetProcessor">RollupStylesheetProcessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-StringOrObject">StringOrObject</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="ttps://homer0.github.io/projext/class/src/services/configurations/babelConfiguration.js~BabelConfiguration.html">BabelConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/class/src/services/building/buildVersion.js~BuildVersion.html">BuildVersion</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/environmentUtils.js~EnvironmentUtils.html">EnvironmentUtils</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/class/src/services/common/events.js~Events.html">Events</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://expressjs.com">Express</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://nodejs.org/api/fs.html">FileSystem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://nodejs.org/api/http.html#http_class_http_clientrequest">HTTPRequest</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://nodejs.org/api/http.html#http_class_http_serverresponse">HTTPResponse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://yarnpkg.com/en/package/jimpex">Jimpex</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://yarnpkg.com/en/package/jimple">Jimple</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/logger.js~Logger.html">Logger</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="http://expressjs.com/en/guide/using-middleware.html">Middleware</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/pathUtils.js~PathUtils.html">PathUtils</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/class/src/app/index.js~Projext.html">Projext</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/typedef/index.html#static-typedef-Target">Target</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/typedef/index.html#static-typedef-TargetConfigurationCreator">TargetConfigurationCreator</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/typedef/index.html#static-typedef-TargetFileRules">TargetFileRules</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/class/src/services/targets/targets.js~Targets.html">Targets</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="ttps://homer0.github.io/projext/class/src/services/targets/targetsFileRules/targetsFileRules.js~TargetsFileRules.html">TargetsFileRules</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/class/src/services/targets/targetsHTML.js~TargetsHTML.html">TargetsHTML</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#abstracts">abstracts</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/abstracts/configurationFile.js~ConfigurationFile.html">ConfigurationFile</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#jimpex">jimpex</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/jimpex/frontendFs.js~RollupFrontendFs.html">RollupFrontendFs</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/jimpex/sendFile.js~RollupSendFile.html">RollupSendFile</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-rollupFrontendFs">rollupFrontendFs</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rollupSendFile">rollupSendFile</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins">plugins</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/utils.js~ProjextRollupUtils.html">ProjextRollupUtils</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-compression">plugins/compression</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/compression/index.js~ProjextRollupCompressionPlugin.html">ProjextRollupCompressionPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-compression">compression</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-css">plugins/css</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/css/index.js~ProjextRollupCSSPlugin.html">ProjextRollupCSSPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-css">css</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-devserver">plugins/devServer</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/devServer/index.js~ProjextRollupDevServerPlugin.html">ProjextRollupDevServerPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-devServer">devServer</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-noderunner">plugins/nodeRunner</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/nodeRunner/index.js~ProjextRollupNodeRunnerPlugin.html">ProjextRollupNodeRunnerPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-nodeRunner">nodeRunner</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-stats">plugins/stats</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/stats/index.js~ProjextRollupStatsPlugin.html">ProjextRollupStatsPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-stats">stats</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-stylesheetassets">plugins/stylesheetAssets</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/stylesheetAssets/helper.js~ProjextRollupStylesheetAssetsHelperPlugin.html">ProjextRollupStylesheetAssetsHelperPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/stylesheetAssets/index.js~ProjextRollupStylesheetAssetsPlugin.html">ProjextRollupStylesheetAssetsPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-stylesheetAssetsHelper">stylesheetAssetsHelper</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-stylesheetAssets">stylesheetAssets</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-stylesheetmodulesfixer">plugins/stylesheetModulesFixer</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/stylesheetModulesFixer/index.js~ProjextRollupStylesheetModulesFixerPlugin.html">ProjextRollupStylesheetModulesFixerPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-stylesheetModulesFixer">stylesheetModulesFixer</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-template">plugins/template</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/template/index.js~ProjextRollupTemplatePlugin.html">ProjextRollupTemplatePlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-template">template</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-urls">plugins/urls</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/urls/index.js~ProjextRollupURLsPlugin.html">ProjextRollupURLsPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-urls">urls</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-windowasglobal">plugins/windowAsGlobal</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/windowAsGlobal/index.js~ProjextRollupWindowAsGlobalPlugin.html">ProjextRollupWindowAsGlobalPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-windowAsGlobal">windowAsGlobal</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#services-building">services/building</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/building/configuration.js~RollupConfiguration.html">RollupConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/building/engine.js~RollupBuildEngine.html">RollupBuildEngine</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rollupConfiguration">rollupConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rollupBuildEngine">rollupBuildEngine</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#services-configurations">services/configurations</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/configurations/browserDevelopmentConfiguration.js~RollupBrowserDevelopmentConfiguration.html">RollupBrowserDevelopmentConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/configurations/browserProductionConfiguration.js~RollupBrowserProductionConfiguration.html">RollupBrowserProductionConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/configurations/nodeDevelopmentConfiguration.js~RollupNodeDevelopmentConfiguration.html">RollupNodeDevelopmentConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/configurations/nodeProductionConfiguration.js~RollupNodeProductionConfiguration.html">RollupNodeProductionConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/configurations/pluginsConfiguration.js~RollupPluginSettingsConfiguration.html">RollupPluginSettingsConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rollupBrowserDevelopmentConfiguration">rollupBrowserDevelopmentConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rollupBrowserProductionConfiguration">rollupBrowserProductionConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rollupNodeDevelopmentConfiguration">rollupNodeDevelopmentConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rollupNodeProductionConfiguration">rollupNodeProductionConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rollupPluginSettingsConfiguration">rollupPluginSettingsConfiguration</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#services-server">services/server</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/server/middleware.js~RollupMiddleware.html">RollupMiddleware</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rollupMiddleware">rollupMiddleware</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/services/server/middleware.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const path = require(&apos;path&apos;);
+const rollup = require(&apos;rollup&apos;);
+const fs = require(&apos;fs-extra&apos;);
+const mime = require(&apos;mime&apos;);
+const { provider } = require(&apos;jimple&apos;);
+const { deferred } = require(&apos;wootils/shared&apos;);
+/**
+ * This service creates, configures and manages an Express-like middleware for bundling Rollup.
+ */
+class RollupMiddleware {
+  /**
+   * Class constructor.
+   * @param {Logger}              appLogger           To log information messages.
+   * @param {Events}              events              To reduce the middlewares configuration.
+   * @param {Targets}             targets             To get targets information.
+   * @param {RollupConfiguration} rollupConfiguration To get a target Rollup configuration.
+   */
+  constructor(appLogger, events, targets, rollupConfiguration) {
+    /**
+     * A local reference for the `appLogger` service.
+     * @type {Logger}
+     */
+    this.appLogger = appLogger;
+    /**
+     * A local reference for the `events` service.
+     * @type {Events}
+     */
+    this.events = events;
+    /**
+     * A local reference for the `targets` service.
+     * @type {Targets}
+     */
+    this.targets = targets;
+    /**
+     * A local reference for the `rollupConfiguration` service.
+     * @type {RollupConfiguration}
+     */
+    this.rollupConfiguration = rollupConfiguration;
+    // Set the default mime type for the `mime` module.
+    mime.default_type = &apos;text/plain&apos;;
+    /**
+     * The instance of the Rollup watcher.
+     * @type {?Object}
+     */
+    this._watcher = null;
+    /**
+     * A dictionary of directories the middleware use as root for their file system.
+     * It uses the targets names as the keys.
+     * @type {Object}
+     * @ignore
+     * @access protected
+     */
+    this._directories = {};
+    /**
+     * A dictionary of flags that indicate if a target middleware finished bundling and if the
+     * file system can be accessed..
+     * The idea is that file system can&apos;t be used until Rollup finishes its process.
+     * It uses the targets names as the keys.
+     * @type {Object}
+     * @ignore
+     * @access protected
+     */
+    this._fileSystemsReady = {};
+    /**
+     * A dictionary of deferred promises the service uses to return when asked for a file system
+     * while its Rollup hasn&apos;t finished compiling.
+     * It uses the targets names as the keys.
+     * @type {Object}
+     * @ignore
+     * @access protected
+     */
+    this._fileSystemsDeferreds = {};
+  }
+  /**
+   * Generate the middleware for a given target.
+   * @param {string} targetToBuild The name of the target that will be builded on the middleware.
+   * @param {string} targetToServe The name of the target that will implement the middleware.
+   *                               When the other target is builded, it will assume that is on the
+   *                               distribution directory, and if the target serving it is being
+   *                               executed from the source directory it won&apos;t be able to use the
+   *                               file system without hardcoding some relatives paths from the
+   *                               build to the source; to avoid that, the method gets the build
+   *                               path of this target, so when using `getDirectory()`, it
+   *                               will think they are both on the distribution directory and the
+   *                               paths can be created relative to that.
+   * @return {MiddlewareInformation}
+   */
+  generate(targetToBuild, targetToServe) {
+    // Get the target information.
+    const target = this.targets.getTarget(targetToBuild);
+    // Set the target working directory as the target that serves it build folder
+    this._directories[target.name] = this.targets.getTarget(targetToServe).paths.build;
+    // Set the flag indicating the file system is not ready.
+    this._fileSystemsReady[target.name] = false;
+    // Create the deferred promise for when the file system is ready.
+    this._fileSystemsDeferreds[target.name] = deferred();
+    // Define the functions to get the file system promise and the middleware root directory.
+    const getDirectory = () =&gt; this._directories[target.name];
+    const getFileSystem = () =&gt; this._fileSystem(target);
+    // Define the function to get the target middleware.
+    const middleware = () =&gt; this._middleware(target);
+
+    return {
+      getDirectory,
+      getFileSystem,
+      middleware,
+    };
+  }
+  /**
+   * Gets access to file system. This returns a promise so the file system can&apos;t be accessed until
+   * Rollup finishes the bundling.
+   * @param {Target} target The target owner of the middleware.
+   * @return {Promise&lt;FileSystem,Error&gt;}
+   * @access protected
+   * @ignore
+   */
+  _fileSystem(target) {
+    return this._fileSystemsReady[target.name] ?
+      Promise.resolve(fs) :
+      this._fileSystemsDeferreds[target.name].promise;
+  }
+  /**
+   * Gets the middleware the will serve the bundled files.
+   * @param {Target} target The information of the target to bundle.
+   * @return {Middleware}
+   * @access protected
+   * @ignore
+   */
+  _middleware(target) {
+    // Bundle the target.
+    this._compile(target);
+    return (req, res, next) =&gt; {
+      // If the file system is ready...
+      if (this._fileSystemsReady[target.name]) {
+        // Remove any query string from the requested path.
+        const urlPath = decodeURI(req.url.split(&apos;?&apos;).shift());
+        // Get the file absolute path.
+        const filepath = path.join(target.paths.build, urlPath);
+        // If the file exists...
+        if (fs.pathExistsSync(filepath)) {
+          // Set the type header with the file mime type.
+          res.setHeader(&apos;Content-Type&apos;, mime.getType(filepath));
+          // Try to respond with the file contents.
+          res.sendFile(filepath, (error) =&gt; {
+            /**
+             * If sending the file fails, move to the next middleware with an error, otherwise,
+             * end the response.
+             */
+            if (error) {
+              next(error);
+            } else {
+              res.end();
+            }
+          });
+        } else {
+          // If the file doesn&apos;t exist, move to the next middleware.
+          next();
+        }
+      } else {
+        /**
+         * If the file system is not ready, log a message, wait for the file system and then
+         * move to the next middleware.
+         */
+        this.appLogger.warning(`Request on hold until the build is ready: ${req.originalUrl}`);
+        this._fileSystem(target)
+        .then(() =&gt; {
+          next();
+        });
+      }
+    };
+  }
+  /**
+   * Compile a target and watch for changes.
+   * @param {Target} target The target information.
+   * @access protected
+   * @ignore
+   */
+  _compile(target) {
+    // Make sure there&apos;s not an instance already.
+    if (!this._watcher) {
+      // Get the Rollup configuration for the target.
+      const configuration = this.rollupConfiguration.getConfig(target, &apos;development&apos;);
+      // Create the watcher instance.
+      this._watcher = rollup.watch(configuration);
+      // Listen for the watcher events.
+      this._watcher.on(&apos;event&apos;, (event) =&gt; {
+        // eslint-disable-next-line default-case
+        switch (event.code) {
+        case &apos;START&apos;:
+          this._onStart(target);
+          break;
+        case &apos;END&apos;:
+          this._onFinish(target);
+          break;
+        case &apos;ERROR&apos;:
+          this._onError(target, event);
+          break;
+        case &apos;FATAL&apos;:
+          this._onError(target, event, true);
+          break;
+        }
+      });
+    }
+  }
+  /**
+   * This is called when Rollup starts the bundling process. It logs an information message and
+   * resets the file system flag for a target.
+   * @param {Target} target The target information.
+   * @access protected
+   * @ignore
+   */
+  _onStart(target) {
+    setTimeout(() =&gt; {
+      this.appLogger.warning(&apos;Creating the Rollup build...&apos;);
+    }, 1);
+    if (!this._fileSystemsDeferreds[target.name]) {
+      this._fileSystemsReady[target.name] = false;
+      this._fileSystemsDeferreds[target.name] = deferred();
+    }
+  }
+  /**
+   * This is called when Rollup finishes the bundling process. It logs an information message
+   * and resolves the target file system promise.
+   * @param {Target} target The target information.
+   * @access protected
+   * @ignore
+   */
+  _onFinish(target) {
+    setTimeout(() =&gt; {
+      this.appLogger.success(&apos;The Rollup build is ready&apos;);
+    }, 1);
+    this._fileSystemsReady[target.name] = true;
+    this._fileSystemsDeferreds[target.name].resolve(fs);
+    delete this._fileSystemsDeferreds[target.name];
+  }
+  /**
+   * This is called when Rollup finds an error on the build process. It just logs an error message.
+   * @access protected
+   * @ignore
+   */
+  _onError(target, event, fatal = false) {
+    const message = fatal ?
+      &apos;The Rollup build can\&apos;t be created&apos; :
+      &apos;There was a problem while creating the Rollup build&apos;;
+    this.appLogger.error(message);
+    if (event.error) {
+      this.appLogger.error(event.error);
+    }
+    if (fatal) {
+      process.exit(1);
+    }
+  }
+}
+/**
+ * The service provider that once registered on the app container will set an instance of
+ * `RollupMiddleware` as the `rollupMiddleware` service.
+ * @example
+ * // Register it on the container
+ * container.register(rollupMiddleware);
+ * // Getting access to the service instance
+ * const rollupMiddleware = container.get(&apos;rollupMiddleware&apos;);
+ * @type {Provider}
+ */
+const rollupMiddleware = provider((app) =&gt; {
+  app.set(&apos;rollupMiddleware&apos;, () =&gt; new RollupMiddleware(
+    app.get(&apos;appLogger&apos;),
+    app.get(&apos;events&apos;),
+    app.get(&apos;targets&apos;),
+    app.get(&apos;rollupConfiguration&apos;)
+  ));
+});
+
+module.exports = {
+  RollupMiddleware,
+  rollupMiddleware,
+};
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

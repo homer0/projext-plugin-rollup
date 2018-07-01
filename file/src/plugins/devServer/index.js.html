@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../../">
+  <title data-ice="title">src/plugins/devServer/index.js | projext-plugin-rollup</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Allows projext to use Rollup as a build engine."><meta property="twitter:card" content="summary"><meta property="twitter:title" content="projext-plugin-rollup"><meta property="twitter:description" content="Allows projext to use Rollup as a build engine."></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/homer0/projext-plugin-rollup"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-useExpress">useExpress</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-useJimpex">useJimpex</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-MiddlewareGetDirectory">MiddlewareGetDirectory</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-MiddlewareGetFileSystem">MiddlewareGetFileSystem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-MiddlewareInformation">MiddlewareInformation</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupCSSPluginOptions">ProjextRollupCSSPluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupCompressionPluginEntry">ProjextRollupCompressionPluginEntry</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupCompressionPluginOptions">ProjextRollupCompressionPluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupDevServerPluginEvent">ProjextRollupDevServerPluginEvent</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupDevServerPluginOptions">ProjextRollupDevServerPluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupNodeRunnerPluginEvent">ProjextRollupNodeRunnerPluginEvent</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupNodeRunnerPluginOptions">ProjextRollupNodeRunnerPluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupPluginURL">ProjextRollupPluginURL</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupPluginsStats">ProjextRollupPluginsStats</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupStatsPluginCellsWidth">ProjextRollupStatsPluginCellsWidth</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupStatsPluginLog">ProjextRollupStatsPluginLog</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupStatsPluginLogOptions">ProjextRollupStatsPluginLogOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupStatsPluginOptions">ProjextRollupStatsPluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupStatsPluginReset">ProjextRollupStatsPluginReset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupStylesheetAssetsHelperPluginOptions">ProjextRollupStylesheetAssetsHelperPluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupStylesheetAssetsPluginOptions">ProjextRollupStylesheetAssetsPluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupStylesheetModulesFixerPluginOptions">ProjextRollupStylesheetModulesFixerPluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupTemplatePluginOptions">ProjextRollupTemplatePluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupURLsPluginOptions">ProjextRollupURLsPluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProviderRegisterMethod">ProviderRegisterMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RollupConfigurationOutputParams">RollupConfigurationOutputParams</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RollupConfigurationPathsParams">RollupConfigurationPathsParams</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RollupConfigurations">RollupConfigurations</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RollupConfigurationsByEnvironment">RollupConfigurationsByEnvironment</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RollupFileDefinition">RollupFileDefinition</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RollupFilter">RollupFilter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RollupPluginInfo">RollupPluginInfo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RollupStylesheetProcessor">RollupStylesheetProcessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-StringOrObject">StringOrObject</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="ttps://homer0.github.io/projext/class/src/services/configurations/babelConfiguration.js~BabelConfiguration.html">BabelConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/class/src/services/building/buildVersion.js~BuildVersion.html">BuildVersion</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/environmentUtils.js~EnvironmentUtils.html">EnvironmentUtils</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/class/src/services/common/events.js~Events.html">Events</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://expressjs.com">Express</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://nodejs.org/api/fs.html">FileSystem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://nodejs.org/api/http.html#http_class_http_clientrequest">HTTPRequest</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://nodejs.org/api/http.html#http_class_http_serverresponse">HTTPResponse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://yarnpkg.com/en/package/jimpex">Jimpex</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://yarnpkg.com/en/package/jimple">Jimple</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/logger.js~Logger.html">Logger</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="http://expressjs.com/en/guide/using-middleware.html">Middleware</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/pathUtils.js~PathUtils.html">PathUtils</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/class/src/app/index.js~Projext.html">Projext</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/typedef/index.html#static-typedef-Target">Target</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/typedef/index.html#static-typedef-TargetConfigurationCreator">TargetConfigurationCreator</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/typedef/index.html#static-typedef-TargetFileRules">TargetFileRules</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/class/src/services/targets/targets.js~Targets.html">Targets</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="ttps://homer0.github.io/projext/class/src/services/targets/targetsFileRules/targetsFileRules.js~TargetsFileRules.html">TargetsFileRules</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/class/src/services/targets/targetsHTML.js~TargetsHTML.html">TargetsHTML</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#abstracts">abstracts</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/abstracts/configurationFile.js~ConfigurationFile.html">ConfigurationFile</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#jimpex">jimpex</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/jimpex/frontendFs.js~RollupFrontendFs.html">RollupFrontendFs</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/jimpex/sendFile.js~RollupSendFile.html">RollupSendFile</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-rollupFrontendFs">rollupFrontendFs</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rollupSendFile">rollupSendFile</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins">plugins</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/utils.js~ProjextRollupUtils.html">ProjextRollupUtils</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-compression">plugins/compression</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/compression/index.js~ProjextRollupCompressionPlugin.html">ProjextRollupCompressionPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-compression">compression</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-css">plugins/css</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/css/index.js~ProjextRollupCSSPlugin.html">ProjextRollupCSSPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-css">css</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-devserver">plugins/devServer</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/devServer/index.js~ProjextRollupDevServerPlugin.html">ProjextRollupDevServerPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-devServer">devServer</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-noderunner">plugins/nodeRunner</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/nodeRunner/index.js~ProjextRollupNodeRunnerPlugin.html">ProjextRollupNodeRunnerPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-nodeRunner">nodeRunner</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-stats">plugins/stats</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/stats/index.js~ProjextRollupStatsPlugin.html">ProjextRollupStatsPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-stats">stats</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-stylesheetassets">plugins/stylesheetAssets</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/stylesheetAssets/helper.js~ProjextRollupStylesheetAssetsHelperPlugin.html">ProjextRollupStylesheetAssetsHelperPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/stylesheetAssets/index.js~ProjextRollupStylesheetAssetsPlugin.html">ProjextRollupStylesheetAssetsPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-stylesheetAssetsHelper">stylesheetAssetsHelper</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-stylesheetAssets">stylesheetAssets</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-stylesheetmodulesfixer">plugins/stylesheetModulesFixer</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/stylesheetModulesFixer/index.js~ProjextRollupStylesheetModulesFixerPlugin.html">ProjextRollupStylesheetModulesFixerPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-stylesheetModulesFixer">stylesheetModulesFixer</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-template">plugins/template</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/template/index.js~ProjextRollupTemplatePlugin.html">ProjextRollupTemplatePlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-template">template</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-urls">plugins/urls</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/urls/index.js~ProjextRollupURLsPlugin.html">ProjextRollupURLsPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-urls">urls</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-windowasglobal">plugins/windowAsGlobal</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/windowAsGlobal/index.js~ProjextRollupWindowAsGlobalPlugin.html">ProjextRollupWindowAsGlobalPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-windowAsGlobal">windowAsGlobal</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#services-building">services/building</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/building/configuration.js~RollupConfiguration.html">RollupConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/building/engine.js~RollupBuildEngine.html">RollupBuildEngine</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rollupConfiguration">rollupConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rollupBuildEngine">rollupBuildEngine</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#services-configurations">services/configurations</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/configurations/browserDevelopmentConfiguration.js~RollupBrowserDevelopmentConfiguration.html">RollupBrowserDevelopmentConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/configurations/browserProductionConfiguration.js~RollupBrowserProductionConfiguration.html">RollupBrowserProductionConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/configurations/nodeDevelopmentConfiguration.js~RollupNodeDevelopmentConfiguration.html">RollupNodeDevelopmentConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/configurations/nodeProductionConfiguration.js~RollupNodeProductionConfiguration.html">RollupNodeProductionConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/configurations/pluginsConfiguration.js~RollupPluginSettingsConfiguration.html">RollupPluginSettingsConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rollupBrowserDevelopmentConfiguration">rollupBrowserDevelopmentConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rollupBrowserProductionConfiguration">rollupBrowserProductionConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rollupNodeDevelopmentConfiguration">rollupNodeDevelopmentConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rollupNodeProductionConfiguration">rollupNodeProductionConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rollupPluginSettingsConfiguration">rollupPluginSettingsConfiguration</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#services-server">services/server</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/server/middleware.js~RollupMiddleware.html">RollupMiddleware</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rollupMiddleware">rollupMiddleware</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/plugins/devServer/index.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const https = require(&apos;https&apos;);
+const http = require(&apos;http&apos;);
+const path = require(&apos;path&apos;);
+const opener = require(&apos;opener&apos;);
+const fs = require(&apos;fs-extra&apos;);
+const extend = require(&apos;extend&apos;);
+const mime = require(&apos;mime&apos;);
+const statuses = require(&apos;statuses&apos;);
+const ProjextRollupUtils = require(&apos;../utils&apos;);
+/**
+ * @ignore
+ */
+const createHTTPSServer = https.createServer;
+/**
+ * @ignore
+ */
+const createHTTPServer = http.createServer;
+/**
+ * This a Rollup plugin that runs a dev server for a bundled application.
+ */
+class ProjextRollupDevServerPlugin {
+  /**
+   * @param {ProjextRollupDevServerPluginOptions} [options={}]
+   * The options to customize the plugin behaviour.
+   * @param {string} [name=&apos;projext-rollup-plugin-dev-server&apos;]
+   * The name of the plugin&apos;s instance.
+   */
+  constructor(options = {}, name = &apos;projext-rollup-plugin-dev-server&apos;) {
+    /**
+     * The plugin options.
+     * @type {ProjextRollupDevServerPluginOptions}
+     * @access protected
+     * @ignore
+     */
+    this._options = extend(
+      true,
+      {
+        host: &apos;localhost&apos;,
+        port: 8080,
+        contentBase: [],
+        historyApiFallback: false,
+        https: null,
+        open: true,
+        logger: null,
+        onStart: () =&gt; {},
+        onStop: () =&gt; {},
+      },
+      options
+    );
+    // Normalize the received `contentBase` option into an array.
+    this._options.contentBase = this._normalizeContentBase();
+    /**
+     * The name of the plugin&apos;s instance.
+     * @type {string}
+     */
+    this.name = name;
+    /**
+     * The server URL.
+     * @type {string}
+     */
+    this.url = this._createServerURL();
+    // Set the default mime type for the server respones.
+    mime.default_type = &apos;text/plain&apos;;
+    /**
+     * Validate the options and either create or assign a {@link Logger} instance for the plugin.
+     * @type {Logger}
+     * @access protected
+     * @ignore
+     */
+    this._logger = ProjextRollupUtils.createLogger(this.name, this._options.logger);
+    /**
+     * This is the property that will hold the server instance after it gets created.
+     * @type {?Object}
+     * @access protected
+     * @ignore
+     */
+    this._instance = null;
+    /**
+     * The list of events that the plugin will listen for in order to stop the server before
+     * exiting the process.
+     * @type {Array}
+     * @access protected
+     * @ignore
+     */
+    this._terminationEvents = [&apos;SIGINT&apos;, &apos;SIGTERM&apos;];
+    /**
+     * Whether or not the browser was already openend.
+     * @type {boolean}
+     * @access protected
+     * @ignore
+     */
+    this._alreadyOpen = false;
+    /**
+     * The message of the error thrown when a requested file can&apos;t be found. It&apos;s on a property
+     * because the plugin validates it more than once, and we don&apos;t want to have to write it
+     * more than once.
+     * @type {string}
+     * @access protected
+     * @ignore
+     */
+    this._NOT_FOUND_ERROR = &apos;ENOENT: no such file or directory&apos;;
+    /**
+     * The path for the plugin&apos;s favicon. The browsers usually try to fetch an app favicon by
+     * requesting `/favicon.ico`, so when the plugin detects that request but there&apos;s no file, it
+     * will respond with a default favicon with the Rollup logo.
+     * @type {string}
+     * @access protected
+     * @ignore
+     */
+    this._defaultFaviconPath = path.join(path.dirname(__filename), &apos;favicon.ico&apos;);
+    /**
+     * @ignore
+     */
+    this.onwrite = this.onwrite.bind(this);
+    /**
+     * @ignore
+     */
+    this._handler = this._handler.bind(this);
+    /**
+     * @ignore
+     */
+    this._terminate = this._terminate.bind(this);
+  }
+  /**
+   * Gets the plugin options
+   * @return {ProjextRollupDevServerPluginOptions}
+   */
+  getOptions() {
+    return this._options;
+  }
+  /**
+   * This is called after Rollup finishes writing the files on the file system. It checks if
+   * there&apos;s an instance of the server running and if there isn&apos;t, it creates a new one.
+   */
+  onwrite() {
+    // Validate that there&apos;s no instance already running.
+    if (!this._instance) {
+      // Get the server basic options.
+      const { https: httpsSettings, port } = this._options;
+      // Create the server instance.
+      this._instance = httpsSettings ?
+        createHTTPSServer(httpsSettings, this._handler) :
+        createHTTPServer(this._handler);
+
+      // Start listening for requests.
+      this._instance.listen(port);
+      // Log some information messages.
+      this._logger.success(`Your app is running on the port ${port}`);
+      this._logger.info(this.url);
+      // Start listening for process events that require the sever instance to be terminated.
+      this._startListeningForTermination();
+      // Open the browser.
+      this._open();
+      // Invoke the `onStart` callback.
+      this._options.onStart(this);
+    }
+  }
+  /**
+   * Creates the server full URL using the specified protocol, hostname and port.
+   * @return {string}
+   * @access protected
+   * @ignore
+   */
+  _createServerURL() {
+    const protocol = this._options.https ? &apos;https&apos; : &apos;http&apos;;
+    return `${protocol}://${this._options.host}:${this._options.port}`;
+  }
+  /**
+   * Normalizes the `contentBase` option into an array.
+   * @return {Array}
+   * @access protected
+   * @ignore
+   */
+  _normalizeContentBase() {
+    // Define the Array that will be the option new value.
+    const newContentBase = [];
+    // Get the current option value.
+    const { contentBase } = this._options;
+    // If the option is already an Array...
+    if (Array.isArray(contentBase)) {
+      // If it has contents, which means the implementation overwrote the default value...
+      if (contentBase.length) {
+        // ...push the current items to the new Array.
+        newContentBase.push(...contentBase);
+      } else {
+        // ...otherwise, push the current directory.
+        newContentBase.push(&apos;./&apos;);
+      }
+    } else {
+      // ...but if the option is an string, push it as the only item of the new Array.
+      newContentBase.push(contentBase);
+    }
+
+    // Return the new option value.
+    return newContentBase;
+  }
+  /**
+   * This method gets called when one of the termination events the plugin listens for is emitted.
+   * If stops the server, deletes the instance and exits the process.
+   * @access protected
+   * @ignore
+   */
+  _terminate() {
+    if (this._instance) {
+      this._instance.close();
+      this._instance = null;
+      this._stopListeningForTermination();
+      this._options.onStop(this);
+    }
+
+    process.exit();
+  }
+  /**
+   * This is called when the the server instance is created. It starts listening for termination
+   * events that require the server to be stopped.
+   * @access protected
+   * @ignore
+   */
+  _startListeningForTermination() {
+    this._terminationEvents.forEach((eventName) =&gt; {
+      process.on(eventName, this._terminate);
+    });
+  }
+  /**
+   * This is called when the server is stopped. It removes the listeners for termination events.
+   * @access protected
+   * @ignore
+   */
+  _stopListeningForTermination() {
+    this._terminationEvents.forEach((eventName) =&gt; {
+      process.removeListener(eventName, this._terminate);
+    });
+  }
+  /**
+   * This is called when the server instance is created. It opens the browser after validating that
+   * the option to do it is `true` and the browser was not already opened.
+   * @access protected
+   * @ignore
+   */
+  _open() {
+    if (!this._alreadyOpen &amp;&amp; this._options.open) {
+      this._alreadyOpen = true;
+      opener(this.url);
+    }
+  }
+  /**
+   * This method gets called every time the server needs to resolve a request. It validates the
+   * request and tries to serve a file from the file system.
+   * @param {HTTPRequest}  req The request information.
+   * @param {HTTPResponse} res The response information.
+   * @return {Promise&lt;undefined,Error&gt;}
+   * @access protected
+   * @ignore
+   */
+  _handler(req, res) {
+    // Remove any query string from the URL.
+    const urlPath = decodeURI(req.url.split(&apos;?&apos;).shift());
+    // Get the file contents.
+    return this._readFileFromContentBase(urlPath)
+    // Serve the file.
+    .then((contents) =&gt; this._serveFile(res, urlPath, contents))
+    // In case of failure...
+    .catch((error) =&gt; {
+      let result = null;
+      // If the file couldn&apos;t be found...
+      if (error.message &amp;&amp; error.message === this._NOT_FOUND_ERROR) {
+        // If the request was for the favicon, serve the plugin&apos;s favicon.
+        if (req.url === &apos;/favicon.ico&apos;) {
+          result = this._serveDefaultFavicon(res);
+        } else if (this._options.historyApiFallback) {
+          // If `historyApiFallback` is enabled, try to serve the `index.html`.
+          result = this._serveFallback(res, urlPath);
+        } else {
+          // Otherwise, respond with a Not Found.
+          result = this._notFound(res, urlPath);
+        }
+      } else {
+        // If the error is unknown, respond with an Internal Error.
+        result = this._internalError(res, error);
+      }
+
+      return result;
+    });
+  }
+  /**
+   * This method tries to find a file on the list of `contentBase` directories and return its
+   * contents so it can be served.
+   * If the method doesn&apos;t find a file on directory, it will call itself recursively with the next
+   * directory until it finds it or returns a Not Found error.
+   * @param {string} urlPath              The filepath received by the server.
+   * @param {number} [contentBaseIndex=0] The index of the dictionary it should try on the
+   *                                      `contentBase` list.
+   * @return {Promise&lt;string,Error&gt;}
+   * @access protected
+   * @ignore
+   */
+  _readFileFromContentBase(urlPath, contentBaseIndex = 0) {
+    let result;
+    // Get the directory to test from the list using the received index.
+    const contentBase = this._options.contentBase[contentBaseIndex];
+    // If there&apos;s a directory for the received index...
+    if (contentBase) {
+      // Build the path to the file.
+      let filepath = path.join(contentBase, urlPath);
+      // If the path ends with a `/`, automatically append an `index.html` to it.
+      if (filepath.endsWith(&apos;/&apos;)) {
+        filepath = `${filepath}index.html`;
+      }
+
+      // If the file exists...
+      if (fs.pathExistsSync(filepath)) {
+        // ...set to return the promise with the file contents.
+        result = fs.readFile(filepath);
+      } else {
+        // ...otherwise, continue to the next directory.
+        result = this._readFileFromContentBase(urlPath, contentBaseIndex + 1);
+      }
+    } else {
+      // If there are no more directories to test, set to return a Not Found error.
+      result = Promise.reject(new Error(this._NOT_FOUND_ERROR));
+    }
+
+    return result;
+  }
+  /**
+   * This is the method that actually serves a file.
+   * @param {HTTPResponse} res     The response information.
+   * @param {string}       urlPath The path to the requested file.
+   * @param {string}       file    The contents to serve.
+   * @access protected
+   * @ignore
+   */
+  _serveFile(res, urlPath, file) {
+    /**
+     * If the request ended with `/`, assume that `_readFileFromContentBase` appended an
+     * `index.html` and the file mime type is for HTML, otherwise, use `mime` to obtain the right
+     * type.
+     */
+    const mimeType = urlPath.endsWith(&apos;/&apos;) ?
+      &apos;text/html&apos; :
+      mime.getType(urlPath);
+    // Add the mime type to the response headers.
+    res.writeHead(statuses.ok, {
+      &apos;Content-Type&apos;: mimeType,
+    });
+    // Send the file contents and end the response.
+    res.end(file, &apos;utf-8&apos;);
+  }
+  /**
+   * This method gets called when the server recived a request for `/favicon.ico` and the file
+   * doesn&apos;t exist. It tries to load the plugin&apos;s favicon and serve it.
+   * @param {HTTPResponse} res The response information.
+   * @return {Promise&lt;undefined,Error&gt;}
+   * @access protected
+   * @ignore
+   */
+  _serveDefaultFavicon(res) {
+    // Get the plugin&apos;s favicon file contents.
+    return fs.readFile(this._defaultFaviconPath)
+    // Serve it.
+    .then((favicon) =&gt; {
+      this._serveFile(res, &apos;/favicon.ico&apos;, favicon);
+    })
+    // If something went wrong, respond with an Internal Error.
+    .catch((error) =&gt; {
+      this._internalError(res, error);
+    });
+  }
+  /**
+   * This method gets called when the server received a request for a path that doesn&apos;t exist and
+   * `historyApiFallback` is enabled. The method will try to serve the contents of `/index.html`.
+   * @param {HTTPResponse} res          The response information.
+   * @param {string}       originalPath The file path originally requested.
+   * @return {Promise&lt;undefined,Error&gt;}
+   * @access protected
+   * @ignore
+   */
+  _serveFallback(res, originalPath) {
+    const urlPath = &apos;index.html&apos;;
+    return this._readFileFromContentBase(urlPath)
+    // Serve the file.
+    .then((contents) =&gt; {
+      this._serveFile(res, urlPath, contents);
+    })
+    // In case of failure...
+    .catch((error) =&gt; {
+      let result = null;
+      // If the file couldn&apos;t be found...
+      if (error.message &amp;&amp; error.message === this._NOT_FOUND_ERROR) {
+        result = this._notFound(res, originalPath);
+      } else {
+        // If the error is unknown, respond with an Internal Error.
+        result = this._internalError(res, error);
+      }
+
+      return result;
+    });
+  }
+  /**
+   * Sends a response with a Not Found error.
+   * @param {HTTPResponse} res The response information.
+   * @param {string}       urlPath The path to the requested file.
+   * @access protected
+   * @ignore
+   */
+  _notFound(res, urlPath) {
+    this._responsdWithError(res, statuses[&apos;not found&apos;], urlPath);
+  }
+  /**
+   * Sends a response with an Internal Error.
+   * @param {HTTPResponse} res   The response information.
+   * @param {Error|*}      error The unexpected error.
+   * @access protected
+   * @ignore
+   */
+  _internalError(res, error) {
+    let message;
+    // If the received error is an actual Error...
+    if (error instanceof Error) {
+      // ...format the error stack information.
+      const stackList = error.stack.split(&apos;\n&apos;);
+      stackList.shift();
+      const stackText = stackList.map((line) =&gt; `  -&gt; ${line.trim()}`).join(&apos;\n&apos;);
+      // Append the stack information to the error message.
+      message = `${error.message}\n\n${stackText}`;
+    } else {
+      // ...otherwise, just assume that the received error is the message.
+      message = error;
+    }
+    // Serve the error.
+    this._responsdWithError(res, statuses[&apos;internal server error&apos;], message);
+  }
+  /**
+   * Sends an error response.
+   * @param {HTTPResponse} res     The response information.
+   * @param {number}       status  The HTTP status for the response.
+   * @param {string}       message The error message.
+   * @access protected
+   * @ignore
+   */
+  _responsdWithError(res, status, message) {
+    const title = statuses[status];
+    /**
+     * Define the response text by prefixing the received message with the response status and
+     * adding the plugin&apos;s name at the end.
+     */
+    const text = `${status} ${title}\n\n` +
+      `${message}\n\n` +
+      `${this.name}`;
+
+    // Set the response HTTP status.
+    res.writeHead(status);
+    // Send the error message and end the response.
+    res.end(text, &apos;utf-8&apos;);
+  }
+}
+/**
+ * Shorthand method to create an instance of {@link ProjextRollupDevServerPlugin}.
+ * @param {ProjextRollupDevServerPluginOptions} options
+ * The options to customize the plugin behaviour.
+ * @param {string} name
+ * The name of the plugin&apos;s instance.
+ * @return {ProjextRollupDevServerPlugin}
+ */
+const devServer = (options, name) =&gt; new ProjextRollupDevServerPlugin(options, name);
+
+module.exports = {
+  ProjextRollupDevServerPlugin,
+  devServer,
+};
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

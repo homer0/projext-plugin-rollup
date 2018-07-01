@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../../">
+  <title data-ice="title">src/plugins/stats/index.js | projext-plugin-rollup</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Allows projext to use Rollup as a build engine."><meta property="twitter:card" content="summary"><meta property="twitter:title" content="projext-plugin-rollup"><meta property="twitter:description" content="Allows projext to use Rollup as a build engine."></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/homer0/projext-plugin-rollup"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-useExpress">useExpress</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-useJimpex">useJimpex</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-MiddlewareGetDirectory">MiddlewareGetDirectory</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-MiddlewareGetFileSystem">MiddlewareGetFileSystem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-MiddlewareInformation">MiddlewareInformation</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupCSSPluginOptions">ProjextRollupCSSPluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupCompressionPluginEntry">ProjextRollupCompressionPluginEntry</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupCompressionPluginOptions">ProjextRollupCompressionPluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupDevServerPluginEvent">ProjextRollupDevServerPluginEvent</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupDevServerPluginOptions">ProjextRollupDevServerPluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupNodeRunnerPluginEvent">ProjextRollupNodeRunnerPluginEvent</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupNodeRunnerPluginOptions">ProjextRollupNodeRunnerPluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupPluginURL">ProjextRollupPluginURL</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupPluginsStats">ProjextRollupPluginsStats</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupStatsPluginCellsWidth">ProjextRollupStatsPluginCellsWidth</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupStatsPluginLog">ProjextRollupStatsPluginLog</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupStatsPluginLogOptions">ProjextRollupStatsPluginLogOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupStatsPluginOptions">ProjextRollupStatsPluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupStatsPluginReset">ProjextRollupStatsPluginReset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupStylesheetAssetsHelperPluginOptions">ProjextRollupStylesheetAssetsHelperPluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupStylesheetAssetsPluginOptions">ProjextRollupStylesheetAssetsPluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupStylesheetModulesFixerPluginOptions">ProjextRollupStylesheetModulesFixerPluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupTemplatePluginOptions">ProjextRollupTemplatePluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjextRollupURLsPluginOptions">ProjextRollupURLsPluginOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProviderRegisterMethod">ProviderRegisterMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RollupConfigurationOutputParams">RollupConfigurationOutputParams</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RollupConfigurationPathsParams">RollupConfigurationPathsParams</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RollupConfigurations">RollupConfigurations</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RollupConfigurationsByEnvironment">RollupConfigurationsByEnvironment</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RollupFileDefinition">RollupFileDefinition</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RollupFilter">RollupFilter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RollupPluginInfo">RollupPluginInfo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RollupStylesheetProcessor">RollupStylesheetProcessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-StringOrObject">StringOrObject</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="ttps://homer0.github.io/projext/class/src/services/configurations/babelConfiguration.js~BabelConfiguration.html">BabelConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/class/src/services/building/buildVersion.js~BuildVersion.html">BuildVersion</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/environmentUtils.js~EnvironmentUtils.html">EnvironmentUtils</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/class/src/services/common/events.js~Events.html">Events</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://expressjs.com">Express</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://nodejs.org/api/fs.html">FileSystem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://nodejs.org/api/http.html#http_class_http_clientrequest">HTTPRequest</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://nodejs.org/api/http.html#http_class_http_serverresponse">HTTPResponse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://yarnpkg.com/en/package/jimpex">Jimpex</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://yarnpkg.com/en/package/jimple">Jimple</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/logger.js~Logger.html">Logger</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="http://expressjs.com/en/guide/using-middleware.html">Middleware</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/pathUtils.js~PathUtils.html">PathUtils</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/class/src/app/index.js~Projext.html">Projext</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/typedef/index.html#static-typedef-Target">Target</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/typedef/index.html#static-typedef-TargetConfigurationCreator">TargetConfigurationCreator</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/typedef/index.html#static-typedef-TargetFileRules">TargetFileRules</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/class/src/services/targets/targets.js~Targets.html">Targets</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="ttps://homer0.github.io/projext/class/src/services/targets/targetsFileRules/targetsFileRules.js~TargetsFileRules.html">TargetsFileRules</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/class/src/services/targets/targetsHTML.js~TargetsHTML.html">TargetsHTML</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#abstracts">abstracts</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/abstracts/configurationFile.js~ConfigurationFile.html">ConfigurationFile</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#jimpex">jimpex</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/jimpex/frontendFs.js~RollupFrontendFs.html">RollupFrontendFs</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/jimpex/sendFile.js~RollupSendFile.html">RollupSendFile</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-rollupFrontendFs">rollupFrontendFs</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rollupSendFile">rollupSendFile</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins">plugins</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/utils.js~ProjextRollupUtils.html">ProjextRollupUtils</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-compression">plugins/compression</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/compression/index.js~ProjextRollupCompressionPlugin.html">ProjextRollupCompressionPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-compression">compression</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-css">plugins/css</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/css/index.js~ProjextRollupCSSPlugin.html">ProjextRollupCSSPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-css">css</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-devserver">plugins/devServer</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/devServer/index.js~ProjextRollupDevServerPlugin.html">ProjextRollupDevServerPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-devServer">devServer</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-noderunner">plugins/nodeRunner</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/nodeRunner/index.js~ProjextRollupNodeRunnerPlugin.html">ProjextRollupNodeRunnerPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-nodeRunner">nodeRunner</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-stats">plugins/stats</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/stats/index.js~ProjextRollupStatsPlugin.html">ProjextRollupStatsPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-stats">stats</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-stylesheetassets">plugins/stylesheetAssets</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/stylesheetAssets/helper.js~ProjextRollupStylesheetAssetsHelperPlugin.html">ProjextRollupStylesheetAssetsHelperPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/stylesheetAssets/index.js~ProjextRollupStylesheetAssetsPlugin.html">ProjextRollupStylesheetAssetsPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-stylesheetAssetsHelper">stylesheetAssetsHelper</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-stylesheetAssets">stylesheetAssets</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-stylesheetmodulesfixer">plugins/stylesheetModulesFixer</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/stylesheetModulesFixer/index.js~ProjextRollupStylesheetModulesFixerPlugin.html">ProjextRollupStylesheetModulesFixerPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-stylesheetModulesFixer">stylesheetModulesFixer</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-template">plugins/template</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/template/index.js~ProjextRollupTemplatePlugin.html">ProjextRollupTemplatePlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-template">template</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-urls">plugins/urls</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/urls/index.js~ProjextRollupURLsPlugin.html">ProjextRollupURLsPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-urls">urls</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#plugins-windowasglobal">plugins/windowAsGlobal</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugins/windowAsGlobal/index.js~ProjextRollupWindowAsGlobalPlugin.html">ProjextRollupWindowAsGlobalPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-windowAsGlobal">windowAsGlobal</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#services-building">services/building</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/building/configuration.js~RollupConfiguration.html">RollupConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/building/engine.js~RollupBuildEngine.html">RollupBuildEngine</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rollupConfiguration">rollupConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rollupBuildEngine">rollupBuildEngine</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#services-configurations">services/configurations</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/configurations/browserDevelopmentConfiguration.js~RollupBrowserDevelopmentConfiguration.html">RollupBrowserDevelopmentConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/configurations/browserProductionConfiguration.js~RollupBrowserProductionConfiguration.html">RollupBrowserProductionConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/configurations/nodeDevelopmentConfiguration.js~RollupNodeDevelopmentConfiguration.html">RollupNodeDevelopmentConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/configurations/nodeProductionConfiguration.js~RollupNodeProductionConfiguration.html">RollupNodeProductionConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/configurations/pluginsConfiguration.js~RollupPluginSettingsConfiguration.html">RollupPluginSettingsConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rollupBrowserDevelopmentConfiguration">rollupBrowserDevelopmentConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rollupBrowserProductionConfiguration">rollupBrowserProductionConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rollupNodeDevelopmentConfiguration">rollupNodeDevelopmentConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rollupNodeProductionConfiguration">rollupNodeProductionConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rollupPluginSettingsConfiguration">rollupPluginSettingsConfiguration</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#services-server">services/server</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/server/middleware.js~RollupMiddleware.html">RollupMiddleware</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rollupMiddleware">rollupMiddleware</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/plugins/stats/index.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const extend = require(&apos;extend&apos;);
+const fs = require(&apos;fs-extra&apos;);
+const prettysize = require(&apos;prettysize&apos;);
+const colors = require(&apos;colors/safe&apos;);
+const { Logger } = require(&apos;wootils/node/logger&apos;);
+/**
+ * This is a Rollup plugin that shows stats on the files generated and/or copied. The way this
+ * plugin works is kind of different: Once instantiated, it has an `add` metho for registering
+ * stats entries and that can be sent to other plugins; and at the same time, it has a `log` method
+ * that you would add as a plugin and it would show the entries.
+ *
+ * @example
+ * const stats = new ProjextRollupStatsPlugin();
+ * stats.add(...);
+ * stats.add(...);
+ * ...
+ * module.exports = {
+ *   plugins: [
+ *     commonjs(),
+ *     resolve(),
+ *     ...,
+ *     stats.log(),
+ *   ],
+ * };
+ */
+class ProjextRollupStatsPlugin {
+  /**
+   * @param {ProjextRollupStatsPluginOptions} [options={}]
+   * The options to customize the plugin behaviour.
+   * @param {string} [name=&apos;projext-rollup-plugin-node-stats&apos;]
+   * The name of the plugin&apos;s instance.
+   */
+  constructor(options = {}, name = &apos;projext-rollup-plugin-stats&apos;) {
+    /**
+     * The plugin options.
+     * @type {ProjextRollupStatsPluginOptions}
+     * @access protected
+     * @ignore
+     */
+    this._options = extend(
+      true,
+      {
+        path: &apos;&apos;,
+      },
+      options
+    );
+    /**
+     * The name of the plugin&apos;s instance.
+     * @type {string}
+     */
+    this.name = name;
+    /**
+     * The list of entries added to the plugin&apos;s instance.
+     * @type {Array}
+     * @access protected
+     * @ignore
+     */
+    this._entries = [];
+    /**
+     * The dictionary with the headers of the report table the plugin will show when it logs
+     * the entries.
+     * @type {Object}
+     * @access protected
+     * @ignore
+     */
+    this._reportHeaders = {
+      file: &apos;Asset&apos;,
+      size: &apos;Size&apos;,
+      plugin: &apos;Plugin&apos;,
+    };
+    /**
+     * A custom {@link Logger} to log the report table. It can be set on the options of the `log`
+     * method.
+     * @type {?Logger}
+     * @access protected
+     * @ignore
+     */
+    this._logger = null;
+    /**
+     * @ignore
+     */
+    this.add = this.add.bind(this);
+  }
+  /**
+   * Gets the plugin options
+   * @return {ProjextRollupStatsPluginOptions}
+   */
+  getOptions() {
+    return this._options;
+  }
+  /**
+   * Generates a _&quot;sub plugin&quot;_ to add to the plugins queue and that will reset the entries list.
+   * The reason this exists is because when Rollup is on _&quot;watch mode&quot;_, the plugins can run more
+   * than once, and if the queue is not reseted, the report table will show the entries for ALL
+   * the times the plugin ran.
+   * @return {ProjextRollupStatsPluginReset}
+   */
+  reset() {
+    return {
+      intro: () =&gt; {
+        this._entries = [];
+      },
+    };
+  }
+  /**
+   * Generates a _&quot;sub plugin&quot;_ to add to the plugins queue and that will take care of logging
+   * all the added entries on a report table.
+   * @param {ProjextRollupStatsPluginLogOptions} [options={}] Custom options for the _&quot;sub plugin&quot;_.
+   * @return {ProjextRollupStatsPluginLog}
+   */
+  log(options = {}) {
+    // Merge the default and custom options.
+    const newOptions = extend(
+      true,
+      {
+        extraEntries: [],
+        logger: null,
+      },
+      options
+    );
+    // Validate the logger.
+    const logger = this._validateLogger(newOptions.logger);
+    // If there was a valid logger, assign it to the local property and remove it form the options.
+    if (logger) {
+      this._logger = logger;
+      delete newOptions.logger;
+    }
+    // Return the _&quot;sub plugin&quot;_.
+    return {
+      onwrite: () =&gt; {
+        /**
+         * Add any extra entry specified on the options. The reason they&apos;re being added here
+         * instead of the parent scope it&apos;s because the `reset` _&quot;sub plugin&quot;_ may remove them
+         * if they are added out of the plugins cycle.
+         */
+        newOptions.extraEntries.forEach((entry) =&gt; {
+          this.add(entry.plugin, entry.filepath);
+        });
+        // Log the report table.
+        return this._logStats();
+      },
+    };
+  }
+  /**
+   * Adds a new stats entry.
+   * @param {string|Promise} plugin       This can be either the name of the plugin generating the
+   *                                      entry, or, if the spot should be saved but the actual
+   *                                      entry is involved on an async task, a promise the plugin
+   *                                      will wait for. The promise should be resolved with an
+   *                                      object with the keys `plugin` and `filepath`.
+   * @param {?string}        [filepath]   The path for the file that was generatedcopied. This is
+   *                                      not required if `plugin` is a promise.
+   * @param {?number}        [index=null] If this value is specified, instead of adding the entry
+   *                                      to the list, it will be set at the given index. This is
+   *                                      used internally by the plugin after resolving promise
+   *                                      based entries, instead of adding the resolved value, the
+   *                                      plugin replaces the entry that had the promise with the
+   *                                      resolved information.
+   */
+  add(plugin, filepath, index = null) {
+    // Build the entry object after validating if `plugin` is a promise.
+    const entry = this._isPromise(plugin) ? plugin : {
+      plugin,
+      filepath,
+    };
+    // If index was defined...
+    if (typeof index === &apos;number&apos;) {
+      // Replace the entry at the given index.
+      this._entries[index] = entry;
+    } else {
+      // Push the entry at the end of the list.
+      this._entries.push(entry);
+    }
+  }
+  /**
+   * Validates if an object can be used as a logger. The object is only allowed if it&apos;s an instance
+   * of {@link Logger} or it has a `log` method.
+   * @param {Logger|Object} logger The logger to validate.
+   * @return {Logger|Object}
+   * @throws {Error} If the object is not an instance of {@link Logger} and it doesn&apos;t have a `log`
+   *                 method.
+   * @access protected
+   * @ignore
+   */
+  _validateLogger(logger) {
+    let result = null;
+    /**
+     * If `logger` is _&quot;truthy&quot;_ and it&apos;s either an instance of {@link Logger} or has a `log`
+     * method...
+     */
+    if (
+      logger &amp;&amp;
+      (
+        logger instanceof Logger ||
+        typeof logger.log === &apos;function&apos;
+      )
+    ) {
+      // ...set it to be returned as a valid logger.
+      result = logger;
+    } else if (logger) {
+      // ...but if there&apos;s a `logger` but it doesn&apos;t have a valid interface, throw an error.
+      throw new Error(`${this.name}: The logger must be an instance of wootils&apos; Logger class`);
+    }
+
+    return result;
+  }
+  /**
+   * This is the method in charge of logging the report table.
+   * @return {Promise&lt;undefined,Error&gt;}
+   * @access protected
+   * @ignore
+   */
+  _logStats() {
+    // Resolve any pending entry.
+    return this._resolveEntries()
+    .then(() =&gt; {
+      // Sort the entries list.
+      let newEntries = this._sortEntries(this._entries);
+      // Normalize the entries paths and obtain the files size.
+      newEntries = this._formatEntries(newEntries);
+      // Generate the report table.
+      const stats = this._generateStats(newEntries);
+      // If a valid `logger` was sent, use it to log the table, otherwise use the `console`.
+      if (this._logger) {
+        this._logger.log(stats);
+      } else {
+        // eslint-disable-next-line no-console
+        console.log(stats);
+      }
+    });
+  }
+  /**
+   * Resolves any pending entries that were added as promises.
+   * @return {Promise&lt;undefined,Error&gt;}
+   * @access protected
+   * @ignore
+   */
+  _resolveEntries() {
+    const promises = [];
+    // Loop all the entries and pick the promises and their indexes.
+    this._entries.forEach((entry, index) =&gt; {
+      if (this._isPromise(entry)) {
+        promises.push({
+          entry,
+          index,
+        });
+      }
+    });
+    // Define the variable to return.
+    let result;
+    // If there are promises to solve...
+    if (promises.length) {
+      // ...set to return a `Promise.all` of all of them.
+      result = Promise.all(promises.map((entryInfo) =&gt; this._resolveEntry(entryInfo)));
+    } else {
+      // ...otherwise, return an already resolved promise.
+      result = Promise.resolve();
+    }
+
+    return result;
+  }
+  /**
+   * Resolves a single promise based entry.
+   * @param {Object}                entryInfo       The information of the entry to be resolved.
+   * @param {Promise&lt;Object,Error&gt;} entryInfo.entry The promise to resolve.
+   * @return {Promise&lt;undefined,Error&gt;}
+   * @access protected
+   * @ignore
+   */
+  _resolveEntry(entryInfo) {
+    // Wait for the promise to be resolved.
+    return entryInfo
+    .entry
+    .then((newEntry) =&gt; {
+      // Replace the entry with the obtained information.
+      this.add(newEntry.plugin, newEntry.filepath, entryInfo.index);
+    });
+  }
+  /**
+   * Checks whether an object is a promise or not. It should be of type `Object` and have a `then`
+   * method.
+   * @param {*} obj The object to validate.
+   * @return {boolean}
+   * @access protected
+   * @ignore
+   */
+  _isPromise(obj) {
+    return typeof obj === &apos;object&apos; &amp;&amp; obj.then &amp;&amp; typeof obj.then === &apos;function&apos;;
+  }
+  /**
+   * Sorts an entries list.
+   * @param {Array} entries The entries list.
+   * @return {Array}
+   * @access protected
+   * @ignore
+   */
+  _sortEntries(entries) {
+    const entriesByFile = {};
+    /**
+     * Loop all the entries, put them on a dictionary using the file path as key, and build a
+     * list of file paths.
+     */
+    return entries.map((entry) =&gt; {
+      entriesByFile[entry.filepath] = entry;
+      return entry.filepath;
+    })
+    // Sort the list of file paths.
+    .sort()
+    /**
+     * Build a new array by looping the sorted entries and retrieving the information from
+     * the dictionary.
+     */
+    .map((filepath) =&gt; entriesByFile[filepath]);
+  }
+  /**
+   * Formats a list of entries by normalizing their paths, obtaining their size and making it
+   * human readable.
+   * @param {Array} entries The list of entries.
+   * @return {Array}
+   * @access protected
+   * @ignore
+   */
+  _formatEntries(entries) {
+    // Loop all the entries.
+    return entries
+    // Filter all entries which files don&apos;t exist.
+    .filter((entry) =&gt; fs.pathExistsSync(entry.filepath))
+    // Loop all the filtered entries.
+    .map((entry) =&gt; {
+      const { plugin, filepath } = entry;
+      // Normalize the file path.
+      const file = this._resolveFilepath(filepath);
+      // Normalize the file size.
+      const size = this._getPrettyFilesize(filepath);
+      // Return an object with the new information.
+      return {
+        plugin,
+        file,
+        size,
+      };
+    });
+  }
+  /**
+   * Removes the plugin&apos;s `path` option from a filepath that starts with it.
+   * @param {string} filepath The file path to _&quot;normalize&quot;_.
+   * @return {string}
+   * @access protected
+   * @ignore
+   */
+  _resolveFilepath(filepath) {
+    return filepath.startsWith(this._options.path) ?
+      filepath.substr(this._options.path.length) :
+      filepath;
+  }
+  /**
+   * Gets and formats a file size.
+   * @param {string} filepath The path to the file.
+   * @return {string}
+   * @access protected
+   * @ignore
+   */
+  _getPrettyFilesize(filepath) {
+    return prettysize(fs.lstatSync(filepath).size)
+    .replace(/ Bytes$/g, &apos; B&apos;);
+  }
+  /**
+   * Generates the report table to log the entries.
+   * @param {Array} entries The list of entries.
+   * @return {string}
+   * @access protected
+   * @ignore
+   */
+  _generateStats(entries) {
+    // Get the widths for each cell.
+    const cellsWidth = this._getCellsWidth(entries);
+    // Define the spacing between columns.
+    const howMuchSpaceBetweenColumns = 2;
+    // Generate the string for the spacing between columns.
+    const spacer = this._addSpaces(howMuchSpaceBetweenColumns);
+
+    // Define the _&quot;Headers line&quot;_.
+    const header = [
+      &apos;&apos;,
+      colors.white(this._addSpaces(cellsWidth.file, this._reportHeaders.file, false)),
+      colors.white(this._addSpaces(cellsWidth.size, this._reportHeaders.size)),
+      colors.white(this._addSpaces(cellsWidth.plugin, this._reportHeaders.plugin)),
+    ]
+    .join(spacer);
+    /**
+     * Define the variable that will hold the file that was generated by Rollup itself. The reason
+     * it&apos;s saved on a string it&apos;s because if while looping all the entries, a file that starts
+     * with the same string as this file is found, it will also be highlighted, as it may be
+     * a variation of the main file (`gz` or `map`).
+     */
+    let rollupFile = &apos; &apos;;
+    // Build the lines for each entry.
+    const entryLines = entries.map((entry) =&gt; {
+      // Define the cell for the file path.
+      let file = this._addSpaces(cellsWidth.file, entry.file, false);
+      // Define the cell for the file size.
+      let size = this._addSpaces(cellsWidth.size, entry.size);
+      // Define the cell for the plugin&apos;s name.
+      let plugin = this._addSpaces(cellsWidth.plugin, entry.plugin);
+
+      // Validate if the entry was generated by Rollup itself.
+      const isRollupFile = entry.plugin === &apos;rollup&apos;;
+      // If the entry was generated by Rollup, save the filepath.
+      if (isRollupFile) {
+        rollupFile = entry.file;
+      }
+      /**
+       * If the file was generated by Rollup or it&apos;s a variation of it (starts with the
+       * same path)...
+       */
+      if (isRollupFile || entry.file.startsWith(rollupFile)) {
+        // ...highlight the cells.
+        file = colors.cyan(file);
+        size = colors.cyan(size);
+        plugin = colors.cyan(plugin);
+      } else {
+        // ...otherwise, add some regular colors to the cells.
+        file = colors.green(file);
+        size = colors.white(size);
+        plugin = colors.gray(plugin);
+      }
+      // Return the line.
+      return `${spacer}${file}${spacer}${size}${spacer}${plugin}`;
+    });
+    // Define all the report lines.
+    const lines = [
+      &apos;&apos;,
+      header,
+      ...entryLines,
+      &apos;&apos;,
+    ];
+    // Return the lines joined on a single string.
+    return lines.join(&apos;\n&apos;);
+  }
+  /**
+   * Calculates the width of the report table cells by finding each property longest value.
+   * @param {Array} entries The entries list.
+   * @return {ProjextRollupStatsPluginCellsWidth}
+   * @access protected
+   * @ignore
+   */
+  _getCellsWidth(entries) {
+    // Define the initial values.
+    let longestPlugin = 0;
+    let longestFile = 0;
+    let longestSize = 0;
+
+    // Loop all the entries and the headers.
+    [
+      ...entries,
+      this._reportHeaders,
+    ]
+    .forEach((entry) =&gt; {
+      // Validate the longest plugin name.
+      if (entry.plugin.length &gt; longestPlugin) {
+        longestPlugin = entry.plugin.length;
+      }
+
+      // Validate the longest file path.
+      if (entry.file.length &gt; longestFile) {
+        longestFile = entry.file.length;
+      }
+
+      // Validate the longest file size.
+      if (entry.size.length &gt; longestSize) {
+        longestSize = entry.size.length;
+      }
+    });
+    // Return the width for each cell type.
+    return {
+      plugin: longestPlugin,
+      file: longestFile,
+      size: longestSize,
+    };
+  }
+  /**
+   * Prefix or sufix an string with a number of spaces.
+   * @param {number}  length       How many spaces should be added.
+   * @param {string}  [str=&apos;&apos;]     The string to prefix or sufix.
+   * @param {boolean} [after=true] Whether the spaces should be after or before the string.
+   * @return {string}
+   * @access protected
+   * @ignore
+   */
+  _addSpaces(length, str = &apos;&apos;, after = true) {
+    const spaces = (new Array(length - str.length)).fill(&apos; &apos;).join(&apos;&apos;);
+    return after ? `${str}${spaces}` : `${spaces}${str}`;
+  }
+}
+/**
+ * Shorthand method to create an instance of {@link ProjextRollupStatsPlugin}.
+ * @param {ProjextRollupStatsPluginOptions} options
+ * The options to customize the plugin behaviour.
+ * @param {string} name
+ * The name of the plugin&apos;s instance.
+ * @return {ProjextRollupStatsPlugin}
+ */
+const stats = (options, name) =&gt; new ProjextRollupStatsPlugin(options, name);
+
+module.exports = {
+  ProjextRollupStatsPlugin,
+  stats,
+};
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>
