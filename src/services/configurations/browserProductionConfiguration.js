@@ -37,7 +37,10 @@ class RollupBrowserProductionConfiguration extends ConfigurationFile {
     pathUtils,
     rollupPluginSettingsConfiguration
   ) {
-    super(pathUtils, 'rollup/browser.production.config.js');
+    super(pathUtils, [
+      'config/rollup/browser.production.config.js',
+      'config/rollup/browser.config.js',
+    ]);
     /**
      * A local reference for the `events` service.
      * @type {Events}

@@ -143,7 +143,10 @@ describe('services/configurations:nodeProductionConfiguration', () => {
     expect(sut.constructorMock).toHaveBeenCalledTimes(1);
     expect(sut.constructorMock).toHaveBeenCalledWith(
       pathUtils,
-      'rollup/node.production.config.js'
+      [
+        'config/rollup/node.production.config.js',
+        'config/rollup/node.config.js',
+      ]
     );
     expect(sut.events).toBe(events);
     expect(sut.pathUtils).toBe(pathUtils);

@@ -33,7 +33,10 @@ class RollupNodeDevelopmentConfiguration extends ConfigurationFile {
     pathUtils,
     rollupPluginSettingsConfiguration
   ) {
-    super(pathUtils, 'rollup/node.development.config.js');
+    super(pathUtils, [
+      'config/rollup/node.development.config.js',
+      'config/rollup/node.config.js',
+    ]);
     /**
      * A local reference for the `events` service.
      * @type {Events}
