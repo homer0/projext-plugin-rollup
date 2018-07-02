@@ -187,6 +187,11 @@ describe('services/configurations:plugins', () => {
     };
     const babelHelper = {
       disableEnvPresetModules: jest.fn((config) => Object.assign({}, config, { modules: false })),
+      addPlugin: jest.fn((config, plugin) => Object.assign({}, config, {
+        plugins: {
+          [plugin]: true,
+        },
+      })),
     };
     const events = {
       reduce: jest.fn((eventName, configurationToReduce) => configurationToReduce),
@@ -267,6 +272,9 @@ describe('services/configurations:plugins', () => {
       replace: definitions,
       babel: Object.assign({}, babelConfig, {
         modules: false,
+        plugins: {
+          'external-helpers': true,
+        },
         include: rules.js.files.glob.include,
         exclude: rules.js.files.glob.exclude,
       }),
@@ -640,6 +648,11 @@ describe('services/configurations:plugins', () => {
     };
     const babelHelper = {
       disableEnvPresetModules: jest.fn((config) => Object.assign({}, config, { modules: false })),
+      addPlugin: jest.fn((config, plugin) => Object.assign({}, config, {
+        plugins: {
+          [plugin]: true,
+        },
+      })),
     };
     const events = {
       reduce: jest.fn((eventName, configurationToReduce) => configurationToReduce),
@@ -718,6 +731,9 @@ describe('services/configurations:plugins', () => {
       replace: definitions,
       babel: Object.assign({}, babelConfig, {
         modules: false,
+        plugins: {
+          'external-helpers': true,
+        },
         include: rules.js.files.glob.include,
         exclude: rules.js.files.glob.exclude,
       }),
@@ -1101,6 +1117,11 @@ describe('services/configurations:plugins', () => {
     };
     const babelHelper = {
       disableEnvPresetModules: jest.fn((config) => Object.assign({}, config, { modules: false })),
+      addPlugin: jest.fn((config, plugin) => Object.assign({}, config, {
+        plugins: {
+          [plugin]: true,
+        },
+      })),
     };
     const events = {
       reduce: jest.fn((eventName, configurationToReduce) => configurationToReduce),
@@ -1171,6 +1192,9 @@ describe('services/configurations:plugins', () => {
       replace: definitions,
       babel: Object.assign({}, babelConfig, {
         modules: false,
+        plugins: {
+          'external-helpers': true,
+        },
         include: rules.js.files.glob.include,
         exclude: rules.js.files.glob.exclude,
       }),
@@ -1564,6 +1588,11 @@ describe('services/configurations:plugins', () => {
     };
     const babelHelper = {
       disableEnvPresetModules: jest.fn((config) => Object.assign({}, config, { modules: false })),
+      addPlugin: jest.fn((config, plugin) => Object.assign({}, config, {
+        plugins: {
+          [plugin]: true,
+        },
+      })),
     };
     const events = {
       reduce: jest.fn((eventName, configurationToReduce) => configurationToReduce),
@@ -1634,6 +1663,9 @@ describe('services/configurations:plugins', () => {
       replace: definitions,
       babel: Object.assign({}, babelConfig, {
         modules: false,
+        plugins: {
+          'external-helpers': true,
+        },
         include: rules.js.files.glob.include,
         exclude: rules.js.files.glob.exclude,
       }),
@@ -2030,6 +2062,11 @@ describe('services/configurations:plugins', () => {
     };
     const babelHelper = {
       disableEnvPresetModules: jest.fn((config) => Object.assign({}, config, { modules: false })),
+      addPlugin: jest.fn((config, plugin) => Object.assign({}, config, {
+        plugins: {
+          [plugin]: true,
+        },
+      })),
     };
     const events = {
       reduce: jest.fn((eventName, configurationToReduce) => configurationToReduce),
@@ -2100,6 +2137,9 @@ describe('services/configurations:plugins', () => {
       replace: definitions,
       babel: Object.assign({}, babelConfig, {
         modules: false,
+        plugins: {
+          'external-helpers': true,
+        },
         include: rules.js.files.glob.include,
         exclude: rules.js.files.glob.exclude,
       }),
@@ -2497,6 +2537,11 @@ describe('services/configurations:plugins', () => {
     };
     const babelHelper = {
       disableEnvPresetModules: jest.fn((config) => Object.assign({}, config, { modules: false })),
+      addPlugin: jest.fn((config, plugin) => Object.assign({}, config, {
+        plugins: {
+          [plugin]: true,
+        },
+      })),
     };
     const events = {
       reduce: jest.fn((eventName, configurationToReduce) => configurationToReduce),
@@ -2567,6 +2612,9 @@ describe('services/configurations:plugins', () => {
       replace: definitions,
       babel: Object.assign({}, babelConfig, {
         modules: false,
+        plugins: {
+          'external-helpers': true,
+        },
         include: rules.js.files.glob.include,
         exclude: rules.js.files.glob.exclude,
       }),
@@ -2970,6 +3018,11 @@ describe('services/configurations:plugins', () => {
     };
     const babelHelper = {
       disableEnvPresetModules: jest.fn((config) => Object.assign({}, config, { modules: false })),
+      addPlugin: jest.fn((config, plugin) => Object.assign({}, config, {
+        plugins: {
+          [plugin]: true,
+        },
+      })),
     };
     const events = {
       reduce: jest.fn((eventName, configurationToReduce) => configurationToReduce),
@@ -3178,6 +3231,11 @@ describe('services/configurations:plugins', () => {
     };
     const babelHelper = {
       disableEnvPresetModules: jest.fn((config) => Object.assign({}, config, { modules: false })),
+      addPlugin: jest.fn((config, plugin) => Object.assign({}, config, {
+        plugins: {
+          [plugin]: true,
+        },
+      })),
     };
     const events = {
       reduce: jest.fn((eventName, configurationToReduce) => configurationToReduce),
@@ -3381,6 +3439,11 @@ describe('services/configurations:plugins', () => {
     };
     const babelHelper = {
       disableEnvPresetModules: jest.fn((config) => Object.assign({}, config, { modules: false })),
+      addPlugin: jest.fn((config, plugin) => Object.assign({}, config, {
+        plugins: {
+          [plugin]: true,
+        },
+      })),
     };
     const events = {
       reduce: jest.fn((eventName, configurationToReduce) => configurationToReduce),
