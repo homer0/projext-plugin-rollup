@@ -149,7 +149,10 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
     expect(sut.constructorMock).toHaveBeenCalledTimes(1);
     expect(sut.constructorMock).toHaveBeenCalledWith(
       pathUtils,
-      'rollup/node.development.config.js'
+      [
+        'config/rollup/node.development.config.js',
+        'config/rollup/node.config.js',
+      ]
     );
     expect(sut.events).toBe(events);
     expect(sut.pathUtils).toBe(pathUtils);
