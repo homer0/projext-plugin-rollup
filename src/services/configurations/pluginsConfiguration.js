@@ -240,12 +240,15 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
    * @ignore
    */
   _getResolveSettings(params) {
+    const { target } = params;
     const settings = {
       // Add just for basic JS files and JSON.
       extensions: ['.js', '.json', '.jsx'],
+      browser: target.is.browser,
+      preferBuiltins: target.is.node,
     };
 
-    const eventName = params.target.is.node ?
+    const eventName = target.is.node ?
       'rollup-resolve-plugin-settings-configuration-for-node' :
       'rollup-resolve-plugin-settings-configuration-for-browser';
 

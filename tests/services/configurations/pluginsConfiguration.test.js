@@ -261,6 +261,8 @@ describe('services/configurations:plugins', () => {
       globals: expectedGlobals,
       resolve: {
         extensions: ['.js', '.json', '.jsx'],
+        browser: false,
+        preferBuiltins: true,
       },
       replace: definitions,
       babel: Object.assign({}, babelConfig, {
@@ -710,6 +712,8 @@ describe('services/configurations:plugins', () => {
       globals: expectedGlobals,
       resolve: {
         extensions: ['.js', '.json', '.jsx'],
+        browser: false,
+        preferBuiltins: true,
       },
       replace: definitions,
       babel: Object.assign({}, babelConfig, {
@@ -1161,6 +1165,8 @@ describe('services/configurations:plugins', () => {
       },
       resolve: {
         extensions: ['.js', '.json', '.jsx'],
+        browser: true,
+        preferBuiltins: false,
       },
       replace: definitions,
       babel: Object.assign({}, babelConfig, {
@@ -1622,6 +1628,8 @@ describe('services/configurations:plugins', () => {
       },
       resolve: {
         extensions: ['.js', '.json', '.jsx'],
+        browser: true,
+        preferBuiltins: false,
       },
       replace: definitions,
       babel: Object.assign({}, babelConfig, {
@@ -2086,6 +2094,8 @@ describe('services/configurations:plugins', () => {
       },
       resolve: {
         extensions: ['.js', '.json', '.jsx'],
+        browser: true,
+        preferBuiltins: false,
       },
       replace: definitions,
       babel: Object.assign({}, babelConfig, {
@@ -2551,6 +2561,8 @@ describe('services/configurations:plugins', () => {
       },
       resolve: {
         extensions: ['.js', '.json', '.jsx'],
+        browser: true,
+        preferBuiltins: false,
       },
       replace: definitions,
       babel: Object.assign({}, babelConfig, {
