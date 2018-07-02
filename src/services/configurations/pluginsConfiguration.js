@@ -14,7 +14,9 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
    * @param {Logger}             appLogger          To send to the plugins that support a logger.
    * @param {BabelConfiguration} babelConfiguration To get the target Babel configuration.
    * @param {BabelHelper}        babelHelper        To disable the `modules` setting of the Babel
-   *                                                env preset for a target, as Rollup requires.
+   *                                                env preset for a target, as Rollup requires,
+   *                                                and include the `external-helpers` plugin, to
+   *                                                optimize the transpilation.
    * @param {Events}             events             To reduce the settings.
    * @param {Object}             packageInfo        To get the dependencies and define them as
    *                                                externals for Node targets.
@@ -240,12 +242,15 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
    * @ignore
    */
   _getResolveSettings(params) {
+    const { target } = params;
     const settings = {
       // Add just for basic JS files and JSON.
       extensions: ['.js', '.json', '.jsx'],
+      browser: target.is.browser,
+      preferBuiltins: target.is.node,
     };
 
-    const eventName = params.target.is.node ?
+    const eventName = target.is.node ?
       'rollup-resolve-plugin-settings-configuration-for-node' :
       'rollup-resolve-plugin-settings-configuration-for-browser';
 
@@ -306,7 +311,9 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     // Get the target Babel configuration.
     const baseConfiguration = this.babelConfiguration.getConfigForTarget(target);
     // Disable the `modules` feature for the `env` preset.
-    const configuration = this.babelHelper.disableEnvPresetModules(baseConfiguration);
+    let configuration = this.babelHelper.disableEnvPresetModules(baseConfiguration);
+    // Add the `external-helpers` plugin to optimize the transpilation.
+    configuration = this.babelHelper.addPlugin(configuration, 'external-helpers');
     // Define the plugin settings.
     const settings = Object.assign(
       {},

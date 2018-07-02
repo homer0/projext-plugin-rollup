@@ -32,7 +32,10 @@ class RollupNodeProductionConfiguration extends ConfigurationFile {
     pathUtils,
     rollupPluginSettingsConfiguration
   ) {
-    super(pathUtils, 'rollup/node.production.config.js');
+    super(pathUtils, [
+      'config/rollup/node.production.config.js',
+      'config/rollup/node.config.js',
+    ]);
     /**
      * A local reference for the `events` service.
      * @type {Events}

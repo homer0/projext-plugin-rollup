@@ -169,7 +169,10 @@ describe('services/configurations:browserProductionConfiguration', () => {
     expect(sut.constructorMock).toHaveBeenCalledTimes(1);
     expect(sut.constructorMock).toHaveBeenCalledWith(
       pathUtils,
-      'rollup/browser.production.config.js'
+      [
+        'config/rollup/browser.production.config.js',
+        'config/rollup/browser.config.js',
+      ]
     );
     expect(sut.events).toBe(events);
     expect(sut.pathUtils).toBe(pathUtils);
