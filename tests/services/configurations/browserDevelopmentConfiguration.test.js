@@ -19,6 +19,7 @@ const {
   rollupBrowserDevelopmentConfiguration,
 } = require('/src/services/configurations/browserDevelopmentConfiguration');
 const {
+  copy,
   css,
   urls,
   stylesheetAssets,
@@ -41,6 +42,7 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
     const statsResetValue = 'stats-reset';
     const statsLogValue = 'stats-log';
     const values = {
+      copy: 'copy-value',
       css: 'css-plugin',
       urls: 'urls-plugin',
       stylesheetAssets: 'stylesheetAssets-plugin',
@@ -63,6 +65,7 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
     };
     values.statsReset = statsResetValue;
     values.statsLog = statsLogValue;
+    copy.mockImplementationOnce(() => values.copy);
     css.mockImplementationOnce(() => values.css);
     urls.mockImplementationOnce(() => values.urls);
     stylesheetAssets.mockImplementationOnce(() => values.stylesheetAssets);
@@ -79,6 +82,7 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
     html.mockImplementationOnce(() => values.html);
     json.mockImplementationOnce(() => values.json);
     const mocks = {
+      copy,
       css,
       urls,
       stylesheetAssets,
@@ -119,6 +123,7 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
       },
       watch: 'watch-plugin-settings',
       devServer: 'devServer-plugin-settings',
+      copy: 'copy-plugin-settings',
     };
     return {
       values,
@@ -129,6 +134,7 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
 
   beforeEach(() => {
     ConfigurationFileMock.reset();
+    copy.mockClear();
     css.mockClear();
     urls.mockClear();
     stylesheetAssets.mockClear();
@@ -217,6 +223,7 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
         plugins.values.json,
         plugins.values.urls,
         plugins.values.template,
+        plugins.values.copy,
         plugins.values.statsLog,
       ],
       external: plugins.settings.external.external,
@@ -258,6 +265,8 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
     expect(plugins.mocks.urls).toHaveBeenCalledWith(plugins.settings.urls);
     expect(plugins.mocks.template).toHaveBeenCalledTimes(1);
     expect(plugins.mocks.template).toHaveBeenCalledWith(plugins.settings.template);
+    expect(plugins.mocks.copy).toHaveBeenCalledTimes(1);
+    expect(plugins.mocks.copy).toHaveBeenCalledWith(plugins.settings.copy);
     expect(plugins.mocks.statsLog).toHaveBeenCalledTimes(1);
     expect(plugins.mocks.statsLog).toHaveBeenCalledWith(plugins.settings.statsLog);
     expect(events.reduce).toHaveBeenCalledTimes(1);
@@ -326,6 +335,7 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
         plugins.values.json,
         plugins.values.urls,
         plugins.values.template,
+        plugins.values.copy,
         plugins.values.statsLog,
       ],
       external: plugins.settings.external.external,
@@ -394,6 +404,7 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
         plugins.values.json,
         plugins.values.urls,
         plugins.values.template,
+        plugins.values.copy,
         plugins.values.statsLog,
       ],
       external: plugins.settings.external.external,
@@ -456,6 +467,7 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
         plugins.values.json,
         plugins.values.urls,
         plugins.values.template,
+        plugins.values.copy,
         plugins.values.statsLog,
         plugins.values.devServer,
       ],
