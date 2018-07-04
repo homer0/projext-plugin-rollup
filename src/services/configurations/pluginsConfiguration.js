@@ -812,6 +812,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       port: devServer.port,
       contentBase: target.paths.build,
       historyApiFallback: !!devServer.historyApiFallback,
+      open: !!devServer.open,
       https: null,
       logger: this.appLogger,
     };
