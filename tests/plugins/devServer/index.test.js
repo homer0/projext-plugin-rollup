@@ -25,6 +25,7 @@ const originalProcessExit = process.exit;
 describe('plugins:devServer', () => {
   beforeEach(() => {
     ProjextRollupUtils.createLogger.mockClear();
+    createHTTPSServer.mockClear();
     createHTTPServer.mockClear();
     opener.mockClear();
     fs.pathExistsSync.mockClear();
@@ -108,8 +109,7 @@ describe('plugins:devServer', () => {
     };
     createHTTPServer.mockImplementationOnce(() => server);
     const logger = {
-      success: jest.fn(),
-      info: jest.fn(),
+      warning: jest.fn(),
     };
     ProjextRollupUtils.createLogger.mockImplementationOnce(() => logger);
     const options = {
@@ -126,10 +126,9 @@ describe('plugins:devServer', () => {
     expect(server.listen).toHaveBeenCalledWith(8080);
     expect(ProjextRollupUtils.createLogger).toHaveBeenCalledTimes(1);
     expect(ProjextRollupUtils.createLogger).toHaveBeenCalledWith(sut.name, null);
-    expect(logger.success).toHaveBeenCalledTimes(1);
-    expect(logger.success).toHaveBeenCalledWith('Your app is running on the port 8080');
-    expect(logger.info).toHaveBeenCalledTimes(1);
-    expect(logger.info).toHaveBeenCalledWith('http://localhost:8080');
+    expect(logger.warning).toHaveBeenCalledTimes(2);
+    expect(logger.warning).toHaveBeenCalledWith('Starting on http://localhost:8080');
+    expect(logger.warning).toHaveBeenCalledWith('waiting for Rollup...');
     expect(options.onStart).toHaveBeenCalledTimes(1);
     expect(options.onStart).toHaveBeenCalledWith(sut);
     expect(process.on).toHaveBeenCalledTimes(2);
@@ -145,8 +144,7 @@ describe('plugins:devServer', () => {
     };
     createHTTPServer.mockImplementationOnce(() => server);
     const logger = {
-      success: jest.fn(),
-      info: jest.fn(),
+      warning: jest.fn(),
     };
     ProjextRollupUtils.createLogger.mockImplementationOnce(() => logger);
     let sut = null;
@@ -166,8 +164,7 @@ describe('plugins:devServer', () => {
     };
     createHTTPSServer.mockImplementationOnce(() => server);
     const logger = {
-      success: jest.fn(),
-      info: jest.fn(),
+      warning: jest.fn(),
     };
     ProjextRollupUtils.createLogger.mockImplementationOnce(() => logger);
     const options = {
@@ -201,8 +198,7 @@ describe('plugins:devServer', () => {
     };
     createHTTPServer.mockImplementationOnce(() => server);
     const logger = {
-      success: jest.fn(),
-      info: jest.fn(),
+      warning: jest.fn(),
     };
     ProjextRollupUtils.createLogger.mockImplementationOnce(() => logger);
     const options = {
@@ -243,8 +239,7 @@ describe('plugins:devServer', () => {
     };
     createHTTPServer.mockImplementationOnce(() => server);
     const logger = {
-      success: jest.fn(),
-      info: jest.fn(),
+      warning: jest.fn(),
     };
     ProjextRollupUtils.createLogger.mockImplementationOnce(() => logger);
     const options = {
@@ -264,6 +259,45 @@ describe('plugins:devServer', () => {
     expect(process.exit).toHaveBeenCalledTimes(2);
   });
 
+  it('should log the server URL using the the `showURL` sub plugin', () => {
+    // Given
+    process.on = jest.fn();
+    const server = {
+      listen: jest.fn(),
+    };
+    createHTTPSServer.mockImplementationOnce(() => server);
+    const logger = {
+      warning: jest.fn(),
+      success: jest.fn(),
+    };
+    ProjextRollupUtils.createLogger.mockImplementationOnce(() => logger);
+    const options = {
+      contentBase: './',
+      https: {
+        key: '.key',
+        cert: '.cert',
+        ca: '.ca',
+      },
+    };
+    let sut = null;
+    let result = null;
+    // When
+    sut = new ProjextRollupDevServerPlugin(options);
+    result = sut.getOptions();
+    sut.onwrite();
+    sut.showURL().onwrite();
+    jest.runAllTimers();
+    // Then
+    expect(result.contentBase).toEqual([options.contentBase]);
+    expect(createHTTPSServer).toHaveBeenCalledTimes(1);
+    expect(createHTTPSServer).toHaveBeenCalledWith(options.https, expect.any(Function));
+    expect(logger.warning).toHaveBeenCalledTimes(2);
+    expect(logger.warning).toHaveBeenCalledWith('Starting on https://localhost:8080');
+    expect(logger.warning).toHaveBeenCalledWith('waiting for Rollup...');
+    expect(logger.success).toHaveBeenCalledTimes(1);
+    expect(logger.success).toHaveBeenCalledWith('Your app is running on https://localhost:8080');
+  });
+
   it('should open the browser only once', () => {
     // Given
     process.on = jest.fn();
@@ -276,8 +310,7 @@ describe('plugins:devServer', () => {
     createHTTPServer.mockImplementationOnce(() => server);
     createHTTPServer.mockImplementationOnce(() => server);
     const logger = {
-      success: jest.fn(),
-      info: jest.fn(),
+      warning: jest.fn(),
     };
     ProjextRollupUtils.createLogger.mockImplementationOnce(() => logger);
     const options = {
@@ -321,8 +354,7 @@ describe('plugins:devServer', () => {
     };
     createHTTPServer.mockImplementationOnce(() => server);
     const logger = {
-      success: jest.fn(),
-      info: jest.fn(),
+      warning: jest.fn(),
     };
     ProjextRollupUtils.createLogger.mockImplementationOnce(() => logger);
     let sut = null;
@@ -374,8 +406,7 @@ describe('plugins:devServer', () => {
     };
     createHTTPServer.mockImplementationOnce(() => server);
     const logger = {
-      success: jest.fn(),
-      info: jest.fn(),
+      warning: jest.fn(),
     };
     ProjextRollupUtils.createLogger.mockImplementationOnce(() => logger);
     let sut = null;
@@ -435,8 +466,7 @@ describe('plugins:devServer', () => {
     };
     createHTTPServer.mockImplementationOnce(() => server);
     const logger = {
-      success: jest.fn(),
-      info: jest.fn(),
+      warning: jest.fn(),
     };
     ProjextRollupUtils.createLogger.mockImplementationOnce(() => logger);
     let sut = null;
@@ -490,8 +520,7 @@ describe('plugins:devServer', () => {
     };
     createHTTPServer.mockImplementationOnce(() => server);
     const logger = {
-      success: jest.fn(),
-      info: jest.fn(),
+      warning: jest.fn(),
     };
     ProjextRollupUtils.createLogger.mockImplementationOnce(() => logger);
     let sut = null;
@@ -537,8 +566,7 @@ describe('plugins:devServer', () => {
     };
     createHTTPServer.mockImplementationOnce(() => server);
     const logger = {
-      success: jest.fn(),
-      info: jest.fn(),
+      warning: jest.fn(),
     };
     ProjextRollupUtils.createLogger.mockImplementationOnce(() => logger);
     let sut = null;
@@ -589,8 +617,7 @@ describe('plugins:devServer', () => {
     };
     createHTTPServer.mockImplementationOnce(() => server);
     const logger = {
-      success: jest.fn(),
-      info: jest.fn(),
+      warning: jest.fn(),
     };
     ProjextRollupUtils.createLogger.mockImplementationOnce(() => logger);
     let sut = null;
@@ -642,8 +669,7 @@ describe('plugins:devServer', () => {
     };
     createHTTPServer.mockImplementationOnce(() => server);
     const logger = {
-      success: jest.fn(),
-      info: jest.fn(),
+      warning: jest.fn(),
     };
     ProjextRollupUtils.createLogger.mockImplementationOnce(() => logger);
     let sut = null;
@@ -694,8 +720,7 @@ describe('plugins:devServer', () => {
     };
     createHTTPServer.mockImplementationOnce(() => server);
     const logger = {
-      success: jest.fn(),
-      info: jest.fn(),
+      warning: jest.fn(),
     };
     ProjextRollupUtils.createLogger.mockImplementationOnce(() => logger);
     let sut = null;
@@ -751,8 +776,7 @@ describe('plugins:devServer', () => {
     };
     createHTTPServer.mockImplementationOnce(() => server);
     const logger = {
-      success: jest.fn(),
-      info: jest.fn(),
+      warning: jest.fn(),
     };
     ProjextRollupUtils.createLogger.mockImplementationOnce(() => logger);
     let sut = null;
@@ -802,8 +826,7 @@ describe('plugins:devServer', () => {
     };
     createHTTPServer.mockImplementationOnce(() => server);
     const logger = {
-      success: jest.fn(),
-      info: jest.fn(),
+      warning: jest.fn(),
     };
     ProjextRollupUtils.createLogger.mockImplementationOnce(() => logger);
     let sut = null;

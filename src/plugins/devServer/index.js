@@ -129,6 +129,19 @@ class ProjextRollupDevServerPlugin {
     return this._options;
   }
   /**
+   * Gets a _"sub plugin"_ that logs the dev server URL. The idea is to put this at the end of
+   * the plugins queue so the final feedback the user gets is the URL.
+   * @return {Object}
+   */
+  showURL() {
+    return {
+      onwrite: () => {
+        // A small _"timeout-hack"_ to show the message after Rollup's output
+        setTimeout(() => this._logger.success(`Your app is running on ${this.url}`), 0);
+      },
+    };
+  }
+  /**
    * This is called after Rollup finishes writing the files on the file system. It checks if
    * there's an instance of the server running and if there isn't, it creates a new one.
    */
@@ -145,8 +158,8 @@ class ProjextRollupDevServerPlugin {
       // Start listening for requests.
       this._instance.listen(port);
       // Log some information messages.
-      this._logger.success(`Your app is running on the port ${port}`);
-      this._logger.info(this.url);
+      this._logger.warning(`Starting on ${this.url}`);
+      this._logger.warning('waiting for Rollup...');
       // Start listening for process events that require the sever instance to be terminated.
       this._startListeningForTermination();
       // Open the browser.

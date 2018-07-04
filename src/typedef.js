@@ -327,8 +327,9 @@
 
 /**
  * @typedef {Object} ProjextRollupStatsPluginLogOptions
- * @property {Array}   extraEntries A list of extra entries to add.
- * @property {?Logger} logger       A custom instance of {@link Logger} to log the report table.
+ * @property {Array}     extraEntries A list of extra entries to add.
+ * @property {?Logger}   logger       A custom instance of {@link Logger} to log the report table.
+ * @property {?function} afterLog     A custom callback to call after the report table is logged.
  */
 
 /**
