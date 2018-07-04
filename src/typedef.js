@@ -85,6 +85,11 @@
  */
 
 /**
+ * @external {TargetExtraFile}
+ * https://homer0.github.io/projext/typedef/index.html#static-typedef-TargetExtraFile
+ */
+
+/**
  * @external {BabelConfiguration}
  *  ttps://homer0.github.io/projext/class/src/services/configurations/babelConfiguration.js~BabelConfiguration.html
   */
@@ -184,7 +189,7 @@
 
 /**
  * @typedef {function} ProjextRollupCopyPluginItemTransform
- * @param {string} contents The original contents of the file.
+ * @param {Buffer} contents The original contents of the file.
  * @return {Promise<string,Error>} The updated contents.
  */
 
@@ -526,7 +531,7 @@
  *                                                         and paths of the different files the
  *                                                         bundle can generate.
  * @property {Array}                           copy        A list of
- *                                                         {@link ProjextRollupCopyPluginItem} with
+ *                                                         {@link TargetExtraFile} with
  *                                                         the information of files that need to
  *                                                         be copied during the bundling process.
 
