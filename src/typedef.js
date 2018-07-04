@@ -184,7 +184,7 @@
 
 /**
  * @typedef {function} ProjextRollupCopyPluginItemTransform
- * @param {string} contents The original contents of the file.
+ * @param {Buffer} contents The original contents of the file.
  * @return {Promise<string,Error>} The updated contents.
  */
 

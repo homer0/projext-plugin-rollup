@@ -134,7 +134,7 @@ class ProjextRollupCopyPlugin {
    */
   _transformFile(fileInfo) {
     // Read the file.
-    return fs.readFile(fileInfo.from, 'utf-8')
+    return fs.readFile(fileInfo.from)
     // _"Transform it"_.
     .then((contents) => fileInfo.transform(contents))
     // Write the new file.

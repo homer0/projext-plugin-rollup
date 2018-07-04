@@ -136,7 +136,7 @@ describe('plugins:copy', () => {
       expect(fs.ensureDirSync).toHaveBeenCalledWith(outputDirectory);
       expect(fs.copy).toHaveBeenCalledTimes(0);
       expect(fs.readFile).toHaveBeenCalledTimes(1);
-      expect(fs.readFile).toHaveBeenCalledWith(file.from, 'utf-8');
+      expect(fs.readFile).toHaveBeenCalledWith(file.from);
       expect(file.transform).toHaveBeenCalledTimes(1);
       expect(file.transform).toHaveBeenCalledWith(contents);
       expect(fs.writeFile).toHaveBeenCalledTimes(1);
