@@ -9,6 +9,7 @@ const json = require('rollup-plugin-json');
 const { provider } = require('jimple');
 const ConfigurationFile = require('../../abstracts/configurationFile');
 const {
+  copy,
   css,
   urls,
   stylesheetAssets,
@@ -73,6 +74,14 @@ class RollupBrowserDevelopmentConfiguration extends ConfigurationFile {
       params,
       statsPlugin.add
     );
+
+    const statsLogSettings = Object.assign({}, pluginSettings.statsLog);
+    let devServerInstance;
+    if (target.runOnDevelopment) {
+      devServerInstance = devServer(pluginSettings.devServer);
+      statsLogSettings.afterLog = devServerInstance.showURL().onwrite;
+    }
+
     // Define the plugins list.
     const plugins = [
       statsPlugin.reset(),
@@ -93,7 +102,8 @@ class RollupBrowserDevelopmentConfiguration extends ConfigurationFile {
       json(pluginSettings.json),
       urls(pluginSettings.urls),
       template(pluginSettings.template),
-      statsPlugin.log(pluginSettings.statsLog),
+      copy(pluginSettings.copy),
+      statsPlugin.log(statsLogSettings),
     ];
     // Get the list of external dependencies.
     const { external } = pluginSettings.external;
@@ -114,7 +124,7 @@ class RollupBrowserDevelopmentConfiguration extends ConfigurationFile {
     // If the target should run, add the watch settings and push the dev server plugin.
     if (target.runOnDevelopment) {
       config.watch = pluginSettings.watch;
-      config.plugins.push(devServer(pluginSettings.devServer));
+      config.plugins.push(devServerInstance);
     }
     // Return the reduced configuration.
     return this.events.reduce(

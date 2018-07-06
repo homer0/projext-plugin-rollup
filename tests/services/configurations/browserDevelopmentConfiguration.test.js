@@ -19,6 +19,7 @@ const {
   rollupBrowserDevelopmentConfiguration,
 } = require('/src/services/configurations/browserDevelopmentConfiguration');
 const {
+  copy,
   css,
   urls,
   stylesheetAssets,
@@ -40,12 +41,22 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
   const getPlugins = () => {
     const statsResetValue = 'stats-reset';
     const statsLogValue = 'stats-log';
+    const devServerShowURLOnWriteValue = 'devServer-showURL-onwrite';
+    const devServerPlugin = {
+      showURL: jest.fn(() => ({
+        onwrite: devServerShowURLOnWriteValue,
+      })),
+    };
+
     const values = {
+      copy: 'copy-value',
       css: 'css-plugin',
       urls: 'urls-plugin',
       stylesheetAssets: 'stylesheetAssets-plugin',
       template: 'template-plugin',
-      devServer: 'devServer-plugin',
+      devServer: {
+        showURL: expect.any(Function),
+      },
       stats: {
         reset: jest.fn(() => statsResetValue),
         log: jest.fn(() => statsLogValue),
@@ -63,11 +74,13 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
     };
     values.statsReset = statsResetValue;
     values.statsLog = statsLogValue;
+    values.devServerShowURLOnWriteValue = devServerShowURLOnWriteValue;
+    copy.mockImplementationOnce(() => values.copy);
     css.mockImplementationOnce(() => values.css);
     urls.mockImplementationOnce(() => values.urls);
     stylesheetAssets.mockImplementationOnce(() => values.stylesheetAssets);
     template.mockImplementationOnce(() => values.template);
-    devServer.mockImplementationOnce(() => values.devServer);
+    devServer.mockImplementationOnce(() => devServerPlugin);
     stats.mockImplementationOnce(() => values.stats);
     stylesheetModulesFixer.mockImplementationOnce(() => values.stylesheetModulesFixer);
     windowAsGlobal.mockImplementationOnce(() => values.windowAsGlobal);
@@ -79,11 +92,14 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
     html.mockImplementationOnce(() => values.html);
     json.mockImplementationOnce(() => values.json);
     const mocks = {
+      copy,
       css,
       urls,
       stylesheetAssets,
       template,
       devServer,
+      devServerPlugin,
+      devServerShowURL: devServerPlugin.showURL,
       stats,
       statsReset: values.stats.reset,
       statsLog: values.stats.log,
@@ -110,7 +126,9 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
       json: 'json-plugin-settings',
       urls: 'urls-plugin-settings',
       template: 'template-plugin-settings',
-      statsLog: 'statsLog-plugin-settings',
+      statsLog: {
+        name: 'statsLog-plugin-settings',
+      },
       external: {
         external: 'external-plugin-settings',
       },
@@ -119,6 +137,7 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
       },
       watch: 'watch-plugin-settings',
       devServer: 'devServer-plugin-settings',
+      copy: 'copy-plugin-settings',
     };
     return {
       values,
@@ -129,6 +148,7 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
 
   beforeEach(() => {
     ConfigurationFileMock.reset();
+    copy.mockClear();
     css.mockClear();
     urls.mockClear();
     stylesheetAssets.mockClear();
@@ -217,6 +237,7 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
         plugins.values.json,
         plugins.values.urls,
         plugins.values.template,
+        plugins.values.copy,
         plugins.values.statsLog,
       ],
       external: plugins.settings.external.external,
@@ -258,6 +279,8 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
     expect(plugins.mocks.urls).toHaveBeenCalledWith(plugins.settings.urls);
     expect(plugins.mocks.template).toHaveBeenCalledTimes(1);
     expect(plugins.mocks.template).toHaveBeenCalledWith(plugins.settings.template);
+    expect(plugins.mocks.copy).toHaveBeenCalledTimes(1);
+    expect(plugins.mocks.copy).toHaveBeenCalledWith(plugins.settings.copy);
     expect(plugins.mocks.statsLog).toHaveBeenCalledTimes(1);
     expect(plugins.mocks.statsLog).toHaveBeenCalledWith(plugins.settings.statsLog);
     expect(events.reduce).toHaveBeenCalledTimes(1);
@@ -326,6 +349,7 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
         plugins.values.json,
         plugins.values.urls,
         plugins.values.template,
+        plugins.values.copy,
         plugins.values.statsLog,
       ],
       external: plugins.settings.external.external,
@@ -394,6 +418,7 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
         plugins.values.json,
         plugins.values.urls,
         plugins.values.template,
+        plugins.values.copy,
         plugins.values.statsLog,
       ],
       external: plugins.settings.external.external,
@@ -428,6 +453,7 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
     };
     let sut = null;
     let result = null;
+    let statsLogAfterLog = null;
     // When
     sut = new RollupBrowserDevelopmentConfiguration(
       events,
@@ -435,6 +461,7 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
       rollupPluginSettingsConfiguration
     );
     result = sut.getConfig(params);
+    [[{ afterLog: statsLogAfterLog }]] = plugins.mocks.statsLog.mock.calls;
     // Then
     expect(result).toEqual({
       input,
@@ -456,14 +483,22 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
         plugins.values.json,
         plugins.values.urls,
         plugins.values.template,
+        plugins.values.copy,
         plugins.values.statsLog,
         plugins.values.devServer,
       ],
       watch: plugins.settings.watch,
       external: plugins.settings.external.external,
     });
+    expect(statsLogAfterLog).toBe(plugins.values.devServerShowURLOnWriteValue);
     expect(plugins.mocks.devServer).toHaveBeenCalledTimes(1);
     expect(plugins.mocks.devServer).toHaveBeenCalledWith(plugins.settings.devServer);
+    expect(plugins.mocks.statsLog).toHaveBeenCalledWith(Object.assign(
+      {
+        afterLog: plugins.values.devServerShowURLOnWriteValue,
+      },
+      plugins.settings.statsLog
+    ));
   });
 
   it('should include a provider for the DIC', () => {

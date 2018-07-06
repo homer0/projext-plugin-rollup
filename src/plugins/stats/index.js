@@ -115,6 +115,7 @@ class ProjextRollupStatsPlugin {
       {
         extraEntries: [],
         logger: null,
+        afterLog: null,
       },
       options
     );
@@ -137,7 +138,12 @@ class ProjextRollupStatsPlugin {
           this.add(entry.plugin, entry.filepath);
         });
         // Log the report table.
-        return this._logStats();
+        return this._logStats()
+        .then(() => {
+          if (newOptions.afterLog) {
+            newOptions.afterLog();
+          }
+        });
       },
     };
   }

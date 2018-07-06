@@ -84,6 +84,11 @@ class RollupConfiguration {
       output.exports = 'named';
     }
 
+    const copy = [];
+    if (target.is.browser || target.bundle) {
+      copy.push(...this.targets.getFilesToCopy(target, buildType));
+    }
+
     const params = {
       input,
       output,
@@ -92,6 +97,7 @@ class RollupConfiguration {
       definitions: this._getDefinitions(target, buildType),
       buildType,
       paths,
+      copy,
     };
 
     let config = this.targetConfiguration(

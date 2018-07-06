@@ -10,6 +10,7 @@ const { uglify } = require('rollup-plugin-uglify');
 const { provider } = require('jimple');
 const ConfigurationFile = require('../../abstracts/configurationFile');
 const {
+  copy,
   css,
   urls,
   stylesheetAssets,
@@ -94,6 +95,7 @@ class RollupBrowserProductionConfiguration extends ConfigurationFile {
       json(pluginSettings.json),
       urls(pluginSettings.urls),
       uglify(pluginSettings.uglify),
+      copy(pluginSettings.copy),
     ];
     // If the target is not a library, push the template plugin for the HTML file.
     if (!target.library) {

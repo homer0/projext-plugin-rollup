@@ -20,6 +20,7 @@ const {
   rollupBrowserProductionConfiguration,
 } = require('/src/services/configurations/browserProductionConfiguration');
 const {
+  copy,
   css,
   urls,
   stylesheetAssets,
@@ -43,6 +44,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
     const statsResetValue = 'stats-reset';
     const statsLogValue = 'stats-log';
     const values = {
+      copy: 'copy-plugin',
       css: 'css-plugin',
       urls: 'urls-plugin',
       stylesheetAssets: 'stylesheetAssets-plugin',
@@ -66,6 +68,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
     };
     values.statsReset = statsResetValue;
     values.statsLog = statsLogValue;
+    copy.mockImplementationOnce(() => values.copy);
     css.mockImplementationOnce(() => values.css);
     urls.mockImplementationOnce(() => values.urls);
     stylesheetAssets.mockImplementationOnce(() => values.stylesheetAssets);
@@ -83,6 +86,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
     json.mockImplementationOnce(() => values.json);
     uglify.mockImplementationOnce(() => values.uglify);
     const mocks = {
+      copy,
       css,
       urls,
       stylesheetAssets,
@@ -124,6 +128,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
       },
       watch: 'watch-plugin-settings',
       compression: 'compression-plugin-settings',
+      copy: 'copy-plugin-settings',
     };
     return {
       values,
@@ -134,6 +139,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
 
   beforeEach(() => {
     ConfigurationFileMock.reset();
+    copy.mockClear();
     css.mockClear();
     urls.mockClear();
     stylesheetAssets.mockClear();
@@ -223,6 +229,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
         plugins.values.json,
         plugins.values.urls,
         plugins.values.uglify,
+        plugins.values.copy,
         plugins.values.template,
         plugins.values.compression,
         plugins.values.statsLog,
@@ -266,6 +273,8 @@ describe('services/configurations:browserProductionConfiguration', () => {
     expect(plugins.mocks.urls).toHaveBeenCalledWith(plugins.settings.urls);
     expect(plugins.mocks.uglify).toHaveBeenCalledTimes(1);
     expect(plugins.mocks.uglify).toHaveBeenCalledWith(plugins.settings.uglify);
+    expect(plugins.mocks.copy).toHaveBeenCalledTimes(1);
+    expect(plugins.mocks.copy).toHaveBeenCalledWith(plugins.settings.copy);
     expect(plugins.mocks.template).toHaveBeenCalledTimes(1);
     expect(plugins.mocks.template).toHaveBeenCalledWith(plugins.settings.template);
     expect(plugins.mocks.statsLog).toHaveBeenCalledTimes(1);
@@ -336,6 +345,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
         plugins.values.json,
         plugins.values.urls,
         plugins.values.uglify,
+        plugins.values.copy,
         plugins.values.template,
         plugins.values.compression,
         plugins.values.statsLog,
@@ -406,6 +416,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
         plugins.values.json,
         plugins.values.urls,
         plugins.values.uglify,
+        plugins.values.copy,
         plugins.values.template,
         plugins.values.compression,
         plugins.values.statsLog,
@@ -468,6 +479,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
         plugins.values.json,
         plugins.values.urls,
         plugins.values.uglify,
+        plugins.values.copy,
         plugins.values.statsLog,
       ],
       external: plugins.settings.external.external,
@@ -535,6 +547,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
         plugins.values.json,
         plugins.values.urls,
         plugins.values.uglify,
+        plugins.values.copy,
         plugins.values.compression,
         plugins.values.statsLog,
       ],
