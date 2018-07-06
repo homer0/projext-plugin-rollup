@@ -1,7 +1,7 @@
 {
   "coverage": "100%",
-  "expectCount": 306,
-  "actualCount": 306,
+  "expectCount": 320,
+  "actualCount": 320,
   "files": {
     "src/abstracts/configurationFile.js": {
       "expectCount": 13,
@@ -38,6 +38,11 @@
       "actualCount": 11,
       "undocumentLines": []
     },
+    "src/plugins/copy/index.js": {
+      "expectCount": 12,
+      "actualCount": 12,
+      "undocumentLines": []
+    },
     "src/plugins/css/index.js": {
       "expectCount": 14,
       "actualCount": 14,
@@ -49,8 +54,8 @@
       "undocumentLines": []
     },
     "src/plugins/devServer/index.js": {
-      "expectCount": 30,
-      "actualCount": 30,
+      "expectCount": 31,
+      "actualCount": 31,
       "undocumentLines": []
     },
     "src/plugins/nodeRunner/index.js": {
@@ -134,8 +139,8 @@
       "undocumentLines": []
     },
     "src/services/configurations/pluginsConfiguration.js": {
-      "expectCount": 36,
-      "actualCount": 36,
+      "expectCount": 37,
+      "actualCount": 37,
       "undocumentLines": []
     },
     "src/services/server/middleware.js": {

@@ -18,6 +18,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "projext-plugin-rollup/src/plugins/copy/index.js~projextrollupcopyplugin",
+    "class/src/plugins/copy/index.js~ProjextRollupCopyPlugin.html",
+    "<span>ProjextRollupCopyPlugin</span> <span class=\"search-result-import-path\">projext-plugin-rollup/src/plugins/copy/index.js</span>",
+    "class"
+  ],
+  [
     "projext-plugin-rollup/src/plugins/devserver/index.js~projextrollupdevserverplugin",
     "class/src/plugins/devServer/index.js~ProjextRollupDevServerPlugin.html",
     "<span>ProjextRollupDevServerPlugin</span> <span class=\"search-result-import-path\">projext-plugin-rollup/src/plugins/devServer/index.js</span>",
@@ -141,6 +147,12 @@ window.esdocSearchIndex = [
     "projext-plugin-rollup/src/plugins/compression/index.js~compression",
     "function/index.html#static-function-compression",
     "<span>compression</span> <span class=\"search-result-import-path\">projext-plugin-rollup/src/plugins/compression/index.js</span>",
+    "function"
+  ],
+  [
+    "projext-plugin-rollup/src/plugins/copy/index.js~copy",
+    "function/index.html#static-function-copy",
+    "<span>copy</span> <span class=\"search-result-import-path\">projext-plugin-rollup/src/plugins/copy/index.js</span>",
     "function"
   ],
   [
@@ -732,6 +744,36 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/plugins/copy/index.js",
+    "file/src/plugins/copy/index.js.html",
+    "src/plugins/copy/index.js",
+    "file"
+  ],
+  [
+    "src/plugins/copy/index.js~projextrollupcopyplugin#constructor",
+    "class/src/plugins/copy/index.js~ProjextRollupCopyPlugin.html#instance-constructor-constructor",
+    "src/plugins/copy/index.js~ProjextRollupCopyPlugin#constructor",
+    "method"
+  ],
+  [
+    "src/plugins/copy/index.js~projextrollupcopyplugin#getoptions",
+    "class/src/plugins/copy/index.js~ProjextRollupCopyPlugin.html#instance-method-getOptions",
+    "src/plugins/copy/index.js~ProjextRollupCopyPlugin#getOptions",
+    "method"
+  ],
+  [
+    "src/plugins/copy/index.js~projextrollupcopyplugin#name",
+    "class/src/plugins/copy/index.js~ProjextRollupCopyPlugin.html#instance-member-name",
+    "src/plugins/copy/index.js~ProjextRollupCopyPlugin#name",
+    "member"
+  ],
+  [
+    "src/plugins/copy/index.js~projextrollupcopyplugin#onwrite",
+    "class/src/plugins/copy/index.js~ProjextRollupCopyPlugin.html#instance-method-onwrite",
+    "src/plugins/copy/index.js~ProjextRollupCopyPlugin#onwrite",
+    "method"
+  ],
+  [
     "src/plugins/css/index.js",
     "file/src/plugins/css/index.js.html",
     "src/plugins/css/index.js",
@@ -813,6 +855,12 @@ window.esdocSearchIndex = [
     "src/plugins/devserver/index.js~projextrollupdevserverplugin#onwrite",
     "class/src/plugins/devServer/index.js~ProjextRollupDevServerPlugin.html#instance-method-onwrite",
     "src/plugins/devServer/index.js~ProjextRollupDevServerPlugin#onwrite",
+    "method"
+  ],
+  [
+    "src/plugins/devserver/index.js~projextrollupdevserverplugin#showurl",
+    "class/src/plugins/devServer/index.js~ProjextRollupDevServerPlugin.html#instance-method-showURL",
+    "src/plugins/devServer/index.js~ProjextRollupDevServerPlugin#showURL",
     "method"
   ],
   [
@@ -1482,6 +1530,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "src/typedef.js~buffer",
+    "https://nodejs.org/api/buffer.html",
+    "src/typedef.js~Buffer",
+    "external"
+  ],
+  [
     "src/typedef.js~buildversion",
     "https://homer0.github.io/projext/class/src/services/building/buildVersion.js~BuildVersion.html",
     "src/typedef.js~BuildVersion",
@@ -1593,6 +1647,24 @@ window.esdocSearchIndex = [
     "src/typedef.js~projextrollupcompressionpluginoptions",
     "typedef/index.html#static-typedef-ProjextRollupCompressionPluginOptions",
     "src/typedef.js~ProjextRollupCompressionPluginOptions",
+    "typedef"
+  ],
+  [
+    "src/typedef.js~projextrollupcopypluginitem",
+    "typedef/index.html#static-typedef-ProjextRollupCopyPluginItem",
+    "src/typedef.js~ProjextRollupCopyPluginItem",
+    "typedef"
+  ],
+  [
+    "src/typedef.js~projextrollupcopypluginitemtransform",
+    "typedef/index.html#static-typedef-ProjextRollupCopyPluginItemTransform",
+    "src/typedef.js~ProjextRollupCopyPluginItemTransform",
+    "typedef"
+  ],
+  [
+    "src/typedef.js~projextrollupcopypluginoptions",
+    "typedef/index.html#static-typedef-ProjextRollupCopyPluginOptions",
+    "src/typedef.js~ProjextRollupCopyPluginOptions",
     "typedef"
   ],
   [
@@ -1767,6 +1839,12 @@ window.esdocSearchIndex = [
     "src/typedef.js~targetconfigurationcreator",
     "https://homer0.github.io/projext/typedef/index.html#static-typedef-TargetConfigurationCreator",
     "src/typedef.js~TargetConfigurationCreator",
+    "external"
+  ],
+  [
+    "src/typedef.js~targetextrafile",
+    "https://homer0.github.io/projext/typedef/index.html#static-typedef-TargetExtraFile",
+    "src/typedef.js~TargetExtraFile",
     "external"
   ],
   [
