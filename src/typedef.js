@@ -85,6 +85,11 @@
  */
 
 /**
+ * @external {TargetExtraFile}
+ * https://homer0.github.io/projext/typedef/index.html#static-typedef-TargetExtraFile
+ */
+
+/**
  * @external {BabelConfiguration}
  *  ttps://homer0.github.io/projext/class/src/services/configurations/babelConfiguration.js~BabelConfiguration.html
   */
@@ -102,6 +107,11 @@
 /**
  * @external {HTTPResponse}
  * https://nodejs.org/api/http.html#http_class_http_serverresponse
+ */
+
+/**
+ * @external {Buffer}
+ * https://nodejs.org/api/buffer.html
  */
 
 /**
@@ -174,6 +184,36 @@
  * @typedef {Object} ProjextRollupCompressionPluginEntry
  * @property {string} original   The path to the file that was compressed.
  * @property {string} compressed The path to the compressed file.
+ */
+
+/**
+ * ================================================================================================
+ * Plugins > Copy
+ * ================================================================================================
+ */
+
+/**
+ * @typedef {function} ProjextRollupCopyPluginItemTransform
+ * @param {Buffer} contents The original contents of the file.
+ * @return {Promise<string,Error>} The updated contents.
+ */
+
+/**
+ * @typedef {Object} ProjextRollupCopyPluginItem
+ * @property {string}                                from      The file origin path.
+ * @property {string}                                to        The file destination path.
+ * @property {?ProjextRollupCopyPluginItemTransform} transform A custom function to modify the
+ *                                                             contents of the file to copy.
+ */
+
+/**
+ * @typedef {Object} ProjextRollupCopyPluginOptions
+ * @property {Array}                      files A list of files information so the plugin can copy
+ *                                              them. Each item should have a `from` and `to`
+ *                                              property, otherwise the plugin will throw an error.
+ *                                              See {@link ProjextRollupCopyPluginItem}.
+ * @property {ProjextRollupPluginsStats}  stats The function the plugin will call in order to
+ *                                              inform a file was copied.
  */
 
 /**
@@ -495,6 +535,10 @@
  * @property {RollupConfigurationPathsParams}  paths       A dictionary with the filenames formats
  *                                                         and paths of the different files the
  *                                                         bundle can generate.
+ * @property {Array}                           copy        A list of
+ *                                                         {@link TargetExtraFile} with
+ *                                                         the information of files that need to
+ *                                                         be copied during the bundling process.
 
 /**
  * @typedef {Object} RollupPluginInfo

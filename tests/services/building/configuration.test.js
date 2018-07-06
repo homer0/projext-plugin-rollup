@@ -191,7 +191,116 @@ describe('services/building:configuration', () => {
         [versionVariable]: `"${version}"`,
       },
       paths: target.output[buildType],
+      copy: [],
     });
+  });
+
+  it('should generate the configuration for a Node target that requires bundling', () => {
+    // Given
+    const versionVariable = 'process.env.VERSION';
+    const version = 'latest';
+    const buildVersion = {
+      getDefinitionVariable: jest.fn(() => versionVariable),
+      getVersion: jest.fn(() => version),
+    };
+    const config = {
+      output: {
+        path: 'some-output-path',
+      },
+    };
+    const targetConfig = {
+      getConfig: jest.fn(() => config),
+    };
+    const filesToCopy = ['copy'];
+    const targets = {
+      getFilesToCopy: jest.fn(() => filesToCopy),
+    };
+    const targetRules = 'target-rule';
+    const targetsFileRules = {
+      getRulesForTarget: jest.fn(() => targetRules),
+    };
+    const targetConfiguration = jest.fn(() => targetConfig);
+    const buildType = 'development';
+    const target = {
+      type: 'node',
+      name: 'target',
+      paths: {
+        source: 'src/target',
+      },
+      folders: {
+        build: 'dist/target',
+      },
+      entry: {
+        [buildType]: 'index.js',
+      },
+      output: {
+        [buildType]: {
+          js: 'target.js',
+          css: 'css/target/file.2509.css',
+          fonts: 'fonts/target/[name].2509.[ext]',
+          images: 'images/target/[name].2509.[ext]',
+        },
+      },
+      babel: {},
+      library: false,
+      bundle: true,
+      is: {
+        node: true,
+        browser: false,
+      },
+    };
+    const rollupConfigurations = {
+      [target.type]: {
+        [buildType]: {},
+      },
+    };
+    let sut = null;
+    let result = null;
+    // When
+    sut = new RollupConfiguration(
+      buildVersion,
+      targets,
+      targetsFileRules,
+      targetConfiguration,
+      rollupConfigurations
+    );
+    result = sut.getConfig(target, buildType);
+    // Then
+    expect(result).toEqual(config);
+    expect(buildVersion.getDefinitionVariable).toHaveBeenCalledTimes(1);
+    expect(buildVersion.getVersion).toHaveBeenCalledTimes(1);
+    expect(targetsFileRules.getRulesForTarget).toHaveBeenCalledTimes(1);
+    expect(targetsFileRules.getRulesForTarget).toHaveBeenCalledWith(target);
+    expect(targetConfiguration).toHaveBeenCalledTimes(['global', 'byBuildType'].length);
+    expect(targetConfiguration).toHaveBeenCalledWith(
+      `rollup/${target.name}.config.js`,
+      {}
+    );
+    expect(targetConfiguration).toHaveBeenCalledWith(
+      `rollup/${target.name}.${buildType}.config.js`,
+      targetConfig
+    );
+    expect(targetConfig.getConfig).toHaveBeenCalledTimes(1);
+    expect(targetConfig.getConfig).toHaveBeenCalledWith({
+      input: path.join(target.paths.source, target.entry[buildType]),
+      output: {
+        file: `./${target.folders.build}/${target.output[buildType].js}`,
+        format: 'cjs',
+        sourcemap: false,
+        name: 'target',
+      },
+      target,
+      buildType,
+      targetRules,
+      definitions: {
+        'process.env.NODE_ENV': `'${buildType}'`,
+        [versionVariable]: `"${version}"`,
+      },
+      paths: target.output[buildType],
+      copy: filesToCopy,
+    });
+    expect(targets.getFilesToCopy).toHaveBeenCalledTimes(1);
+    expect(targets.getFilesToCopy).toHaveBeenCalledWith(target, buildType);
   });
 
   it('should generate the configuration for a browser target', () => {
@@ -212,7 +321,10 @@ describe('services/building:configuration', () => {
     const targetConfig = {
       getConfig: jest.fn(() => config),
     };
-    const targets = 'targets';
+    const filesToCopy = ['copy'];
+    const targets = {
+      getFilesToCopy: jest.fn(() => filesToCopy),
+    };
     const targetRules = 'target-rule';
     const targetsFileRules = {
       getRulesForTarget: jest.fn(() => targetRules),
@@ -292,7 +404,10 @@ describe('services/building:configuration', () => {
         [versionVariable]: `"${version}"`,
       },
       paths: target.output[buildType],
+      copy: filesToCopy,
     });
+    expect(targets.getFilesToCopy).toHaveBeenCalledTimes(1);
+    expect(targets.getFilesToCopy).toHaveBeenCalledWith(target, buildType);
   });
 
   it('should generate the configuration for a browser target and `define` its config', () => {
@@ -314,8 +429,10 @@ describe('services/building:configuration', () => {
     const targetBrowserConfig = {
       someProp: 'someValue',
     };
+    const filesToCopy = ['copy'];
     const targets = {
       getBrowserTargetConfiguration: jest.fn(() => targetBrowserConfig),
+      getFilesToCopy: jest.fn(() => filesToCopy),
     };
     const targetRules = 'target-rule';
     const targetsFileRules = {
@@ -397,9 +514,12 @@ describe('services/building:configuration', () => {
         [target.configuration.defineOn]: JSON.stringify(targetBrowserConfig),
       },
       paths: target.output[buildType],
+      copy: filesToCopy,
     });
     expect(targets.getBrowserTargetConfiguration).toHaveBeenCalledTimes(1);
     expect(targets.getBrowserTargetConfiguration).toHaveBeenCalledWith(target);
+    expect(targets.getFilesToCopy).toHaveBeenCalledTimes(1);
+    expect(targets.getFilesToCopy).toHaveBeenCalledWith(target, buildType);
   });
 
   it('should generate the configuration for a Node library target', () => {
@@ -511,6 +631,7 @@ describe('services/building:configuration', () => {
         [versionVariable]: `"${version}"`,
       },
       paths: target.output[buildType],
+      copy: [],
     });
   });
 
@@ -533,7 +654,10 @@ describe('services/building:configuration', () => {
     const targetConfig = {
       getConfig: jest.fn(() => config),
     };
-    const targets = 'targets';
+    const filesToCopy = ['copy'];
+    const targets = {
+      getFilesToCopy: jest.fn(() => filesToCopy),
+    };
     const targetRules = 'target-rule';
     const targetsFileRules = {
       getRulesForTarget: jest.fn(() => targetRules),
@@ -541,7 +665,7 @@ describe('services/building:configuration', () => {
     const targetConfiguration = jest.fn(() => targetConfig);
     const buildType = 'development';
     const target = {
-      type: 'node',
+      type: 'browser',
       name: 'some-target',
       paths: {
         source: 'src/target',
@@ -569,8 +693,8 @@ describe('services/building:configuration', () => {
         [buildType]: true,
       },
       is: {
-        browser: false,
-        node: true,
+        browser: true,
+        node: false,
       },
     };
     const rollupConfigurations = {
@@ -628,7 +752,10 @@ describe('services/building:configuration', () => {
         [versionVariable]: `"${version}"`,
       },
       paths: target.output[buildType],
+      copy: filesToCopy,
     });
+    expect(targets.getFilesToCopy).toHaveBeenCalledTimes(1);
+    expect(targets.getFilesToCopy).toHaveBeenCalledWith(target, buildType);
   });
 
   it('should map window to UMD as library target', () => {
@@ -745,6 +872,7 @@ describe('services/building:configuration', () => {
         [versionVariable]: `"${version}"`,
       },
       paths: target.output[buildType],
+      copy: [],
     });
   });
 

@@ -167,6 +167,7 @@ describe('services/configurations:plugins', () => {
         getRule: jest.fn(() => rules.favicon),
       },
     };
+    const copy = ['files-to-copy'];
     const params = {
       buildType,
       definitions,
@@ -175,6 +176,7 @@ describe('services/configurations:plugins', () => {
       target,
       rules,
       targetRules,
+      copy,
     };
     const stats = 'stats';
 
@@ -341,6 +343,10 @@ describe('services/configurations:plugins', () => {
         exclude: [],
         stats,
       },
+      copy: {
+        files: copy,
+        stats,
+      },
       statsLog: {
         extraEntries: [
           {
@@ -476,6 +482,13 @@ describe('services/configurations:plugins', () => {
           'rollup-compression-plugin-settings-configuration',
         ],
         settings: expectedSettings.compression,
+      },
+      {
+        events: [
+          'rollup-copy-plugin-settings-configuration-for-node',
+          'rollup-copy-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.copy,
       },
       {
         events: [
@@ -628,6 +641,7 @@ describe('services/configurations:plugins', () => {
         getRule: jest.fn(() => rules.favicon),
       },
     };
+    const copy = ['files-to-copy'];
     const params = {
       buildType,
       definitions,
@@ -636,6 +650,7 @@ describe('services/configurations:plugins', () => {
       target,
       rules,
       targetRules,
+      copy,
     };
     const stats = 'stats';
 
@@ -800,6 +815,10 @@ describe('services/configurations:plugins', () => {
         exclude: [],
         stats,
       },
+      copy: {
+        files: copy,
+        stats,
+      },
       statsLog: {
         extraEntries: [
           {
@@ -935,6 +954,13 @@ describe('services/configurations:plugins', () => {
           'rollup-compression-plugin-settings-configuration',
         ],
         settings: expectedSettings.compression,
+      },
+      {
+        events: [
+          'rollup-copy-plugin-settings-configuration-for-node',
+          'rollup-copy-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.copy,
       },
       {
         events: [
@@ -1097,6 +1123,7 @@ describe('services/configurations:plugins', () => {
         getRule: jest.fn(() => rules.favicon),
       },
     };
+    const copy = ['files-to-copy'];
     const params = {
       buildType,
       definitions,
@@ -1105,6 +1132,7 @@ describe('services/configurations:plugins', () => {
       target,
       rules,
       targetRules,
+      copy,
     };
     const stats = 'stats';
 
@@ -1261,6 +1289,10 @@ describe('services/configurations:plugins', () => {
         exclude: [],
         stats,
       },
+      copy: {
+        files: copy,
+        stats,
+      },
       statsLog: {
         extraEntries: [
           {
@@ -1405,6 +1437,13 @@ describe('services/configurations:plugins', () => {
           'rollup-compression-plugin-settings-configuration',
         ],
         settings: expectedSettings.compression,
+      },
+      {
+        events: [
+          'rollup-copy-plugin-settings-configuration-for-browser',
+          'rollup-copy-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.copy,
       },
       {
         events: [
@@ -1568,6 +1607,7 @@ describe('services/configurations:plugins', () => {
         getRule: jest.fn(() => rules.favicon),
       },
     };
+    const copy = ['files-to-copy'];
     const params = {
       buildType,
       definitions,
@@ -1576,6 +1616,7 @@ describe('services/configurations:plugins', () => {
       target,
       rules,
       targetRules,
+      copy,
     };
     const stats = 'stats';
 
@@ -1732,6 +1773,10 @@ describe('services/configurations:plugins', () => {
         exclude: [],
         stats,
       },
+      copy: {
+        files: copy,
+        stats,
+      },
       statsLog: {
         extraEntries: [
           {
@@ -1872,6 +1917,13 @@ describe('services/configurations:plugins', () => {
           'rollup-compression-plugin-settings-configuration',
         ],
         settings: expectedSettings.compression,
+      },
+      {
+        events: [
+          'rollup-copy-plugin-settings-configuration-for-browser',
+          'rollup-copy-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.copy,
       },
       {
         events: [
@@ -2042,6 +2094,7 @@ describe('services/configurations:plugins', () => {
         getRule: jest.fn(() => rules.favicon),
       },
     };
+    const copy = ['files-to-copy'];
     const params = {
       buildType,
       definitions,
@@ -2050,6 +2103,7 @@ describe('services/configurations:plugins', () => {
       target,
       rules,
       targetRules,
+      copy,
     };
     const stats = 'stats';
 
@@ -2206,6 +2260,10 @@ describe('services/configurations:plugins', () => {
         exclude: [],
         stats,
       },
+      copy: {
+        files: copy,
+        stats,
+      },
       statsLog: {
         extraEntries: [
           {
@@ -2352,6 +2410,13 @@ describe('services/configurations:plugins', () => {
           'rollup-compression-plugin-settings-configuration',
         ],
         settings: expectedSettings.compression,
+      },
+      {
+        events: [
+          'rollup-copy-plugin-settings-configuration-for-browser',
+          'rollup-copy-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.copy,
       },
       {
         events: [
@@ -2517,6 +2582,7 @@ describe('services/configurations:plugins', () => {
         getRule: jest.fn(() => rules.favicon),
       },
     };
+    const copy = ['files-to-copy'];
     const params = {
       buildType,
       definitions,
@@ -2525,6 +2591,7 @@ describe('services/configurations:plugins', () => {
       target,
       rules,
       targetRules,
+      copy,
     };
     const stats = 'stats';
 
@@ -2681,6 +2748,10 @@ describe('services/configurations:plugins', () => {
         exclude: [],
         stats,
       },
+      copy: {
+        files: copy,
+        stats,
+      },
       statsLog: {
         extraEntries: [
           {
@@ -2829,6 +2900,13 @@ describe('services/configurations:plugins', () => {
           'rollup-compression-plugin-settings-configuration',
         ],
         settings: expectedSettings.compression,
+      },
+      {
+        events: [
+          'rollup-copy-plugin-settings-configuration-for-browser',
+          'rollup-copy-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.copy,
       },
       {
         events: [
@@ -2998,6 +3076,7 @@ describe('services/configurations:plugins', () => {
         getRule: jest.fn(() => rules.favicon),
       },
     };
+    const copy = ['files-to-copy'];
     const params = {
       buildType,
       definitions,
@@ -3006,6 +3085,7 @@ describe('services/configurations:plugins', () => {
       target,
       rules,
       targetRules,
+      copy,
     };
     const stats = 'stats';
 
@@ -3211,6 +3291,7 @@ describe('services/configurations:plugins', () => {
         getRule: jest.fn(() => rules.favicon),
       },
     };
+    const copy = ['files-to-copy'];
     const params = {
       buildType,
       definitions,
@@ -3219,6 +3300,7 @@ describe('services/configurations:plugins', () => {
       target,
       rules,
       targetRules,
+      copy,
     };
     const stats = 'stats';
 
@@ -3419,6 +3501,7 @@ describe('services/configurations:plugins', () => {
         getRule: jest.fn(() => rules.favicon),
       },
     };
+    const copy = ['files-to-copy'];
     const params = {
       buildType,
       definitions,
@@ -3427,6 +3510,7 @@ describe('services/configurations:plugins', () => {
       target,
       rules,
       targetRules,
+      copy,
     };
     const stats = 'stats';
 

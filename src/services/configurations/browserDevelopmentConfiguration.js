@@ -9,6 +9,7 @@ const json = require('rollup-plugin-json');
 const { provider } = require('jimple');
 const ConfigurationFile = require('../../abstracts/configurationFile');
 const {
+  copy,
   css,
   urls,
   stylesheetAssets,
@@ -93,6 +94,7 @@ class RollupBrowserDevelopmentConfiguration extends ConfigurationFile {
       json(pluginSettings.json),
       urls(pluginSettings.urls),
       template(pluginSettings.template),
+      copy(pluginSettings.copy),
       statsPlugin.log(pluginSettings.statsLog),
     ];
     // Get the list of external dependencies.

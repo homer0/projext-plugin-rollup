@@ -1,4 +1,5 @@
 const { compression } = require('./compression');
+const { copy } = require('./copy');
 const { css } = require('./css');
 const { devServer } = require('./devServer');
 const { nodeRunner } = require('./nodeRunner');
@@ -11,6 +12,7 @@ const { windowAsGlobal } = require('./windowAsGlobal');
 
 module.exports = {
   compression,
+  copy,
   css,
   devServer,
   nodeRunner,

@@ -19,6 +19,7 @@ const {
   rollupNodeDevelopmentConfiguration,
 } = require('/src/services/configurations/nodeDevelopmentConfiguration');
 const {
+  copy,
   css,
   urls,
   stylesheetAssets,
@@ -38,6 +39,7 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
     const statsResetValue = 'stats-reset';
     const statsLogValue = 'stats-log';
     const values = {
+      copy: 'copy-plugin',
       css: 'css-plugin',
       urls: 'urls-plugin',
       stylesheetAssets: 'stylesheetAssets-plugin',
@@ -58,6 +60,7 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
     };
     values.statsReset = statsResetValue;
     values.statsLog = statsLogValue;
+    copy.mockImplementationOnce(() => values.copy);
     css.mockImplementationOnce(() => values.css);
     urls.mockImplementationOnce(() => values.urls);
     stylesheetAssets.mockImplementationOnce(() => values.stylesheetAssets);
@@ -72,6 +75,7 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
     html.mockImplementationOnce(() => values.html);
     json.mockImplementationOnce(() => values.json);
     const mocks = {
+      copy,
       css,
       urls,
       stylesheetAssets,
@@ -108,6 +112,7 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
         name: 'globals-plugin-settings',
       },
       watch: 'watch-plugin-settings',
+      copy: 'copy-plugin-settings',
     };
     return {
       values,
@@ -118,6 +123,7 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
 
   beforeEach(() => {
     ConfigurationFileMock.reset();
+    copy.mockClear();
     css.mockClear();
     urls.mockClear();
     stylesheetAssets.mockClear();
@@ -202,6 +208,7 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
         plugins.values.html,
         plugins.values.json,
         plugins.values.urls,
+        plugins.values.copy,
         plugins.values.statsLog,
       ],
       external: plugins.settings.external.external,
@@ -243,6 +250,8 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
     expect(plugins.mocks.json).toHaveBeenCalledWith(plugins.settings.json);
     expect(plugins.mocks.urls).toHaveBeenCalledTimes(1);
     expect(plugins.mocks.urls).toHaveBeenCalledWith(plugins.settings.urls);
+    expect(plugins.mocks.copy).toHaveBeenCalledTimes(1);
+    expect(plugins.mocks.copy).toHaveBeenCalledWith(plugins.settings.copy);
     expect(plugins.mocks.statsLog).toHaveBeenCalledTimes(1);
     expect(plugins.mocks.statsLog).toHaveBeenCalledWith(plugins.settings.statsLog);
     expect(events.reduce).toHaveBeenCalledTimes(1);
@@ -311,6 +320,7 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
         plugins.values.html,
         plugins.values.json,
         plugins.values.urls,
+        plugins.values.copy,
         plugins.values.statsLog,
       ],
       external: plugins.settings.external.external,
@@ -369,6 +379,7 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
         plugins.values.html,
         plugins.values.json,
         plugins.values.urls,
+        plugins.values.copy,
         plugins.values.statsLog,
         plugins.values.nodeRunner,
       ],
