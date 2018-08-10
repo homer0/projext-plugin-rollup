@@ -99,7 +99,11 @@ class RollupBrowserProductionConfiguration extends ConfigurationFile {
       html(pluginSettings.html),
       json(pluginSettings.json),
       urls(pluginSettings.urls),
-      uglify(pluginSettings.uglify),
+      ...(
+        target.uglifyOnProduction ?
+          [uglify(pluginSettings.uglify)] :
+          []
+      ),
       copy(pluginSettings.copy),
     ];
     // If the target is not a library, push the template plugin for the HTML file.
