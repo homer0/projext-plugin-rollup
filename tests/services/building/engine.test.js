@@ -61,9 +61,10 @@ describe('services/building:engine', () => {
     );
     result = sut.getBuildCommand(target, buildType);
     // Then
-    expect(result).toMatch(/PROJEXT_ROLLUP_TARGET=(?:[\w0-9-_]*?).*?rollup/);
-    expect(result).toMatch(/PROJEXT_ROLLUP_BUILD_TYPE=(?:\w+).*?rollup/);
-    expect(result).toMatch(/PROJEXT_ROLLUP_RUN=(?:true|false).*?rollup/);
+    expect(result).toMatch(/PXTRP_TARGET=(?:[\w0-9-_]*?).*?rollup/);
+    expect(result).toMatch(/PXTRP_TYPE=(?:\w+).*?rollup/);
+    expect(result).toMatch(/PXTRP_RUN=(?:true|false).*?rollup/);
+    expect(result).toMatch(/PXTRP_WATCH=(?:true|false).*?rollup/);
     expect(result).toMatch(new RegExp(`rollup --config ${expectedConfigPath}`));
   });
 
@@ -97,9 +98,10 @@ describe('services/building:engine', () => {
     );
     result = sut.getBuildCommand(target, buildType);
     // Then
-    expect(result).toMatch(/PROJEXT_ROLLUP_TARGET=(?:[\w0-9-_]*?).*?rollup/);
-    expect(result).toMatch(/PROJEXT_ROLLUP_BUILD_TYPE=(?:\w+).*?rollup/);
-    expect(result).toMatch(/PROJEXT_ROLLUP_RUN=(?:true|false).*?rollup/);
+    expect(result).toMatch(/PXTRP_TARGET=(?:[\w0-9-_]*?).*?rollup/);
+    expect(result).toMatch(/PXTRP_TYPE=(?:\w+).*?rollup/);
+    expect(result).toMatch(/PXTRP_RUN=(?:true|false).*?rollup/);
+    expect(result).toMatch(/PXTRP_WATCH=(?:true|false).*?rollup/);
     expect(result).toMatch(new RegExp(`rollup --config ${expectedConfigPath}`));
     expect(result).toMatch(/rollup --config.*?--watch/);
   });
@@ -132,9 +134,10 @@ describe('services/building:engine', () => {
     );
     result = sut.getBuildCommand(target, buildType, true);
     // Then
-    expect(result).toMatch(/PROJEXT_ROLLUP_TARGET=(?:[\w0-9-_]*?).*?rollup/);
-    expect(result).toMatch(/PROJEXT_ROLLUP_BUILD_TYPE=(?:\w+).*?rollup/);
-    expect(result).toMatch(/PROJEXT_ROLLUP_RUN=(?:true|false).*?rollup/);
+    expect(result).toMatch(/PXTRP_TARGET=(?:[\w0-9-_]*?).*?rollup/);
+    expect(result).toMatch(/PXTRP_TYPE=(?:\w+).*?rollup/);
+    expect(result).toMatch(/PXTRP_RUN=(?:true|false).*?rollup/);
+    expect(result).toMatch(/PXTRP_WATCH=(?:true|false).*?rollup/);
     expect(result).toMatch(/rollup --config ([\w_\-/]*?)rollup\.config\.js/);
     expect(result).toMatch(/rollup --config.*?--watch/);
   });
@@ -145,6 +148,7 @@ describe('services/building:engine', () => {
     const targets = 'targets';
     const target = 'some-target';
     const buildType = 'production';
+    const watch = false;
     const config = 'config';
     const rollupConfiguration = {
       getConfig: jest.fn(() => config),
@@ -162,11 +166,11 @@ describe('services/building:engine', () => {
       rollupConfiguration,
       rollupPluginInfo
     );
-    result = sut.getConfiguration(target, buildType);
+    result = sut.getConfiguration(target, buildType, watch);
     // Then
     expect(result).toBe(config);
     expect(rollupConfiguration.getConfig).toHaveBeenCalledTimes(1);
-    expect(rollupConfiguration.getConfig).toHaveBeenCalledWith(target, buildType);
+    expect(rollupConfiguration.getConfig).toHaveBeenCalledWith(target, buildType, watch);
   });
 
   it('should return a target Rollup configuration', () => {
@@ -174,13 +178,18 @@ describe('services/building:engine', () => {
     const targetName = 'some-target';
     const buildType = 'development';
     const run = false;
+    const watch = false;
     const target = {
       name: targetName,
+      watch: {
+        [buildType]: watch,
+      },
     };
     const envVars = {
-      PROJEXT_ROLLUP_TARGET: targetName,
-      PROJEXT_ROLLUP_BUILD_TYPE: buildType,
-      PROJEXT_ROLLUP_RUN: run.toString(),
+      PXTRP_TARGET: targetName,
+      PXTRP_TYPE: buildType,
+      PXTRP_RUN: run.toString(),
+      PXTRP_WATCH: watch.toString(),
     };
     const envVarsNames = Object.keys(envVars);
     const environmentUtils = {
@@ -210,7 +219,7 @@ describe('services/building:engine', () => {
     // Then
     expect(result).toBe(config);
     expect(rollupConfiguration.getConfig).toHaveBeenCalledTimes(1);
-    expect(rollupConfiguration.getConfig).toHaveBeenCalledWith(target, buildType);
+    expect(rollupConfiguration.getConfig).toHaveBeenCalledWith(target, buildType, watch);
     expect(targets.getTarget).toHaveBeenCalledTimes(1);
     expect(targets.getTarget).toHaveBeenCalledWith(targetName);
     expect(environmentUtils.get).toHaveBeenCalledTimes(envVarsNames.length);
@@ -224,13 +233,18 @@ describe('services/building:engine', () => {
     const targetName = 'some-target';
     const buildType = 'development';
     const run = true;
+    const watch = true;
     const target = {
       name: targetName,
+      watch: {
+        [buildType]: watch,
+      },
     };
     const envVars = {
-      PROJEXT_ROLLUP_TARGET: targetName,
-      PROJEXT_ROLLUP_BUILD_TYPE: buildType,
-      PROJEXT_ROLLUP_RUN: run.toString(),
+      PXTRP_TARGET: targetName,
+      PXTRP_TYPE: buildType,
+      PXTRP_RUN: run.toString(),
+      PXTRP_WATCH: watch.toString(),
     };
     const envVarsNames = Object.keys(envVars);
     const environmentUtils = {
@@ -260,13 +274,17 @@ describe('services/building:engine', () => {
     // Then
     expect(result).toBe(config);
     expect(rollupConfiguration.getConfig).toHaveBeenCalledTimes(1);
-    expect(rollupConfiguration.getConfig).toHaveBeenCalledWith(Object.assign(
-      {},
-      target,
-      {
-        runOnDevelopment: true,
-      }
-    ), buildType);
+    expect(rollupConfiguration.getConfig).toHaveBeenCalledWith(
+      Object.assign(
+        {},
+        target,
+        {
+          runOnDevelopment: true,
+        }
+      ),
+      buildType,
+      watch
+    );
     expect(targets.getTarget).toHaveBeenCalledTimes(1);
     expect(targets.getTarget).toHaveBeenCalledWith(targetName);
     expect(environmentUtils.get).toHaveBeenCalledTimes(envVarsNames.length);
@@ -278,9 +296,10 @@ describe('services/building:engine', () => {
   it('should throw an error when getting a configuration without the env variables', () => {
     // Given
     const envVarsNames = [
-      'PROJEXT_ROLLUP_TARGET',
-      'PROJEXT_ROLLUP_BUILD_TYPE',
-      'PROJEXT_ROLLUP_RUN',
+      'PXTRP_TARGET',
+      'PXTRP_TYPE',
+      'PXTRP_RUN',
+      'PXTRP_WATCH',
     ];
     const environmentUtils = {
       get: jest.fn(),

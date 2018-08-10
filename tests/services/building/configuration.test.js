@@ -116,6 +116,7 @@ describe('services/building:configuration', () => {
     };
     const targetConfiguration = jest.fn(() => targetConfig);
     const buildType = 'development';
+    const watch = false;
     const target = {
       type: 'node',
       name: 'target',
@@ -158,7 +159,7 @@ describe('services/building:configuration', () => {
       targetConfiguration,
       rollupConfigurations
     );
-    result = sut.getConfig(target, buildType);
+    result = sut.getConfig(target, buildType, watch);
     // Then
     expect(result).toEqual(config);
     expect(buildVersion.getDefinitionVariable).toHaveBeenCalledTimes(1);
@@ -192,6 +193,7 @@ describe('services/building:configuration', () => {
       },
       paths: target.output[buildType],
       copy: [],
+      watch,
     });
   });
 
@@ -221,6 +223,7 @@ describe('services/building:configuration', () => {
     };
     const targetConfiguration = jest.fn(() => targetConfig);
     const buildType = 'development';
+    const watch = false;
     const target = {
       type: 'node',
       name: 'target',
@@ -264,7 +267,7 @@ describe('services/building:configuration', () => {
       targetConfiguration,
       rollupConfigurations
     );
-    result = sut.getConfig(target, buildType);
+    result = sut.getConfig(target, buildType, watch);
     // Then
     expect(result).toEqual(config);
     expect(buildVersion.getDefinitionVariable).toHaveBeenCalledTimes(1);
@@ -298,6 +301,7 @@ describe('services/building:configuration', () => {
       },
       paths: target.output[buildType],
       copy: filesToCopy,
+      watch,
     });
     expect(targets.getFilesToCopy).toHaveBeenCalledTimes(1);
     expect(targets.getFilesToCopy).toHaveBeenCalledWith(target, buildType);
@@ -331,6 +335,7 @@ describe('services/building:configuration', () => {
     };
     const targetConfiguration = jest.fn(() => targetConfig);
     const buildType = 'development';
+    const watch = true;
     const target = {
       type: 'browser',
       name: 'target',
@@ -373,7 +378,7 @@ describe('services/building:configuration', () => {
       targetConfiguration,
       rollupConfigurations
     );
-    result = sut.getConfig(target, buildType);
+    result = sut.getConfig(target, buildType, watch);
     // Then
     expect(result).toEqual(config);
     expect(buildVersion.getDefinitionVariable).toHaveBeenCalledTimes(1);
@@ -405,6 +410,7 @@ describe('services/building:configuration', () => {
       },
       paths: target.output[buildType],
       copy: filesToCopy,
+      watch,
     });
     expect(targets.getFilesToCopy).toHaveBeenCalledTimes(1);
     expect(targets.getFilesToCopy).toHaveBeenCalledWith(target, buildType);
@@ -440,6 +446,7 @@ describe('services/building:configuration', () => {
     };
     const targetConfiguration = jest.fn(() => targetConfig);
     const buildType = 'development';
+    const watch = true;
     const target = {
       type: 'browser',
       name: 'target',
@@ -482,7 +489,7 @@ describe('services/building:configuration', () => {
       targetConfiguration,
       rollupConfigurations
     );
-    result = sut.getConfig(target, buildType);
+    result = sut.getConfig(target, buildType, watch);
     // Then
     expect(result).toEqual(config);
     expect(buildVersion.getDefinitionVariable).toHaveBeenCalledTimes(1);
@@ -515,6 +522,7 @@ describe('services/building:configuration', () => {
       },
       paths: target.output[buildType],
       copy: filesToCopy,
+      watch,
     });
     expect(targets.getBrowserTargetConfiguration).toHaveBeenCalledTimes(1);
     expect(targets.getBrowserTargetConfiguration).toHaveBeenCalledWith(target);
@@ -547,6 +555,7 @@ describe('services/building:configuration', () => {
     };
     const targetConfiguration = jest.fn(() => targetConfig);
     const buildType = 'development';
+    const watch = true;
     const target = {
       type: 'node',
       name: 'target',
@@ -599,7 +608,7 @@ describe('services/building:configuration', () => {
       targetConfiguration,
       rollupConfigurations
     );
-    result = sut.getConfig(target, buildType);
+    result = sut.getConfig(target, buildType, watch);
     // Then
     expect(result).toEqual(expectedConfig);
     expect(buildVersion.getDefinitionVariable).toHaveBeenCalledTimes(1);
@@ -632,6 +641,7 @@ describe('services/building:configuration', () => {
       },
       paths: target.output[buildType],
       copy: [],
+      watch,
     });
   });
 
@@ -664,6 +674,7 @@ describe('services/building:configuration', () => {
     };
     const targetConfiguration = jest.fn(() => targetConfig);
     const buildType = 'development';
+    const watch = false;
     const target = {
       type: 'browser',
       name: 'some-target',
@@ -720,7 +731,7 @@ describe('services/building:configuration', () => {
       targetConfiguration,
       rollupConfigurations
     );
-    result = sut.getConfig(target, buildType);
+    result = sut.getConfig(target, buildType, watch);
     // Then
     expect(result).toEqual(expectedConfig);
     expect(buildVersion.getDefinitionVariable).toHaveBeenCalledTimes(1);
@@ -753,6 +764,7 @@ describe('services/building:configuration', () => {
       },
       paths: target.output[buildType],
       copy: filesToCopy,
+      watch,
     });
     expect(targets.getFilesToCopy).toHaveBeenCalledTimes(1);
     expect(targets.getFilesToCopy).toHaveBeenCalledWith(target, buildType);
@@ -784,6 +796,7 @@ describe('services/building:configuration', () => {
     };
     const targetConfiguration = jest.fn(() => targetConfig);
     const buildType = 'development';
+    const watch = false;
     const target = {
       type: 'node',
       name: 'some-target',
@@ -840,7 +853,7 @@ describe('services/building:configuration', () => {
       targetConfiguration,
       rollupConfigurations
     );
-    result = sut.getConfig(target, buildType);
+    result = sut.getConfig(target, buildType, watch);
     // Then
     expect(result).toEqual(expectedConfig);
     expect(buildVersion.getDefinitionVariable).toHaveBeenCalledTimes(1);
@@ -873,6 +886,7 @@ describe('services/building:configuration', () => {
       },
       paths: target.output[buildType],
       copy: [],
+      watch,
     });
   });
 

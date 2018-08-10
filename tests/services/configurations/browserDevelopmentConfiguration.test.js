@@ -211,10 +211,12 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
     };
     const output = {};
     const input = 'input';
+    const watch = false;
     const params = {
       target,
       input,
       output,
+      watch,
     };
     let sut = null;
     let result = null;
@@ -314,10 +316,12 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
     };
     const output = {};
     const input = 'input';
+    const watch = false;
     const params = {
       target,
       input,
       output,
+      watch,
     };
     let sut = null;
     let result = null;
@@ -383,10 +387,12 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
       },
     };
     const input = 'input';
+    const watch = false;
     const params = {
       target,
       input,
       output,
+      watch,
     };
     let sut = null;
     let result = null;
@@ -446,10 +452,12 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
     };
     const output = {};
     const input = 'input';
+    const watch = false;
     const params = {
       target,
       input,
       output,
+      watch,
     };
     let sut = null;
     let result = null;
@@ -499,6 +507,72 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
       },
       plugins.settings.statsLog
     ));
+  });
+
+  it('should create a configuration for a target that will be watched', () => {
+    // Given
+    const plugins = getPlugins();
+    const events = {
+      reduce: jest.fn((eventNames, config) => config),
+    };
+    const pathUtils = 'pathUtils';
+    const rollupPluginSettingsConfiguration = {
+      getConfig: jest.fn(() => plugins.settings),
+    };
+    const target = {
+      css: {
+        modules: true,
+      },
+      paths: {
+        build: 'dist',
+      },
+      runOnDevelopment: false,
+    };
+    const output = {};
+    const input = 'input';
+    const watch = true;
+    const params = {
+      target,
+      input,
+      output,
+      watch,
+    };
+    let sut = null;
+    let result = null;
+    // When
+    sut = new RollupBrowserDevelopmentConfiguration(
+      events,
+      pathUtils,
+      rollupPluginSettingsConfiguration
+    );
+    result = sut.getConfig(params);
+    // Then
+    expect(result).toEqual({
+      input,
+      output: Object.assign({}, output, {
+        globals: plugins.settings.globals,
+      }),
+      plugins: [
+        plugins.values.statsReset,
+        plugins.values.resolve,
+        plugins.values.commonjs,
+        plugins.values.babel,
+        plugins.values.windowAsGlobal,
+        plugins.values.replace,
+        plugins.values.sass,
+        plugins.values.css,
+        plugins.values.stylesheetAssets,
+        plugins.values.stylesheetModulesFixer,
+        plugins.values.html,
+        plugins.values.json,
+        plugins.values.urls,
+        plugins.values.template,
+        plugins.values.copy,
+        plugins.values.statsLog,
+      ],
+      watch: plugins.settings.watch,
+      external: plugins.settings.external.external,
+    });
   });
 
   it('should include a provider for the DIC', () => {

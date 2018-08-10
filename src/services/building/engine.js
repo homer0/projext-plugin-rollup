@@ -49,28 +49,35 @@ class RollupBuildEngine {
      * @property {string} run    Whether or not to execute the target. This will be like a fake
      *                           boolean as the CLI doesn't support boolean variables, so its value
      *                           will be either `'true'` or `'false'`.
+     * @property {string} watch  Whether or not to watch the target files. This will be like a fake
+     *                           boolean as the CLI doesn't support boolean variables, so its value
+     *                           will be either `'true'` or `'false'`.
      * @access protected
      * @ignore
      */
     this._envVars = {
-      target: 'PROJEXT_ROLLUP_TARGET',
-      type: 'PROJEXT_ROLLUP_BUILD_TYPE',
-      run: 'PROJEXT_ROLLUP_RUN',
+      target: 'PXTRP_TARGET',
+      type: 'PXTRP_TYPE',
+      run: 'PXTRP_RUN',
+      watch: 'PXTRP_WATCH',
     };
   }
   /**
    * Get the CLI build command to bundle a target.
-   * @param  {Target}  target           The target information.
-   * @param  {string}  buildType        The intended build type: `development` or `production`.
-   * @param  {boolean} [forceRun=false] Force the target to run even if the `runOnDevelopment`
-   *                                    setting is `false`.
+   * @param {Target}  target             The target information.
+   * @param {string}  buildType          The intended build type: `development` or `production`.
+   * @param {boolean} [forceRun=false]   Force the target to run even if the `runOnDevelopment`
+   *                                     setting is `false`.
+   * @param {boolean} [forceWatch=false] Force Rollup to use the watch mode even if the `watch`
+   *                                     setting for the required build type is set to `false`.
    * @return {string}
    */
-  getBuildCommand(target, buildType, forceRun = false) {
+  getBuildCommand(target, buildType, forceRun = false, forceWatch = false) {
     const vars = this._getEnvVarsAsString({
       target: target.name,
       type: buildType,
       run: forceRun,
+      watch: forceWatch,
     });
 
     const config = path.join(
@@ -81,7 +88,7 @@ class RollupBuildEngine {
 
     const optionsList = [];
 
-    if ((buildType === 'development' && target.runOnDevelopment) || forceRun) {
+    if ((buildType === 'development' && target.runOnDevelopment) || forceRun || forceWatch) {
       optionsList.push('--watch');
     }
 
@@ -91,12 +98,13 @@ class RollupBuildEngine {
   }
   /**
    * Get a Rollup configuration for a target.
-   * @param {Target} target    The target configuration.
-   * @param {string} buildType The intended build type: `development` or `production`.
+   * @param {Target}  target    The target configuration.
+   * @param {string}  buildType The intended build type: `development` or `production`.
+   * @param {boolean} watch     Whether or not the Rollup watch mode should be enabled.
    * @return {object}
    */
-  getConfiguration(target, buildType) {
-    return this.rollupConfiguration.getConfig(target, buildType);
+  getConfiguration(target, buildType, watch) {
+    return this.rollupConfiguration.getConfig(target, buildType, watch);
   }
   /**
    * Get a Rollup configuration by reading the environment variables sent by the CLI command
@@ -116,7 +124,9 @@ class RollupBuildEngine {
       target.runOnDevelopment = true;
     }
 
-    return this.getConfiguration(target, type);
+    const watch = vars.watch === 'true' || target.watch[type];
+
+    return this.getConfiguration(target, type, watch);
   }
   /**
    * Given a dictionary with the environment variables purpose and values, this method generates
@@ -126,7 +136,7 @@ class RollupBuildEngine {
    *   target: 'my-target',
    *   type: 'development',
    * });
-   * // will output `PROJEXT_ROLLUP_TARGET=my-target PROJEXT_ROLLUP_BUILD_TYPE=development`
+   * // will output `PXTRP_TARGET=my-target PXTRP_TYPE=development`
    * @param {object} values A dictionary with the purpose(alias) of the variables as keys.
    * @return {string}
    * @access protected

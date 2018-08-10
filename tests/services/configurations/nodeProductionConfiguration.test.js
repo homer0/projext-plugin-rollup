@@ -177,10 +177,12 @@ describe('services/configurations:nodeProductionConfiguration', () => {
     };
     const output = {};
     const input = 'input';
+    const watch = false;
     const params = {
       target,
       input,
       output,
+      watch,
     };
     let sut = null;
     let result = null;
@@ -281,10 +283,12 @@ describe('services/configurations:nodeProductionConfiguration', () => {
       },
     };
     const input = 'input';
+    const watch = false;
     const params = {
       target,
       input,
       output,
+      watch,
     };
     let sut = null;
     let result = null;
@@ -318,6 +322,67 @@ describe('services/configurations:nodeProductionConfiguration', () => {
         plugins.values.statsLog,
       ],
       external: plugins.settings.external.external,
+    });
+  });
+
+  it('should create a configuration for a target that will be watched', () => {
+    // Given
+    const plugins = getPlugins();
+    const events = {
+      reduce: jest.fn((eventNames, config) => config),
+    };
+    const pathUtils = 'pathUtils';
+    const rollupPluginSettingsConfiguration = {
+      getConfig: jest.fn(() => plugins.settings),
+    };
+    const target = {
+      css: {},
+      paths: {
+        build: 'dist',
+      },
+    };
+    const output = {};
+    const input = 'input';
+    const watch = true;
+    const params = {
+      target,
+      input,
+      output,
+      watch,
+    };
+    let sut = null;
+    let result = null;
+    // When
+    sut = new RollupNodeProductionConfiguration(
+      events,
+      pathUtils,
+      rollupPluginSettingsConfiguration
+    );
+    result = sut.getConfig(params);
+    // Then
+    expect(result).toEqual({
+      input,
+      output: Object.assign({}, output, {
+        globals: plugins.settings.globals,
+      }),
+      plugins: [
+        plugins.values.statsReset,
+        plugins.values.resolve,
+        plugins.values.commonjs,
+        plugins.values.babel,
+        plugins.values.replace,
+        plugins.values.sass,
+        plugins.values.css,
+        plugins.values.stylesheetAssetsHelper,
+        plugins.values.stylesheetAssets,
+        plugins.values.html,
+        plugins.values.json,
+        plugins.values.urls,
+        plugins.values.copy,
+        plugins.values.statsLog,
+      ],
+      external: plugins.settings.external.external,
+      watch: plugins.settings.watch,
     });
   });
 
