@@ -540,6 +540,8 @@
  *                                                         {@link TargetExtraFile} with
  *                                                         the information of files that need to
  *                                                         be copied during the bundling process.
+ * @property {boolean}                         watch       Whether or not Rollup should use the
+ *                                                         watch mode.
 
 /**
  * @typedef {Object} RollupPluginInfo

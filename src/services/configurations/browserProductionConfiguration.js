@@ -65,7 +65,12 @@ class RollupBrowserProductionConfiguration extends ConfigurationFile {
    * @return {Object}
    */
   createConfig(params) {
-    const { target, input, output } = params;
+    const {
+      target,
+      input,
+      output,
+      watch,
+    } = params;
     // Create the `stats` plugin instance.
     const statsPlugin = stats({
       path: `${target.paths.build}/`,
@@ -126,6 +131,10 @@ class RollupBrowserProductionConfiguration extends ConfigurationFile {
       plugins,
       external,
     };
+    // If the watch mode is enabled, add the watch settings.
+    if (watch) {
+      config.watch = pluginSettings.watch;
+    }
     // Return the reduced configuration.
     return this.events.reduce(
       [

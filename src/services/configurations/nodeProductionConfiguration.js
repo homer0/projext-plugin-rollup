@@ -60,7 +60,12 @@ class RollupNodeProductionConfiguration extends ConfigurationFile {
    * @return {Object}
    */
   createConfig(params) {
-    const { input, output, target } = params;
+    const {
+      input,
+      output,
+      target,
+      watch,
+    } = params;
     // Create the `stats` plugin instance.
     const statsPlugin = stats({
       path: `${target.paths.build}/`,
@@ -103,6 +108,10 @@ class RollupNodeProductionConfiguration extends ConfigurationFile {
       plugins,
       external,
     };
+    // If the watch mode is enabled, add the watch settings.
+    if (watch) {
+      config.watch = pluginSettings.watch;
+    }
     // Return the reduced configuration.
     return this.events.reduce(
       [
