@@ -208,15 +208,16 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
       paths: {
         build: 'dist',
       },
+      watch: {
+        development: false,
+      },
     };
     const output = {};
     const input = 'input';
-    const watch = false;
     const params = {
       target,
       input,
       output,
-      watch,
     };
     let sut = null;
     let result = null;
@@ -313,15 +314,16 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
       paths: {
         build: 'dist',
       },
+      watch: {
+        development: false,
+      },
     };
     const output = {};
     const input = 'input';
-    const watch = false;
     const params = {
       target,
       input,
       output,
-      watch,
     };
     let sut = null;
     let result = null;
@@ -380,6 +382,9 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
       paths: {
         build: 'dist',
       },
+      watch: {
+        development: false,
+      },
     };
     const output = {
       globals: {
@@ -387,12 +392,10 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
       },
     };
     const input = 'input';
-    const watch = false;
     const params = {
       target,
       input,
       output,
-      watch,
     };
     let sut = null;
     let result = null;
@@ -449,15 +452,16 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
         build: 'dist',
       },
       runOnDevelopment: true,
+      watch: {
+        development: false,
+      },
     };
     const output = {};
     const input = 'input';
-    const watch = false;
     const params = {
       target,
       input,
       output,
-      watch,
     };
     let sut = null;
     let result = null;
@@ -527,15 +531,16 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
         build: 'dist',
       },
       runOnDevelopment: false,
+      watch: {
+        development: true,
+      },
     };
     const output = {};
     const input = 'input';
-    const watch = true;
     const params = {
       target,
       input,
       output,
-      watch,
     };
     let sut = null;
     let result = null;

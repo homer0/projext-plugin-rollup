@@ -174,15 +174,16 @@ describe('services/configurations:nodeProductionConfiguration', () => {
       paths: {
         build: 'dist',
       },
+      watch: {
+        production: false,
+      },
     };
     const output = {};
     const input = 'input';
-    const watch = false;
     const params = {
       target,
       input,
       output,
-      watch,
     };
     let sut = null;
     let result = null;
@@ -276,6 +277,9 @@ describe('services/configurations:nodeProductionConfiguration', () => {
       paths: {
         build: 'dist',
       },
+      watch: {
+        production: false,
+      },
     };
     const output = {
       globals: {
@@ -283,12 +287,10 @@ describe('services/configurations:nodeProductionConfiguration', () => {
       },
     };
     const input = 'input';
-    const watch = false;
     const params = {
       target,
       input,
       output,
-      watch,
     };
     let sut = null;
     let result = null;
@@ -340,15 +342,16 @@ describe('services/configurations:nodeProductionConfiguration', () => {
       paths: {
         build: 'dist',
       },
+      watch: {
+        production: true,
+      },
     };
     const output = {};
     const input = 'input';
-    const watch = true;
     const params = {
       target,
       input,
       output,
-      watch,
     };
     let sut = null;
     let result = null;

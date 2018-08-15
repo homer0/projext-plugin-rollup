@@ -91,6 +91,9 @@ describe('services/configurations:plugins', () => {
         node: true,
         browser: false,
       },
+      inspect: {
+        enabled: false,
+      },
     };
     const rules = {
       js: {
@@ -358,6 +361,7 @@ describe('services/configurations:plugins', () => {
       nodeRunner: {
         file: output.file,
         logger: appLogger,
+        inspect: target.inspect,
       },
       stylesheetAssetsHelper: {
         include: [

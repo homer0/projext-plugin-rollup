@@ -49,6 +49,13 @@ describe('plugins:nodeRunner', () => {
     expect(result).toEqual({
       file: 'index.js',
       logger: null,
+      inspect: {
+        enabled: false,
+        host: '0.0.0.0',
+        port: 9229,
+        command: 'inspect',
+        ndb: false,
+      },
       onStart: expect.any(Function),
       onStop: expect.any(Function),
     });
@@ -96,7 +103,78 @@ describe('plugins:nodeRunner', () => {
     // Then
     expect(logger.success).toHaveBeenCalledTimes(1);
     expect(fork).toHaveBeenCalledTimes(1);
-    expect(fork).toHaveBeenCalledWith(options.file);
+    expect(fork).toHaveBeenCalledWith(options.file, [], {});
+    expect(process.on).toHaveBeenCalledTimes(2);
+    expect(process.on).toHaveBeenCalledWith('SIGINT', expect.any(Function));
+    expect(process.on).toHaveBeenCalledWith('SIGTERM', expect.any(Function));
+    expect(options.onStart).toHaveBeenCalledTimes(1);
+    expect(options.onStart).toHaveBeenCalledWith(sut);
+  });
+
+  it('should run a file and enable the Node inspector', () => {
+    // Given
+    process.on = jest.fn();
+    fs.pathExistsSync.mockImplementationOnce(() => true);
+    const logger = {
+      success: jest.fn(),
+    };
+    ProjextRollupUtils.createLogger.mockImplementationOnce(() => logger);
+    const inspect = {
+      enabled: true,
+      host: '0.0.0.0',
+      port: 9229,
+      command: 'inspect',
+      ndb: false,
+    };
+    const options = {
+      file: 'index.js',
+      onStart: jest.fn(),
+      inspect,
+    };
+    let sut = null;
+    // When
+    sut = new ProjextRollupNodeRunnerPlugin(options);
+    sut.onwrite();
+    // Then
+    expect(logger.success).toHaveBeenCalledTimes(1);
+    expect(fork).toHaveBeenCalledTimes(1);
+    expect(fork).toHaveBeenCalledWith(options.file, [], {
+      execArgv: [`--${inspect.command}=${inspect.host}:${inspect.port}`],
+    });
+    expect(process.on).toHaveBeenCalledTimes(2);
+    expect(process.on).toHaveBeenCalledWith('SIGINT', expect.any(Function));
+    expect(process.on).toHaveBeenCalledWith('SIGTERM', expect.any(Function));
+    expect(options.onStart).toHaveBeenCalledTimes(1);
+    expect(options.onStart).toHaveBeenCalledWith(sut);
+  });
+
+  it('should run a file and enable the ndb inspector', () => {
+    // Given
+    process.on = jest.fn();
+    fs.pathExistsSync.mockImplementationOnce(() => true);
+    const logger = {
+      success: jest.fn(),
+    };
+    ProjextRollupUtils.createLogger.mockImplementationOnce(() => logger);
+    const inspect = {
+      enabled: true,
+      ndb: true,
+    };
+    const options = {
+      file: 'index.js',
+      onStart: jest.fn(),
+      inspect,
+    };
+    let sut = null;
+    // When
+    sut = new ProjextRollupNodeRunnerPlugin(options);
+    sut.onwrite();
+    // Then
+    expect(logger.success).toHaveBeenCalledTimes(1);
+    expect(fork).toHaveBeenCalledTimes(1);
+    expect(fork).toHaveBeenCalledWith(options.file, [], {
+      execPath: 'ndb',
+    });
     expect(process.on).toHaveBeenCalledTimes(2);
     expect(process.on).toHaveBeenCalledWith('SIGINT', expect.any(Function));
     expect(process.on).toHaveBeenCalledWith('SIGTERM', expect.any(Function));
