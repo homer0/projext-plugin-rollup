@@ -201,15 +201,16 @@ describe('services/configurations:browserProductionConfiguration', () => {
         build: 'dist',
       },
       uglifyOnProduction: true,
+      watch: {
+        production: false,
+      },
     };
     const output = {};
     const input = 'input';
-    const watch = false;
     const params = {
       target,
       input,
       output,
-      watch,
     };
     let sut = null;
     let result = null;
@@ -311,6 +312,9 @@ describe('services/configurations:browserProductionConfiguration', () => {
         build: 'dist',
       },
       uglifyOnProduction: true,
+      watch: {
+        production: true,
+      },
     };
     const output = {
       globals: {
@@ -318,12 +322,10 @@ describe('services/configurations:browserProductionConfiguration', () => {
       },
     };
     const input = 'input';
-    const watch = true;
     const params = {
       target,
       input,
       output,
-      watch,
     };
     let sut = null;
     let result = null;
@@ -383,6 +385,9 @@ describe('services/configurations:browserProductionConfiguration', () => {
         build: 'dist',
       },
       uglifyOnProduction: false,
+      watch: {
+        production: true,
+      },
     };
     const output = {
       globals: {
@@ -390,12 +395,10 @@ describe('services/configurations:browserProductionConfiguration', () => {
       },
     };
     const input = 'input';
-    const watch = true;
     const params = {
       target,
       input,
       output,
-      watch,
     };
     let sut = null;
     let result = null;
@@ -454,15 +457,16 @@ describe('services/configurations:browserProductionConfiguration', () => {
         build: 'dist',
       },
       uglifyOnProduction: true,
+      watch: {
+        production: false,
+      },
     };
     const output = {};
     const input = 'input';
-    const watch = false;
     const params = {
       target,
       input,
       output,
-      watch,
     };
     let sut = null;
     let result = null;
@@ -524,6 +528,9 @@ describe('services/configurations:browserProductionConfiguration', () => {
         build: 'dist',
       },
       uglifyOnProduction: true,
+      watch: {
+        production: false,
+      },
     };
     const output = {
       globals: {
@@ -531,12 +538,10 @@ describe('services/configurations:browserProductionConfiguration', () => {
       },
     };
     const input = 'input';
-    const watch = false;
     const params = {
       target,
       input,
       output,
-      watch,
     };
     let sut = null;
     let result = null;
@@ -595,15 +600,16 @@ describe('services/configurations:browserProductionConfiguration', () => {
         build: 'dist',
       },
       uglifyOnProduction: true,
+      watch: {
+        production: false,
+      },
     };
     const output = {};
     const input = 'input';
-    const watch = false;
     const params = {
       target,
       input,
       output,
-      watch,
     };
     let sut = null;
     let result = null;
@@ -665,15 +671,16 @@ describe('services/configurations:browserProductionConfiguration', () => {
         compress: true,
       },
       uglifyOnProduction: true,
+      watch: {
+        production: false,
+      },
     };
     const output = {};
     const input = 'input';
-    const watch = false;
     const params = {
       target,
       input,
       output,
-      watch,
     };
     let sut = null;
     let result = null;

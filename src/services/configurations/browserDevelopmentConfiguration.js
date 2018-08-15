@@ -68,7 +68,6 @@ class RollupBrowserDevelopmentConfiguration extends ConfigurationFile {
       input,
       output,
       target,
-      watch,
     } = params;
     // Create the `stats` plugin instance.
     const statsPlugin = stats({
@@ -130,7 +129,7 @@ class RollupBrowserDevelopmentConfiguration extends ConfigurationFile {
     if (target.runOnDevelopment) {
       config.watch = pluginSettings.watch;
       config.plugins.push(devServerInstance);
-    } else if (watch) {
+    } else if (target.watch.development) {
       // If the watch mode is enabled and the target won't run, just add the watch settings.
       config.watch = pluginSettings.watch;
     }

@@ -1042,6 +1042,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     const settings = {
       file: output.file,
       logger: this.appLogger,
+      inspect: params.target.inspect,
     };
     // Return the reduced configuration.
     return this.events.reduce(

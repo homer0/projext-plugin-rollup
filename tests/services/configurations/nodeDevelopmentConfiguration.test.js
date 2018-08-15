@@ -180,15 +180,16 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
       paths: {
         build: 'dist',
       },
+      watch: {
+        development: false,
+      },
     };
     const output = {};
     const input = 'input';
-    const watch = false;
     const params = {
       target,
       input,
       output,
-      watch,
     };
     let sut = null;
     let result = null;
@@ -282,6 +283,9 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
       paths: {
         build: 'dist',
       },
+      watch: {
+        development: false,
+      },
     };
     const output = {
       globals: {
@@ -289,12 +293,10 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
       },
     };
     const input = 'input';
-    const watch = false;
     const params = {
       target,
       input,
       output,
-      watch,
     };
     let sut = null;
     let result = null;
@@ -347,15 +349,16 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
         build: 'dist',
       },
       runOnDevelopment: true,
+      watch: {
+        development: false,
+      },
     };
     const output = {};
     const input = 'input';
-    const watch = false;
     const params = {
       target,
       input,
       output,
-      watch,
     };
     let sut = null;
     let result = null;
@@ -412,15 +415,16 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
         build: 'dist',
       },
       runOnDevelopment: false,
+      watch: {
+        development: true,
+      },
     };
     const output = {};
     const input = 'input';
-    const watch = true;
     const params = {
       target,
       input,
       output,
-      watch,
     };
     let sut = null;
     let result = null;
