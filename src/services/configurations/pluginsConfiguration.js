@@ -2,6 +2,7 @@ const fs = require('fs-extra');
 const postcss = require('postcss');
 const postcssModules = require('postcss-modules');
 const builtinModules = require('builtin-modules');
+const nodeSass = require('node-sass');
 const { provider } = require('jimple');
 const ConfigurationFile = require('../../abstracts/configurationFile');
 /**
@@ -394,10 +395,12 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     const settings = {
       include: [...scssRule.files.include],
       exclude: [...scssRule.files.exclude],
+      runtime: nodeSass,
       options: {
         sourceMapEmbed: true,
         outputStyle: 'compressed',
         includePaths: ['node_modules'],
+        data: '',
       },
       processor: this._getStylesProcessor(target.css.modules),
       failOnError: true,
