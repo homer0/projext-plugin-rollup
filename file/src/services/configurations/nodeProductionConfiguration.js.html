@@ -80,6 +80,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://yarnpkg.com/en/package/jimple">Jimple</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/logger.js~Logger.html">Logger</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="http://expressjs.com/en/guide/using-middleware.html">Middleware</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/typedef/index.html#static-typedef-NodeInspectorSettings">NodeInspectorSettings</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/pathUtils.js~PathUtils.html">PathUtils</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/class/src/app/index.js~Projext.html">Projext</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/typedef/index.html#static-typedef-Target">Target</a></span></span></li>
@@ -202,7 +203,11 @@ class RollupNodeProductionConfiguration extends ConfigurationFile {
    * @return {Object}
    */
   createConfig(params) {
-    const { input, output, target } = params;
+    const {
+      input,
+      output,
+      target,
+    } = params;
     // Create the `stats` plugin instance.
     const statsPlugin = stats({
       path: `${target.paths.build}/`,
@@ -245,6 +250,10 @@ class RollupNodeProductionConfiguration extends ConfigurationFile {
       plugins,
       external,
     };
+    // If the watch mode is enabled, add the watch settings.
+    if (target.watch.production) {
+      config.watch = pluginSettings.watch;
+    }
     // Return the reduced configuration.
     return this.events.reduce(
       [

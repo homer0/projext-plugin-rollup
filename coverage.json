@@ -1,7 +1,7 @@
 {
   "coverage": "100%",
-  "expectCount": 320,
-  "actualCount": 320,
+  "expectCount": 322,
+  "actualCount": 322,
   "files": {
     "src/abstracts/configurationFile.js": {
       "expectCount": 13,
@@ -59,8 +59,8 @@
       "undocumentLines": []
     },
     "src/plugins/nodeRunner/index.js": {
-      "expectCount": 16,
-      "actualCount": 16,
+      "expectCount": 18,
+      "actualCount": 18,
       "undocumentLines": []
     },
     "src/plugins/stats/index.js": {

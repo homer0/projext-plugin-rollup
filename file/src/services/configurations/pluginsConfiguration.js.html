@@ -80,6 +80,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://yarnpkg.com/en/package/jimple">Jimple</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/logger.js~Logger.html">Logger</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="http://expressjs.com/en/guide/using-middleware.html">Middleware</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/typedef/index.html#static-typedef-NodeInspectorSettings">NodeInspectorSettings</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/pathUtils.js~PathUtils.html">PathUtils</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/class/src/app/index.js~Projext.html">Projext</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/typedef/index.html#static-typedef-Target">Target</a></span></span></li>
@@ -144,6 +145,7 @@
 const postcss = require(&apos;postcss&apos;);
 const postcssModules = require(&apos;postcss-modules&apos;);
 const builtinModules = require(&apos;builtin-modules&apos;);
+const nodeSass = require(&apos;node-sass&apos;);
 const { provider } = require(&apos;jimple&apos;);
 const ConfigurationFile = require(&apos;../../abstracts/configurationFile&apos;);
 /**
@@ -536,10 +538,12 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     const settings = {
       include: [...scssRule.files.include],
       exclude: [...scssRule.files.exclude],
+      runtime: nodeSass,
       options: {
         sourceMapEmbed: true,
         outputStyle: &apos;compressed&apos;,
         includePaths: [&apos;node_modules&apos;],
+        data: &apos;&apos;,
       },
       processor: this._getStylesProcessor(target.css.modules),
       failOnError: true,
@@ -1184,6 +1188,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     const settings = {
       file: output.file,
       logger: this.appLogger,
+      inspect: params.target.inspect,
     };
     // Return the reduced configuration.
     return this.events.reduce(
@@ -1353,9 +1358,19 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
         }));
       }
 
-      return postcss(plugins)
-      // Process the stylesheet code.
-      .process(css, options)
+      let processor;
+      // Avoid using `postcss` if not needed
+      if (plugins.length || options.map || options.from) {
+        processor = postcss(plugins)
+        // Process the stylesheet code.
+        .process(css, options);
+      } else {
+        processor = Promise.resolve({
+          css: css.replace(map, &apos;&apos;).trim(),
+        });
+      }
+
+      return processor
       .then((processed) =&gt; {
         // Add the source map if needed.
         const cssCode = options.map ?
