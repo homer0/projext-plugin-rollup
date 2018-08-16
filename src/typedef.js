@@ -95,6 +95,11 @@
   */
 
 /**
+ * @external {NodeInspectorSettings}
+ * https://homer0.github.io/projext/typedef/index.html#static-typedef-NodeInspectorSettings
+ */
+
+/**
  * @external {Middleware}
  * http://expressjs.com/en/guide/using-middleware.html
  */
@@ -300,6 +305,8 @@
  * @property {string}                             file    The file to execute
  * @property {?Logger}                            logger  A custom logger to log the server
  *                                                        events.
+ * @property {?NodeInspectorSettings}             inspect The custom settings for the Node
+ *                                                        Inspector.
  * @property {ProjextRollupNodeRunnerPluginEvent} onStart A callback to be called when the
  *                                                        execution starts.
  * @property {ProjextRollupNodeRunnerPluginEvent} onStop  A callback to be called when the

@@ -44,33 +44,53 @@ class RollupBuildEngine {
      * that will be retrieved when generating the configuration.
      * The keys are the purpose and the values the actual names of the variables.
      * @type {Object}
-     * @property {string} target The name of the target being builded.
-     * @property {string} type   The intended build type: `development` or `production`.
-     * @property {string} run    Whether or not to execute the target. This will be like a fake
-     *                           boolean as the CLI doesn't support boolean variables, so its value
-     *                           will be either `'true'` or `'false'`.
+     * @property {string} target  The name of the target being builded.
+     * @property {string} type    The intended build type: `development` or `production`.
+     * @property {string} run     Whether or not to execute the target. This will be like a fake
+     *                            boolean as the CLI doesn't support boolean variables, so its
+     *                            value will be either `'true'` or `'false'`.
+     * @property {string} watch   Whether or not to watch the target files. This will be like a
+     *                            fake boolean as the CLI doesn't support boolean variables, so
+     *                            its value will be either `'true'` or `'false'`.
+     * @property {string} inspect Whether or not to enable the Node inspector. This will be like a
+     *                            fake boolean as the CLI doesn't support boolean variables, so its
+     *                            value will be either `'true'` or `'false'`.
      * @access protected
      * @ignore
      */
     this._envVars = {
-      target: 'PROJEXT_ROLLUP_TARGET',
-      type: 'PROJEXT_ROLLUP_BUILD_TYPE',
-      run: 'PROJEXT_ROLLUP_RUN',
+      target: 'PXTRP_TARGET',
+      type: 'PXTRP_TYPE',
+      run: 'PXTRP_RUN',
+      watch: 'PXTRP_WATCH',
+      inspect: 'PXTRP_INSPECT',
     };
   }
   /**
    * Get the CLI build command to bundle a target.
-   * @param  {Target}  target           The target information.
-   * @param  {string}  buildType        The intended build type: `development` or `production`.
-   * @param  {boolean} [forceRun=false] Force the target to run even if the `runOnDevelopment`
-   *                                    setting is `false`.
+   * @param {Target}  target               The target information.
+   * @param {string}  buildType            The intended build type: `development` or `production`.
+   * @param {boolean} [forceRun=false]     Force the target to run even if the `runOnDevelopment`
+   *                                       setting is `false`.
+   * @param {boolean} [forceWatch=false]   Force Rollup to use the watch mode even if the `watch`
+   *                                       setting for the required build type is set to `false`.
+   * @param {boolean} [forceInspect=false] Enables the Node inspector even if the target setting
+   *                                       is set to `false`.
    * @return {string}
    */
-  getBuildCommand(target, buildType, forceRun = false) {
+  getBuildCommand(
+    target,
+    buildType,
+    forceRun = false,
+    forceWatch = false,
+    forceInspect = false
+  ) {
     const vars = this._getEnvVarsAsString({
       target: target.name,
       type: buildType,
       run: forceRun,
+      watch: forceWatch,
+      inspect: forceInspect,
     });
 
     const config = path.join(
@@ -81,7 +101,7 @@ class RollupBuildEngine {
 
     const optionsList = [];
 
-    if ((buildType === 'development' && target.runOnDevelopment) || forceRun) {
+    if ((buildType === 'development' && target.runOnDevelopment) || forceRun || forceWatch) {
       optionsList.push('--watch');
     }
 
@@ -110,10 +130,17 @@ class RollupBuildEngine {
       throw new Error('This file can only be run by using the `build` command');
     }
 
-    const { type, run } = vars;
+    const { type, run, inspect } = vars;
     const target = Object.assign({}, this.targets.getTarget(vars.target));
     if (run === 'true') {
       target.runOnDevelopment = true;
+      if (inspect === 'true') {
+        target.inspect.enabled = true;
+      }
+    }
+
+    if (vars.watch === 'true') {
+      target.watch[type] = true;
     }
 
     return this.getConfiguration(target, type);
@@ -126,7 +153,7 @@ class RollupBuildEngine {
    *   target: 'my-target',
    *   type: 'development',
    * });
-   * // will output `PROJEXT_ROLLUP_TARGET=my-target PROJEXT_ROLLUP_BUILD_TYPE=development`
+   * // will output `PXTRP_TARGET=my-target PXTRP_TYPE=development`
    * @param {object} values A dictionary with the purpose(alias) of the variables as keys.
    * @return {string}
    * @access protected

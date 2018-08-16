@@ -180,6 +180,9 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
       paths: {
         build: 'dist',
       },
+      watch: {
+        development: false,
+      },
     };
     const output = {};
     const input = 'input';
@@ -280,6 +283,9 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
       paths: {
         build: 'dist',
       },
+      watch: {
+        development: false,
+      },
     };
     const output = {
       globals: {
@@ -343,6 +349,9 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
         build: 'dist',
       },
       runOnDevelopment: true,
+      watch: {
+        development: false,
+      },
     };
     const output = {};
     const input = 'input';
@@ -388,6 +397,69 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
     });
     expect(plugins.mocks.nodeRunner).toHaveBeenCalledTimes(1);
     expect(plugins.mocks.nodeRunner).toHaveBeenCalledWith(plugins.settings.nodeRunner);
+  });
+
+  it('should create a configuration for a target that will be watched', () => {
+    // Given
+    const plugins = getPlugins();
+    const events = {
+      reduce: jest.fn((eventNames, config) => config),
+    };
+    const pathUtils = 'pathUtils';
+    const rollupPluginSettingsConfiguration = {
+      getConfig: jest.fn(() => plugins.settings),
+    };
+    const target = {
+      css: {},
+      paths: {
+        build: 'dist',
+      },
+      runOnDevelopment: false,
+      watch: {
+        development: true,
+      },
+    };
+    const output = {};
+    const input = 'input';
+    const params = {
+      target,
+      input,
+      output,
+    };
+    let sut = null;
+    let result = null;
+    // When
+    sut = new RollupNodeDevelopmentConfiguration(
+      events,
+      pathUtils,
+      rollupPluginSettingsConfiguration
+    );
+    result = sut.getConfig(params);
+    // Then
+    expect(result).toEqual({
+      input,
+      output: Object.assign({}, output, {
+        globals: plugins.settings.globals,
+      }),
+      plugins: [
+        plugins.values.statsReset,
+        plugins.values.resolve,
+        plugins.values.commonjs,
+        plugins.values.babel,
+        plugins.values.replace,
+        plugins.values.sass,
+        plugins.values.css,
+        plugins.values.stylesheetAssetsHelper,
+        plugins.values.stylesheetAssets,
+        plugins.values.html,
+        plugins.values.json,
+        plugins.values.urls,
+        plugins.values.copy,
+        plugins.values.statsLog,
+      ],
+      external: plugins.settings.external.external,
+      watch: plugins.settings.watch,
+    });
   });
 
   it('should include a provider for the DIC', () => {

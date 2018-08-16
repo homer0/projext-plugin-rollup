@@ -25,6 +25,13 @@ class ProjextRollupNodeRunnerPlugin {
       {
         file: null,
         logger: null,
+        inspect: {
+          enabled: false,
+          host: '0.0.0.0',
+          port: 9229,
+          command: 'inspect',
+          ndb: false,
+        },
         onStart: () => {},
         onStop: () => {},
       },
@@ -37,6 +44,13 @@ class ProjextRollupNodeRunnerPlugin {
     this.name = name;
     // Validate the received options before doing anything else.
     this._validateOptions();
+    /**
+     * The options that are going to be sent to the `fork` function.
+     * @type {Object}
+     * @access protected
+     * @ignore
+     */
+    this._forkOptions = this._createForkOptions();
     /**
      * Validate the options and either create or assign a {@link Logger} instance for the plugin.
      * @type {Logger}
@@ -95,6 +109,31 @@ class ProjextRollupNodeRunnerPlugin {
     }
   }
   /**
+   * Generates the options for the `fork` function by evluating the inspect options.
+   * @return {Object}
+   * @access protected
+   * @ignore
+   */
+  _createForkOptions() {
+    const result = {};
+    const {
+      enabled,
+      host,
+      port,
+      command,
+      ndb,
+    } = this._options.inspect;
+    if (enabled) {
+      if (ndb) {
+        result.execPath = 'ndb';
+      } else {
+        result.execArgv = [`--${command}=${host}:${port}`];
+      }
+    }
+
+    return result;
+  }
+  /**
    * Starts the execution of the bundle.
    * @throws {Error} If the bundled file doesn't exist.
    * @access protected
@@ -108,7 +147,7 @@ class ProjextRollupNodeRunnerPlugin {
     // Log an information message.
     this._logger.success(`Starting bundle execution: ${this._options.file}`);
     // Execute the bundle.
-    this._instance = fork(this._options.file);
+    this._instance = fork(this._options.file, [], this._forkOptions);
     // Start listening for termination events.
     this._startListeningForTermination();
     // Invoke the `onStart` callback.

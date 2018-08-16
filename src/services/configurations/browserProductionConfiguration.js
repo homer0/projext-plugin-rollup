@@ -65,7 +65,11 @@ class RollupBrowserProductionConfiguration extends ConfigurationFile {
    * @return {Object}
    */
   createConfig(params) {
-    const { target, input, output } = params;
+    const {
+      target,
+      input,
+      output,
+    } = params;
     // Create the `stats` plugin instance.
     const statsPlugin = stats({
       path: `${target.paths.build}/`,
@@ -94,7 +98,11 @@ class RollupBrowserProductionConfiguration extends ConfigurationFile {
       html(pluginSettings.html),
       json(pluginSettings.json),
       urls(pluginSettings.urls),
-      uglify(pluginSettings.uglify),
+      ...(
+        target.uglifyOnProduction ?
+          [uglify(pluginSettings.uglify)] :
+          []
+      ),
       copy(pluginSettings.copy),
     ];
     // If the target is not a library, push the template plugin for the HTML file.
@@ -126,6 +134,10 @@ class RollupBrowserProductionConfiguration extends ConfigurationFile {
       plugins,
       external,
     };
+    // If the watch mode is enabled, add the watch settings.
+    if (target.watch.production) {
+      config.watch = pluginSettings.watch;
+    }
     // Return the reduced configuration.
     return this.events.reduce(
       [

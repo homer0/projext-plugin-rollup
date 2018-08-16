@@ -4,6 +4,7 @@ const ConfigurationFileMock = require('/tests/mocks/configurationFile.mock');
 jest.mock('jimple', () => JimpleMock);
 jest.mock('fs-extra');
 jest.mock('postcss');
+jest.mock('node-sass', () => 'node-sass');
 jest.mock('postcss-modules', () => jest.fn());
 jest.mock('/src/abstracts/configurationFile', () => ConfigurationFileMock);
 jest.unmock('/src/services/configurations/pluginsConfiguration');
@@ -90,6 +91,9 @@ describe('services/configurations:plugins', () => {
       is: {
         node: true,
         browser: false,
+      },
+      inspect: {
+        enabled: false,
       },
     };
     const rules = {
@@ -289,10 +293,12 @@ describe('services/configurations:plugins', () => {
       sass: {
         include: rules.scss.files.include,
         exclude: rules.scss.files.exclude,
+        runtime: 'node-sass',
         options: {
           sourceMapEmbed: true,
           outputStyle: 'compressed',
           includePaths: ['node_modules'],
+          data: '',
         },
         failOnError: true,
         processor: expect.any(Function),
@@ -358,6 +364,7 @@ describe('services/configurations:plugins', () => {
       nodeRunner: {
         file: output.file,
         logger: appLogger,
+        inspect: target.inspect,
       },
       stylesheetAssetsHelper: {
         include: [
@@ -761,10 +768,12 @@ describe('services/configurations:plugins', () => {
       sass: {
         include: rules.scss.files.include,
         exclude: rules.scss.files.exclude,
+        runtime: 'node-sass',
         options: {
           sourceMapEmbed: true,
           outputStyle: 'compressed',
           includePaths: ['node_modules'],
+          data: '',
         },
         failOnError: true,
         processor: expect.any(Function),
@@ -1235,10 +1244,12 @@ describe('services/configurations:plugins', () => {
       sass: {
         include: rules.scss.files.include,
         exclude: rules.scss.files.exclude,
+        runtime: 'node-sass',
         options: {
           sourceMapEmbed: true,
           outputStyle: 'compressed',
           includePaths: ['node_modules'],
+          data: '',
         },
         failOnError: true,
         processor: expect.any(Function),
@@ -1720,10 +1731,12 @@ describe('services/configurations:plugins', () => {
       sass: {
         include: rules.scss.files.include,
         exclude: rules.scss.files.exclude,
+        runtime: 'node-sass',
         options: {
           sourceMapEmbed: true,
           outputStyle: 'compressed',
           includePaths: ['node_modules'],
+          data: '',
         },
         failOnError: true,
         processor: expect.any(Function),
@@ -2208,10 +2221,12 @@ describe('services/configurations:plugins', () => {
       sass: {
         include: rules.scss.files.include,
         exclude: rules.scss.files.exclude,
+        runtime: 'node-sass',
         options: {
           sourceMapEmbed: true,
           outputStyle: 'compressed',
           includePaths: ['node_modules'],
+          data: '',
         },
         failOnError: true,
         processor: expect.any(Function),
@@ -2697,10 +2712,12 @@ describe('services/configurations:plugins', () => {
       sass: {
         include: rules.scss.files.include,
         exclude: rules.scss.files.exclude,
+        runtime: 'node-sass',
         options: {
           sourceMapEmbed: true,
           outputStyle: 'compressed',
           includePaths: ['node_modules'],
+          data: '',
         },
         failOnError: true,
         processor: expect.any(Function),
@@ -2961,11 +2978,6 @@ describe('services/configurations:plugins', () => {
 
   it('should generate the settings for processing SASS', () => {
     // Given
-    postcss.mockImplementationOnce(() => ({
-      process: jest.fn((css) => Promise.resolve({
-        css: css.split('/').shift().trim(),
-      })),
-    }));
     const postcssModulesName = 'postcss-modules-plugin';
     postcssModules.mockImplementationOnce(() => postcssModulesName);
     const buildType = 'development';
@@ -3158,8 +3170,7 @@ describe('services/configurations:plugins', () => {
     .then((processed) => {
       expect(processed).toBe(`${cssCode}\n\n${cssMapStr}\n`);
       expect(postcssModules).toHaveBeenCalledTimes(0);
-      expect(postcss).toHaveBeenCalledTimes(1);
-      expect(postcss).toHaveBeenCalledWith([]);
+      expect(postcss).toHaveBeenCalledTimes(0);
     })
     .catch(() => {
       expect(true).toBeFalse();

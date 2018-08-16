@@ -61,7 +61,11 @@ class RollupNodeDevelopmentConfiguration extends ConfigurationFile {
    * @return {Object}
    */
   createConfig(params) {
-    const { input, output, target } = params;
+    const {
+      input,
+      output,
+      target,
+    } = params;
     // Create the `stats` plugin instance.
     const statsPlugin = stats({
       path: `${target.paths.build}/`,
@@ -108,6 +112,9 @@ class RollupNodeDevelopmentConfiguration extends ConfigurationFile {
     if (target.runOnDevelopment) {
       config.watch = pluginSettings.watch;
       config.plugins.push(nodeRunner(pluginSettings.nodeRunner));
+    } else if (target.watch.development) {
+      // If the watch mode is enabled and the target won't run, just add the watch settings.
+      config.watch = pluginSettings.watch;
     }
     // Return the reduced configuration.
     return this.events.reduce(

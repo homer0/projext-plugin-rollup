@@ -2,6 +2,7 @@ const fs = require('fs-extra');
 const postcss = require('postcss');
 const postcssModules = require('postcss-modules');
 const builtinModules = require('builtin-modules');
+const nodeSass = require('node-sass');
 const { provider } = require('jimple');
 const ConfigurationFile = require('../../abstracts/configurationFile');
 /**
@@ -394,10 +395,12 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     const settings = {
       include: [...scssRule.files.include],
       exclude: [...scssRule.files.exclude],
+      runtime: nodeSass,
       options: {
         sourceMapEmbed: true,
         outputStyle: 'compressed',
         includePaths: ['node_modules'],
+        data: '',
       },
       processor: this._getStylesProcessor(target.css.modules),
       failOnError: true,
@@ -1042,6 +1045,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     const settings = {
       file: output.file,
       logger: this.appLogger,
+      inspect: params.target.inspect,
     };
     // Return the reduced configuration.
     return this.events.reduce(
@@ -1211,9 +1215,19 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
         }));
       }
 
-      return postcss(plugins)
-      // Process the stylesheet code.
-      .process(css, options)
+      let processor;
+      // Avoid using `postcss` if not needed
+      if (plugins.length || options.map || options.from) {
+        processor = postcss(plugins)
+        // Process the stylesheet code.
+        .process(css, options);
+      } else {
+        processor = Promise.resolve({
+          css: css.replace(map, '').trim(),
+        });
+      }
+
+      return processor
       .then((processed) => {
         // Add the source map if needed.
         const cssCode = options.map ?
