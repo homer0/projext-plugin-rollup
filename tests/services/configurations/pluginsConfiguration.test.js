@@ -4,6 +4,7 @@ const ConfigurationFileMock = require('/tests/mocks/configurationFile.mock');
 jest.mock('jimple', () => JimpleMock);
 jest.mock('fs-extra');
 jest.mock('postcss');
+jest.mock('node-sass', () => 'node-sass');
 jest.mock('postcss-modules', () => jest.fn());
 jest.mock('/src/abstracts/configurationFile', () => ConfigurationFileMock);
 jest.unmock('/src/services/configurations/pluginsConfiguration');
@@ -292,10 +293,12 @@ describe('services/configurations:plugins', () => {
       sass: {
         include: rules.scss.files.include,
         exclude: rules.scss.files.exclude,
+        runtime: 'node-sass',
         options: {
           sourceMapEmbed: true,
           outputStyle: 'compressed',
           includePaths: ['node_modules'],
+          data: '',
         },
         failOnError: true,
         processor: expect.any(Function),
@@ -765,10 +768,12 @@ describe('services/configurations:plugins', () => {
       sass: {
         include: rules.scss.files.include,
         exclude: rules.scss.files.exclude,
+        runtime: 'node-sass',
         options: {
           sourceMapEmbed: true,
           outputStyle: 'compressed',
           includePaths: ['node_modules'],
+          data: '',
         },
         failOnError: true,
         processor: expect.any(Function),
@@ -1239,10 +1244,12 @@ describe('services/configurations:plugins', () => {
       sass: {
         include: rules.scss.files.include,
         exclude: rules.scss.files.exclude,
+        runtime: 'node-sass',
         options: {
           sourceMapEmbed: true,
           outputStyle: 'compressed',
           includePaths: ['node_modules'],
+          data: '',
         },
         failOnError: true,
         processor: expect.any(Function),
@@ -1724,10 +1731,12 @@ describe('services/configurations:plugins', () => {
       sass: {
         include: rules.scss.files.include,
         exclude: rules.scss.files.exclude,
+        runtime: 'node-sass',
         options: {
           sourceMapEmbed: true,
           outputStyle: 'compressed',
           includePaths: ['node_modules'],
+          data: '',
         },
         failOnError: true,
         processor: expect.any(Function),
@@ -2212,10 +2221,12 @@ describe('services/configurations:plugins', () => {
       sass: {
         include: rules.scss.files.include,
         exclude: rules.scss.files.exclude,
+        runtime: 'node-sass',
         options: {
           sourceMapEmbed: true,
           outputStyle: 'compressed',
           includePaths: ['node_modules'],
+          data: '',
         },
         failOnError: true,
         processor: expect.any(Function),
@@ -2701,10 +2712,12 @@ describe('services/configurations:plugins', () => {
       sass: {
         include: rules.scss.files.include,
         exclude: rules.scss.files.exclude,
+        runtime: 'node-sass',
         options: {
           sourceMapEmbed: true,
           outputStyle: 'compressed',
           includePaths: ['node_modules'],
+          data: '',
         },
         failOnError: true,
         processor: expect.any(Function),
