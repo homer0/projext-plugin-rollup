@@ -1215,9 +1215,19 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
         }));
       }
 
-      return postcss(plugins)
-      // Process the stylesheet code.
-      .process(css, options)
+      let processor;
+      // Avoid using `postcss` if not needed
+      if (plugins.length || options.map || options.from) {
+        processor = postcss(plugins)
+        // Process the stylesheet code.
+        .process(css, options);
+      } else {
+        processor = Promise.resolve({
+          css: css.replace(map, '').trim(),
+        });
+      }
+
+      return processor
       .then((processed) => {
         // Add the source map if needed.
         const cssCode = options.map ?

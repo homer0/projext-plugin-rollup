@@ -2978,11 +2978,6 @@ describe('services/configurations:plugins', () => {
 
   it('should generate the settings for processing SASS', () => {
     // Given
-    postcss.mockImplementationOnce(() => ({
-      process: jest.fn((css) => Promise.resolve({
-        css: css.split('/').shift().trim(),
-      })),
-    }));
     const postcssModulesName = 'postcss-modules-plugin';
     postcssModules.mockImplementationOnce(() => postcssModulesName);
     const buildType = 'development';
@@ -3175,8 +3170,7 @@ describe('services/configurations:plugins', () => {
     .then((processed) => {
       expect(processed).toBe(`${cssCode}\n\n${cssMapStr}\n`);
       expect(postcssModules).toHaveBeenCalledTimes(0);
-      expect(postcss).toHaveBeenCalledTimes(1);
-      expect(postcss).toHaveBeenCalledWith([]);
+      expect(postcss).toHaveBeenCalledTimes(0);
     })
     .catch(() => {
       expect(true).toBeFalse();
