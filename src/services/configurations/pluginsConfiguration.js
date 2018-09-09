@@ -851,6 +851,33 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     if (atLeastOneSSLSetting) {
       settings.https = sslSettings;
     }
+    /**
+     * Build the _"proxied settings"_ in case the server is behind a proxy. This will tell the
+     * dev server plugin to build a URL using these settings and use it for opening the browser
+     * and logging messages, instead of the base one.
+     */
+    if (devServer.proxied.enabled) {
+      /**
+       * Define the proxied host by checking if one was defined on the settings. If there's no
+       * host, it will fallback to the one on the base settings.
+       */
+      const proxiedHost = devServer.proxied.host === null ?
+        settings.host :
+        devServer.proxied.host;
+      /**
+       * Define whether to use HTTPS by checking the settings. If it wasn't specified, it will
+       * only set it to `true` if one of the SSL files for the base config exists.
+       */
+      const proxiedHTTPS = devServer.proxied.https === null ?
+        atLeastOneSSLSetting :
+        devServer.proxied.https;
+      // Add the `proxied` settings to the object to be returned.
+      settings.proxied = {
+        host: proxiedHost,
+        https: proxiedHTTPS,
+      };
+    }
+
     // Return the reduced configuration.
     return this.events.reduce(
       'rollup-dev-server-plugin-settings-configuration',

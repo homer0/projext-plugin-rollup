@@ -264,29 +264,36 @@
 
 /**
  * @typedef {Object} ProjextRollupDevServerPluginOptions
- * @property {string}                            host               The server hostname.
- * @property {number}                            port               The server port.
- * @property {Array|string}                      contentBase        The directory from where the
- *                                                                  files are going to be served.
- *                                                                  It can be a single directory
- *                                                                  or a list of them.
- * @property {boolean}                           historyApiFallback Whether or not the server
- *                                                                  should redirect the user to
- *                                                                  the `index.html` after a
- *                                                                  `404`.
- * @property {null|HTTPSOptions}                 https              The required files to run the
- *                                                                  server on HTTPs. They are the
- *                                                                  same that `https.createServer`
- *                                                                  supports.
- * @property {boolean}                           open               Whether or not the browser
- *                                                                  should be opened after
- *                                                                  starting the server.
- * @property {?Logger}                           logger             A custom logger to log the
- *                                                                  server events.
- * @property {ProjextRollupDevServerPluginEvent} onStart            A callback to be called when
- *                                                                  the server starts.
- * @property {ProjextRollupDevServerPluginEvent} onStop             A callback to be called when
- *                                                                  the server stops.
+ * @property {string} host
+ * The host used to proxy the dev server.
+ * @property {boolean} https
+ * Whether or not the proxied host uses `https`.
+ */
+
+/**
+ * @typedef {Object} ProjextRollupDevServerPluginOptions
+ * @property {string} host
+ * The server hostname.
+ * @property {number} port
+ * The server port.
+ * @property {Array|string} contentBase
+ * The directory from where the files are going to be served. It can be a single directory or a
+ * list of them.
+ * @property {boolean} historyApiFallback
+ * Whether or not the server should redirect the user to the `index.html` after a `404`.
+ * @property {null|HTTPSOptions} https
+ * The required files to run the server on HTTPs. They are the same that `https.createServer`
+ * supports.
+ * @property {boolean} open
+ * Whether or not the browser should be opened after starting the server.
+ * @property {?Logger} logger
+ * A custom logger to log the server events.
+ * @property {?ProjextRollupDevServerPluginProxiedSettings} proxied
+ * The settings in case the server is being proxied.
+ * @property {ProjextRollupDevServerPluginEvent} onStart
+ * A callback to be called when the server starts.
+ * @property {ProjextRollupDevServerPluginEvent} onStop
+ * A callback to be called when the server stops.
  */
 
 /**
