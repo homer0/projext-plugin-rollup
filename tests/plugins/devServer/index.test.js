@@ -63,6 +63,7 @@ describe('plugins:devServer', () => {
       https: null,
       open: true,
       logger: null,
+      proxied: null,
       onStart: expect.any(Function),
       onStop: expect.any(Function),
     });
@@ -86,6 +87,10 @@ describe('plugins:devServer', () => {
       },
       open: false,
       logger: 'logger',
+      proxied: {
+        enabled: true,
+        host: 'my-host',
+      },
       onStart: jest.fn(),
       onStop: jest.fn(),
     };
@@ -98,6 +103,68 @@ describe('plugins:devServer', () => {
     // Then
     expect(sut).toBeInstanceOf(ProjextRollupDevServerPlugin);
     expect(sut.name).toBe(name);
+    expect(sut.url).toBe(`https://${options.host}:${options.port}`);
+    expect(result).toEqual(options);
+  });
+
+  it('should be instantiated with a custom proxied host', () => {
+    // Given
+    const options = {
+      host: 'my-host',
+      port: 2509,
+      contentBase: ['/'],
+      historyApiFallback: true,
+      https: null,
+      open: false,
+      logger: 'logger',
+      proxied: {
+        enabled: true,
+        host: 'my-proxied-host',
+      },
+      onStart: jest.fn(),
+      onStop: jest.fn(),
+    };
+    const name = 'my-dev-server-plugin';
+    let sut = null;
+    let result = null;
+    // When
+    sut = new ProjextRollupDevServerPlugin(options, name);
+    result = sut.getOptions();
+    // Then
+    expect(sut).toBeInstanceOf(ProjextRollupDevServerPlugin);
+    expect(sut.name).toBe(name);
+    expect(sut.url).toBe(`http://${options.proxied.host}`);
+    expect(result).toEqual(options);
+  });
+
+  it('should be instantiated with a custom SSL proxied host', () => {
+    // Given
+    const options = {
+      host: 'my-host',
+      port: 2509,
+      contentBase: ['/'],
+      historyApiFallback: true,
+      https: null,
+      open: false,
+      logger: 'logger',
+      proxied: {
+        enabled: true,
+        host: 'my-proxied-host',
+        https: true,
+      },
+      onStart: jest.fn(),
+      onStop: jest.fn(),
+    };
+    const name = 'my-dev-server-plugin';
+    let sut = null;
+    let result = null;
+    // When
+    sut = new ProjextRollupDevServerPlugin(options, name);
+    result = sut.getOptions();
+    // Then
+    expect(sut).toBeInstanceOf(ProjextRollupDevServerPlugin);
+    expect(sut.name).toBe(name);
+    expect(sut.url).toBe(`https://${options.proxied.host}`);
     expect(result).toEqual(options);
   });
 

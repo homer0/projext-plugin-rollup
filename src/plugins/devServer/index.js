@@ -42,6 +42,7 @@ class ProjextRollupDevServerPlugin {
         https: null,
         open: true,
         logger: null,
+        proxied: null,
         onStart: () => {},
         onStop: () => {},
       },
@@ -175,8 +176,27 @@ class ProjextRollupDevServerPlugin {
    * @ignore
    */
   _createServerURL() {
-    const protocol = this._options.https ? 'https' : 'http';
-    return `${protocol}://${this._options.host}:${this._options.port}`;
+    let url;
+    const {
+      https: useHTTPS,
+      host,
+      port,
+      proxied,
+    } = this._options;
+    /**
+     * If the server is being proxied and the host is different form the one on the base config,
+     * build the URL using the _"proxied settings"_.
+     */
+    if (proxied && proxied.host !== host) {
+      const proxiedProtocol = proxied.https ? 'https' : 'http';
+      url = `${proxiedProtocol}://${proxied.host}`;
+    } else {
+      // ...otherwise, use the base config.
+      const protocol = useHTTPS ? 'https' : 'http';
+      url = `${protocol}://${host}:${port}`;
+    }
+
+    return url;
   }
   /**
    * Normalizes the `contentBase` option into an array.
