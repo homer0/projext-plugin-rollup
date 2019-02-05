@@ -58,7 +58,7 @@ describe('plugins:stylesheetAssets', () => {
     // Then
     expect(sut).toBeInstanceOf(ProjextRollupStylesheetAssetsPlugin);
     expect(sut.name).toBe('projext-rollup-plugin-stylesheet-assets');
-    expect(sut.generateBundle).toBeFunction();
+    expect(sut.writeBundle).toBeFunction();
     expect(result).toEqual({
       stylesheet: options.stylesheet,
       insertFnNames: [
@@ -119,7 +119,7 @@ describe('plugins:stylesheetAssets', () => {
     let sut = null;
     // When
     sut = new ProjextRollupStylesheetAssetsPlugin(options);
-    sut.generateBundle();
+    sut.writeBundle();
     // Then
     expect(fs.pathExistsSync).toHaveBeenCalledTimes(1);
     expect(fs.pathExistsSync).toHaveBeenCalledWith(options.stylesheet);
@@ -203,7 +203,7 @@ describe('plugins:stylesheetAssets', () => {
     .join('\n');
     // When
     sut = new ProjextRollupStylesheetAssetsPlugin(options);
-    sut.generateBundle();
+    sut.writeBundle();
     // Then
     expect(fs.pathExistsSync).toHaveBeenCalledTimes(4);
     expect(fs.pathExistsSync).toHaveBeenCalledWith(options.stylesheet);
@@ -360,7 +360,7 @@ describe('plugins:stylesheetAssets', () => {
     ].join('\n\n');
     // When
     sut = new ProjextRollupStylesheetAssetsPlugin(options);
-    sut.generateBundle();
+    sut.writeBundle();
     // Then
     expect(fs.pathExistsSync).toHaveBeenCalledTimes(4);
     expect(fs.pathExistsSync).toHaveBeenCalledWith(options.stylesheet);
@@ -451,7 +451,7 @@ describe('plugins:stylesheetAssets', () => {
     // Then
     expect(sut).toBeInstanceOf(ProjextRollupStylesheetAssetsPlugin);
     expect(sut.name).toBe('projext-rollup-plugin-stylesheet-assets');
-    expect(sut.generateBundle).toBeFunction();
+    expect(sut.writeBundle).toBeFunction();
     expect(rollupUtils.createFilter).toHaveBeenCalledTimes(1);
     expect(rollupUtils.createFilter).toHaveBeenCalledWith(url.include, url.exclude);
     expect(stylesheetAssets.helper).toBe(ProjextRollupStylesheetAssetsPlugin.helper);

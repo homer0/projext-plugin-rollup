@@ -112,7 +112,7 @@ class ProjextRollupDevServerPlugin {
     /**
      * @ignore
      */
-    this.generateBundle = this.generateBundle.bind(this);
+    this.writeBundle = this.writeBundle.bind(this);
     /**
      * @ignore
      */
@@ -136,7 +136,7 @@ class ProjextRollupDevServerPlugin {
    */
   showURL() {
     return {
-      generateBundle: () => {
+      writeBundle: () => {
         // A small _"timeout-hack"_ to show the message after Rollup's output
         setTimeout(() => this._logger.success(`Your app is running on ${this.url}`), 0);
       },
@@ -146,7 +146,7 @@ class ProjextRollupDevServerPlugin {
    * This is called after Rollup finishes writing the files on the file system. It checks if
    * there's an instance of the server running and if there isn't, it creates a new one.
    */
-  generateBundle() {
+  writeBundle() {
     // Validate that there's no instance already running.
     if (!this._instance) {
       // Get the server basic options.

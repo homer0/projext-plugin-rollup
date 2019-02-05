@@ -94,7 +94,7 @@ class ProjextRollupTemplatePlugin {
     /**
      * @ignore
      */
-    this.generateBundle = this.generateBundle.bind(this);
+    this.writeBundle = this.writeBundle.bind(this);
   }
   /**
    * Gets the plugin options
@@ -107,7 +107,7 @@ class ProjextRollupTemplatePlugin {
    * This is called by Rollup after writing the files on the file system. This is where the plugin
    * parses the template and generates the HTML file.
    */
-  generateBundle() {
+  writeBundle() {
     // Reset the directories cache.
     this._createdDirectoriesCache = [];
     // Define the async attribute.

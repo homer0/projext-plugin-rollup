@@ -114,7 +114,7 @@ class ProjextRollupStylesheetAssetsPlugin {
     /**
      * @ignore
      */
-    this.generateBundle = this.generateBundle.bind(this);
+    this.writeBundle = this.writeBundle.bind(this);
   }
   /**
    * Gets the plugin options
@@ -127,7 +127,7 @@ class ProjextRollupStylesheetAssetsPlugin {
    * This is called after Rollup finishes writing the files on the file system. This is where
    * the plugin opens the file and process the stylesheet/CSS blocks.
    */
-  generateBundle() {
+  writeBundle() {
     const { stylesheet } = this._options;
     // Validate that the target file exists.
     if (fs.pathExistsSync(stylesheet)) {

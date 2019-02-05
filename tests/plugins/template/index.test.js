@@ -49,7 +49,7 @@ describe('plugins:template', () => {
     // Then
     expect(sut).toBeInstanceOf(ProjextRollupTemplatePlugin);
     expect(sut.name).toBe('projext-rollup-plugin-template');
-    expect(sut.generateBundle).toBeFunction();
+    expect(sut.writeBundle).toBeFunction();
     expect(result).toEqual({
       template: options.template,
       output: options.output,
@@ -96,7 +96,7 @@ describe('plugins:template', () => {
     let sut = null;
     // When
     sut = new ProjextRollupTemplatePlugin(options);
-    sut.generateBundle();
+    sut.writeBundle();
     // Then
     expect(fs.ensureDirSync).toHaveBeenCalledTimes(1);
     expect(fs.ensureDirSync).toHaveBeenCalledWith(path.dirname(options.output));
@@ -128,7 +128,7 @@ describe('plugins:template', () => {
     .join('');
     // When
     sut = new ProjextRollupTemplatePlugin(options);
-    sut.generateBundle();
+    sut.writeBundle();
     // Then
     expect(fs.ensureDirSync).toHaveBeenCalledTimes(1);
     expect(fs.ensureDirSync).toHaveBeenCalledWith(path.dirname(options.output));
@@ -155,7 +155,7 @@ describe('plugins:template', () => {
     .join('');
     // When
     sut = new ProjextRollupTemplatePlugin(options);
-    sut.generateBundle();
+    sut.writeBundle();
     // Then
     expect(fs.ensureDirSync).toHaveBeenCalledTimes(1);
     expect(fs.ensureDirSync).toHaveBeenCalledWith(path.dirname(options.output));
@@ -182,7 +182,7 @@ describe('plugins:template', () => {
     .join('');
     // When
     sut = new ProjextRollupTemplatePlugin(options);
-    sut.generateBundle();
+    sut.writeBundle();
     // Then
     expect(fs.ensureDirSync).toHaveBeenCalledTimes(1);
     expect(fs.ensureDirSync).toHaveBeenCalledWith(path.dirname(options.output));
@@ -247,11 +247,11 @@ describe('plugins:template', () => {
     .join('\n');
     // When
     sut = template(options);
-    sut.generateBundle();
+    sut.writeBundle();
     // Then
     expect(sut).toBeInstanceOf(ProjextRollupTemplatePlugin);
     expect(sut.name).toBe('projext-rollup-plugin-template');
-    expect(sut.generateBundle).toBeFunction();
+    expect(sut.writeBundle).toBeFunction();
     expect(rollupUtils.createFilter).toHaveBeenCalledTimes(1);
     expect(rollupUtils.createFilter).toHaveBeenCalledWith(url.include, url.exclude);
     expect(fs.writeFileSync).toHaveBeenCalledTimes(1);
@@ -279,7 +279,7 @@ describe('plugins:template', () => {
     // Then
     expect(sut).toBeInstanceOf(ProjextRollupTemplatePlugin);
     expect(sut.name).toBe('projext-rollup-plugin-template');
-    expect(sut.generateBundle).toBeFunction();
+    expect(sut.writeBundle).toBeFunction();
     expect(rollupUtils.createFilter).toHaveBeenCalledTimes(1);
     expect(rollupUtils.createFilter).toHaveBeenCalledWith(url.include, url.exclude);
   });

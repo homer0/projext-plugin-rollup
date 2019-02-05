@@ -38,7 +38,7 @@ describe('plugins:compression', () => {
     expect(sut).toBeInstanceOf(ProjextRollupCompressionPlugin);
     expect(sut.name).toBe('projext-rollup-plugin-compression');
     expect(sut.filter).toBe(filter);
-    expect(sut.generateBundle).toBeFunction();
+    expect(sut.writeBundle).toBeFunction();
     expect(result).toEqual({
       folder: './dist',
       include: [],
@@ -128,7 +128,7 @@ describe('plugins:compression', () => {
     let resultPromise = null;
     // When
     sut = new ProjextRollupCompressionPlugin(options);
-    resultPromise = sut.generateBundle();
+    resultPromise = sut.writeBundle();
     const [,, [, closeMainJS],,, [, closeSubJS]] = readStream.on.mock.calls;
     closeMainJS();
     closeSubJS();
@@ -242,7 +242,7 @@ describe('plugins:compression', () => {
     let resultPromise = null;
     // When
     sut = new ProjextRollupCompressionPlugin(options);
-    resultPromise = sut.generateBundle();
+    resultPromise = sut.writeBundle();
     const [[, fail]] = readStream.on.mock.calls;
     fail(error);
     return resultPromise
@@ -282,7 +282,7 @@ describe('plugins:compression', () => {
     let resultPromise = null;
     // When
     sut = new ProjextRollupCompressionPlugin(options);
-    resultPromise = sut.generateBundle();
+    resultPromise = sut.writeBundle();
     const [, [, fail]] = readStream.on.mock.calls;
     fail(error);
     return resultPromise
@@ -310,7 +310,7 @@ describe('plugins:compression', () => {
     expect(sut).toBeInstanceOf(ProjextRollupCompressionPlugin);
     expect(sut.name).toBe('projext-rollup-plugin-compression');
     expect(sut.filter).toBe(filter);
-    expect(sut.generateBundle).toBeFunction();
+    expect(sut.writeBundle).toBeFunction();
     expect(rollupUtils.createFilter).toHaveBeenCalledTimes(1);
     expect(rollupUtils.createFilter).toHaveBeenCalledWith([], []);
   });

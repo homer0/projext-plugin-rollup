@@ -41,10 +41,10 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
   const getPlugins = () => {
     const statsResetValue = 'stats-reset';
     const statsLogValue = 'stats-log';
-    const devServerShowURLOnGenValue = 'devServer-showURL-generateBundle';
+    const devServerShowURLOnGenValue = 'devServer-showURL-writeBundle';
     const devServerPlugin = {
       showURL: jest.fn(() => ({
-        generateBundle: devServerShowURLOnGenValue,
+        writeBundle: devServerShowURLOnGenValue,
       })),
     };
 
