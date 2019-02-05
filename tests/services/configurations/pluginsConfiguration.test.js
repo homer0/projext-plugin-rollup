@@ -4,6 +4,7 @@ const ConfigurationFileMock = require('/tests/mocks/configurationFile.mock');
 jest.mock('jimple', () => JimpleMock);
 jest.mock('fs-extra');
 jest.mock('postcss');
+jest.mock('postcss/lib/lazy-result');
 jest.mock('node-sass', () => 'node-sass');
 jest.mock('postcss-modules', () => jest.fn());
 jest.mock('/src/abstracts/configurationFile', () => ConfigurationFileMock);
@@ -12,6 +13,7 @@ jest.unmock('/src/services/configurations/pluginsConfiguration');
 require('jasmine-expect');
 const fs = require('fs-extra');
 const postcss = require('postcss');
+const LazyResult = require('postcss/lib/lazy-result');
 const postcssModules = require('postcss-modules');
 const builtinModules = require('builtin-modules');
 const {
@@ -26,6 +28,7 @@ describe('services/configurations:plugins', () => {
     fs.readFileSync.mockReset();
     postcss.mockReset();
     postcssModules.mockReset();
+    LazyResult.mockReset();
   });
 
   it('should be instantiated with all its dependencies', () => {
@@ -4379,10 +4382,10 @@ describe('services/configurations:plugins', () => {
 
   it('should generate the settings for processing CSS', () => {
     // Given
-    postcss.mockImplementationOnce(() => ({
-      process: jest.fn((css) => Promise.resolve({
-        css: css.split('/').shift().trim(),
-      })),
+    const postcssName = 'postcss-modules';
+    postcss.mockImplementationOnce(() => postcssName);
+    LazyResult.mockImplementationOnce((processor, css) => Promise.resolve({
+      css: css.split('/').shift().trim(),
     }));
     const postcssModulesName = 'postcss-modules-plugin';
     postcssModules.mockImplementationOnce(() => postcssModulesName);
@@ -4575,7 +4578,11 @@ describe('services/configurations:plugins', () => {
       expect(processed.trim()).toBe(cssCode);
       expect(postcssModules).toHaveBeenCalledTimes(0);
       expect(postcss).toHaveBeenCalledTimes(1);
-      expect(postcss).toHaveBeenCalledWith([]);
+      expect(LazyResult).toHaveBeenCalledTimes(1);
+      expect(LazyResult).toHaveBeenCalledWith(postcssName, cssCode, {
+        map: true,
+        from: cssFilepath,
+      });
     })
     .catch(() => {
       expect(true).toBeFalse();

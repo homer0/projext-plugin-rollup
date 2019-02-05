@@ -1,5 +1,6 @@
 const fs = require('fs-extra');
 const postcss = require('postcss');
+const LazyResult = require('postcss/lib/lazy-result');
 const postcssModules = require('postcss-modules');
 const builtinModules = require('builtin-modules');
 const nodeSass = require('node-sass');
@@ -1241,9 +1242,20 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       let processor;
       // Avoid using `postcss` if not needed
       if (plugins.length || options.map || options.from) {
-        processor = postcss(plugins)
-        // Process the stylesheet code.
-        .process(css, options);
+        // If we actually have plugins...
+        if (plugins.length) {
+          // Let's use `postcss` like you would normally do.
+          processor = postcss(plugins)
+          // Process the stylesheet code.
+          .process(css, options);
+        } else {
+          /**
+           * But if we are using `postcss` just to get the source map, let's wrap it on a
+           * `LazyResult`. It seems to be the only way to hide the warning that we are not
+           * using plugins.
+           */
+          processor = new LazyResult(postcss(), css, options);
+        }
       } else {
         processor = Promise.resolve({
           css: css.replace(map, '').trim(),
