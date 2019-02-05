@@ -76,7 +76,7 @@ class ProjextRollupNodeRunnerPlugin {
     /**
      * @ignore
      */
-    this.onwrite = this.onwrite.bind(this);
+    this.generateBundle = this.generateBundle.bind(this);
     /**
      * @ignore
      */
@@ -93,7 +93,7 @@ class ProjextRollupNodeRunnerPlugin {
    * This is called after Rollup finishes writing the files on the file system. It takes care of
    * stopping the bundle execution, if it's already running, and starting it again.
    */
-  onwrite() {
+  generateBundle() {
     this._stopExecution();
     this._startExecution();
   }

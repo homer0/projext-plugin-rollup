@@ -45,7 +45,7 @@ describe('plugins:nodeRunner', () => {
     // Then
     expect(sut).toBeInstanceOf(ProjextRollupNodeRunnerPlugin);
     expect(sut.name).toBe('projext-rollup-plugin-node-runner');
-    expect(sut.onwrite).toBeFunction();
+    expect(sut.generateBundle).toBeFunction();
     expect(result).toEqual({
       file: 'index.js',
       logger: null,
@@ -81,7 +81,7 @@ describe('plugins:nodeRunner', () => {
     // When
     sut = new ProjextRollupNodeRunnerPlugin(options);
     // Then
-    expect(() => sut.onwrite()).toThrow(/The executable file doesn't exist/i);
+    expect(() => sut.generateBundle()).toThrow(/The executable file doesn't exist/i);
   });
 
   it('should run a file', () => {
@@ -99,7 +99,7 @@ describe('plugins:nodeRunner', () => {
     let sut = null;
     // When
     sut = new ProjextRollupNodeRunnerPlugin(options);
-    sut.onwrite();
+    sut.generateBundle();
     // Then
     expect(logger.success).toHaveBeenCalledTimes(1);
     expect(fork).toHaveBeenCalledTimes(1);
@@ -134,7 +134,7 @@ describe('plugins:nodeRunner', () => {
     let sut = null;
     // When
     sut = new ProjextRollupNodeRunnerPlugin(options);
-    sut.onwrite();
+    sut.generateBundle();
     // Then
     expect(logger.success).toHaveBeenCalledTimes(1);
     expect(fork).toHaveBeenCalledTimes(1);
@@ -168,7 +168,7 @@ describe('plugins:nodeRunner', () => {
     let sut = null;
     // When
     sut = new ProjextRollupNodeRunnerPlugin(options);
-    sut.onwrite();
+    sut.generateBundle();
     // Then
     expect(logger.success).toHaveBeenCalledTimes(1);
     expect(fork).toHaveBeenCalledTimes(1);
@@ -205,8 +205,8 @@ describe('plugins:nodeRunner', () => {
     let sut = null;
     // When
     sut = new ProjextRollupNodeRunnerPlugin(options);
-    sut.onwrite();
-    sut.onwrite();
+    sut.generateBundle();
+    sut.generateBundle();
     // Then
     expect(logger.info).toHaveBeenCalledTimes(1);
     expect(instance.kill).toHaveBeenCalledTimes(1);
@@ -239,7 +239,7 @@ describe('plugins:nodeRunner', () => {
     let terminate = null;
     // When
     sut = new ProjextRollupNodeRunnerPlugin(options);
-    sut.onwrite();
+    sut.generateBundle();
     [[, terminate]] = process.on.mock.calls;
     terminate();
     // Then
@@ -262,6 +262,6 @@ describe('plugins:nodeRunner', () => {
     // Then
     expect(sut).toBeInstanceOf(ProjextRollupNodeRunnerPlugin);
     expect(sut.name).toBe('projext-rollup-plugin-node-runner');
-    expect(sut.onwrite).toBeFunction();
+    expect(sut.generateBundle).toBeFunction();
   });
 });

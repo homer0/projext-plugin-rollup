@@ -41,10 +41,10 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
   const getPlugins = () => {
     const statsResetValue = 'stats-reset';
     const statsLogValue = 'stats-log';
-    const devServerShowURLOnWriteValue = 'devServer-showURL-onwrite';
+    const devServerShowURLOnGenValue = 'devServer-showURL-generateBundle';
     const devServerPlugin = {
       showURL: jest.fn(() => ({
-        onwrite: devServerShowURLOnWriteValue,
+        generateBundle: devServerShowURLOnGenValue,
       })),
     };
 
@@ -74,7 +74,7 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
     };
     values.statsReset = statsResetValue;
     values.statsLog = statsLogValue;
-    values.devServerShowURLOnWriteValue = devServerShowURLOnWriteValue;
+    values.devServerShowURLOnGenValue = devServerShowURLOnGenValue;
     copy.mockImplementationOnce(() => values.copy);
     css.mockImplementationOnce(() => values.css);
     urls.mockImplementationOnce(() => values.urls);
@@ -502,12 +502,12 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
       watch: plugins.settings.watch,
       external: plugins.settings.external.external,
     });
-    expect(statsLogAfterLog).toBe(plugins.values.devServerShowURLOnWriteValue);
+    expect(statsLogAfterLog).toBe(plugins.values.devServerShowURLOnGenValue);
     expect(plugins.mocks.devServer).toHaveBeenCalledTimes(1);
     expect(plugins.mocks.devServer).toHaveBeenCalledWith(plugins.settings.devServer);
     expect(plugins.mocks.statsLog).toHaveBeenCalledWith(Object.assign(
       {
-        afterLog: plugins.values.devServerShowURLOnWriteValue,
+        afterLog: plugins.values.devServerShowURLOnGenValue,
       },
       plugins.settings.statsLog
     ));

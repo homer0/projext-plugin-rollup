@@ -34,7 +34,7 @@ describe('plugins:copy', () => {
     // Then
     expect(sut).toBeInstanceOf(ProjextRollupCopyPlugin);
     expect(sut.name).toBe('projext-rollup-plugin-copy');
-    expect(sut.onwrite).toBeFunction();
+    expect(sut.generateBundle).toBeFunction();
     expect(result).toEqual({
       files,
       stats: expect.any(Function),
@@ -74,7 +74,7 @@ describe('plugins:copy', () => {
     let statsFileTwo = null;
     // When
     sut = new ProjextRollupCopyPlugin({ files, stats });
-    return sut.onwrite()
+    return sut.generateBundle()
     .then((result) => {
       expect(result).toEqual([fileOne.to, fileTwo.to]);
       expect(fs.pathExistsSync).toHaveBeenCalledTimes(2);
@@ -127,7 +127,7 @@ describe('plugins:copy', () => {
     const expectedContents = `${contents}${toAdd}`;
     // When
     sut = new ProjextRollupCopyPlugin({ files, stats });
-    return sut.onwrite()
+    return sut.generateBundle()
     .then((result) => {
       expect(result).toEqual([file.to]);
       expect(fs.pathExistsSync).toHaveBeenCalledTimes(1);
@@ -169,6 +169,6 @@ describe('plugins:copy', () => {
     // Then
     expect(sut).toBeInstanceOf(ProjextRollupCopyPlugin);
     expect(sut.name).toBe('projext-rollup-plugin-copy');
-    expect(sut.onwrite).toBeFunction();
+    expect(sut.generateBundle).toBeFunction();
   });
 });

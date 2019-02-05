@@ -52,7 +52,7 @@ describe('plugins:stats', () => {
     sut = mainPlugin.log();
     // Then
     expect(sut).toEqual({
-      onwrite: expect.any(Function),
+      generateBundle: expect.any(Function),
     });
   });
 
@@ -104,7 +104,7 @@ describe('plugins:stats', () => {
     mainPlugin = new ProjextRollupStatsPlugin();
     mainPlugin.add(entry.plugin, entry.filepath);
     sut = mainPlugin.log();
-    return sut.onwrite()
+    return sut.generateBundle()
     .then(() => {
       // Then
       expect(fs.pathExistsSync).toHaveBeenCalledTimes(1);
@@ -142,7 +142,7 @@ describe('plugins:stats', () => {
     mainPlugin.add('my-plugin', 'charito.js');
     mainPlugin.reset().intro();
     sut = mainPlugin.log();
-    return sut.onwrite()
+    return sut.generateBundle()
     .then(() => {
       // Then
       expect(fs.pathExistsSync).toHaveBeenCalledTimes(0);
@@ -191,7 +191,7 @@ describe('plugins:stats', () => {
     mainPlugin.add(entryOne.plugin, entryOne.filepath);
     mainPlugin.add(entryTwo.plugin, entryTwo.filepath);
     sut = mainPlugin.log();
-    return sut.onwrite()
+    return sut.generateBundle()
     .then(() => {
       // Then
       expect(fs.pathExistsSync).toHaveBeenCalledTimes(2);
@@ -250,7 +250,7 @@ describe('plugins:stats', () => {
     mainPlugin = new ProjextRollupStatsPlugin(mainOptions);
     mainPlugin.add(entry.plugin, entry.filepath);
     sut = mainPlugin.log(options);
-    return sut.onwrite()
+    return sut.generateBundle()
     .then(() => {
       // Then
       expect(fs.pathExistsSync).toHaveBeenCalledTimes(1);
@@ -304,7 +304,7 @@ describe('plugins:stats', () => {
     mainPlugin = new ProjextRollupStatsPlugin(mainOptions);
     mainPlugin.add(entry.plugin, entry.filepath);
     sut = mainPlugin.log(options);
-    return sut.onwrite()
+    return sut.generateBundle()
     .then(() => {
       // Then
       expect(fs.pathExistsSync).toHaveBeenCalledTimes(1);
@@ -350,7 +350,7 @@ describe('plugins:stats', () => {
     sut = mainPlugin.log({
       extraEntries: [entry],
     });
-    return sut.onwrite()
+    return sut.generateBundle()
     .then(() => {
       // Then
       expect(fs.pathExistsSync).toHaveBeenCalledTimes(1);
@@ -396,7 +396,7 @@ describe('plugins:stats', () => {
     mainPlugin = new ProjextRollupStatsPlugin();
     mainPlugin.add(entry.plugin, entry.filepath);
     sut = mainPlugin.log({ afterLog });
-    return sut.onwrite()
+    return sut.generateBundle()
     .then(() => {
       // Then
       expect(afterLog).toHaveBeenCalledTimes(1);
@@ -426,7 +426,7 @@ describe('plugins:stats', () => {
     sut = mainPlugin.log({
       extraEntries: [entry],
     });
-    return sut.onwrite()
+    return sut.generateBundle()
     .then(() => {
       // Then
       expect(fs.pathExistsSync).toHaveBeenCalledTimes(1);
@@ -470,7 +470,7 @@ describe('plugins:stats', () => {
     mainPlugin = new ProjextRollupStatsPlugin();
     mainPlugin.add(Promise.resolve(entry));
     sut = mainPlugin.log();
-    return sut.onwrite()
+    return sut.generateBundle()
     .then(() => {
       // Then
       expect(fs.pathExistsSync).toHaveBeenCalledTimes(1);

@@ -348,9 +348,9 @@
 
 /**
  * @typedef {Object} ProjextRollupStatsPluginLog
- * @property {function} onwrite The method Rollup calls after writing the files on the file system.
- *                              When this happens, the plugin will log the report table on the
- *                              console.
+ * @property {function} generateBundle The method Rollup calls after writing the files on the file
+ *                                     system. When this happens, the plugin will log the report
+ *                                     table on the console.
  */
 
 /**

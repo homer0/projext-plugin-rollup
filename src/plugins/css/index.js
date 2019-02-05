@@ -78,7 +78,7 @@ class ProjextRollupCSSPlugin {
     /**
      * @ignore
      */
-    this.ongenerate = this.ongenerate.bind(this);
+    this.generateBundle = this.generateBundle.bind(this);
   }
   /**
    * Gets the plugin options
@@ -168,7 +168,7 @@ class ProjextRollupCSSPlugin {
               } else {
                 /**
                  * Finally, if the code will be added to a bundle, keep the code and path
-                 * information so they'll be used on `ongenerate` and set the default export as
+                 * information so they'll be used on `generateBundle` and set the default export as
                  * an empty string.
                  */
                 this._toBundle.push({
@@ -200,7 +200,7 @@ class ProjextRollupCSSPlugin {
    * This gets called by Rollup when the bundle is being generated. It takes care, if needed, to
    * create the stylesheet bundle.
    */
-  ongenerate() {
+  generateBundle() {
     const { insert, output } = this._options;
     /**
      * If the code shouldn't be injected, there's a valid path for the bundle and there are files

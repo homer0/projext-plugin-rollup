@@ -48,7 +48,7 @@ class ProjextRollupCompressionPlugin {
     /**
      * @ignore
      */
-    this.onwrite = this.onwrite.bind(this);
+    this.generateBundle = this.generateBundle.bind(this);
   }
   /**
    * Gets the plugin options
@@ -63,7 +63,7 @@ class ProjextRollupCompressionPlugin {
    * @return {Promise<Array,Error>} If everything goes well, the Promise will resolve on a list
    *                                of {@link ProjextRollupCompressionPluginEntry} objects.
    */
-  onwrite() {
+  generateBundle() {
     return Promise.all(this._findAllTheFiles().map((file) => this._compressFile(file)));
   }
   /**
