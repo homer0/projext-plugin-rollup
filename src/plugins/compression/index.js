@@ -1,8 +1,8 @@
 const path = require('path');
+const zlib = require('zlib');
 const rollupUtils = require('rollup-pluginutils');
 const extend = require('extend');
 const fs = require('fs-extra');
-const zopfli = require('node-zopfli');
 const { deferred } = require('wootils/shared');
 /**
  * This is a Rollup plugin that takes all the files that match an specific filter and compress using
@@ -131,7 +131,7 @@ class ProjextRollupCompressionPlugin {
       fs.createReadStream(filepath)
       .on('error', reject)
       // Compress the file.
-      .pipe(zopfli.createGzip())
+      .pipe(zlib.createGzip())
       // Write the compressed file.
       .pipe(fs.createWriteStream(newFilepath))
       .on('error', (error) => {
