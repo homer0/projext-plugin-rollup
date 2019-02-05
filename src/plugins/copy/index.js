@@ -45,7 +45,7 @@ class ProjextRollupCopyPlugin {
     /**
      * @ignore
      */
-    this.onwrite = this.onwrite.bind(this);
+    this.writeBundle = this.writeBundle.bind(this);
   }
   /**
    * Gets the plugin options
@@ -59,7 +59,7 @@ class ProjextRollupCopyPlugin {
    * the plugin will filter the files that doesn't exist and copy the rest.
    * @return {Promise<Array,Error>} The resolved array has the path for each copied file.
    */
-  onwrite() {
+  writeBundle() {
     // Reset the _"cache"_.
     this._createdDirectoriesCache = [];
     return Promise.all(

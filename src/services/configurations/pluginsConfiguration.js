@@ -1,5 +1,6 @@
 const fs = require('fs-extra');
 const postcss = require('postcss');
+const LazyResult = require('postcss/lib/lazy-result');
 const postcssModules = require('postcss-modules');
 const builtinModules = require('builtin-modules');
 const nodeSass = require('node-sass');
@@ -15,9 +16,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
    * @param {Logger}             appLogger          To send to the plugins that support a logger.
    * @param {BabelConfiguration} babelConfiguration To get the target Babel configuration.
    * @param {BabelHelper}        babelHelper        To disable the `modules` setting of the Babel
-   *                                                env preset for a target, as Rollup requires,
-   *                                                and include the `external-helpers` plugin, to
-   *                                                optimize the transpilation.
+   *                                                env preset for a target, as Rollup requires.
    * @param {Events}             events             To reduce the settings.
    * @param {Object}             packageInfo        To get the dependencies and define them as
    *                                                externals for Node targets.
@@ -313,9 +312,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     // Get the target Babel configuration.
     const baseConfiguration = this.babelConfiguration.getConfigForTarget(target);
     // Disable the `modules` feature for the `env` preset.
-    let configuration = this.babelHelper.disableEnvPresetModules(baseConfiguration);
-    // Add the `external-helpers` plugin to optimize the transpilation.
-    configuration = this.babelHelper.addPlugin(configuration, 'external-helpers');
+    const configuration = this.babelHelper.disableEnvPresetModules(baseConfiguration);
     // Define the plugin settings.
     const settings = Object.assign(
       {},
@@ -1245,9 +1242,20 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       let processor;
       // Avoid using `postcss` if not needed
       if (plugins.length || options.map || options.from) {
-        processor = postcss(plugins)
-        // Process the stylesheet code.
-        .process(css, options);
+        // If we actually have plugins...
+        if (plugins.length) {
+          // Let's use `postcss` like you would normally do.
+          processor = postcss(plugins)
+          // Process the stylesheet code.
+          .process(css, options);
+        } else {
+          /**
+           * But if we are using `postcss` just to get the source map, let's wrap it on a
+           * `LazyResult`. It seems to be the only way to hide the warning that we are not
+           * using plugins.
+           */
+          processor = new LazyResult(postcss(), css, options);
+        }
       } else {
         processor = Promise.resolve({
           css: css.replace(map, '').trim(),

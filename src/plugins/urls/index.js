@@ -63,7 +63,7 @@ class ProjextRollupURLsPlugin {
     /**
      * @ignore
      */
-    this.onwrite = this.onwrite.bind(this);
+    this.writeBundle = this.writeBundle.bind(this);
   }
   /**
    * Gets the plugin options
@@ -108,7 +108,7 @@ class ProjextRollupURLsPlugin {
    * This is called by Rollup after it finishes writing the files on the file system. The method
    * will loop the queue and copy all the files that matched a filter during the `load` process.
    */
-  onwrite() {
+  writeBundle() {
     // Loop all the files.
     this._toCopy.forEach((toCopy) => {
       // Make sure the output directory exists.

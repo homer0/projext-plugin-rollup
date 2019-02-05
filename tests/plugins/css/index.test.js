@@ -38,7 +38,7 @@ describe('plugins:css', () => {
     expect(sut.filter).toBe(filter);
     expect(sut.intro).toBeFunction();
     expect(sut.transform).toBeFunction();
-    expect(sut.ongenerate).toBeFunction();
+    expect(sut.writeBundle).toBeFunction();
     expect(result).toEqual({
       include: [expect.any(RegExp)],
       exclude: [],
@@ -325,7 +325,7 @@ describe('plugins:css', () => {
     let sut = null;
     // When
     sut = new ProjextRollupCSSPlugin(options);
-    sut.ongenerate();
+    sut.writeBundle();
     // Then
     expect(fs.pathExistsSync).toHaveBeenCalledTimes(0);
   });
@@ -348,7 +348,7 @@ describe('plugins:css', () => {
     sut = new ProjextRollupCSSPlugin(options);
     return sut.transform(code, filepath)
     .then(() => {
-      sut.ongenerate();
+      sut.writeBundle();
       // Then
       expect(filter).toHaveBeenCalledTimes(1);
       expect(filter).toHaveBeenCalledWith(filepath);
@@ -386,7 +386,7 @@ describe('plugins:css', () => {
     sut = new ProjextRollupCSSPlugin(options);
     return sut.transform(code, filepath)
     .then(() => {
-      sut.ongenerate();
+      sut.writeBundle();
       // Then
       expect(fs.pathExistsSync).toHaveBeenCalledTimes(1);
       expect(fs.pathExistsSync).toHaveBeenCalledWith(options.output);
@@ -414,7 +414,7 @@ describe('plugins:css', () => {
     expect(sut.filter).toBe(filter);
     expect(sut.intro).toBeFunction();
     expect(sut.transform).toBeFunction();
-    expect(sut.ongenerate).toBeFunction();
+    expect(sut.writeBundle).toBeFunction();
     expect(rollupUtils.createFilter).toHaveBeenCalledTimes(1);
     expect(rollupUtils.createFilter).toHaveBeenCalledWith([expect.any(RegExp)], []);
   });

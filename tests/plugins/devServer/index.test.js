@@ -54,7 +54,7 @@ describe('plugins:devServer', () => {
     expect(sut).toBeInstanceOf(ProjextRollupDevServerPlugin);
     expect(sut.name).toBe('projext-rollup-plugin-dev-server');
     expect(sut.url).toBe('http://localhost:8080');
-    expect(sut.onwrite).toBeFunction();
+    expect(sut.writeBundle).toBeFunction();
     expect(result).toEqual({
       host: 'localhost',
       port: 8080,
@@ -185,7 +185,7 @@ describe('plugins:devServer', () => {
     let sut = null;
     // When
     sut = new ProjextRollupDevServerPlugin(options);
-    sut.onwrite();
+    sut.writeBundle();
     // Then
     expect(createHTTPServer).toHaveBeenCalledTimes(1);
     expect(createHTTPServer).toHaveBeenCalledWith(expect.any(Function));
@@ -217,8 +217,8 @@ describe('plugins:devServer', () => {
     let sut = null;
     // When
     sut = new ProjextRollupDevServerPlugin();
-    sut.onwrite();
-    sut.onwrite();
+    sut.writeBundle();
+    sut.writeBundle();
     // Then
     expect(createHTTPServer).toHaveBeenCalledTimes(1);
   });
@@ -247,7 +247,7 @@ describe('plugins:devServer', () => {
     // When
     sut = new ProjextRollupDevServerPlugin(options);
     result = sut.getOptions();
-    sut.onwrite();
+    sut.writeBundle();
     // Then
     expect(result.contentBase).toEqual([options.contentBase]);
     expect(createHTTPSServer).toHaveBeenCalledTimes(1);
@@ -276,7 +276,7 @@ describe('plugins:devServer', () => {
     let terminate = null;
     // When
     sut = new ProjextRollupDevServerPlugin(options);
-    sut.onwrite();
+    sut.writeBundle();
     [[, terminate]] = process.on.mock.calls;
     terminate();
     // Then
@@ -317,7 +317,7 @@ describe('plugins:devServer', () => {
     let terminate = null;
     // When
     sut = new ProjextRollupDevServerPlugin(options);
-    sut.onwrite();
+    sut.writeBundle();
     [[, terminate]] = process.on.mock.calls;
     terminate();
     terminate();
@@ -351,8 +351,8 @@ describe('plugins:devServer', () => {
     // When
     sut = new ProjextRollupDevServerPlugin(options);
     result = sut.getOptions();
-    sut.onwrite();
-    sut.showURL().onwrite();
+    sut.writeBundle();
+    sut.showURL().writeBundle();
     jest.runAllTimers();
     // Then
     expect(result.contentBase).toEqual([options.contentBase]);
@@ -388,10 +388,10 @@ describe('plugins:devServer', () => {
     let terminate = null;
     // When
     sut = new ProjextRollupDevServerPlugin(options);
-    sut.onwrite();
+    sut.writeBundle();
     [[, terminate]] = process.on.mock.calls;
     terminate();
-    sut.onwrite();
+    sut.writeBundle();
     // Then
     expect(opener).toHaveBeenCalledTimes(1);
     expect(opener).toHaveBeenCalledWith('http://localhost:8080');
@@ -428,7 +428,7 @@ describe('plugins:devServer', () => {
     let handler = null;
     // When
     sut = new ProjextRollupDevServerPlugin(options);
-    sut.onwrite();
+    sut.writeBundle();
     [[handler]] = createHTTPServer.mock.calls;
     return handler(req, res)
     .then(() => {
@@ -480,7 +480,7 @@ describe('plugins:devServer', () => {
     let handler = null;
     // When
     sut = new ProjextRollupDevServerPlugin(options);
-    sut.onwrite();
+    sut.writeBundle();
     [[handler]] = createHTTPServer.mock.calls;
     return handler(req, res)
     .then(() => {
@@ -540,7 +540,7 @@ describe('plugins:devServer', () => {
     let handler = null;
     // When
     sut = new ProjextRollupDevServerPlugin(options);
-    sut.onwrite();
+    sut.writeBundle();
     [[handler]] = createHTTPServer.mock.calls;
     return handler(req, res)
     .then(() => {
@@ -594,7 +594,7 @@ describe('plugins:devServer', () => {
     let handler = null;
     // When
     sut = new ProjextRollupDevServerPlugin(options);
-    sut.onwrite();
+    sut.writeBundle();
     [[handler]] = createHTTPServer.mock.calls;
     return handler(req, res)
     .then(() => {
@@ -640,7 +640,7 @@ describe('plugins:devServer', () => {
     let handler = null;
     // When
     sut = new ProjextRollupDevServerPlugin(options);
-    sut.onwrite();
+    sut.writeBundle();
     [[handler]] = createHTTPServer.mock.calls;
     return handler(req, res)
     .then(() => {
@@ -691,7 +691,7 @@ describe('plugins:devServer', () => {
     let handler = null;
     // When
     sut = new ProjextRollupDevServerPlugin(options);
-    sut.onwrite();
+    sut.writeBundle();
     [[handler]] = createHTTPServer.mock.calls;
     return handler(req, res)
     .then(() => {
@@ -743,7 +743,7 @@ describe('plugins:devServer', () => {
     let handler = null;
     // When
     sut = new ProjextRollupDevServerPlugin(options);
-    sut.onwrite();
+    sut.writeBundle();
     [[handler]] = createHTTPServer.mock.calls;
     return handler(req, res)
     .then(() => {
@@ -796,7 +796,7 @@ describe('plugins:devServer', () => {
     const expectedIndexPath = path.join(contentBase, expectedIndex);
     // When
     sut = new ProjextRollupDevServerPlugin(options);
-    sut.onwrite();
+    sut.writeBundle();
     [[handler]] = createHTTPServer.mock.calls;
     return handler(req, res)
     .then(() => {
@@ -852,7 +852,7 @@ describe('plugins:devServer', () => {
     const expectedIndexPath = path.join(contentBase, expectedIndex);
     // When
     sut = new ProjextRollupDevServerPlugin(options);
-    sut.onwrite();
+    sut.writeBundle();
     [[handler]] = createHTTPServer.mock.calls;
     return handler(req, res)
     .then(() => {
@@ -902,7 +902,7 @@ describe('plugins:devServer', () => {
     const expectedIndexPath = path.join(contentBase, expectedIndex);
     // When
     sut = new ProjextRollupDevServerPlugin(options);
-    sut.onwrite();
+    sut.writeBundle();
     [[handler]] = createHTTPServer.mock.calls;
     return handler(req, res)
     .then(() => {
@@ -930,6 +930,6 @@ describe('plugins:devServer', () => {
     // Then
     expect(sut).toBeInstanceOf(ProjextRollupDevServerPlugin);
     expect(sut.name).toBe('projext-rollup-plugin-dev-server');
-    expect(sut.onwrite).toBeFunction();
+    expect(sut.writeBundle).toBeFunction();
   });
 });
