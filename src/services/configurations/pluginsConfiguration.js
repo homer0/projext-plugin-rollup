@@ -315,7 +315,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     // Disable the `modules` feature for the `env` preset.
     let configuration = this.babelHelper.disableEnvPresetModules(baseConfiguration);
     // Add the `external-helpers` plugin to optimize the transpilation.
-    configuration = this.babelHelper.addPlugin(configuration, 'external-helpers');
+    configuration = this.babelHelper.addPlugin(configuration, '@babel/plugin-external-helpers');
     // Define the plugin settings.
     const settings = Object.assign(
       {},

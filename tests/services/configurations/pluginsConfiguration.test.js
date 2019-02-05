@@ -279,7 +279,7 @@ describe('services/configurations:plugins', () => {
       babel: Object.assign({}, babelConfig, {
         modules: false,
         plugins: {
-          'external-helpers': true,
+          '@babel/plugin-external-helpers': true,
         },
         include: rules.js.files.glob.include,
         exclude: rules.js.files.glob.exclude,
@@ -754,7 +754,7 @@ describe('services/configurations:plugins', () => {
       babel: Object.assign({}, babelConfig, {
         modules: false,
         plugins: {
-          'external-helpers': true,
+          '@babel/plugin-external-helpers': true,
         },
         include: rules.js.files.glob.include,
         exclude: rules.js.files.glob.exclude,
@@ -1231,7 +1231,7 @@ describe('services/configurations:plugins', () => {
       babel: Object.assign({}, babelConfig, {
         modules: false,
         plugins: {
-          'external-helpers': true,
+          '@babel/plugin-external-helpers': true,
         },
         include: rules.js.files.glob.include,
         exclude: rules.js.files.glob.exclude,
@@ -1719,7 +1719,7 @@ describe('services/configurations:plugins', () => {
       babel: Object.assign({}, babelConfig, {
         modules: false,
         plugins: {
-          'external-helpers': true,
+          '@babel/plugin-external-helpers': true,
         },
         include: rules.js.files.glob.include,
         exclude: rules.js.files.glob.exclude,
@@ -2210,7 +2210,7 @@ describe('services/configurations:plugins', () => {
       babel: Object.assign({}, babelConfig, {
         modules: false,
         plugins: {
-          'external-helpers': true,
+          '@babel/plugin-external-helpers': true,
         },
         include: rules.js.files.glob.include,
         exclude: rules.js.files.glob.exclude,
@@ -2711,7 +2711,7 @@ describe('services/configurations:plugins', () => {
       babel: Object.assign({}, babelConfig, {
         modules: false,
         plugins: {
-          'external-helpers': true,
+          '@babel/plugin-external-helpers': true,
         },
         include: rules.js.files.glob.include,
         exclude: rules.js.files.glob.exclude,
@@ -3208,7 +3208,7 @@ describe('services/configurations:plugins', () => {
       babel: Object.assign({}, babelConfig, {
         modules: false,
         plugins: {
-          'external-helpers': true,
+          '@babel/plugin-external-helpers': true,
         },
         include: rules.js.files.glob.include,
         exclude: rules.js.files.glob.exclude,
@@ -3702,7 +3702,7 @@ describe('services/configurations:plugins', () => {
       babel: Object.assign({}, babelConfig, {
         modules: false,
         plugins: {
-          'external-helpers': true,
+          '@babel/plugin-external-helpers': true,
         },
         include: rules.js.files.glob.include,
         exclude: rules.js.files.glob.exclude,
