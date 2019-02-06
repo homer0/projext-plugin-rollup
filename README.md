@@ -17,7 +17,7 @@ Allows [projext](https://yarnpkg.com/en/package/projext) to use [Rollup](https:/
 |--------------|-------------------------------------------------------------------------------|
 | Package      | projext-plugin-rollup                                                         |
 | Description  | Allows projext to use Rollup as a build engine.                               |
-| Node Version | >= v6.10.0                                                                    |
+| Node Version | >= v8.0.0                                                                    |
 
 ## Usage
 
