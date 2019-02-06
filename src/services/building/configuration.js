@@ -64,24 +64,38 @@ class RollupConfiguration {
       throw new Error(`There's no configuration for the selected build type: ${buildType}`);
     }
 
-    const paths = target.output[buildType];
+    const paths = Object.assign({}, target.output[buildType]);
 
     const input = path.join(target.paths.source, target.entry[buildType]);
 
     const defaultFormat = target.is.node ? 'cjs' : 'iife';
-    const format = target.library ?
-      this._getLibraryFormat(target.libraryOptions) :
-      defaultFormat;
-
     const output = {
-      file: `./${target.folders.build}/${paths.js}`,
-      format,
       sourcemap: !!(target.sourceMap && target.sourceMap[buildType]),
       name: target.name.replace(/-(\w)/ig, (match, letter) => letter.toUpperCase()),
     };
 
     if (target.library) {
+      output.format = this._getLibraryFormat(target.libraryOptions);
       output.exports = 'named';
+    } else {
+      output.format = defaultFormat;
+    }
+
+    const filepath = `./${target.folders.build}/${paths.js}`;
+
+    if (paths.jsChunks === true) {
+      paths.jsChunks = this._generateChunkName(paths.js);
+    }
+
+    if (paths.jsChunks) {
+      output.chunkFileNames = path.basename(paths.jsChunks);
+      output.entryFileNames = path.basename(paths.js);
+      output.dir = path.dirname(filepath);
+      if (target.is.browser && !target.library) {
+        output.format = 'es';
+      }
+    } else {
+      output.file = filepath;
     }
 
     const copy = [];
@@ -161,6 +175,18 @@ class RollupConfiguration {
     }
 
     return result;
+  }
+  /**
+   * This is a small helper function that parses the default path of the JS file webpack will
+   * emmit and adds a `[name]` placeholder for webpack to replace with the chunk name.
+   * @param {string} jsPath The original path for the JS file.
+   * @return {string}
+   * @access protected
+   * @ignore
+   */
+  _generateChunkName(jsPath) {
+    const parsed = path.parse(jsPath);
+    return path.join(parsed.dir, `${parsed.name}.[name]${parsed.ext}`);
   }
 }
 /**
