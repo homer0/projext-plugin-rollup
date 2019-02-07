@@ -274,7 +274,7 @@ describe('services/configurations:plugins', () => {
       },
       globals: expectedGlobals,
       resolve: {
-        extensions: ['.js', '.json', '.jsx'],
+        extensions: ['.js', '.json', '.jsx', '.ts', '.tsx'],
         browser: false,
         preferBuiltins: true,
       },
@@ -746,7 +746,7 @@ describe('services/configurations:plugins', () => {
       },
       globals: expectedGlobals,
       resolve: {
-        extensions: ['.js', '.json', '.jsx'],
+        extensions: ['.js', '.json', '.jsx', '.ts', '.tsx'],
         browser: false,
         preferBuiltins: true,
       },
@@ -1220,7 +1220,7 @@ describe('services/configurations:plugins', () => {
         [excludeModule]: excludeModule,
       },
       resolve: {
-        extensions: ['.js', '.json', '.jsx'],
+        extensions: ['.js', '.json', '.jsx', '.ts', '.tsx'],
         browser: true,
         preferBuiltins: false,
       },
@@ -1705,7 +1705,7 @@ describe('services/configurations:plugins', () => {
         [excludeModule]: excludeModule,
       },
       resolve: {
-        extensions: ['.js', '.json', '.jsx'],
+        extensions: ['.js', '.json', '.jsx', '.ts', '.tsx'],
         browser: true,
         preferBuiltins: false,
       },
@@ -2193,7 +2193,7 @@ describe('services/configurations:plugins', () => {
         [excludeModule]: excludeModule,
       },
       resolve: {
-        extensions: ['.js', '.json', '.jsx'],
+        extensions: ['.js', '.json', '.jsx', '.ts', '.tsx'],
         browser: true,
         preferBuiltins: false,
       },
@@ -2691,7 +2691,7 @@ describe('services/configurations:plugins', () => {
         [excludeModule]: excludeModule,
       },
       resolve: {
-        extensions: ['.js', '.json', '.jsx'],
+        extensions: ['.js', '.json', '.jsx', '.ts', '.tsx'],
         browser: true,
         preferBuiltins: false,
       },
@@ -3185,7 +3185,7 @@ describe('services/configurations:plugins', () => {
         [excludeModule]: excludeModule,
       },
       resolve: {
-        extensions: ['.js', '.json', '.jsx'],
+        extensions: ['.js', '.json', '.jsx', '.ts', '.tsx'],
         browser: true,
         preferBuiltins: false,
       },
@@ -3676,7 +3676,7 @@ describe('services/configurations:plugins', () => {
         [excludeModule]: excludeModule,
       },
       resolve: {
-        extensions: ['.js', '.json', '.jsx'],
+        extensions: ['.js', '.json', '.jsx', '.ts', '.tsx'],
         browser: true,
         preferBuiltins: false,
       },

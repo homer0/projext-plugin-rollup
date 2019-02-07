@@ -246,7 +246,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     const { target } = params;
     const settings = {
       // Add just for basic JS files and JSON.
-      extensions: ['.js', '.json', '.jsx'],
+      extensions: ['.js', '.json', '.jsx', '.ts', '.tsx'],
       browser: target.is.browser,
       preferBuiltins: target.is.node,
     };
@@ -1140,6 +1140,8 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     const extensions = [
       'js',
       'jsx',
+      'ts',
+      'tsx',
       'css',
       'html',
       'map',
