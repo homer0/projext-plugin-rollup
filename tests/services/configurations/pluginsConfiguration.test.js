@@ -281,6 +281,7 @@ describe('services/configurations:plugins', () => {
       replace: definitions,
       babel: Object.assign({}, babelConfig, {
         modules: false,
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
         include: rules.js.files.glob.include,
         exclude: rules.js.files.glob.exclude,
       }),
@@ -753,6 +754,7 @@ describe('services/configurations:plugins', () => {
       replace: definitions,
       babel: Object.assign({}, babelConfig, {
         modules: false,
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
         include: rules.js.files.glob.include,
         exclude: rules.js.files.glob.exclude,
       }),
@@ -1227,6 +1229,7 @@ describe('services/configurations:plugins', () => {
       replace: definitions,
       babel: Object.assign({}, babelConfig, {
         modules: false,
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
         include: rules.js.files.glob.include,
         exclude: rules.js.files.glob.exclude,
       }),
@@ -1712,6 +1715,7 @@ describe('services/configurations:plugins', () => {
       replace: definitions,
       babel: Object.assign({}, babelConfig, {
         modules: false,
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
         include: rules.js.files.glob.include,
         exclude: rules.js.files.glob.exclude,
       }),
@@ -2200,6 +2204,7 @@ describe('services/configurations:plugins', () => {
       replace: definitions,
       babel: Object.assign({}, babelConfig, {
         modules: false,
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
         include: rules.js.files.glob.include,
         exclude: rules.js.files.glob.exclude,
       }),
@@ -2698,6 +2703,7 @@ describe('services/configurations:plugins', () => {
       replace: definitions,
       babel: Object.assign({}, babelConfig, {
         modules: false,
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
         include: rules.js.files.glob.include,
         exclude: rules.js.files.glob.exclude,
       }),
@@ -3192,6 +3198,7 @@ describe('services/configurations:plugins', () => {
       replace: definitions,
       babel: Object.assign({}, babelConfig, {
         modules: false,
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
         include: rules.js.files.glob.include,
         exclude: rules.js.files.glob.exclude,
       }),
@@ -3683,6 +3690,7 @@ describe('services/configurations:plugins', () => {
       replace: definitions,
       babel: Object.assign({}, babelConfig, {
         modules: false,
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
         include: rules.js.files.glob.include,
         exclude: rules.js.files.glob.exclude,
       }),

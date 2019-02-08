@@ -318,6 +318,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       {},
       configuration,
       {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
         // The plugin doesn't support RegExp, so it will use the glob patterns.
         include: [...jsRule.files.glob.include],
         exclude: [...jsRule.files.glob.exclude],
