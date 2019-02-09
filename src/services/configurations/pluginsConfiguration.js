@@ -246,7 +246,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     const { target } = params;
     const settings = {
       // Add just for basic JS files and JSON.
-      extensions: ['.js', '.json', '.jsx'],
+      extensions: ['.js', '.json', '.jsx', '.ts', '.tsx'],
       browser: target.is.browser,
       preferBuiltins: target.is.node,
     };
@@ -318,6 +318,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       {},
       configuration,
       {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
         // The plugin doesn't support RegExp, so it will use the glob patterns.
         include: [...jsRule.files.glob.include],
         exclude: [...jsRule.files.glob.exclude],
@@ -1140,6 +1141,8 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     const extensions = [
       'js',
       'jsx',
+      'ts',
+      'tsx',
       'css',
       'html',
       'map',
