@@ -44,7 +44,7 @@ describe('plugins:urls', () => {
     expect(sut).toBeInstanceOf(ProjextRollupURLsPlugin);
     expect(sut.name).toBe('projext-rollup-plugin-urls');
     expect(sut.load).toBeFunction();
-    expect(sut.onwrite).toBeFunction();
+    expect(sut.writeBundle).toBeFunction();
     expect(result).toEqual({
       urls: [Object.assign({}, url, { filter })],
       stats: expect.any(Function),
@@ -150,7 +150,7 @@ describe('plugins:urls', () => {
     // When
     sut = new ProjextRollupURLsPlugin(options);
     sut.load(filepath);
-    sut.onwrite();
+    sut.writeBundle();
     // Then
     expect(fs.ensureDirSync).toHaveBeenCalledTimes(1);
     expect(fs.ensureDirSync).toHaveBeenCalledWith(path.dirname(url.output));
@@ -180,7 +180,7 @@ describe('plugins:urls', () => {
     expect(sut).toBeInstanceOf(ProjextRollupURLsPlugin);
     expect(sut.name).toBe('projext-rollup-plugin-urls');
     expect(sut.load).toBeFunction();
-    expect(sut.onwrite).toBeFunction();
+    expect(sut.writeBundle).toBeFunction();
     expect(rollupUtils.createFilter).toHaveBeenCalledTimes(1);
     expect(rollupUtils.createFilter).toHaveBeenCalledWith(url.include, url.exclude);
   });

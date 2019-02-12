@@ -83,7 +83,7 @@ class RollupBrowserDevelopmentConfiguration extends ConfigurationFile {
     let devServerInstance;
     if (target.runOnDevelopment) {
       devServerInstance = devServer(pluginSettings.devServer);
-      statsLogSettings.afterLog = devServerInstance.showURL().onwrite;
+      statsLogSettings.afterLog = devServerInstance.showURL().writeBundle;
     }
 
     // Define the plugins list.

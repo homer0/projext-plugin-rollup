@@ -1,12 +1,12 @@
+jest.mock('zlib');
 jest.mock('fs-extra');
 jest.mock('rollup-pluginutils');
-jest.mock('node-zopfli');
 jest.unmock('/src/plugins/compression');
 
 require('jasmine-expect');
 const fs = require('fs-extra');
 const rollupUtils = require('rollup-pluginutils');
-const zopfli = require('node-zopfli');
+const zlib = require('zlib');
 const {
   ProjextRollupCompressionPlugin,
   compression,
@@ -19,7 +19,7 @@ describe('plugins:compression', () => {
     fs.lstatSync.mockReset();
     fs.createReadStream.mockReset();
     fs.createWriteStream.mockReset();
-    zopfli.createGzip.mockReset();
+    zlib.createGzip.mockReset();
     rollupUtils.createFilter.mockReset();
   });
 
@@ -38,7 +38,7 @@ describe('plugins:compression', () => {
     expect(sut).toBeInstanceOf(ProjextRollupCompressionPlugin);
     expect(sut.name).toBe('projext-rollup-plugin-compression');
     expect(sut.filter).toBe(filter);
-    expect(sut.onwrite).toBeFunction();
+    expect(sut.writeBundle).toBeFunction();
     expect(result).toEqual({
       folder: './dist',
       include: [],
@@ -116,7 +116,7 @@ describe('plugins:compression', () => {
       isDirectory: () => isDirectory(filepath),
     }));
     const gzip = 'create-gzip';
-    zopfli.createGzip.mockImplementation(() => gzip);
+    zlib.createGzip.mockImplementation(() => gzip);
     const readStream = {
       on: jest.fn(() => readStream),
       pipe: jest.fn(() => readStream),
@@ -128,7 +128,7 @@ describe('plugins:compression', () => {
     let resultPromise = null;
     // When
     sut = new ProjextRollupCompressionPlugin(options);
-    resultPromise = sut.onwrite();
+    resultPromise = sut.writeBundle();
     const [,, [, closeMainJS],,, [, closeSubJS]] = readStream.on.mock.calls;
     closeMainJS();
     closeSubJS();
@@ -229,7 +229,7 @@ describe('plugins:compression', () => {
       isDirectory: () => false,
     }));
     const gzip = 'create-gzip';
-    zopfli.createGzip.mockImplementation(() => gzip);
+    zlib.createGzip.mockImplementation(() => gzip);
     const readStream = {
       on: jest.fn(() => readStream),
       pipe: jest.fn(() => readStream),
@@ -242,7 +242,7 @@ describe('plugins:compression', () => {
     let resultPromise = null;
     // When
     sut = new ProjextRollupCompressionPlugin(options);
-    resultPromise = sut.onwrite();
+    resultPromise = sut.writeBundle();
     const [[, fail]] = readStream.on.mock.calls;
     fail(error);
     return resultPromise
@@ -269,7 +269,7 @@ describe('plugins:compression', () => {
       isDirectory: () => false,
     }));
     const gzip = 'create-gzip';
-    zopfli.createGzip.mockImplementation(() => gzip);
+    zlib.createGzip.mockImplementation(() => gzip);
     const readStream = {
       on: jest.fn(() => readStream),
       pipe: jest.fn(() => readStream),
@@ -282,7 +282,7 @@ describe('plugins:compression', () => {
     let resultPromise = null;
     // When
     sut = new ProjextRollupCompressionPlugin(options);
-    resultPromise = sut.onwrite();
+    resultPromise = sut.writeBundle();
     const [, [, fail]] = readStream.on.mock.calls;
     fail(error);
     return resultPromise
@@ -310,7 +310,7 @@ describe('plugins:compression', () => {
     expect(sut).toBeInstanceOf(ProjextRollupCompressionPlugin);
     expect(sut.name).toBe('projext-rollup-plugin-compression');
     expect(sut.filter).toBe(filter);
-    expect(sut.onwrite).toBeFunction();
+    expect(sut.writeBundle).toBeFunction();
     expect(rollupUtils.createFilter).toHaveBeenCalledTimes(1);
     expect(rollupUtils.createFilter).toHaveBeenCalledWith([], []);
   });

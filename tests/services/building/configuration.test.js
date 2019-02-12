@@ -303,6 +303,119 @@ describe('services/building:configuration', () => {
     expect(targets.getFilesToCopy).toHaveBeenCalledWith(target, buildType);
   });
 
+  it('should generate the configuration for a Node target that requires code splitting', () => {
+    // Given
+    const versionVariable = 'process.env.VERSION';
+    const version = 'latest';
+    const buildVersion = {
+      getDefinitionVariable: jest.fn(() => versionVariable),
+      getVersion: jest.fn(() => version),
+    };
+    const config = {
+      output: {
+        path: 'some-output-path',
+      },
+    };
+    const targetConfig = {
+      getConfig: jest.fn(() => config),
+    };
+    const filesToCopy = ['copy'];
+    const targets = {
+      getFilesToCopy: jest.fn(() => filesToCopy),
+    };
+    const targetRules = 'target-rule';
+    const targetsFileRules = {
+      getRulesForTarget: jest.fn(() => targetRules),
+    };
+    const targetConfiguration = jest.fn(() => targetConfig);
+    const buildType = 'development';
+    const target = {
+      type: 'node',
+      name: 'target',
+      paths: {
+        source: 'src/target',
+      },
+      folders: {
+        build: 'dist/target',
+      },
+      entry: {
+        [buildType]: 'index.js',
+      },
+      output: {
+        [buildType]: {
+          js: 'target.js',
+          jsChunks: true,
+          css: 'css/target/file.2509.css',
+          fonts: 'fonts/target/[name].2509.[ext]',
+          images: 'images/target/[name].2509.[ext]',
+        },
+      },
+      babel: {},
+      library: false,
+      bundle: true,
+      is: {
+        node: true,
+        browser: false,
+      },
+    };
+    const rollupConfigurations = {
+      [target.type]: {
+        [buildType]: {},
+      },
+    };
+    let sut = null;
+    let result = null;
+    // When
+    sut = new RollupConfiguration(
+      buildVersion,
+      targets,
+      targetsFileRules,
+      targetConfiguration,
+      rollupConfigurations
+    );
+    result = sut.getConfig(target, buildType);
+    // Then
+    expect(result).toEqual(config);
+    expect(buildVersion.getDefinitionVariable).toHaveBeenCalledTimes(1);
+    expect(buildVersion.getVersion).toHaveBeenCalledTimes(1);
+    expect(targetsFileRules.getRulesForTarget).toHaveBeenCalledTimes(1);
+    expect(targetsFileRules.getRulesForTarget).toHaveBeenCalledWith(target);
+    expect(targetConfiguration).toHaveBeenCalledTimes(['global', 'byBuildType'].length);
+    expect(targetConfiguration).toHaveBeenCalledWith(
+      `rollup/${target.name}.config.js`,
+      {}
+    );
+    expect(targetConfiguration).toHaveBeenCalledWith(
+      `rollup/${target.name}.${buildType}.config.js`,
+      targetConfig
+    );
+    expect(targetConfig.getConfig).toHaveBeenCalledTimes(1);
+    expect(targetConfig.getConfig).toHaveBeenCalledWith({
+      input: path.join(target.paths.source, target.entry[buildType]),
+      output: {
+        chunkFileNames: target.output[buildType].js.replace(/\.js$/, '.[name].js'),
+        entryFileNames: target.output[buildType].js,
+        dir: `./${target.folders.build}`,
+        format: 'cjs',
+        sourcemap: false,
+        name: 'target',
+      },
+      target,
+      buildType,
+      targetRules,
+      definitions: {
+        'process.env.NODE_ENV': `'${buildType}'`,
+        [versionVariable]: `"${version}"`,
+      },
+      paths: Object.assign({}, target.output[buildType], {
+        jsChunks: target.output[buildType].js.replace(/\.js$/, '.[name].js'),
+      }),
+      copy: filesToCopy,
+    });
+    expect(targets.getFilesToCopy).toHaveBeenCalledTimes(1);
+    expect(targets.getFilesToCopy).toHaveBeenCalledWith(target, buildType);
+  });
+
   it('should generate the configuration for a browser target', () => {
     // Given
     const hash = '2509';
@@ -393,6 +506,116 @@ describe('services/building:configuration', () => {
       output: {
         file: `./${target.folders.build}/${target.output[buildType].js}`,
         format: 'iife',
+        sourcemap: false,
+        name: 'target',
+      },
+      target,
+      buildType,
+      targetRules,
+      definitions: {
+        'process.env.NODE_ENV': `'${buildType}'`,
+        [versionVariable]: `"${version}"`,
+      },
+      paths: target.output[buildType],
+      copy: filesToCopy,
+    });
+    expect(targets.getFilesToCopy).toHaveBeenCalledTimes(1);
+    expect(targets.getFilesToCopy).toHaveBeenCalledWith(target, buildType);
+  });
+
+  it('should generate the configuration for a browser target with code splitting', () => {
+    // Given
+    const hash = '2509';
+    Date.now = () => hash;
+    const versionVariable = 'process.env.VERSION';
+    const version = 'latest';
+    const buildVersion = {
+      getDefinitionVariable: jest.fn(() => versionVariable),
+      getVersion: jest.fn(() => version),
+    };
+    const config = {
+      output: {
+        path: 'some-output-path',
+      },
+    };
+    const targetConfig = {
+      getConfig: jest.fn(() => config),
+    };
+    const filesToCopy = ['copy'];
+    const targets = {
+      getFilesToCopy: jest.fn(() => filesToCopy),
+    };
+    const targetRules = 'target-rule';
+    const targetsFileRules = {
+      getRulesForTarget: jest.fn(() => targetRules),
+    };
+    const targetConfiguration = jest.fn(() => targetConfig);
+    const buildType = 'development';
+    const target = {
+      type: 'browser',
+      name: 'target',
+      paths: {
+        source: 'src/target',
+      },
+      folders: {
+        build: 'dist/target',
+      },
+      entry: {
+        [buildType]: 'index.js',
+      },
+      output: {
+        [buildType]: {
+          js: 'js/target/file.2509.js',
+          jsChunks: 'js/target/file.2509.[name].js',
+          css: 'css/target/file.2509.css',
+          fonts: 'fonts/target/[name].2509.[ext]',
+          images: 'images/target/[name].2509.[ext]',
+        },
+      },
+      babel: {},
+      library: false,
+      is: {
+        node: false,
+        browser: true,
+      },
+    };
+    const rollupConfigurations = {
+      [target.type]: {
+        [buildType]: {},
+      },
+    };
+    let sut = null;
+    let result = null;
+    // When
+    sut = new RollupConfiguration(
+      buildVersion,
+      targets,
+      targetsFileRules,
+      targetConfiguration,
+      rollupConfigurations
+    );
+    result = sut.getConfig(target, buildType);
+    // Then
+    expect(result).toEqual(config);
+    expect(buildVersion.getDefinitionVariable).toHaveBeenCalledTimes(1);
+    expect(buildVersion.getVersion).toHaveBeenCalledTimes(1);
+    expect(targetConfiguration).toHaveBeenCalledTimes(['global', 'byBuildType'].length);
+    expect(targetConfiguration).toHaveBeenCalledWith(
+      `rollup/${target.name}.config.js`,
+      {}
+    );
+    expect(targetConfiguration).toHaveBeenCalledWith(
+      `rollup/${target.name}.${buildType}.config.js`,
+      targetConfig
+    );
+    expect(targetConfig.getConfig).toHaveBeenCalledTimes(1);
+    expect(targetConfig.getConfig).toHaveBeenCalledWith({
+      input: path.join(target.paths.source, target.entry[buildType]),
+      output: {
+        chunkFileNames: path.basename(target.output[buildType].jsChunks),
+        entryFileNames: path.basename(target.output[buildType].js),
+        dir: path.dirname(`./${target.folders.build}/${target.output[buildType].js}`),
+        format: 'es',
         sourcemap: false,
         name: 'target',
       },
