@@ -2,18 +2,18 @@
     "name": "projext-plugin-rollup",
     "description": "Allows projext to use Rollup as a build engine.",
     "homepage": "https://homer0.github.io/projext-plugin-rollup/",
-    "version": "3.0.1",
+    "version": "3.0.2",
     "repository": "homer0/projext-plugin-rollup",
     "author": "Leonardo Apiwan (@homer0) <me@homer0.com>",
     "license": "MIT",
     "dependencies": {
-      "projext": "^6.0.2",
+      "projext": "^6.0.4",
       "wootils": "^2.2.3",
       "jimple": "1.5.0",
       "fs-extra": "7.0.1",
       "extend": "3.0.2",
 
-      "rollup": "1.10.0",
+      "rollup": "1.11.2",
       "rollup-plugin-commonjs": "9.3.4",
       "rollup-plugin-node-resolve": "4.2.3",
       "rollup-plugin-uglify": "6.0.2",
@@ -26,25 +26,25 @@
 
       "builtin-modules": "3.1.0",
 
-      "postcss": "7.0.14",
+      "postcss": "7.0.16",
       "postcss-modules": "1.4.1",
 
-      "node-sass": "4.11.0",
+      "node-sass": "4.12.0",
       "mime": "2.4.2",
       "opener": "1.5.1",
       "prettysize": "2.0.0",
       "colors": "1.3.3",
 
-      "@babel/core": "7.4.3",
-      "@babel/preset-env": "7.4.3"
+      "@babel/core": "7.4.4",
+      "@babel/preset-env": "7.4.4"
     },
     "devDependencies": {
       "eslint": "5.16.0",
       "eslint-config-airbnb-base": "13.1.0",
-      "eslint-plugin-import": "2.17.1",
-      "eslint-plugin-node": "8.0.1",
+      "eslint-plugin-import": "2.17.2",
+      "eslint-plugin-node": "9.0.1",
       "jest-ex": "^6.0.1",
-      "jest-cli": "24.7.1",
+      "jest-cli": "24.8.0",
       "jasmine-expect": "4.0.1",
       "jimpex": "^3.0.0",
       "esdoc": "1.1.0",
