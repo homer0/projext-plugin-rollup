@@ -10,6 +10,7 @@ jest.mock('rollup-plugin-replace');
 jest.mock('rollup-plugin-sass');
 jest.mock('rollup-plugin-html');
 jest.mock('rollup-plugin-json');
+jest.mock('rollup-plugin-polyfill');
 jest.mock('rollup-plugin-uglify');
 jest.mock('/src/abstracts/configurationFile', () => ConfigurationFileMock);
 jest.unmock('/src/services/configurations/browserProductionConfiguration');
@@ -37,6 +38,7 @@ const replace = require('rollup-plugin-replace');
 const sass = require('rollup-plugin-sass');
 const html = require('rollup-plugin-html');
 const json = require('rollup-plugin-json');
+const polyfill = require('rollup-plugin-polyfill');
 const { uglify } = require('rollup-plugin-uglify');
 
 describe('services/configurations:browserProductionConfiguration', () => {
@@ -59,6 +61,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
       windowAsGlobal: 'windowAsGlobal-plugin',
       resolve: 'resolve-plugin',
       babel: 'babel-plugin',
+      polyfill: 'polyfill-plugin',
       commonjs: 'commonjs-plugin',
       replace: 'replace-plugin',
       sass: 'sass-plugin',
@@ -79,6 +82,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
     windowAsGlobal.mockImplementationOnce(() => values.windowAsGlobal);
     resolve.mockImplementationOnce(() => values.resolve);
     babel.mockImplementationOnce(() => values.babel);
+    polyfill.mockImplementationOnce(() => values.polyfill);
     commonjs.mockImplementationOnce(() => values.commonjs);
     replace.mockImplementationOnce(() => values.replace);
     sass.mockImplementationOnce(() => values.sass);
@@ -99,6 +103,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
       windowAsGlobal,
       resolve,
       babel,
+      polyfill,
       commonjs,
       replace,
       sass,
@@ -129,6 +134,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
       watch: 'watch-plugin-settings',
       compression: 'compression-plugin-settings',
       copy: 'copy-plugin-settings',
+      polyfill: 'polyfill-plugin-settings',
     };
     return {
       values,
@@ -156,6 +162,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
     html.mockClear();
     json.mockClear();
     uglify.mockClear();
+    polyfill.mockClear();
   });
 
   it('should be instantiated with all its dependencies', () => {
@@ -224,6 +231,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
         plugins.values.resolve,
         plugins.values.commonjs,
         plugins.values.babel,
+        plugins.values.polyfill,
         plugins.values.windowAsGlobal,
         plugins.values.replace,
         plugins.values.sass,
@@ -258,6 +266,8 @@ describe('services/configurations:browserProductionConfiguration', () => {
     expect(plugins.mocks.resolve).toHaveBeenCalledWith(plugins.settings.resolve);
     expect(plugins.mocks.babel).toHaveBeenCalledTimes(1);
     expect(plugins.mocks.babel).toHaveBeenCalledWith(plugins.settings.babel);
+    expect(plugins.mocks.polyfill).toHaveBeenCalledTimes(1);
+    expect(plugins.mocks.polyfill).toHaveBeenCalledWith(plugins.settings.polyfill);
     expect(plugins.mocks.commonjs).toHaveBeenCalledTimes(1);
     expect(plugins.mocks.commonjs).toHaveBeenCalledWith(plugins.settings.commonjs);
     expect(plugins.mocks.windowAsGlobal).toHaveBeenCalledTimes(1);
@@ -347,6 +357,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
         plugins.values.resolve,
         plugins.values.commonjs,
         plugins.values.babel,
+        plugins.values.polyfill,
         plugins.values.windowAsGlobal,
         plugins.values.replace,
         plugins.values.sass,
@@ -420,6 +431,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
         plugins.values.resolve,
         plugins.values.commonjs,
         plugins.values.babel,
+        plugins.values.polyfill,
         plugins.values.windowAsGlobal,
         plugins.values.replace,
         plugins.values.sass,
@@ -488,6 +500,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
         plugins.values.resolve,
         plugins.values.commonjs,
         plugins.values.babel,
+        plugins.values.polyfill,
         plugins.values.windowAsGlobal,
         plugins.values.replace,
         plugins.values.sass,
@@ -508,6 +521,76 @@ describe('services/configurations:browserProductionConfiguration', () => {
     expect(plugins.mocks.stylesheetModulesFixer).toHaveBeenCalledTimes(1);
     expect(plugins.mocks.stylesheetModulesFixer)
     .toHaveBeenCalledWith(plugins.settings.stylesheetModulesFixer);
+  });
+
+  it('should create a configuration for a target without a Babel polyfill', () => {
+    // Given
+    const plugins = getPlugins();
+    plugins.settings.polyfill = [];
+    const events = {
+      reduce: jest.fn((eventNames, config) => config),
+    };
+    const pathUtils = 'pathUtils';
+    const rollupPluginSettingsConfiguration = {
+      getConfig: jest.fn(() => plugins.settings),
+    };
+    const target = {
+      css: {
+        modules: true,
+      },
+      paths: {
+        build: 'dist',
+      },
+      uglifyOnProduction: true,
+      watch: {
+        production: false,
+      },
+    };
+    const output = {};
+    const input = 'input';
+    const params = {
+      target,
+      input,
+      output,
+    };
+    let sut = null;
+    let result = null;
+    // When
+    sut = new RollupBrowserProductionConfiguration(
+      events,
+      pathUtils,
+      rollupPluginSettingsConfiguration
+    );
+    result = sut.getConfig(params);
+    // Then
+    expect(result).toEqual({
+      input,
+      output: Object.assign({}, output, {
+        globals: plugins.settings.globals,
+      }),
+      plugins: [
+        plugins.values.statsReset,
+        plugins.values.resolve,
+        plugins.values.commonjs,
+        plugins.values.babel,
+        plugins.values.windowAsGlobal,
+        plugins.values.replace,
+        plugins.values.sass,
+        plugins.values.css,
+        plugins.values.stylesheetAssets,
+        plugins.values.stylesheetModulesFixer,
+        plugins.values.html,
+        plugins.values.json,
+        plugins.values.urls,
+        plugins.values.uglify,
+        plugins.values.copy,
+        plugins.values.template,
+        plugins.values.compression,
+        plugins.values.statsLog,
+      ],
+      external: plugins.settings.external.external,
+    });
+    expect(plugins.mocks.polyfill).toHaveBeenCalledTimes(0);
   });
 
   it('should create a configuration for a target with custom globals', () => {
@@ -563,6 +646,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
         plugins.values.resolve,
         plugins.values.commonjs,
         plugins.values.babel,
+        plugins.values.polyfill,
         plugins.values.windowAsGlobal,
         plugins.values.replace,
         plugins.values.sass,
@@ -631,6 +715,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
         plugins.values.resolve,
         plugins.values.commonjs,
         plugins.values.babel,
+        plugins.values.polyfill,
         plugins.values.windowAsGlobal,
         plugins.values.replace,
         plugins.values.sass,
@@ -702,6 +787,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
         plugins.values.resolve,
         plugins.values.commonjs,
         plugins.values.babel,
+        plugins.values.polyfill,
         plugins.values.windowAsGlobal,
         plugins.values.replace,
         plugins.values.sass,

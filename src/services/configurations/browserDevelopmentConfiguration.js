@@ -5,6 +5,7 @@ const replace = require('rollup-plugin-replace');
 const sass = require('rollup-plugin-sass');
 const html = require('rollup-plugin-html');
 const json = require('rollup-plugin-json');
+const polyfill = require('rollup-plugin-polyfill');
 
 const { provider } = require('jimple');
 const ConfigurationFile = require('../../abstracts/configurationFile');
@@ -92,6 +93,11 @@ class RollupBrowserDevelopmentConfiguration extends ConfigurationFile {
       resolve(pluginSettings.resolve),
       commonjs(pluginSettings.commonjs),
       babel(pluginSettings.babel),
+      ...(
+        pluginSettings.polyfill.length ?
+          [polyfill(pluginSettings.polyfill)] :
+          []
+      ),
       windowAsGlobal(),
       replace(pluginSettings.replace),
       sass(pluginSettings.sass),

@@ -95,6 +95,9 @@ describe('services/configurations:plugins', () => {
         node: true,
         browser: false,
       },
+      babel: {
+        polyfill: false,
+      },
       inspect: {
         enabled: false,
       },
@@ -186,7 +189,6 @@ describe('services/configurations:plugins', () => {
       copy,
     };
     const stats = 'stats';
-
     const appLogger = 'appLogger';
     const babelConfig = {
       babel: true,
@@ -354,6 +356,7 @@ describe('services/configurations:plugins', () => {
         files: copy,
         stats,
       },
+      polyfill: [],
       statsLog: {
         extraEntries: [
           {
@@ -500,6 +503,13 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
+          'rollup-polyfill-plugin-settings-configuration-for-node',
+          'rollup-polyfill-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.polyfill,
+      },
+      {
+        events: [
           'rollup-stats-plugin-settings-configuration-for-node',
           'rollup-stats-plugin-settings-configuration',
         ],
@@ -572,6 +582,9 @@ describe('services/configurations:plugins', () => {
       is: {
         node: true,
         browser: false,
+      },
+      babel: {
+        polyfill: false,
       },
     };
     const rules = {
@@ -827,6 +840,7 @@ describe('services/configurations:plugins', () => {
         files: copy,
         stats,
       },
+      polyfill: [],
       statsLog: {
         extraEntries: [
           {
@@ -972,6 +986,13 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
+          'rollup-uglify-plugin-settings-configuration-for-node',
+          'rollup-uglify-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.uglify,
+      },
+      {
+        events: [
           'rollup-stats-plugin-settings-configuration-for-node',
           'rollup-stats-plugin-settings-configuration',
         ],
@@ -1033,6 +1054,13 @@ describe('services/configurations:plugins', () => {
       images: 'images-path',
     };
     const excludeModule = 'colors';
+    const pluginName = 'plugin';
+    const polyfillFile = 'babel-polyfill.js';
+    const rollupPluginInfo = {
+      name: pluginName,
+      external: [],
+      babelPolyfill: polyfillFile,
+    };
     const target = {
       css: {
         modules: false,
@@ -1043,6 +1071,9 @@ describe('services/configurations:plugins', () => {
       is: {
         node: false,
         browser: true,
+      },
+      babel: {
+        polyfill: true,
       },
       html: {
         filename: 'my-target.html',
@@ -1175,11 +1206,6 @@ describe('services/configurations:plugins', () => {
     const pathUtils = {
       join: jest.fn((rest) => rest),
     };
-    const pluginName = 'plugin';
-    const rollupPluginInfo = {
-      name: pluginName,
-      external: [],
-    };
     const htmlFile = 'index.html';
     const targetsHTML = {
       getFilepath: jest.fn(() => htmlFile),
@@ -1302,6 +1328,7 @@ describe('services/configurations:plugins', () => {
         files: copy,
         stats,
       },
+      polyfill: [`${pluginName}/${polyfillFile}`],
       statsLog: {
         extraEntries: [
           {
@@ -1457,6 +1484,13 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
+          'rollup-uglify-plugin-settings-configuration-for-browser',
+          'rollup-uglify-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.uglify,
+      },
+      {
+        events: [
           'rollup-stats-plugin-settings-configuration-for-browser',
           'rollup-stats-plugin-settings-configuration',
         ],
@@ -1529,6 +1563,9 @@ describe('services/configurations:plugins', () => {
       is: {
         node: false,
         browser: true,
+      },
+      babel: {
+        polyfill: false,
       },
       html: {
         filename: 'my-target.html',
@@ -1788,6 +1825,7 @@ describe('services/configurations:plugins', () => {
         files: copy,
         stats,
       },
+      polyfill: [],
       statsLog: {
         extraEntries: [
           {
@@ -1939,6 +1977,13 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
+          'rollup-polyfill-plugin-settings-configuration-for-browser',
+          'rollup-polyfill-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.polyfill,
+      },
+      {
+        events: [
           'rollup-stats-plugin-settings-configuration-for-browser',
           'rollup-stats-plugin-settings-configuration',
         ],
@@ -2015,6 +2060,9 @@ describe('services/configurations:plugins', () => {
       is: {
         node: false,
         browser: true,
+      },
+      babel: {
+        polyfill: false,
       },
       html: {
         filename: 'my-target.html',
@@ -2277,6 +2325,7 @@ describe('services/configurations:plugins', () => {
         files: copy,
         stats,
       },
+      polyfill: [],
       statsLog: {
         extraEntries: [
           {
@@ -2434,6 +2483,13 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
+          'rollup-polyfill-plugin-settings-configuration-for-browser',
+          'rollup-polyfill-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.polyfill,
+      },
+      {
+        events: [
           'rollup-stats-plugin-settings-configuration-for-browser',
           'rollup-stats-plugin-settings-configuration',
         ],
@@ -2510,6 +2566,9 @@ describe('services/configurations:plugins', () => {
       is: {
         node: false,
         browser: true,
+      },
+      babel: {
+        polyfill: false,
       },
       html: {
         filename: 'my-target.html',
@@ -2776,6 +2835,7 @@ describe('services/configurations:plugins', () => {
         files: copy,
         stats,
       },
+      polyfill: [],
       statsLog: {
         extraEntries: [
           {
@@ -2937,6 +2997,13 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
+          'rollup-polyfill-plugin-settings-configuration-for-browser',
+          'rollup-polyfill-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.polyfill,
+      },
+      {
+        events: [
           'rollup-stats-plugin-settings-configuration-for-browser',
           'rollup-stats-plugin-settings-configuration',
         ],
@@ -3008,6 +3075,9 @@ describe('services/configurations:plugins', () => {
       is: {
         node: false,
         browser: true,
+      },
+      babel: {
+        polyfill: false,
       },
       html: {
         filename: 'my-target.html',
@@ -3271,6 +3341,7 @@ describe('services/configurations:plugins', () => {
         files: copy,
         stats,
       },
+      polyfill: [],
       statsLog: {
         extraEntries: [
           {
@@ -3430,6 +3501,13 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
+          'rollup-polyfill-plugin-settings-configuration-for-browser',
+          'rollup-polyfill-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.polyfill,
+      },
+      {
+        events: [
           'rollup-stats-plugin-settings-configuration-for-browser',
           'rollup-stats-plugin-settings-configuration',
         ],
@@ -3501,6 +3579,9 @@ describe('services/configurations:plugins', () => {
       is: {
         node: false,
         browser: true,
+      },
+      babel: {
+        polyfill: false,
       },
       html: {
         filename: 'my-target.html',
@@ -3763,6 +3844,7 @@ describe('services/configurations:plugins', () => {
         files: copy,
         stats,
       },
+      polyfill: [],
       statsLog: {
         extraEntries: [
           {
@@ -3922,6 +4004,13 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
+          'rollup-polyfill-plugin-settings-configuration-for-browser',
+          'rollup-polyfill-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.polyfill,
+      },
+      {
+        events: [
           'rollup-stats-plugin-settings-configuration-for-browser',
           'rollup-stats-plugin-settings-configuration',
         ],
@@ -3995,6 +4084,9 @@ describe('services/configurations:plugins', () => {
       is: {
         node: false,
         browser: true,
+      },
+      babel: {
+        polyfill: false,
       },
       html: {
         filename: 'my-target.html',
@@ -4211,6 +4303,9 @@ describe('services/configurations:plugins', () => {
         node: false,
         browser: true,
       },
+      babel: {
+        polyfill: false,
+      },
       html: {
         filename: 'my-target.html',
       },
@@ -4421,6 +4516,9 @@ describe('services/configurations:plugins', () => {
       is: {
         node: false,
         browser: true,
+      },
+      babel: {
+        polyfill: false,
       },
       html: {
         filename: 'my-target.html',
