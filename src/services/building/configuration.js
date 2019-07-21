@@ -103,15 +103,24 @@ class RollupConfiguration {
       copy.push(...this.targets.getFilesToCopy(target, buildType));
     }
 
+    const definitions = this._getDefinitions(target, buildType);
+    const additionalWatch = [];
+    if (target.is.browser && target.configuration && target.configuration.enabled) {
+      const browserConfig = this.targets.getBrowserTargetConfiguration(target);
+      definitions[target.configuration.defineOn] = JSON.stringify(browserConfig.configuration);
+      additionalWatch.push(...browserConfig.files);
+    }
+
     const params = {
       input,
       output,
       target,
       targetRules: this.targetsFileRules.getRulesForTarget(target),
-      definitions: this._getDefinitions(target, buildType),
+      definitions,
       buildType,
       paths,
       copy,
+      additionalWatch,
     };
 
     let config = this.targetConfiguration(
@@ -147,16 +156,6 @@ class RollupConfiguration {
     definitions[this.buildVersion.getDefinitionVariable()] = JSON.stringify(
       this.buildVersion.getVersion()
     );
-
-    if (
-      target.is.browser &&
-      target.configuration &&
-      target.configuration.enabled
-    ) {
-      definitions[target.configuration.defineOn] = JSON.stringify(
-        this.targets.getBrowserTargetConfiguration(target)
-      );
-    }
 
     return definitions;
   }

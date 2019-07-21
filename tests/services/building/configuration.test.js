@@ -205,6 +205,7 @@ describe('services/building:configuration', () => {
       },
       paths: target.output[buildType],
       copy: [],
+      additionalWatch: [],
     });
   });
 
@@ -314,6 +315,7 @@ describe('services/building:configuration', () => {
       },
       paths: target.output[buildType],
       copy: filesToCopy,
+      additionalWatch: [],
     });
     expect(targets.getFilesToCopy).toHaveBeenCalledTimes(1);
     expect(targets.getFilesToCopy).toHaveBeenCalledWith(target, buildType);
@@ -430,6 +432,7 @@ describe('services/building:configuration', () => {
         jsChunks: target.output[buildType].js.replace(/\.js$/, '.[name].js'),
       }),
       copy: filesToCopy,
+      additionalWatch: [],
     });
     expect(targets.getFilesToCopy).toHaveBeenCalledTimes(1);
     expect(targets.getFilesToCopy).toHaveBeenCalledWith(target, buildType);
@@ -540,6 +543,7 @@ describe('services/building:configuration', () => {
       },
       paths: target.output[buildType],
       copy: filesToCopy,
+      additionalWatch: [],
     });
     expect(targets.getFilesToCopy).toHaveBeenCalledTimes(1);
     expect(targets.getFilesToCopy).toHaveBeenCalledWith(target, buildType);
@@ -653,6 +657,7 @@ describe('services/building:configuration', () => {
       },
       paths: target.output[buildType],
       copy: filesToCopy,
+      additionalWatch: [],
     });
     expect(targets.getFilesToCopy).toHaveBeenCalledTimes(1);
     expect(targets.getFilesToCopy).toHaveBeenCalledWith(target, buildType);
@@ -674,12 +679,16 @@ describe('services/building:configuration', () => {
     const targetConfig = {
       getConfig: jest.fn(() => config),
     };
+    const targetBrowserConfigFiles = ['some-config-file'];
     const targetBrowserConfig = {
       someProp: 'someValue',
     };
     const filesToCopy = ['copy'];
     const targets = {
-      getBrowserTargetConfiguration: jest.fn(() => targetBrowserConfig),
+      getBrowserTargetConfiguration: jest.fn(() => ({
+        configuration: targetBrowserConfig,
+        files: targetBrowserConfigFiles,
+      })),
       getFilesToCopy: jest.fn(() => filesToCopy),
       loadTargetDotEnvFile: jest.fn(() => ({})),
     };
@@ -766,6 +775,7 @@ describe('services/building:configuration', () => {
       },
       paths: target.output[buildType],
       copy: filesToCopy,
+      additionalWatch: targetBrowserConfigFiles,
     });
     expect(targets.getBrowserTargetConfiguration).toHaveBeenCalledTimes(1);
     expect(targets.getBrowserTargetConfiguration).toHaveBeenCalledWith(target);
@@ -887,6 +897,7 @@ describe('services/building:configuration', () => {
       },
       paths: target.output[buildType],
       copy: [],
+      additionalWatch: [],
     });
   });
 
@@ -1011,6 +1022,7 @@ describe('services/building:configuration', () => {
       },
       paths: target.output[buildType],
       copy: filesToCopy,
+      additionalWatch: [],
     });
     expect(targets.getFilesToCopy).toHaveBeenCalledTimes(1);
     expect(targets.getFilesToCopy).toHaveBeenCalledWith(target, buildType);
@@ -1135,6 +1147,7 @@ describe('services/building:configuration', () => {
       },
       paths: target.output[buildType],
       copy: [],
+      additionalWatch: [],
     });
   });
 
