@@ -178,6 +178,7 @@ describe('services/configurations:plugins', () => {
       },
     };
     const copy = ['files-to-copy'];
+    const additionalWatch = ['file-to-watch'];
     const params = {
       buildType,
       definitions,
@@ -187,6 +188,7 @@ describe('services/configurations:plugins', () => {
       rules,
       targetRules,
       copy,
+      additionalWatch,
     };
     const stats = 'stats';
     const appLogger = 'appLogger';
@@ -344,6 +346,7 @@ describe('services/configurations:plugins', () => {
       },
       watch: {
         clearScreen: false,
+        include: additionalWatch,
       },
       uglify: {},
       compression: {
@@ -663,6 +666,7 @@ describe('services/configurations:plugins', () => {
       },
     };
     const copy = ['files-to-copy'];
+    const additionalWatch = ['file-to-watch'];
     const params = {
       buildType,
       definitions,
@@ -672,6 +676,7 @@ describe('services/configurations:plugins', () => {
       rules,
       targetRules,
       copy,
+      additionalWatch,
     };
     const stats = 'stats';
 
@@ -828,6 +833,7 @@ describe('services/configurations:plugins', () => {
       },
       watch: {
         clearScreen: false,
+        include: additionalWatch,
       },
       uglify: {},
       compression: {
@@ -1164,6 +1170,7 @@ describe('services/configurations:plugins', () => {
       },
     };
     const copy = ['files-to-copy'];
+    const additionalWatch = ['file-to-watch'];
     const params = {
       buildType,
       definitions,
@@ -1173,6 +1180,7 @@ describe('services/configurations:plugins', () => {
       rules,
       targetRules,
       copy,
+      additionalWatch,
     };
     const stats = 'stats';
 
@@ -1316,6 +1324,7 @@ describe('services/configurations:plugins', () => {
       },
       watch: {
         clearScreen: false,
+        include: additionalWatch,
       },
       uglify: {},
       compression: {
@@ -1656,6 +1665,7 @@ describe('services/configurations:plugins', () => {
       },
     };
     const copy = ['files-to-copy'];
+    const additionalWatch = ['file-to-watch'];
     const params = {
       buildType,
       definitions,
@@ -1665,6 +1675,7 @@ describe('services/configurations:plugins', () => {
       rules,
       targetRules,
       copy,
+      additionalWatch,
     };
     const stats = 'stats';
 
@@ -1813,6 +1824,7 @@ describe('services/configurations:plugins', () => {
       },
       watch: {
         clearScreen: false,
+        include: additionalWatch,
       },
       uglify: {},
       compression: {
@@ -2156,6 +2168,7 @@ describe('services/configurations:plugins', () => {
       },
     };
     const copy = ['files-to-copy'];
+    const additionalWatch = ['file-to-watch'];
     const params = {
       buildType,
       definitions,
@@ -2165,6 +2178,7 @@ describe('services/configurations:plugins', () => {
       rules,
       targetRules,
       copy,
+      additionalWatch,
     };
     const stats = 'stats';
 
@@ -2313,6 +2327,7 @@ describe('services/configurations:plugins', () => {
       },
       watch: {
         clearScreen: false,
+        include: additionalWatch,
       },
       uglify: {},
       compression: {
@@ -2666,6 +2681,7 @@ describe('services/configurations:plugins', () => {
       },
     };
     const copy = ['files-to-copy'];
+    const additionalWatch = ['file-to-watch'];
     const params = {
       buildType,
       definitions,
@@ -2675,6 +2691,7 @@ describe('services/configurations:plugins', () => {
       rules,
       targetRules,
       copy,
+      additionalWatch,
     };
     const stats = 'stats';
 
@@ -2823,6 +2840,7 @@ describe('services/configurations:plugins', () => {
       },
       watch: {
         clearScreen: false,
+        include: additionalWatch,
       },
       uglify: {},
       compression: {
@@ -3172,6 +3190,7 @@ describe('services/configurations:plugins', () => {
       },
     };
     const copy = ['files-to-copy'];
+    const additionalWatch = ['file-to-watch'];
     const params = {
       buildType,
       definitions,
@@ -3181,6 +3200,7 @@ describe('services/configurations:plugins', () => {
       rules,
       targetRules,
       copy,
+      additionalWatch,
     };
     const stats = 'stats';
 
@@ -3329,6 +3349,7 @@ describe('services/configurations:plugins', () => {
       },
       watch: {
         clearScreen: false,
+        include: additionalWatch,
       },
       uglify: {},
       compression: {
@@ -3675,6 +3696,7 @@ describe('services/configurations:plugins', () => {
       },
     };
     const copy = ['files-to-copy'];
+    const additionalWatch = ['file-to-watch'];
     const params = {
       buildType,
       definitions,
@@ -3684,6 +3706,7 @@ describe('services/configurations:plugins', () => {
       rules,
       targetRules,
       copy,
+      additionalWatch,
     };
     const stats = 'stats';
 
@@ -3832,6 +3855,7 @@ describe('services/configurations:plugins', () => {
       },
       watch: {
         clearScreen: false,
+        include: additionalWatch,
       },
       uglify: {},
       compression: {
@@ -4177,6 +4201,7 @@ describe('services/configurations:plugins', () => {
       },
     };
     const copy = ['files-to-copy'];
+    const additionalWatch = ['file-to-watch'];
     const params = {
       buildType,
       definitions,
@@ -4186,6 +4211,7 @@ describe('services/configurations:plugins', () => {
       rules,
       targetRules,
       copy,
+      additionalWatch,
     };
     const stats = 'stats';
 
@@ -4395,6 +4421,7 @@ describe('services/configurations:plugins', () => {
       },
     };
     const copy = ['files-to-copy'];
+    const additionalWatch = ['file-to-watch'];
     const params = {
       buildType,
       definitions,
@@ -4404,6 +4431,7 @@ describe('services/configurations:plugins', () => {
       rules,
       targetRules,
       copy,
+      additionalWatch,
     };
     const stats = 'stats';
 
@@ -4609,6 +4637,7 @@ describe('services/configurations:plugins', () => {
       },
     };
     const copy = ['files-to-copy'];
+    const additionalWatch = ['file-to-watch'];
     const params = {
       buildType,
       definitions,
@@ -4618,6 +4647,7 @@ describe('services/configurations:plugins', () => {
       rules,
       targetRules,
       copy,
+      additionalWatch,
     };
     const stats = 'stats';
 

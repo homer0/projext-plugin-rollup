@@ -780,6 +780,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     // Define the plugin settings.
     const settings = {
       clearScreen: false,
+      include: params.additionalWatch,
     };
 
     const eventName = params.target.is.node ?
