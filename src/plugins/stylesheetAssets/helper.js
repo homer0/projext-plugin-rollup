@@ -113,7 +113,7 @@ class ProjextRollupStylesheetAssetsHelperPlugin {
  * Shorthand method to create an instance of {@link ProjextRollupStylesheetAssetsHelperPlugin}.
  * @param {ProjextRollupStylesheetAssetsHelperPluginOptions} options
  * The options to customize the plugin behaviour.
- * @param {string} name
+ * @param {string} [name]
  * The name of the plugin's instance.
  * @return {ProjextRollupStylesheetAssetsHelperPlugin}
  */
