@@ -22,7 +22,6 @@ const {
   copy,
   css,
   extraWatch,
-  runtimeReplace,
   stylesheetAssets,
   stats,
   urls,
@@ -55,7 +54,6 @@ describe('services/configurations:nodeProductionConfiguration', () => {
       polyfill: 'polyfill-plugin',
       commonjs: 'commonjs-plugin',
       extraWatch: 'extra-watch-plugin',
-      runtimeReplace: 'runtime-replace-plugin',
       sass: 'sass-plugin',
       html: 'html-plugin',
       json: 'json-plugin',
@@ -73,7 +71,6 @@ describe('services/configurations:nodeProductionConfiguration', () => {
     polyfill.mockImplementationOnce(() => values.polyfill);
     commonjs.mockImplementationOnce(() => values.commonjs);
     extraWatch.mockImplementationOnce(() => values.extraWatch);
-    runtimeReplace.mockImplementationOnce(() => values.runtimeReplace);
     sass.mockImplementationOnce(() => values.sass);
     html.mockImplementationOnce(() => values.html);
     json.mockImplementationOnce(() => values.json);
@@ -90,7 +87,6 @@ describe('services/configurations:nodeProductionConfiguration', () => {
       polyfill,
       commonjs,
       extraWatch,
-      runtimeReplace,
       sass,
       html,
       json,
@@ -136,7 +132,6 @@ describe('services/configurations:nodeProductionConfiguration', () => {
     babel.mockClear();
     commonjs.mockClear();
     extraWatch.mockClear();
-    runtimeReplace.mockClear();
     sass.mockClear();
     html.mockClear();
     json.mockClear();
@@ -191,12 +186,10 @@ describe('services/configurations:nodeProductionConfiguration', () => {
     };
     const output = {};
     const input = 'input';
-    const definitions = 'definitions';
     const params = {
       target,
       input,
       output,
-      definitions,
     };
     let sut = null;
     let result = null;
@@ -211,7 +204,6 @@ describe('services/configurations:nodeProductionConfiguration', () => {
         plugins.values.commonjs,
         plugins.values.babel,
         plugins.values.polyfill,
-        plugins.values.runtimeReplace,
         plugins.values.extraWatch,
         plugins.values.sass,
         plugins.values.css,
@@ -247,8 +239,6 @@ describe('services/configurations:nodeProductionConfiguration', () => {
     expect(plugins.mocks.commonjs).toHaveBeenCalledWith(plugins.settings.commonjs);
     expect(plugins.mocks.polyfill).toHaveBeenCalledTimes(1);
     expect(plugins.mocks.polyfill).toHaveBeenCalledWith(plugins.settings.polyfill);
-    expect(plugins.mocks.runtimeReplace).toHaveBeenCalledTimes(1);
-    expect(plugins.mocks.runtimeReplace).toHaveBeenCalledWith(definitions);
     expect(plugins.mocks.extraWatch).toHaveBeenCalledTimes(1);
     expect(plugins.mocks.extraWatch).toHaveBeenCalledWith(plugins.settings.extraWatch);
     expect(plugins.mocks.sass).toHaveBeenCalledTimes(1);
@@ -332,7 +322,6 @@ describe('services/configurations:nodeProductionConfiguration', () => {
         plugins.values.commonjs,
         plugins.values.babel,
         plugins.values.polyfill,
-        plugins.values.runtimeReplace,
         plugins.values.extraWatch,
         plugins.values.sass,
         plugins.values.css,
@@ -399,7 +388,6 @@ describe('services/configurations:nodeProductionConfiguration', () => {
         plugins.values.resolve,
         plugins.values.commonjs,
         plugins.values.babel,
-        plugins.values.runtimeReplace,
         plugins.values.extraWatch,
         plugins.values.sass,
         plugins.values.css,
@@ -463,7 +451,6 @@ describe('services/configurations:nodeProductionConfiguration', () => {
         plugins.values.commonjs,
         plugins.values.babel,
         plugins.values.polyfill,
-        plugins.values.runtimeReplace,
         plugins.values.extraWatch,
         plugins.values.sass,
         plugins.values.css,

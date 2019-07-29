@@ -22,7 +22,6 @@ const {
   copy,
   css,
   extraWatch,
-  runtimeReplace,
   nodeRunner,
   stats,
   stylesheetAssets,
@@ -57,7 +56,6 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
       polyfill: 'polyfill-plugin',
       commonjs: 'commonjs-plugin',
       extraWatch: 'extra-watch-plugin',
-      runtimeReplace: 'runtime-replace-plugin',
       sass: 'sass-plugin',
       html: 'html-plugin',
       json: 'json-plugin',
@@ -76,7 +74,6 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
     polyfill.mockImplementationOnce(() => values.polyfill);
     commonjs.mockImplementationOnce(() => values.commonjs);
     extraWatch.mockImplementationOnce(() => values.extraWatch);
-    runtimeReplace.mockImplementationOnce(() => values.runtimeReplace);
     sass.mockImplementationOnce(() => values.sass);
     html.mockImplementationOnce(() => values.html);
     json.mockImplementationOnce(() => values.json);
@@ -94,7 +91,6 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
       polyfill,
       commonjs,
       extraWatch,
-      runtimeReplace,
       sass,
       html,
       json,
@@ -142,7 +138,6 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
     babel.mockClear();
     commonjs.mockClear();
     extraWatch.mockClear();
-    runtimeReplace.mockClear();
     sass.mockClear();
     html.mockClear();
     json.mockClear();
@@ -197,12 +192,10 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
     };
     const output = {};
     const input = 'input';
-    const definitions = 'definitions';
     const params = {
       target,
       input,
       output,
-      definitions,
     };
     let sut = null;
     let result = null;
@@ -217,7 +210,6 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
         plugins.values.commonjs,
         plugins.values.babel,
         plugins.values.polyfill,
-        plugins.values.runtimeReplace,
         plugins.values.extraWatch,
         plugins.values.sass,
         plugins.values.css,
@@ -253,8 +245,6 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
     expect(plugins.mocks.polyfill).toHaveBeenCalledWith(plugins.settings.polyfill);
     expect(plugins.mocks.commonjs).toHaveBeenCalledTimes(1);
     expect(plugins.mocks.commonjs).toHaveBeenCalledWith(plugins.settings.commonjs);
-    expect(plugins.mocks.runtimeReplace).toHaveBeenCalledTimes(1);
-    expect(plugins.mocks.runtimeReplace).toHaveBeenCalledWith(definitions);
     expect(plugins.mocks.extraWatch).toHaveBeenCalledTimes(1);
     expect(plugins.mocks.extraWatch).toHaveBeenCalledWith(plugins.settings.extraWatch);
     expect(plugins.mocks.sass).toHaveBeenCalledTimes(1);
@@ -338,7 +328,6 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
         plugins.values.commonjs,
         plugins.values.babel,
         plugins.values.polyfill,
-        plugins.values.runtimeReplace,
         plugins.values.extraWatch,
         plugins.values.sass,
         plugins.values.css,
@@ -405,7 +394,6 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
         plugins.values.resolve,
         plugins.values.commonjs,
         plugins.values.babel,
-        plugins.values.runtimeReplace,
         plugins.values.extraWatch,
         plugins.values.sass,
         plugins.values.css,
@@ -470,7 +458,6 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
         plugins.values.commonjs,
         plugins.values.babel,
         plugins.values.polyfill,
-        plugins.values.runtimeReplace,
         plugins.values.extraWatch,
         plugins.values.sass,
         plugins.values.css,
@@ -538,7 +525,6 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
         plugins.values.commonjs,
         plugins.values.babel,
         plugins.values.polyfill,
-        plugins.values.runtimeReplace,
         plugins.values.extraWatch,
         plugins.values.sass,
         plugins.values.css,

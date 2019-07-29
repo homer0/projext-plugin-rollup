@@ -12,7 +12,6 @@ const {
   copy,
   css,
   extraWatch,
-  runtimeReplace,
   stats,
   stylesheetAssets,
   urls,
@@ -63,7 +62,6 @@ class RollupNodeProductionConfiguration extends ConfigurationFile {
    */
   createConfig(params) {
     const {
-      definitions,
       input,
       output,
       target,
@@ -88,7 +86,6 @@ class RollupNodeProductionConfiguration extends ConfigurationFile {
           [polyfill(pluginSettings.polyfill)] :
           []
       ),
-      runtimeReplace(definitions),
       extraWatch(pluginSettings.extraWatch),
       sass(pluginSettings.sass),
       css(pluginSettings.css),
