@@ -12,6 +12,7 @@
       "jimple": "^1.5.0",
       "fs-extra": "^8.1.0",
       "extend": "^3.0.2",
+      "magic-string": "0.25.3",
 
       "rollup": "^1.17.0",
       "rollup-plugin-commonjs": "^10.0.1",
