@@ -6,7 +6,6 @@ jest.mock('fs-extra');
 jest.mock('rollup-plugin-node-resolve');
 jest.mock('rollup-plugin-babel');
 jest.mock('rollup-plugin-commonjs');
-jest.mock('rollup-plugin-replace');
 jest.mock('rollup-plugin-sass');
 jest.mock('rollup-plugin-html');
 jest.mock('rollup-plugin-json');
@@ -22,15 +21,16 @@ const {
 const {
   copy,
   css,
-  urls,
-  stylesheetAssets,
+  extraWatch,
+  runtimeReplace,
   nodeRunner,
   stats,
+  stylesheetAssets,
+  urls,
 } = require('/src/plugins');
 const resolve = require('rollup-plugin-node-resolve');
 const babel = require('rollup-plugin-babel');
 const commonjs = require('rollup-plugin-commonjs');
-const replace = require('rollup-plugin-replace');
 const sass = require('rollup-plugin-sass');
 const html = require('rollup-plugin-html');
 const json = require('rollup-plugin-json');
@@ -56,7 +56,8 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
       babel: 'babel-plugin',
       polyfill: 'polyfill-plugin',
       commonjs: 'commonjs-plugin',
-      replace: 'replace-plugin',
+      extraWatch: 'extra-watch-plugin',
+      runtimeReplace: 'runtime-replace-plugin',
       sass: 'sass-plugin',
       html: 'html-plugin',
       json: 'json-plugin',
@@ -74,7 +75,8 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
     babel.mockImplementationOnce(() => values.babel);
     polyfill.mockImplementationOnce(() => values.polyfill);
     commonjs.mockImplementationOnce(() => values.commonjs);
-    replace.mockImplementationOnce(() => values.replace);
+    extraWatch.mockImplementationOnce(() => values.extraWatch);
+    runtimeReplace.mockImplementationOnce(() => values.runtimeReplace);
     sass.mockImplementationOnce(() => values.sass);
     html.mockImplementationOnce(() => values.html);
     json.mockImplementationOnce(() => values.json);
@@ -91,7 +93,8 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
       babel,
       polyfill,
       commonjs,
-      replace,
+      extraWatch,
+      runtimeReplace,
       sass,
       html,
       json,
@@ -100,7 +103,7 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
       resolve: 'resolve-plugin-settings',
       babel: 'babel-plugin-settings',
       commonjs: 'commonjs-plugin-settings',
-      replace: 'replace-plugin-settings',
+      extraWatch: 'extra-watch-plugin-settings',
       sass: 'sass-plugin-settings',
       css: 'css-plugin-settings',
       stylesheetAssets: 'stylesheetAssets-plugin-settings',
@@ -138,7 +141,8 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
     resolve.mockClear();
     babel.mockClear();
     commonjs.mockClear();
-    replace.mockClear();
+    extraWatch.mockClear();
+    runtimeReplace.mockClear();
     sass.mockClear();
     html.mockClear();
     json.mockClear();
@@ -193,10 +197,12 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
     };
     const output = {};
     const input = 'input';
+    const definitions = 'definitions';
     const params = {
       target,
       input,
       output,
+      definitions,
     };
     let sut = null;
     let result = null;
@@ -211,7 +217,8 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
         plugins.values.commonjs,
         plugins.values.babel,
         plugins.values.polyfill,
-        plugins.values.replace,
+        plugins.values.runtimeReplace,
+        plugins.values.extraWatch,
         plugins.values.sass,
         plugins.values.css,
         plugins.values.stylesheetAssetsHelper,
@@ -246,8 +253,10 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
     expect(plugins.mocks.polyfill).toHaveBeenCalledWith(plugins.settings.polyfill);
     expect(plugins.mocks.commonjs).toHaveBeenCalledTimes(1);
     expect(plugins.mocks.commonjs).toHaveBeenCalledWith(plugins.settings.commonjs);
-    expect(plugins.mocks.replace).toHaveBeenCalledTimes(1);
-    expect(plugins.mocks.replace).toHaveBeenCalledWith(plugins.settings.replace);
+    expect(plugins.mocks.runtimeReplace).toHaveBeenCalledTimes(1);
+    expect(plugins.mocks.runtimeReplace).toHaveBeenCalledWith(definitions);
+    expect(plugins.mocks.extraWatch).toHaveBeenCalledTimes(1);
+    expect(plugins.mocks.extraWatch).toHaveBeenCalledWith(plugins.settings.extraWatch);
     expect(plugins.mocks.sass).toHaveBeenCalledTimes(1);
     expect(plugins.mocks.sass).toHaveBeenCalledWith(plugins.settings.sass);
     expect(plugins.mocks.css).toHaveBeenCalledTimes(1);
@@ -329,7 +338,8 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
         plugins.values.commonjs,
         plugins.values.babel,
         plugins.values.polyfill,
-        plugins.values.replace,
+        plugins.values.runtimeReplace,
+        plugins.values.extraWatch,
         plugins.values.sass,
         plugins.values.css,
         plugins.values.stylesheetAssetsHelper,
@@ -395,7 +405,8 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
         plugins.values.resolve,
         plugins.values.commonjs,
         plugins.values.babel,
-        plugins.values.replace,
+        plugins.values.runtimeReplace,
+        plugins.values.extraWatch,
         plugins.values.sass,
         plugins.values.css,
         plugins.values.stylesheetAssetsHelper,
@@ -459,7 +470,8 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
         plugins.values.commonjs,
         plugins.values.babel,
         plugins.values.polyfill,
-        plugins.values.replace,
+        plugins.values.runtimeReplace,
+        plugins.values.extraWatch,
         plugins.values.sass,
         plugins.values.css,
         plugins.values.stylesheetAssetsHelper,
@@ -526,7 +538,8 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
         plugins.values.commonjs,
         plugins.values.babel,
         plugins.values.polyfill,
-        plugins.values.replace,
+        plugins.values.runtimeReplace,
+        plugins.values.extraWatch,
         plugins.values.sass,
         plugins.values.css,
         plugins.values.stylesheetAssetsHelper,

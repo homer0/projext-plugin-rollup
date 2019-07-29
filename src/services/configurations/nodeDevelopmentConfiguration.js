@@ -1,7 +1,6 @@
 const resolve = require('rollup-plugin-node-resolve');
 const babel = require('rollup-plugin-babel');
 const commonjs = require('rollup-plugin-commonjs');
-const replace = require('rollup-plugin-replace');
 const sass = require('rollup-plugin-sass');
 const html = require('rollup-plugin-html');
 const json = require('rollup-plugin-json');
@@ -12,10 +11,12 @@ const ConfigurationFile = require('../../abstracts/configurationFile');
 const {
   copy,
   css,
-  urls,
-  stylesheetAssets,
+  extraWatch,
   nodeRunner,
+  runtimeReplace,
   stats,
+  stylesheetAssets,
+  urls,
 } = require('../../plugins');
 /**
  * Creates the specifics of a Rollup configuration for a Node target development build.
@@ -63,6 +64,7 @@ class RollupNodeDevelopmentConfiguration extends ConfigurationFile {
    */
   createConfig(params) {
     const {
+      definitions,
       input,
       output,
       target,
@@ -87,7 +89,8 @@ class RollupNodeDevelopmentConfiguration extends ConfigurationFile {
           [polyfill(pluginSettings.polyfill)] :
           []
       ),
-      replace(pluginSettings.replace),
+      runtimeReplace(definitions),
+      extraWatch(pluginSettings.extraWatch),
       sass(pluginSettings.sass),
       css(pluginSettings.css),
       stylesheetAssets.helper(pluginSettings.stylesheetAssetsHelper),
