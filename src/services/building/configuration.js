@@ -103,13 +103,8 @@ class RollupConfiguration {
       copy.push(...this.targets.getFilesToCopy(target, buildType));
     }
 
-    const definitions = this._getDefinitions(target, buildType);
-    const additionalWatch = [];
-    if (target.is.browser && target.configuration && target.configuration.enabled) {
-      const browserConfig = this.targets.getBrowserTargetConfiguration(target);
-      definitions[target.configuration.defineOn] = JSON.stringify(browserConfig.configuration);
-      additionalWatch.push(...browserConfig.files);
-    }
+    const definitions = this._getDefinitionsGenerator(target, buildType);
+    const additionalWatch = this._getBrowserTargetConfigurationDefinitions(target).files;
 
     const params = {
       input,
@@ -135,16 +130,29 @@ class RollupConfiguration {
     return config;
   }
   /**
-   * Get a dictionary of definitions that will be replaced on the generated bundle. This is done
-   * using the `replace` plugin.
-   * @param {Target} target The target information.
-   * @param {string} env    The `NODE_ENV` to define.
+   * Generates a function that when called will return a dictionary with definitions that will be
+   * replaced on the bundle.
+   * @param {Target} target    The target information.
+   * @param {string} buildType The intended build type: `production` or `development`.
+   * @return {Function():Object}
+   * @access protected
+   * @ignore
+   */
+  _getDefinitionsGenerator(target, buildType) {
+    return () => this._getTargetDefinitions(target, buildType);
+  }
+  /**
+   * Generates a dictionary with definitions that will be replaced on the bundle. These
+   * definitions are things like `process.env.NODE_ENV`, the bundle version, a browser target
+   * configuration, etc.
+   * @param {Target} target    The target information.
+   * @param {string} buildType The intended build type: `production` or `development`.
    * @return {Object}
    * @access protected
    * @ignore
    */
-  _getDefinitions(target, env) {
-    const targetVariables = this.targets.loadTargetDotEnvFile(target, env);
+  _getTargetDefinitions(target, buildType) {
+    const targetVariables = this.targets.loadTargetDotEnvFile(target, buildType);
     const definitions = Object.keys(targetVariables).reduce(
       (current, variableName) => Object.assign({}, current, {
         [`process.env.${variableName}`]: JSON.stringify(targetVariables[variableName]),
@@ -152,12 +160,48 @@ class RollupConfiguration {
       {}
     );
 
-    definitions['process.env.NODE_ENV'] = `'${env}'`;
+    definitions['process.env.NODE_ENV'] = `'${buildType}'`;
     definitions[this.buildVersion.getDefinitionVariable()] = JSON.stringify(
       this.buildVersion.getVersion()
     );
 
-    return definitions;
+    return Object.assign(
+      {},
+      definitions,
+      this._getBrowserTargetConfigurationDefinitions(target).definitions
+    );
+  }
+  /**
+   * This is a wrapper on top of {@link Targets#getBrowserTargetConfiguration} so no matter the
+   * type of target it recevies, or if the feature is disabled, it will always return the same
+   * signature.
+   * It also takes care of formatting the configuration on a "definitions object" so it can be
+   * added to the rest of the targets definitions.
+   * @param {Target} target The target information.
+   * @return {Object}
+   * @property {Object} definitions A dictionary with
+   * @property {Array}  files       The list of files involved on the configuration creation.
+   * @access protected
+   * @ignore
+   */
+  _getBrowserTargetConfigurationDefinitions(target) {
+    let result;
+    if (target.is.browser && target.configuration && target.configuration.enabled) {
+      const parsed = this.targets.getBrowserTargetConfiguration(target);
+      result = {
+        definitions: {
+          [target.configuration.defineOn]: JSON.stringify(parsed.configuration),
+        },
+        files: parsed.files,
+      };
+    } else {
+      result = {
+        definitions: {},
+        files: [],
+      };
+    }
+
+    return result;
   }
   /**
    * Validate and format a target library format in order to make it work with Rollup supported
