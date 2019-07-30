@@ -3,6 +3,7 @@ const { copy } = require('./copy');
 const { css } = require('./css');
 const { devServer } = require('./devServer');
 const { extraWatch } = require('./extraWatch');
+const { moduleReplace } = require('./moduleReplace');
 const { nodeRunner } = require('./nodeRunner');
 const { runtimeReplace } = require('./runtimeReplace');
 const { stats } = require('./stats');
@@ -18,6 +19,7 @@ module.exports = {
   css,
   devServer,
   extraWatch,
+  moduleReplace,
   nodeRunner,
   runtimeReplace,
   stats,
