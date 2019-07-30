@@ -13,6 +13,7 @@ const {
   css,
   devServer,
   extraWatch,
+  moduleReplace,
   runtimeReplace,
   stats,
   stylesheetAssets,
@@ -102,6 +103,11 @@ class RollupBrowserDevelopmentConfiguration extends ConfigurationFile {
       ),
       windowAsGlobal(),
       runtimeReplace(definitions),
+      ...(
+        pluginSettings.moduleReplace.instructions.length ?
+          [moduleReplace(pluginSettings.moduleReplace)] :
+          []
+      ),
       extraWatch(pluginSettings.extraWatch),
       sass(pluginSettings.sass),
       css(pluginSettings.css),

@@ -99,6 +99,9 @@ describe('services/configurations:plugins', () => {
       inspect: {
         enabled: false,
       },
+      sourceMap: {
+        [buildType]: false,
+      },
     };
     const rules = {
       js: {
@@ -284,6 +287,10 @@ describe('services/configurations:plugins', () => {
         input,
         ...additionalWatch,
       ],
+      moduleReplace: {
+        instructions: [],
+        sourceMap: target.sourceMap[buildType],
+      },
       babel: Object.assign({}, babelConfig, {
         modules: false,
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
@@ -412,6 +419,13 @@ describe('services/configurations:plugins', () => {
           'rollup-extra-watch-plugin-settings-configuration',
         ],
         settings: expectedSettings.extraWatch,
+      },
+      {
+        events: [
+          'rollup-module-replace-plugin-settings-configuration-for-node',
+          'rollup-module-replace-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.moduleReplace,
       },
       {
         events: [
@@ -589,6 +603,9 @@ describe('services/configurations:plugins', () => {
       },
       babel: {
         polyfill: false,
+      },
+      sourceMap: {
+        [buildType]: false,
       },
     };
     const rules = {
@@ -774,6 +791,10 @@ describe('services/configurations:plugins', () => {
         input,
         ...additionalWatch,
       ],
+      moduleReplace: {
+        instructions: [],
+        sourceMap: target.sourceMap[buildType],
+      },
       babel: Object.assign({}, babelConfig, {
         modules: false,
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
@@ -901,6 +922,13 @@ describe('services/configurations:plugins', () => {
           'rollup-extra-watch-plugin-settings-configuration',
         ],
         settings: expectedSettings.extraWatch,
+      },
+      {
+        events: [
+          'rollup-module-replace-plugin-settings-configuration-for-node',
+          'rollup-module-replace-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.moduleReplace,
       },
       {
         events: [
@@ -1094,6 +1122,9 @@ describe('services/configurations:plugins', () => {
       excludeModules: [
         excludeModule,
       ],
+      sourceMap: {
+        [buildType]: false,
+      },
     };
     const rules = {
       js: {
@@ -1265,6 +1296,14 @@ describe('services/configurations:plugins', () => {
         input,
         ...additionalWatch,
       ],
+      moduleReplace: {
+        instructions: [{
+          module: expect.any(RegExp),
+          search: expect.any(RegExp),
+          replace: expect.any(String),
+        }],
+        sourceMap: target.sourceMap[buildType],
+      },
       babel: Object.assign({}, babelConfig, {
         modules: false,
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
@@ -1402,6 +1441,13 @@ describe('services/configurations:plugins', () => {
           'rollup-extra-watch-plugin-settings-configuration',
         ],
         settings: expectedSettings.extraWatch,
+      },
+      {
+        events: [
+          'rollup-module-replace-plugin-settings-configuration-for-browser',
+          'rollup-module-replace-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.moduleReplace,
       },
       {
         events: [
@@ -1579,6 +1625,9 @@ describe('services/configurations:plugins', () => {
       },
       html: {
         filename: 'my-target.html',
+      },
+      sourceMap: {
+        [buildType]: false,
       },
       devServer: {
         host: 'localhost',
@@ -1765,6 +1814,14 @@ describe('services/configurations:plugins', () => {
         input,
         ...additionalWatch,
       ],
+      moduleReplace: {
+        instructions: [{
+          module: expect.any(RegExp),
+          search: expect.any(RegExp),
+          replace: expect.any(String),
+        }],
+        sourceMap: target.sourceMap[buildType],
+      },
       babel: Object.assign({}, babelConfig, {
         modules: false,
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
@@ -1898,6 +1955,13 @@ describe('services/configurations:plugins', () => {
           'rollup-extra-watch-plugin-settings-configuration',
         ],
         settings: expectedSettings.extraWatch,
+      },
+      {
+        events: [
+          'rollup-module-replace-plugin-settings-configuration-for-browser',
+          'rollup-module-replace-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.moduleReplace,
       },
       {
         events: [
@@ -2089,6 +2153,9 @@ describe('services/configurations:plugins', () => {
         },
         proxied: {},
       },
+      sourceMap: {
+        [buildType]: false,
+      },
       excludeModules: [
         excludeModule,
       ],
@@ -2268,6 +2335,14 @@ describe('services/configurations:plugins', () => {
         input,
         ...additionalWatch,
       ],
+      moduleReplace: {
+        instructions: [{
+          module: expect.any(RegExp),
+          search: expect.any(RegExp),
+          replace: expect.any(String),
+        }],
+        sourceMap: target.sourceMap[buildType],
+      },
       babel: Object.assign({}, babelConfig, {
         modules: false,
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
@@ -2407,6 +2482,13 @@ describe('services/configurations:plugins', () => {
           'rollup-extra-watch-plugin-settings-configuration',
         ],
         settings: expectedSettings.extraWatch,
+      },
+      {
+        events: [
+          'rollup-module-replace-plugin-settings-configuration-for-browser',
+          'rollup-module-replace-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.moduleReplace,
       },
       {
         events: [
@@ -2602,6 +2684,9 @@ describe('services/configurations:plugins', () => {
           https: null,
         },
       },
+      sourceMap: {
+        [buildType]: false,
+      },
       excludeModules: [
         excludeModule,
       ],
@@ -2781,6 +2866,14 @@ describe('services/configurations:plugins', () => {
         input,
         ...additionalWatch,
       ],
+      moduleReplace: {
+        instructions: [{
+          module: expect.any(RegExp),
+          search: expect.any(RegExp),
+          replace: expect.any(String),
+        }],
+        sourceMap: target.sourceMap[buildType],
+      },
       babel: Object.assign({}, babelConfig, {
         modules: false,
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
@@ -2924,6 +3017,13 @@ describe('services/configurations:plugins', () => {
           'rollup-extra-watch-plugin-settings-configuration',
         ],
         settings: expectedSettings.extraWatch,
+      },
+      {
+        events: [
+          'rollup-module-replace-plugin-settings-configuration-for-browser',
+          'rollup-module-replace-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.moduleReplace,
       },
       {
         events: [
@@ -3111,6 +3211,9 @@ describe('services/configurations:plugins', () => {
           https: true,
         },
       },
+      sourceMap: {
+        [buildType]: false,
+      },
       excludeModules: [
         excludeModule,
       ],
@@ -3290,6 +3393,14 @@ describe('services/configurations:plugins', () => {
         input,
         ...additionalWatch,
       ],
+      moduleReplace: {
+        instructions: [{
+          module: expect.any(RegExp),
+          search: expect.any(RegExp),
+          replace: expect.any(String),
+        }],
+        sourceMap: target.sourceMap[buildType],
+      },
       babel: Object.assign({}, babelConfig, {
         modules: false,
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
@@ -3431,6 +3542,13 @@ describe('services/configurations:plugins', () => {
           'rollup-extra-watch-plugin-settings-configuration',
         ],
         settings: expectedSettings.extraWatch,
+      },
+      {
+        events: [
+          'rollup-module-replace-plugin-settings-configuration-for-browser',
+          'rollup-module-replace-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.moduleReplace,
       },
       {
         events: [
@@ -3796,6 +3914,14 @@ describe('services/configurations:plugins', () => {
         input,
         ...additionalWatch,
       ],
+      moduleReplace: {
+        instructions: [{
+          module: expect.any(RegExp),
+          search: expect.any(RegExp),
+          replace: expect.any(String),
+        }],
+        sourceMap: target.sourceMap[buildType],
+      },
       babel: Object.assign({}, babelConfig, {
         modules: false,
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
@@ -3937,6 +4063,13 @@ describe('services/configurations:plugins', () => {
           'rollup-extra-watch-plugin-settings-configuration',
         ],
         settings: expectedSettings.extraWatch,
+      },
+      {
+        events: [
+          'rollup-module-replace-plugin-settings-configuration-for-browser',
+          'rollup-module-replace-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.moduleReplace,
       },
       {
         events: [

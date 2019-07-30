@@ -24,6 +24,7 @@ const {
   copy,
   css,
   extraWatch,
+  moduleReplace,
   runtimeReplace,
   stats,
   stylesheetAssets,
@@ -65,6 +66,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
       commonjs: 'commonjs-plugin',
       extraWatch: 'extra-watch-plugin',
       runtimeReplace: 'runtime-replace-plugin',
+      moduleReplace: 'module-replace-plugin',
       sass: 'sass-plugin',
       html: 'html-plugin',
       json: 'json-plugin',
@@ -87,6 +89,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
     commonjs.mockImplementationOnce(() => values.commonjs);
     extraWatch.mockImplementationOnce(() => values.extraWatch);
     runtimeReplace.mockImplementationOnce(() => values.runtimeReplace);
+    moduleReplace.mockImplementationOnce(() => values.moduleReplace);
     sass.mockImplementationOnce(() => values.sass);
     html.mockImplementationOnce(() => values.html);
     json.mockImplementationOnce(() => values.json);
@@ -109,6 +112,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
       commonjs,
       extraWatch,
       runtimeReplace,
+      moduleReplace,
       sass,
       html,
       json,
@@ -119,6 +123,9 @@ describe('services/configurations:browserProductionConfiguration', () => {
       babel: 'babel-plugin-settings',
       commonjs: 'commonjs-plugin-settings',
       extraWatch: 'extra-watch-plugin-settings',
+      moduleReplace: {
+        instructions: ['module-replace-plugin-settings'],
+      },
       sass: 'sass-plugin-settings',
       css: 'css-plugin-settings',
       stylesheetAssets: 'stylesheetAssets-plugin-settings',
@@ -162,6 +169,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
     commonjs.mockClear();
     extraWatch.mockClear();
     runtimeReplace.mockClear();
+    moduleReplace.mockClear();
     sass.mockClear();
     html.mockClear();
     json.mockClear();
@@ -240,6 +248,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
         plugins.values.polyfill,
         plugins.values.windowAsGlobal,
         plugins.values.runtimeReplace,
+        plugins.values.moduleReplace,
         plugins.values.extraWatch,
         plugins.values.sass,
         plugins.values.css,
@@ -280,6 +289,8 @@ describe('services/configurations:browserProductionConfiguration', () => {
     expect(plugins.mocks.windowAsGlobal).toHaveBeenCalledTimes(1);
     expect(plugins.mocks.runtimeReplace).toHaveBeenCalledTimes(1);
     expect(plugins.mocks.runtimeReplace).toHaveBeenCalledWith(definitions);
+    expect(plugins.mocks.moduleReplace).toHaveBeenCalledTimes(1);
+    expect(plugins.mocks.moduleReplace).toHaveBeenCalledWith(plugins.settings.moduleReplace);
     expect(plugins.mocks.extraWatch).toHaveBeenCalledTimes(1);
     expect(plugins.mocks.extraWatch).toHaveBeenCalledWith(plugins.settings.extraWatch);
     expect(plugins.mocks.sass).toHaveBeenCalledTimes(1);
@@ -369,6 +380,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
         plugins.values.polyfill,
         plugins.values.windowAsGlobal,
         plugins.values.runtimeReplace,
+        plugins.values.moduleReplace,
         plugins.values.extraWatch,
         plugins.values.sass,
         plugins.values.css,
@@ -444,6 +456,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
         plugins.values.polyfill,
         plugins.values.windowAsGlobal,
         plugins.values.runtimeReplace,
+        plugins.values.moduleReplace,
         plugins.values.extraWatch,
         plugins.values.sass,
         plugins.values.css,
@@ -460,6 +473,82 @@ describe('services/configurations:browserProductionConfiguration', () => {
       watch: plugins.settings.watch,
       external: plugins.settings.external.external,
     });
+  });
+
+  it('should create a configuration without the \'module-replace\' plugin', () => {
+    // Given
+    const plugins = getPlugins();
+    plugins.settings.moduleReplace.instructions = [];
+    const events = {
+      reduce: jest.fn((eventNames, config) => config),
+    };
+    const pathUtils = 'pathUtils';
+    const rollupPluginSettingsConfiguration = {
+      getConfig: jest.fn(() => plugins.settings),
+    };
+    const target = {
+      css: {
+        modules: true,
+      },
+      paths: {
+        build: 'dist',
+      },
+      uglifyOnProduction: false,
+      watch: {
+        production: true,
+      },
+    };
+    const output = {
+      globals: {
+        wootils: 'wootils',
+      },
+    };
+    const input = 'input';
+    const params = {
+      target,
+      input,
+      output,
+    };
+    let sut = null;
+    let result = null;
+    // When
+    sut = new RollupBrowserProductionConfiguration(
+      events,
+      pathUtils,
+      rollupPluginSettingsConfiguration
+    );
+    result = sut.getConfig(params);
+    // Then
+    expect(result).toEqual({
+      input,
+      output: Object.assign({}, output, {
+        globals: Object.assign({}, output.globals, plugins.settings.globals),
+      }),
+      plugins: [
+        plugins.values.statsReset,
+        plugins.values.resolve,
+        plugins.values.commonjs,
+        plugins.values.babel,
+        plugins.values.polyfill,
+        plugins.values.windowAsGlobal,
+        plugins.values.runtimeReplace,
+        plugins.values.extraWatch,
+        plugins.values.sass,
+        plugins.values.css,
+        plugins.values.stylesheetAssets,
+        plugins.values.stylesheetModulesFixer,
+        plugins.values.html,
+        plugins.values.json,
+        plugins.values.urls,
+        plugins.values.copy,
+        plugins.values.template,
+        plugins.values.compression,
+        plugins.values.statsLog,
+      ],
+      watch: plugins.settings.watch,
+      external: plugins.settings.external.external,
+    });
+    expect(plugins.mocks.moduleReplace).toHaveBeenCalledTimes(0);
   });
 
   it('should create a configuration for a target with CSS modules', () => {
@@ -514,6 +603,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
         plugins.values.polyfill,
         plugins.values.windowAsGlobal,
         plugins.values.runtimeReplace,
+        plugins.values.moduleReplace,
         plugins.values.extraWatch,
         plugins.values.sass,
         plugins.values.css,
@@ -587,6 +677,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
         plugins.values.babel,
         plugins.values.windowAsGlobal,
         plugins.values.runtimeReplace,
+        plugins.values.moduleReplace,
         plugins.values.extraWatch,
         plugins.values.sass,
         plugins.values.css,
@@ -662,6 +753,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
         plugins.values.polyfill,
         plugins.values.windowAsGlobal,
         plugins.values.runtimeReplace,
+        plugins.values.moduleReplace,
         plugins.values.extraWatch,
         plugins.values.sass,
         plugins.values.css,
@@ -732,6 +824,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
         plugins.values.polyfill,
         plugins.values.windowAsGlobal,
         plugins.values.runtimeReplace,
+        plugins.values.moduleReplace,
         plugins.values.extraWatch,
         plugins.values.sass,
         plugins.values.css,
@@ -805,6 +898,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
         plugins.values.polyfill,
         plugins.values.windowAsGlobal,
         plugins.values.runtimeReplace,
+        plugins.values.moduleReplace,
         plugins.values.extraWatch,
         plugins.values.sass,
         plugins.values.css,
