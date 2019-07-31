@@ -10,6 +10,7 @@ jest.mock('rollup-plugin-replace');
 jest.mock('rollup-plugin-sass');
 jest.mock('rollup-plugin-html');
 jest.mock('rollup-plugin-json');
+jest.mock('rollup-plugin-polyfill');
 jest.mock('/src/abstracts/configurationFile', () => ConfigurationFileMock);
 jest.unmock('/src/services/configurations/nodeProductionConfiguration');
 
@@ -32,6 +33,7 @@ const replace = require('rollup-plugin-replace');
 const sass = require('rollup-plugin-sass');
 const html = require('rollup-plugin-html');
 const json = require('rollup-plugin-json');
+const polyfill = require('rollup-plugin-polyfill');
 
 describe('services/configurations:nodeProductionConfiguration', () => {
   const getPlugins = () => {
@@ -50,6 +52,7 @@ describe('services/configurations:nodeProductionConfiguration', () => {
       },
       resolve: 'resolve-plugin',
       babel: 'babel-plugin',
+      polyfill: 'polyfill-plugin',
       commonjs: 'commonjs-plugin',
       replace: 'replace-plugin',
       sass: 'sass-plugin',
@@ -66,6 +69,7 @@ describe('services/configurations:nodeProductionConfiguration', () => {
     stats.mockImplementationOnce(() => values.stats);
     resolve.mockImplementationOnce(() => values.resolve);
     babel.mockImplementationOnce(() => values.babel);
+    polyfill.mockImplementationOnce(() => values.polyfill);
     commonjs.mockImplementationOnce(() => values.commonjs);
     replace.mockImplementationOnce(() => values.replace);
     sass.mockImplementationOnce(() => values.sass);
@@ -81,6 +85,7 @@ describe('services/configurations:nodeProductionConfiguration', () => {
       statsLog: values.stats.log,
       resolve,
       babel,
+      polyfill,
       commonjs,
       replace,
       sass,
@@ -108,6 +113,7 @@ describe('services/configurations:nodeProductionConfiguration', () => {
       },
       watch: 'watch-plugin-settings',
       copy: 'copy-plugin-settings',
+      polyfill: 'polyfill-plugin-settings',
     };
     return {
       values,
@@ -130,6 +136,7 @@ describe('services/configurations:nodeProductionConfiguration', () => {
     sass.mockClear();
     html.mockClear();
     json.mockClear();
+    polyfill.mockClear();
   });
 
   it('should be instantiated with all its dependencies', () => {
@@ -197,6 +204,7 @@ describe('services/configurations:nodeProductionConfiguration', () => {
         plugins.values.resolve,
         plugins.values.commonjs,
         plugins.values.babel,
+        plugins.values.polyfill,
         plugins.values.replace,
         plugins.values.sass,
         plugins.values.css,
@@ -229,6 +237,8 @@ describe('services/configurations:nodeProductionConfiguration', () => {
     expect(plugins.mocks.babel).toHaveBeenCalledTimes(1);
     expect(plugins.mocks.babel).toHaveBeenCalledWith(plugins.settings.babel);
     expect(plugins.mocks.commonjs).toHaveBeenCalledTimes(1);
+    expect(plugins.mocks.polyfill).toHaveBeenCalledTimes(1);
+    expect(plugins.mocks.polyfill).toHaveBeenCalledWith(plugins.settings.polyfill);
     expect(plugins.mocks.commonjs).toHaveBeenCalledWith(plugins.settings.commonjs);
     expect(plugins.mocks.replace).toHaveBeenCalledTimes(1);
     expect(plugins.mocks.replace).toHaveBeenCalledWith(plugins.settings.replace);
@@ -312,6 +322,7 @@ describe('services/configurations:nodeProductionConfiguration', () => {
         plugins.values.resolve,
         plugins.values.commonjs,
         plugins.values.babel,
+        plugins.values.polyfill,
         plugins.values.replace,
         plugins.values.sass,
         plugins.values.css,
@@ -325,6 +336,73 @@ describe('services/configurations:nodeProductionConfiguration', () => {
       ],
       external: plugins.settings.external.external,
     });
+  });
+
+  it('should create a configuration for a target without a Babel polyfill', () => {
+    // Given
+    const plugins = getPlugins();
+    plugins.settings.polyfill = [];
+    const events = {
+      reduce: jest.fn((eventNames, config) => config),
+    };
+    const pathUtils = 'pathUtils';
+    const rollupPluginSettingsConfiguration = {
+      getConfig: jest.fn(() => plugins.settings),
+    };
+    const target = {
+      css: {},
+      paths: {
+        build: 'dist',
+      },
+      watch: {
+        production: false,
+      },
+    };
+    const output = {
+      globals: {
+        wootils: 'wootils',
+      },
+    };
+    const input = 'input';
+    const params = {
+      target,
+      input,
+      output,
+    };
+    let sut = null;
+    let result = null;
+    // When
+    sut = new RollupNodeProductionConfiguration(
+      events,
+      pathUtils,
+      rollupPluginSettingsConfiguration
+    );
+    result = sut.getConfig(params);
+    // Then
+    expect(result).toEqual({
+      input,
+      output: Object.assign({}, output, {
+        globals: Object.assign({}, output.globals, plugins.settings.globals),
+      }),
+      plugins: [
+        plugins.values.statsReset,
+        plugins.values.resolve,
+        plugins.values.commonjs,
+        plugins.values.babel,
+        plugins.values.replace,
+        plugins.values.sass,
+        plugins.values.css,
+        plugins.values.stylesheetAssetsHelper,
+        plugins.values.stylesheetAssets,
+        plugins.values.html,
+        plugins.values.json,
+        plugins.values.urls,
+        plugins.values.copy,
+        plugins.values.statsLog,
+      ],
+      external: plugins.settings.external.external,
+    });
+    expect(plugins.mocks.polyfill).toHaveBeenCalledTimes(0);
   });
 
   it('should create a configuration for a target that will be watched', () => {
@@ -373,6 +451,7 @@ describe('services/configurations:nodeProductionConfiguration', () => {
         plugins.values.resolve,
         plugins.values.commonjs,
         plugins.values.babel,
+        plugins.values.polyfill,
         plugins.values.replace,
         plugins.values.sass,
         plugins.values.css,
