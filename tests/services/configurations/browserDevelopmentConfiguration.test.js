@@ -23,6 +23,7 @@ const {
   css,
   devServer,
   extraWatch,
+  moduleReplace,
   runtimeReplace,
   stats,
   stylesheetAssets,
@@ -72,6 +73,7 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
       commonjs: 'commonjs-plugin',
       extraWatch: 'extra-watch-plugin',
       runtimeReplace: 'runtime-replace-plugin',
+      moduleReplace: 'module-replace-plugin',
       sass: 'sass-plugin',
       html: 'html-plugin',
       json: 'json-plugin',
@@ -94,6 +96,7 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
     commonjs.mockImplementationOnce(() => values.commonjs);
     extraWatch.mockImplementationOnce(() => values.extraWatch);
     runtimeReplace.mockImplementationOnce(() => values.runtimeReplace);
+    moduleReplace.mockImplementationOnce(() => values.moduleReplace);
     sass.mockImplementationOnce(() => values.sass);
     html.mockImplementationOnce(() => values.html);
     json.mockImplementationOnce(() => values.json);
@@ -117,6 +120,7 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
       commonjs,
       extraWatch,
       runtimeReplace,
+      moduleReplace,
       sass,
       html,
       json,
@@ -126,6 +130,9 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
       babel: 'babel-plugin-settings',
       commonjs: 'commonjs-plugin-settings',
       extraWatch: 'extra-watch-plugin-settings',
+      moduleReplace: {
+        instructions: ['module-replace-plugin-settings'],
+      },
       sass: 'sass-plugin-settings',
       css: 'css-plugin-settings',
       stylesheetAssets: 'stylesheetAssets-plugin-settings',
@@ -171,6 +178,7 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
     commonjs.mockClear();
     extraWatch.mockClear();
     runtimeReplace.mockClear();
+    moduleReplace.mockClear();
     sass.mockClear();
     html.mockClear();
     json.mockClear();
@@ -247,6 +255,7 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
         plugins.values.polyfill,
         plugins.values.windowAsGlobal,
         plugins.values.runtimeReplace,
+        plugins.values.moduleReplace,
         plugins.values.extraWatch,
         plugins.values.sass,
         plugins.values.css,
@@ -285,6 +294,8 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
     expect(plugins.mocks.windowAsGlobal).toHaveBeenCalledTimes(1);
     expect(plugins.mocks.runtimeReplace).toHaveBeenCalledTimes(1);
     expect(plugins.mocks.runtimeReplace).toHaveBeenCalledWith(definitions);
+    expect(plugins.mocks.moduleReplace).toHaveBeenCalledTimes(1);
+    expect(plugins.mocks.moduleReplace).toHaveBeenCalledWith(plugins.settings.moduleReplace);
     expect(plugins.mocks.extraWatch).toHaveBeenCalledTimes(1);
     expect(plugins.mocks.extraWatch).toHaveBeenCalledWith(plugins.settings.extraWatch);
     expect(plugins.mocks.sass).toHaveBeenCalledTimes(1);
@@ -314,6 +325,74 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
       expectedConfig,
       params
     );
+  });
+
+  it('should create a configuration without the \'module-replace\' plugin', () => {
+    // Given
+    const plugins = getPlugins();
+    plugins.settings.moduleReplace.instructions = [];
+    const events = {
+      reduce: jest.fn((eventNames, config) => config),
+    };
+    const pathUtils = 'pathUtils';
+    const rollupPluginSettingsConfiguration = {
+      getConfig: jest.fn(() => plugins.settings),
+    };
+    const target = {
+      css: {},
+      paths: {
+        build: 'dist',
+      },
+      watch: {
+        development: false,
+      },
+    };
+    const output = {};
+    const input = 'input';
+    const definitions = 'definitions';
+    const params = {
+      target,
+      input,
+      output,
+      definitions,
+    };
+    let sut = null;
+    let result = null;
+    // When
+    sut = new RollupBrowserDevelopmentConfiguration(
+      events,
+      pathUtils,
+      rollupPluginSettingsConfiguration
+    );
+    result = sut.getConfig(params);
+    // Then
+    expect(result).toEqual({
+      input,
+      output: Object.assign({}, output, {
+        globals: plugins.settings.globals,
+      }),
+      plugins: [
+        plugins.values.statsReset,
+        plugins.values.resolve,
+        plugins.values.commonjs,
+        plugins.values.babel,
+        plugins.values.polyfill,
+        plugins.values.windowAsGlobal,
+        plugins.values.runtimeReplace,
+        plugins.values.extraWatch,
+        plugins.values.sass,
+        plugins.values.css,
+        plugins.values.stylesheetAssets,
+        plugins.values.html,
+        plugins.values.json,
+        plugins.values.urls,
+        plugins.values.template,
+        plugins.values.copy,
+        plugins.values.statsLog,
+      ],
+      external: plugins.settings.external.external,
+    });
+    expect(plugins.mocks.moduleReplace).toHaveBeenCalledTimes(0);
   });
 
   it('should create a configuration for a target with CSS modules', () => {
@@ -367,6 +446,7 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
         plugins.values.polyfill,
         plugins.values.windowAsGlobal,
         plugins.values.runtimeReplace,
+        plugins.values.moduleReplace,
         plugins.values.extraWatch,
         plugins.values.sass,
         plugins.values.css,
@@ -437,6 +517,7 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
         plugins.values.babel,
         plugins.values.windowAsGlobal,
         plugins.values.runtimeReplace,
+        plugins.values.moduleReplace,
         plugins.values.extraWatch,
         plugins.values.sass,
         plugins.values.css,
@@ -509,6 +590,7 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
         plugins.values.polyfill,
         plugins.values.windowAsGlobal,
         plugins.values.runtimeReplace,
+        plugins.values.moduleReplace,
         plugins.values.extraWatch,
         plugins.values.sass,
         plugins.values.css,
@@ -579,6 +661,7 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
         plugins.values.polyfill,
         plugins.values.windowAsGlobal,
         plugins.values.runtimeReplace,
+        plugins.values.moduleReplace,
         plugins.values.extraWatch,
         plugins.values.sass,
         plugins.values.css,
@@ -658,6 +741,7 @@ describe('services/configurations:browserDevelopmentConfiguration', () => {
         plugins.values.polyfill,
         plugins.values.windowAsGlobal,
         plugins.values.runtimeReplace,
+        plugins.values.moduleReplace,
         plugins.values.extraWatch,
         plugins.values.sass,
         plugins.values.css,

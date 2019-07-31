@@ -22,6 +22,7 @@ const {
   copy,
   css,
   extraWatch,
+  moduleReplace,
   nodeRunner,
   stats,
   stylesheetAssets,
@@ -56,6 +57,7 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
       polyfill: 'polyfill-plugin',
       commonjs: 'commonjs-plugin',
       extraWatch: 'extra-watch-plugin',
+      moduleReplace: 'module-replace-plugin',
       sass: 'sass-plugin',
       html: 'html-plugin',
       json: 'json-plugin',
@@ -74,6 +76,7 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
     polyfill.mockImplementationOnce(() => values.polyfill);
     commonjs.mockImplementationOnce(() => values.commonjs);
     extraWatch.mockImplementationOnce(() => values.extraWatch);
+    moduleReplace.mockImplementationOnce(() => values.moduleReplace);
     sass.mockImplementationOnce(() => values.sass);
     html.mockImplementationOnce(() => values.html);
     json.mockImplementationOnce(() => values.json);
@@ -91,6 +94,7 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
       polyfill,
       commonjs,
       extraWatch,
+      moduleReplace,
       sass,
       html,
       json,
@@ -100,6 +104,9 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
       babel: 'babel-plugin-settings',
       commonjs: 'commonjs-plugin-settings',
       extraWatch: 'extra-watch-plugin-settings',
+      moduleReplace: {
+        instructions: ['module-replace-plugin-settings'],
+      },
       sass: 'sass-plugin-settings',
       css: 'css-plugin-settings',
       stylesheetAssets: 'stylesheetAssets-plugin-settings',
@@ -138,6 +145,7 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
     babel.mockClear();
     commonjs.mockClear();
     extraWatch.mockClear();
+    moduleReplace.mockClear();
     sass.mockClear();
     html.mockClear();
     json.mockClear();
@@ -210,6 +218,7 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
         plugins.values.commonjs,
         plugins.values.babel,
         plugins.values.polyfill,
+        plugins.values.moduleReplace,
         plugins.values.extraWatch,
         plugins.values.sass,
         plugins.values.css,
@@ -245,6 +254,8 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
     expect(plugins.mocks.polyfill).toHaveBeenCalledWith(plugins.settings.polyfill);
     expect(plugins.mocks.commonjs).toHaveBeenCalledTimes(1);
     expect(plugins.mocks.commonjs).toHaveBeenCalledWith(plugins.settings.commonjs);
+    expect(plugins.mocks.moduleReplace).toHaveBeenCalledTimes(1);
+    expect(plugins.mocks.moduleReplace).toHaveBeenCalledWith(plugins.settings.moduleReplace);
     expect(plugins.mocks.extraWatch).toHaveBeenCalledTimes(1);
     expect(plugins.mocks.extraWatch).toHaveBeenCalledWith(plugins.settings.extraWatch);
     expect(plugins.mocks.sass).toHaveBeenCalledTimes(1);
@@ -275,6 +286,70 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
       expectedConfig,
       params
     );
+  });
+
+  it('should create a configuration without the \'module-replace\' plugin', () => {
+    // Given
+    const plugins = getPlugins();
+    plugins.settings.moduleReplace.instructions = [];
+    const events = {
+      reduce: jest.fn((eventNames, config) => config),
+    };
+    const pathUtils = 'pathUtils';
+    const rollupPluginSettingsConfiguration = {
+      getConfig: jest.fn(() => plugins.settings),
+    };
+    const target = {
+      css: {},
+      paths: {
+        build: 'dist',
+      },
+      watch: {
+        development: false,
+      },
+    };
+    const output = {};
+    const input = 'input';
+    const params = {
+      target,
+      input,
+      output,
+    };
+    let sut = null;
+    let result = null;
+    // When
+    sut = new RollupNodeDevelopmentConfiguration(
+      events,
+      pathUtils,
+      rollupPluginSettingsConfiguration
+    );
+    result = sut.getConfig(params);
+    // Then
+    expect(result).toEqual({
+      input,
+      output: Object.assign({}, output, {
+        globals: plugins.settings.globals,
+      }),
+      plugins: [
+        plugins.values.statsReset,
+        plugins.values.resolve,
+        plugins.values.commonjs,
+        plugins.values.babel,
+        plugins.values.polyfill,
+        plugins.values.extraWatch,
+        plugins.values.sass,
+        plugins.values.css,
+        plugins.values.stylesheetAssetsHelper,
+        plugins.values.stylesheetAssets,
+        plugins.values.html,
+        plugins.values.json,
+        plugins.values.urls,
+        plugins.values.copy,
+        plugins.values.statsLog,
+      ],
+      external: plugins.settings.external.external,
+    });
+    expect(plugins.mocks.moduleReplace).toHaveBeenCalledTimes(0);
   });
 
   it('should create a configuration for a target with custom globals', () => {
@@ -328,6 +403,7 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
         plugins.values.commonjs,
         plugins.values.babel,
         plugins.values.polyfill,
+        plugins.values.moduleReplace,
         plugins.values.extraWatch,
         plugins.values.sass,
         plugins.values.css,
@@ -394,6 +470,7 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
         plugins.values.resolve,
         plugins.values.commonjs,
         plugins.values.babel,
+        plugins.values.moduleReplace,
         plugins.values.extraWatch,
         plugins.values.sass,
         plugins.values.css,
@@ -458,6 +535,7 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
         plugins.values.commonjs,
         plugins.values.babel,
         plugins.values.polyfill,
+        plugins.values.moduleReplace,
         plugins.values.extraWatch,
         plugins.values.sass,
         plugins.values.css,
@@ -525,6 +603,7 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
         plugins.values.commonjs,
         plugins.values.babel,
         plugins.values.polyfill,
+        plugins.values.moduleReplace,
         plugins.values.extraWatch,
         plugins.values.sass,
         plugins.values.css,

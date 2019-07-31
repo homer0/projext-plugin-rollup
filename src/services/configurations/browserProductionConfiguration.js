@@ -14,6 +14,7 @@ const {
   copy,
   css,
   extraWatch,
+  moduleReplace,
   runtimeReplace,
   stats,
   stylesheetAssets,
@@ -95,6 +96,11 @@ class RollupBrowserProductionConfiguration extends ConfigurationFile {
       ),
       windowAsGlobal(),
       runtimeReplace(definitions),
+      ...(
+        pluginSettings.moduleReplace.instructions.length ?
+          [moduleReplace(pluginSettings.moduleReplace)] :
+          []
+      ),
       extraWatch(pluginSettings.extraWatch),
       sass(pluginSettings.sass),
       css(pluginSettings.css),

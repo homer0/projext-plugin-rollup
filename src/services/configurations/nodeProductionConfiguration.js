@@ -12,6 +12,7 @@ const {
   copy,
   css,
   extraWatch,
+  moduleReplace,
   stats,
   stylesheetAssets,
   urls,
@@ -84,6 +85,11 @@ class RollupNodeProductionConfiguration extends ConfigurationFile {
       ...(
         pluginSettings.polyfill.length ?
           [polyfill(pluginSettings.polyfill)] :
+          []
+      ),
+      ...(
+        pluginSettings.moduleReplace.instructions.length ?
+          [moduleReplace(pluginSettings.moduleReplace)] :
           []
       ),
       extraWatch(pluginSettings.extraWatch),
