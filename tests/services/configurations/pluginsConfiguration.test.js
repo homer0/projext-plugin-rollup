@@ -72,9 +72,7 @@ describe('services/configurations:plugins', () => {
   it('should generate the plugins configuration for a development Node target build', () => {
     // Given
     const buildType = 'development';
-    const definitions = {
-      NODE_ENV: 'development',
-    };
+    const input = 'input-file';
     const output = {
       file: 'output-file',
     };
@@ -181,7 +179,7 @@ describe('services/configurations:plugins', () => {
     const additionalWatch = ['file-to-watch'];
     const params = {
       buildType,
-      definitions,
+      input,
       output,
       paths,
       target,
@@ -282,7 +280,10 @@ describe('services/configurations:plugins', () => {
         browser: false,
         preferBuiltins: true,
       },
-      replace: definitions,
+      extraWatch: [
+        input,
+        ...additionalWatch,
+      ],
       babel: Object.assign({}, babelConfig, {
         modules: false,
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
@@ -346,7 +347,6 @@ describe('services/configurations:plugins', () => {
       },
       watch: {
         clearScreen: false,
-        include: additionalWatch,
       },
       uglify: {},
       compression: {
@@ -408,10 +408,10 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
-          'rollup-replace-plugin-settings-configuration-for-node',
-          'rollup-replace-plugin-settings-configuration',
+          'rollup-extra-watch-plugin-settings-configuration-for-node',
+          'rollup-extra-watch-plugin-settings-configuration',
         ],
-        settings: expectedSettings.replace,
+        settings: expectedSettings.extraWatch,
       },
       {
         events: [
@@ -556,16 +556,17 @@ describe('services/configurations:plugins', () => {
         params
       );
     });
-    expect(pathUtils.join).toHaveBeenCalledTimes(1);
+    expect(pathUtils.join).toHaveBeenCalledTimes(1 + additionalWatch.length);
     expect(pathUtils.join).toHaveBeenCalledWith('config');
+    additionalWatch.forEach((file) => {
+      expect(pathUtils.join).toHaveBeenCalledWith(file);
+    });
   });
 
   it('shouldn\'t include the dev dependencies as externals for a Node production build', () => {
     // Given
     const buildType = 'production';
-    const definitions = {
-      NODE_ENV: 'production',
-    };
+    const input = 'entry-file';
     const output = {
       file: 'output-file',
     };
@@ -669,7 +670,7 @@ describe('services/configurations:plugins', () => {
     const additionalWatch = ['file-to-watch'];
     const params = {
       buildType,
-      definitions,
+      input,
       output,
       paths,
       target,
@@ -769,7 +770,10 @@ describe('services/configurations:plugins', () => {
         browser: false,
         preferBuiltins: true,
       },
-      replace: definitions,
+      extraWatch: [
+        input,
+        ...additionalWatch,
+      ],
       babel: Object.assign({}, babelConfig, {
         modules: false,
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
@@ -833,7 +837,6 @@ describe('services/configurations:plugins', () => {
       },
       watch: {
         clearScreen: false,
-        include: additionalWatch,
       },
       uglify: {},
       compression: {
@@ -894,10 +897,10 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
-          'rollup-replace-plugin-settings-configuration-for-node',
-          'rollup-replace-plugin-settings-configuration',
+          'rollup-extra-watch-plugin-settings-configuration-for-node',
+          'rollup-extra-watch-plugin-settings-configuration',
         ],
-        settings: expectedSettings.replace,
+        settings: expectedSettings.extraWatch,
       },
       {
         events: [
@@ -1047,9 +1050,7 @@ describe('services/configurations:plugins', () => {
   it('should generate the plugins configuration for a browser target build', () => {
     // Given
     const buildType = 'development';
-    const definitions = {
-      NODE_ENV: 'development',
-    };
+    const input = 'entry-file';
     const output = {
       file: 'output-file',
     };
@@ -1173,7 +1174,7 @@ describe('services/configurations:plugins', () => {
     const additionalWatch = ['file-to-watch'];
     const params = {
       buildType,
-      definitions,
+      input,
       output,
       paths,
       target,
@@ -1260,7 +1261,10 @@ describe('services/configurations:plugins', () => {
         browser: true,
         preferBuiltins: false,
       },
-      replace: definitions,
+      extraWatch: [
+        input,
+        ...additionalWatch,
+      ],
       babel: Object.assign({}, babelConfig, {
         modules: false,
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
@@ -1324,7 +1328,6 @@ describe('services/configurations:plugins', () => {
       },
       watch: {
         clearScreen: false,
-        include: additionalWatch,
       },
       uglify: {},
       compression: {
@@ -1395,10 +1398,10 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
-          'rollup-replace-plugin-settings-configuration-for-browser',
-          'rollup-replace-plugin-settings-configuration',
+          'rollup-extra-watch-plugin-settings-configuration-for-browser',
+          'rollup-extra-watch-plugin-settings-configuration',
         ],
-        settings: expectedSettings.replace,
+        settings: expectedSettings.extraWatch,
       },
       {
         events: [
@@ -1548,9 +1551,7 @@ describe('services/configurations:plugins', () => {
   it('should generate the settings for a browser target that injects its styles', () => {
     // Given
     const buildType = 'development';
-    const definitions = {
-      NODE_ENV: 'development',
-    };
+    const input = 'entry-file';
     const output = {
       file: 'output-file',
     };
@@ -1668,7 +1669,7 @@ describe('services/configurations:plugins', () => {
     const additionalWatch = ['file-to-watch'];
     const params = {
       buildType,
-      definitions,
+      input,
       output,
       paths,
       target,
@@ -1760,7 +1761,10 @@ describe('services/configurations:plugins', () => {
         browser: true,
         preferBuiltins: false,
       },
-      replace: definitions,
+      extraWatch: [
+        input,
+        ...additionalWatch,
+      ],
       babel: Object.assign({}, babelConfig, {
         modules: false,
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
@@ -1824,7 +1828,6 @@ describe('services/configurations:plugins', () => {
       },
       watch: {
         clearScreen: false,
-        include: additionalWatch,
       },
       uglify: {},
       compression: {
@@ -1891,10 +1894,10 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
-          'rollup-replace-plugin-settings-configuration-for-browser',
-          'rollup-replace-plugin-settings-configuration',
+          'rollup-extra-watch-plugin-settings-configuration-for-browser',
+          'rollup-extra-watch-plugin-settings-configuration',
         ],
-        settings: expectedSettings.replace,
+        settings: expectedSettings.extraWatch,
       },
       {
         events: [
@@ -2049,9 +2052,7 @@ describe('services/configurations:plugins', () => {
     // - cert file
     fs.pathExistsSync.mockImplementationOnce(() => false);
     const buildType = 'development';
-    const definitions = {
-      NODE_ENV: 'development',
-    };
+    const input = 'entry-file';
     const output = {
       file: 'output-file',
     };
@@ -2171,7 +2172,7 @@ describe('services/configurations:plugins', () => {
     const additionalWatch = ['file-to-watch'];
     const params = {
       buildType,
-      definitions,
+      input,
       output,
       paths,
       target,
@@ -2263,7 +2264,10 @@ describe('services/configurations:plugins', () => {
         browser: true,
         preferBuiltins: false,
       },
-      replace: definitions,
+      extraWatch: [
+        input,
+        ...additionalWatch,
+      ],
       babel: Object.assign({}, babelConfig, {
         modules: false,
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
@@ -2327,7 +2331,6 @@ describe('services/configurations:plugins', () => {
       },
       watch: {
         clearScreen: false,
-        include: additionalWatch,
       },
       uglify: {},
       compression: {
@@ -2400,10 +2403,10 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
-          'rollup-replace-plugin-settings-configuration-for-browser',
-          'rollup-replace-plugin-settings-configuration',
+          'rollup-extra-watch-plugin-settings-configuration-for-browser',
+          'rollup-extra-watch-plugin-settings-configuration',
         ],
-        settings: expectedSettings.replace,
+        settings: expectedSettings.extraWatch,
       },
       {
         events: [
@@ -2558,9 +2561,7 @@ describe('services/configurations:plugins', () => {
     // - cert file
     fs.pathExistsSync.mockImplementationOnce(() => false);
     const buildType = 'development';
-    const definitions = {
-      NODE_ENV: 'development',
-    };
+    const input = 'entry-file';
     const output = {
       file: 'output-file',
     };
@@ -2684,7 +2685,7 @@ describe('services/configurations:plugins', () => {
     const additionalWatch = ['file-to-watch'];
     const params = {
       buildType,
-      definitions,
+      input,
       output,
       paths,
       target,
@@ -2776,7 +2777,10 @@ describe('services/configurations:plugins', () => {
         browser: true,
         preferBuiltins: false,
       },
-      replace: definitions,
+      extraWatch: [
+        input,
+        ...additionalWatch,
+      ],
       babel: Object.assign({}, babelConfig, {
         modules: false,
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
@@ -2840,7 +2844,6 @@ describe('services/configurations:plugins', () => {
       },
       watch: {
         clearScreen: false,
-        include: additionalWatch,
       },
       uglify: {},
       compression: {
@@ -2917,10 +2920,10 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
-          'rollup-replace-plugin-settings-configuration-for-browser',
-          'rollup-replace-plugin-settings-configuration',
+          'rollup-extra-watch-plugin-settings-configuration-for-browser',
+          'rollup-extra-watch-plugin-settings-configuration',
         ],
-        settings: expectedSettings.replace,
+        settings: expectedSettings.extraWatch,
       },
       {
         events: [
@@ -3070,9 +3073,7 @@ describe('services/configurations:plugins', () => {
   it('should generate the configurations with a server being proxied with custom SSL host', () => {
     // Given
     const buildType = 'development';
-    const definitions = {
-      NODE_ENV: 'development',
-    };
+    const input = 'entry-file';
     const output = {
       file: 'output-file',
     };
@@ -3193,7 +3194,7 @@ describe('services/configurations:plugins', () => {
     const additionalWatch = ['file-to-watch'];
     const params = {
       buildType,
-      definitions,
+      input,
       output,
       paths,
       target,
@@ -3285,7 +3286,10 @@ describe('services/configurations:plugins', () => {
         browser: true,
         preferBuiltins: false,
       },
-      replace: definitions,
+      extraWatch: [
+        input,
+        ...additionalWatch,
+      ],
       babel: Object.assign({}, babelConfig, {
         modules: false,
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
@@ -3349,7 +3353,6 @@ describe('services/configurations:plugins', () => {
       },
       watch: {
         clearScreen: false,
-        include: additionalWatch,
       },
       uglify: {},
       compression: {
@@ -3424,10 +3427,10 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
-          'rollup-replace-plugin-settings-configuration-for-browser',
-          'rollup-replace-plugin-settings-configuration',
+          'rollup-extra-watch-plugin-settings-configuration-for-browser',
+          'rollup-extra-watch-plugin-settings-configuration',
         ],
-        settings: expectedSettings.replace,
+        settings: expectedSettings.extraWatch,
       },
       {
         events: [
@@ -3577,9 +3580,7 @@ describe('services/configurations:plugins', () => {
   it('should generate the plugins configuration for a browser target with source map', () => {
     // Given
     const buildType = 'development';
-    const definitions = {
-      NODE_ENV: 'development',
-    };
+    const input = 'entry-file';
     const output = {
       file: 'output-file',
     };
@@ -3699,7 +3700,7 @@ describe('services/configurations:plugins', () => {
     const additionalWatch = ['file-to-watch'];
     const params = {
       buildType,
-      definitions,
+      input,
       output,
       paths,
       target,
@@ -3791,7 +3792,10 @@ describe('services/configurations:plugins', () => {
         browser: true,
         preferBuiltins: false,
       },
-      replace: definitions,
+      extraWatch: [
+        input,
+        ...additionalWatch,
+      ],
       babel: Object.assign({}, babelConfig, {
         modules: false,
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
@@ -3855,7 +3859,6 @@ describe('services/configurations:plugins', () => {
       },
       watch: {
         clearScreen: false,
-        include: additionalWatch,
       },
       uglify: {},
       compression: {
@@ -3930,10 +3933,10 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
-          'rollup-replace-plugin-settings-configuration-for-browser',
-          'rollup-replace-plugin-settings-configuration',
+          'rollup-extra-watch-plugin-settings-configuration-for-browser',
+          'rollup-extra-watch-plugin-settings-configuration',
         ],
-        settings: expectedSettings.replace,
+        settings: expectedSettings.extraWatch,
       },
       {
         events: [
@@ -4085,9 +4088,7 @@ describe('services/configurations:plugins', () => {
     const postcssModulesName = 'postcss-modules-plugin';
     postcssModules.mockImplementationOnce(() => postcssModulesName);
     const buildType = 'development';
-    const definitions = {
-      NODE_ENV: 'development',
-    };
+    const input = 'entry-file';
     const output = {
       file: 'output-file',
     };
@@ -4204,7 +4205,7 @@ describe('services/configurations:plugins', () => {
     const additionalWatch = ['file-to-watch'];
     const params = {
       buildType,
-      definitions,
+      input,
       output,
       paths,
       target,
@@ -4305,9 +4306,7 @@ describe('services/configurations:plugins', () => {
       };
     });
     const buildType = 'development';
-    const definitions = {
-      NODE_ENV: 'development',
-    };
+    const input = 'entry-file';
     const output = {
       file: 'output-file',
     };
@@ -4424,7 +4423,7 @@ describe('services/configurations:plugins', () => {
     const additionalWatch = ['file-to-watch'];
     const params = {
       buildType,
-      definitions,
+      input,
       output,
       paths,
       target,
@@ -4521,9 +4520,7 @@ describe('services/configurations:plugins', () => {
     const postcssModulesName = 'postcss-modules-plugin';
     postcssModules.mockImplementationOnce(() => postcssModulesName);
     const buildType = 'development';
-    const definitions = {
-      NODE_ENV: 'development',
-    };
+    const input = 'entry-file';
     const output = {
       file: 'output-file',
     };
@@ -4640,7 +4637,7 @@ describe('services/configurations:plugins', () => {
     const additionalWatch = ['file-to-watch'];
     const params = {
       buildType,
-      definitions,
+      input,
       output,
       paths,
       target,

@@ -3,7 +3,7 @@ const fs = require('fs-extra');
 const extend = require('extend');
 const ProjextRollupUtils = require('../utils');
 /**
- * This a Rollup plugin that takes care of executing the bundled Noded app after the build is
+ * This is a Rollup plugin that takes care of executing the bundled Noded app after the build is
  * generated.
  */
 class ProjextRollupNodeRunnerPlugin {
