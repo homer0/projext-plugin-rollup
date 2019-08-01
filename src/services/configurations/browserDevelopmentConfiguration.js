@@ -1,22 +1,25 @@
 const resolve = require('rollup-plugin-node-resolve');
 const babel = require('rollup-plugin-babel');
 const commonjs = require('rollup-plugin-commonjs');
-const replace = require('rollup-plugin-replace');
 const sass = require('rollup-plugin-sass');
 const html = require('rollup-plugin-html');
 const json = require('rollup-plugin-json');
+const polyfill = require('rollup-plugin-polyfill');
 
 const { provider } = require('jimple');
 const ConfigurationFile = require('../../abstracts/configurationFile');
 const {
   copy,
   css,
-  urls,
-  stylesheetAssets,
-  template,
   devServer,
+  extraWatch,
+  moduleReplace,
+  runtimeReplace,
   stats,
+  stylesheetAssets,
   stylesheetModulesFixer,
+  template,
+  urls,
   windowAsGlobal,
 } = require('../../plugins');
 /**
@@ -65,6 +68,7 @@ class RollupBrowserDevelopmentConfiguration extends ConfigurationFile {
    */
   createConfig(params) {
     const {
+      definitions,
       input,
       output,
       target,
@@ -92,8 +96,19 @@ class RollupBrowserDevelopmentConfiguration extends ConfigurationFile {
       resolve(pluginSettings.resolve),
       commonjs(pluginSettings.commonjs),
       babel(pluginSettings.babel),
+      ...(
+        pluginSettings.polyfill.length ?
+          [polyfill(pluginSettings.polyfill)] :
+          []
+      ),
       windowAsGlobal(),
-      replace(pluginSettings.replace),
+      runtimeReplace(definitions),
+      ...(
+        pluginSettings.moduleReplace.instructions.length ?
+          [moduleReplace(pluginSettings.moduleReplace)] :
+          []
+      ),
+      extraWatch(pluginSettings.extraWatch),
       sass(pluginSettings.sass),
       css(pluginSettings.css),
       stylesheetAssets(pluginSettings.stylesheetAssets),

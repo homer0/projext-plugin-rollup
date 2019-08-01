@@ -45,7 +45,9 @@ describe('services/building:configuration', () => {
   it('should throw an error when trying to build a target with an invalid type', () => {
     // Given
     const buildVersion = 'buildVersion';
-    const targets = 'targets';
+    const targets = {
+      loadTargetDotEnvFile: jest.fn(() => ({})),
+    };
     const targetsFileRules = 'targetsFileRules';
     const targetConfiguration = 'targetConfiguration';
     const target = {
@@ -69,7 +71,9 @@ describe('services/building:configuration', () => {
   it('should throw an error when trying to build with an unknown build type', () => {
     // Given
     const buildVersion = 'buildVersion';
-    const targets = 'targets';
+    const targets = {
+      loadTargetDotEnvFile: jest.fn(() => ({})),
+    };
     const targetsFileRules = 'targetsFileRules';
     const targetConfiguration = 'targetConfiguration';
     const target = {
@@ -109,7 +113,13 @@ describe('services/building:configuration', () => {
     const targetConfig = {
       getConfig: jest.fn(() => config),
     };
-    const targets = 'targets';
+    const envVarName = 'ROSARIO';
+    const envVarValue = 'Charito';
+    const targets = {
+      loadTargetDotEnvFile: jest.fn(() => ({
+        [envVarName]: envVarValue,
+      })),
+    };
     const targetRules = 'target-rule';
     const targetsFileRules = {
       getRulesForTarget: jest.fn(() => targetRules),
@@ -150,6 +160,8 @@ describe('services/building:configuration', () => {
     };
     let sut = null;
     let result = null;
+    let definitionsGenerator = null;
+    let generatedDefinitions = null;
     // When
     sut = new RollupConfiguration(
       buildVersion,
@@ -159,8 +171,15 @@ describe('services/building:configuration', () => {
       rollupConfigurations
     );
     result = sut.getConfig(target, buildType);
+    [[{ definitions: definitionsGenerator }]] = targetConfig.getConfig.mock.calls;
+    generatedDefinitions = definitionsGenerator();
     // Then
     expect(result).toEqual(config);
+    expect(generatedDefinitions).toEqual({
+      [`process.env.${envVarName}`]: `"${envVarValue}"`,
+      'process.env.NODE_ENV': `'${buildType}'`,
+      [versionVariable]: `"${version}"`,
+    });
     expect(buildVersion.getDefinitionVariable).toHaveBeenCalledTimes(1);
     expect(buildVersion.getVersion).toHaveBeenCalledTimes(1);
     expect(targetsFileRules.getRulesForTarget).toHaveBeenCalledTimes(1);
@@ -174,6 +193,8 @@ describe('services/building:configuration', () => {
       `rollup/${target.name}.${buildType}.config.js`,
       targetConfig
     );
+    expect(targets.loadTargetDotEnvFile).toHaveBeenCalledTimes(1);
+    expect(targets.loadTargetDotEnvFile).toHaveBeenCalledWith(target, buildType);
     expect(targetConfig.getConfig).toHaveBeenCalledTimes(1);
     expect(targetConfig.getConfig).toHaveBeenCalledWith({
       input: path.join(target.paths.source, target.entry[buildType]),
@@ -186,12 +207,10 @@ describe('services/building:configuration', () => {
       target,
       buildType,
       targetRules,
-      definitions: {
-        'process.env.NODE_ENV': `'${buildType}'`,
-        [versionVariable]: `"${version}"`,
-      },
+      definitions: expect.any(Function),
       paths: target.output[buildType],
       copy: [],
+      additionalWatch: [],
     });
   });
 
@@ -214,6 +233,7 @@ describe('services/building:configuration', () => {
     const filesToCopy = ['copy'];
     const targets = {
       getFilesToCopy: jest.fn(() => filesToCopy),
+      loadTargetDotEnvFile: jest.fn(() => ({})),
     };
     const targetRules = 'target-rule';
     const targetsFileRules = {
@@ -267,8 +287,8 @@ describe('services/building:configuration', () => {
     result = sut.getConfig(target, buildType);
     // Then
     expect(result).toEqual(config);
-    expect(buildVersion.getDefinitionVariable).toHaveBeenCalledTimes(1);
-    expect(buildVersion.getVersion).toHaveBeenCalledTimes(1);
+    expect(buildVersion.getDefinitionVariable).toHaveBeenCalledTimes(0);
+    expect(buildVersion.getVersion).toHaveBeenCalledTimes(0);
     expect(targetsFileRules.getRulesForTarget).toHaveBeenCalledTimes(1);
     expect(targetsFileRules.getRulesForTarget).toHaveBeenCalledWith(target);
     expect(targetConfiguration).toHaveBeenCalledTimes(['global', 'byBuildType'].length);
@@ -280,6 +300,7 @@ describe('services/building:configuration', () => {
       `rollup/${target.name}.${buildType}.config.js`,
       targetConfig
     );
+    expect(targets.loadTargetDotEnvFile).toHaveBeenCalledTimes(0);
     expect(targetConfig.getConfig).toHaveBeenCalledTimes(1);
     expect(targetConfig.getConfig).toHaveBeenCalledWith({
       input: path.join(target.paths.source, target.entry[buildType]),
@@ -292,12 +313,10 @@ describe('services/building:configuration', () => {
       target,
       buildType,
       targetRules,
-      definitions: {
-        'process.env.NODE_ENV': `'${buildType}'`,
-        [versionVariable]: `"${version}"`,
-      },
+      definitions: expect.any(Function),
       paths: target.output[buildType],
       copy: filesToCopy,
+      additionalWatch: [],
     });
     expect(targets.getFilesToCopy).toHaveBeenCalledTimes(1);
     expect(targets.getFilesToCopy).toHaveBeenCalledWith(target, buildType);
@@ -322,6 +341,7 @@ describe('services/building:configuration', () => {
     const filesToCopy = ['copy'];
     const targets = {
       getFilesToCopy: jest.fn(() => filesToCopy),
+      loadTargetDotEnvFile: jest.fn(() => ({})),
     };
     const targetRules = 'target-rule';
     const targetsFileRules = {
@@ -376,8 +396,8 @@ describe('services/building:configuration', () => {
     result = sut.getConfig(target, buildType);
     // Then
     expect(result).toEqual(config);
-    expect(buildVersion.getDefinitionVariable).toHaveBeenCalledTimes(1);
-    expect(buildVersion.getVersion).toHaveBeenCalledTimes(1);
+    expect(buildVersion.getDefinitionVariable).toHaveBeenCalledTimes(0);
+    expect(buildVersion.getVersion).toHaveBeenCalledTimes(0);
     expect(targetsFileRules.getRulesForTarget).toHaveBeenCalledTimes(1);
     expect(targetsFileRules.getRulesForTarget).toHaveBeenCalledWith(target);
     expect(targetConfiguration).toHaveBeenCalledTimes(['global', 'byBuildType'].length);
@@ -389,6 +409,7 @@ describe('services/building:configuration', () => {
       `rollup/${target.name}.${buildType}.config.js`,
       targetConfig
     );
+    expect(targets.loadTargetDotEnvFile).toHaveBeenCalledTimes(0);
     expect(targetConfig.getConfig).toHaveBeenCalledTimes(1);
     expect(targetConfig.getConfig).toHaveBeenCalledWith({
       input: path.join(target.paths.source, target.entry[buildType]),
@@ -403,14 +424,12 @@ describe('services/building:configuration', () => {
       target,
       buildType,
       targetRules,
-      definitions: {
-        'process.env.NODE_ENV': `'${buildType}'`,
-        [versionVariable]: `"${version}"`,
-      },
+      definitions: expect.any(Function),
       paths: Object.assign({}, target.output[buildType], {
         jsChunks: target.output[buildType].js.replace(/\.js$/, '.[name].js'),
       }),
       copy: filesToCopy,
+      additionalWatch: [],
     });
     expect(targets.getFilesToCopy).toHaveBeenCalledTimes(1);
     expect(targets.getFilesToCopy).toHaveBeenCalledWith(target, buildType);
@@ -437,6 +456,7 @@ describe('services/building:configuration', () => {
     const filesToCopy = ['copy'];
     const targets = {
       getFilesToCopy: jest.fn(() => filesToCopy),
+      loadTargetDotEnvFile: jest.fn(() => ({})),
     };
     const targetRules = 'target-rule';
     const targetsFileRules = {
@@ -489,8 +509,8 @@ describe('services/building:configuration', () => {
     result = sut.getConfig(target, buildType);
     // Then
     expect(result).toEqual(config);
-    expect(buildVersion.getDefinitionVariable).toHaveBeenCalledTimes(1);
-    expect(buildVersion.getVersion).toHaveBeenCalledTimes(1);
+    expect(buildVersion.getDefinitionVariable).toHaveBeenCalledTimes(0);
+    expect(buildVersion.getVersion).toHaveBeenCalledTimes(0);
     expect(targetConfiguration).toHaveBeenCalledTimes(['global', 'byBuildType'].length);
     expect(targetConfiguration).toHaveBeenCalledWith(
       `rollup/${target.name}.config.js`,
@@ -500,6 +520,7 @@ describe('services/building:configuration', () => {
       `rollup/${target.name}.${buildType}.config.js`,
       targetConfig
     );
+    expect(targets.loadTargetDotEnvFile).toHaveBeenCalledTimes(0);
     expect(targetConfig.getConfig).toHaveBeenCalledTimes(1);
     expect(targetConfig.getConfig).toHaveBeenCalledWith({
       input: path.join(target.paths.source, target.entry[buildType]),
@@ -512,12 +533,10 @@ describe('services/building:configuration', () => {
       target,
       buildType,
       targetRules,
-      definitions: {
-        'process.env.NODE_ENV': `'${buildType}'`,
-        [versionVariable]: `"${version}"`,
-      },
+      definitions: expect.any(Function),
       paths: target.output[buildType],
       copy: filesToCopy,
+      additionalWatch: [],
     });
     expect(targets.getFilesToCopy).toHaveBeenCalledTimes(1);
     expect(targets.getFilesToCopy).toHaveBeenCalledWith(target, buildType);
@@ -544,6 +563,7 @@ describe('services/building:configuration', () => {
     const filesToCopy = ['copy'];
     const targets = {
       getFilesToCopy: jest.fn(() => filesToCopy),
+      loadTargetDotEnvFile: jest.fn(() => ({})),
     };
     const targetRules = 'target-rule';
     const targetsFileRules = {
@@ -597,8 +617,8 @@ describe('services/building:configuration', () => {
     result = sut.getConfig(target, buildType);
     // Then
     expect(result).toEqual(config);
-    expect(buildVersion.getDefinitionVariable).toHaveBeenCalledTimes(1);
-    expect(buildVersion.getVersion).toHaveBeenCalledTimes(1);
+    expect(buildVersion.getDefinitionVariable).toHaveBeenCalledTimes(0);
+    expect(buildVersion.getVersion).toHaveBeenCalledTimes(0);
     expect(targetConfiguration).toHaveBeenCalledTimes(['global', 'byBuildType'].length);
     expect(targetConfiguration).toHaveBeenCalledWith(
       `rollup/${target.name}.config.js`,
@@ -608,6 +628,7 @@ describe('services/building:configuration', () => {
       `rollup/${target.name}.${buildType}.config.js`,
       targetConfig
     );
+    expect(targets.loadTargetDotEnvFile).toHaveBeenCalledTimes(0);
     expect(targetConfig.getConfig).toHaveBeenCalledTimes(1);
     expect(targetConfig.getConfig).toHaveBeenCalledWith({
       input: path.join(target.paths.source, target.entry[buildType]),
@@ -622,12 +643,10 @@ describe('services/building:configuration', () => {
       target,
       buildType,
       targetRules,
-      definitions: {
-        'process.env.NODE_ENV': `'${buildType}'`,
-        [versionVariable]: `"${version}"`,
-      },
+      definitions: expect.any(Function),
       paths: target.output[buildType],
       copy: filesToCopy,
+      additionalWatch: [],
     });
     expect(targets.getFilesToCopy).toHaveBeenCalledTimes(1);
     expect(targets.getFilesToCopy).toHaveBeenCalledWith(target, buildType);
@@ -649,13 +668,18 @@ describe('services/building:configuration', () => {
     const targetConfig = {
       getConfig: jest.fn(() => config),
     };
+    const targetBrowserConfigFiles = ['some-config-file'];
     const targetBrowserConfig = {
       someProp: 'someValue',
     };
     const filesToCopy = ['copy'];
     const targets = {
-      getBrowserTargetConfiguration: jest.fn(() => targetBrowserConfig),
+      getBrowserTargetConfiguration: jest.fn(() => ({
+        configuration: targetBrowserConfig,
+        files: targetBrowserConfigFiles,
+      })),
       getFilesToCopy: jest.fn(() => filesToCopy),
+      loadTargetDotEnvFile: jest.fn(() => ({})),
     };
     const targetRules = 'target-rule';
     const targetsFileRules = {
@@ -697,6 +721,8 @@ describe('services/building:configuration', () => {
     };
     let sut = null;
     let result = null;
+    let definitionsGenerator = null;
+    let generatedDefinitions = null;
     // When
     sut = new RollupConfiguration(
       buildVersion,
@@ -706,8 +732,15 @@ describe('services/building:configuration', () => {
       rollupConfigurations
     );
     result = sut.getConfig(target, buildType);
+    [[{ definitions: definitionsGenerator }]] = targetConfig.getConfig.mock.calls;
+    generatedDefinitions = definitionsGenerator();
     // Then
     expect(result).toEqual(config);
+    expect(generatedDefinitions).toEqual({
+      'process.env.NODE_ENV': `'${buildType}'`,
+      [versionVariable]: `"${version}"`,
+      [target.configuration.defineOn]: JSON.stringify(targetBrowserConfig),
+    });
     expect(buildVersion.getDefinitionVariable).toHaveBeenCalledTimes(1);
     expect(buildVersion.getVersion).toHaveBeenCalledTimes(1);
     expect(targetConfiguration).toHaveBeenCalledTimes(['global', 'byBuildType'].length);
@@ -719,6 +752,8 @@ describe('services/building:configuration', () => {
       `rollup/${target.name}.${buildType}.config.js`,
       targetConfig
     );
+    expect(targets.loadTargetDotEnvFile).toHaveBeenCalledTimes(1);
+    expect(targets.loadTargetDotEnvFile).toHaveBeenCalledWith(target, buildType);
     expect(targetConfig.getConfig).toHaveBeenCalledTimes(1);
     expect(targetConfig.getConfig).toHaveBeenCalledWith({
       input: path.join(target.paths.source, target.entry[buildType]),
@@ -731,15 +766,13 @@ describe('services/building:configuration', () => {
       target,
       buildType,
       targetRules,
-      definitions: {
-        'process.env.NODE_ENV': `'${buildType}'`,
-        [versionVariable]: `"${version}"`,
-        [target.configuration.defineOn]: JSON.stringify(targetBrowserConfig),
-      },
+      definitions: expect.any(Function),
       paths: target.output[buildType],
       copy: filesToCopy,
+      additionalWatch: targetBrowserConfigFiles,
     });
-    expect(targets.getBrowserTargetConfiguration).toHaveBeenCalledTimes(1);
+    expect(targets.getBrowserTargetConfiguration).toHaveBeenCalledTimes(2);
+    expect(targets.getBrowserTargetConfiguration).toHaveBeenCalledWith(target);
     expect(targets.getBrowserTargetConfiguration).toHaveBeenCalledWith(target);
     expect(targets.getFilesToCopy).toHaveBeenCalledTimes(1);
     expect(targets.getFilesToCopy).toHaveBeenCalledWith(target, buildType);
@@ -763,7 +796,9 @@ describe('services/building:configuration', () => {
     const targetConfig = {
       getConfig: jest.fn(() => config),
     };
-    const targets = 'targets';
+    const targets = {
+      loadTargetDotEnvFile: jest.fn(() => ({})),
+    };
     const targetRules = 'target-rule';
     const targetsFileRules = {
       getRulesForTarget: jest.fn(() => targetRules),
@@ -825,8 +860,8 @@ describe('services/building:configuration', () => {
     result = sut.getConfig(target, buildType);
     // Then
     expect(result).toEqual(expectedConfig);
-    expect(buildVersion.getDefinitionVariable).toHaveBeenCalledTimes(1);
-    expect(buildVersion.getVersion).toHaveBeenCalledTimes(1);
+    expect(buildVersion.getDefinitionVariable).toHaveBeenCalledTimes(0);
+    expect(buildVersion.getVersion).toHaveBeenCalledTimes(0);
     expect(targetConfiguration).toHaveBeenCalledTimes(['global', 'byBuildType'].length);
     expect(targetConfiguration).toHaveBeenCalledWith(
       `rollup/${target.name}.config.js`,
@@ -836,6 +871,7 @@ describe('services/building:configuration', () => {
       `rollup/${target.name}.${buildType}.config.js`,
       targetConfig
     );
+    expect(targets.loadTargetDotEnvFile).toHaveBeenCalledTimes(0);
     expect(targetConfig.getConfig).toHaveBeenCalledTimes(1);
     expect(targetConfig.getConfig).toHaveBeenCalledWith({
       input: path.join(target.paths.source, target.entry[buildType]),
@@ -849,12 +885,10 @@ describe('services/building:configuration', () => {
       target,
       buildType,
       targetRules,
-      definitions: {
-        'process.env.NODE_ENV': `'${buildType}'`,
-        [versionVariable]: `"${version}"`,
-      },
+      definitions: expect.any(Function),
       paths: target.output[buildType],
       copy: [],
+      additionalWatch: [],
     });
   });
 
@@ -880,6 +914,7 @@ describe('services/building:configuration', () => {
     const filesToCopy = ['copy'];
     const targets = {
       getFilesToCopy: jest.fn(() => filesToCopy),
+      loadTargetDotEnvFile: jest.fn(() => ({})),
     };
     const targetRules = 'target-rule';
     const targetsFileRules = {
@@ -946,8 +981,8 @@ describe('services/building:configuration', () => {
     result = sut.getConfig(target, buildType);
     // Then
     expect(result).toEqual(expectedConfig);
-    expect(buildVersion.getDefinitionVariable).toHaveBeenCalledTimes(1);
-    expect(buildVersion.getVersion).toHaveBeenCalledTimes(1);
+    expect(buildVersion.getDefinitionVariable).toHaveBeenCalledTimes(0);
+    expect(buildVersion.getVersion).toHaveBeenCalledTimes(0);
     expect(targetConfiguration).toHaveBeenCalledTimes(['global', 'byBuildType'].length);
     expect(targetConfiguration).toHaveBeenCalledWith(
       `rollup/${target.name}.config.js`,
@@ -957,6 +992,7 @@ describe('services/building:configuration', () => {
       `rollup/${target.name}.${buildType}.config.js`,
       targetConfig
     );
+    expect(targets.loadTargetDotEnvFile).toHaveBeenCalledTimes(0);
     expect(targetConfig.getConfig).toHaveBeenCalledTimes(1);
     expect(targetConfig.getConfig).toHaveBeenCalledWith({
       input: path.join(target.paths.source, target.entry[buildType]),
@@ -970,12 +1006,10 @@ describe('services/building:configuration', () => {
       target,
       buildType,
       targetRules,
-      definitions: {
-        'process.env.NODE_ENV': `'${buildType}'`,
-        [versionVariable]: `"${version}"`,
-      },
+      definitions: expect.any(Function),
       paths: target.output[buildType],
       copy: filesToCopy,
+      additionalWatch: [],
     });
     expect(targets.getFilesToCopy).toHaveBeenCalledTimes(1);
     expect(targets.getFilesToCopy).toHaveBeenCalledWith(target, buildType);
@@ -1000,7 +1034,9 @@ describe('services/building:configuration', () => {
     const targetConfig = {
       getConfig: jest.fn(() => config),
     };
-    const targets = 'targets';
+    const targets = {
+      loadTargetDotEnvFile: jest.fn(() => ({})),
+    };
     const targetRules = 'target-rule';
     const targetsFileRules = {
       getRulesForTarget: jest.fn(() => targetRules),
@@ -1066,8 +1102,8 @@ describe('services/building:configuration', () => {
     result = sut.getConfig(target, buildType);
     // Then
     expect(result).toEqual(expectedConfig);
-    expect(buildVersion.getDefinitionVariable).toHaveBeenCalledTimes(1);
-    expect(buildVersion.getVersion).toHaveBeenCalledTimes(1);
+    expect(buildVersion.getDefinitionVariable).toHaveBeenCalledTimes(0);
+    expect(buildVersion.getVersion).toHaveBeenCalledTimes(0);
     expect(targetConfiguration).toHaveBeenCalledTimes(['global', 'byBuildType'].length);
     expect(targetConfiguration).toHaveBeenCalledWith(
       `rollup/${target.name}.config.js`,
@@ -1077,6 +1113,7 @@ describe('services/building:configuration', () => {
       `rollup/${target.name}.${buildType}.config.js`,
       targetConfig
     );
+    expect(targets.loadTargetDotEnvFile).toHaveBeenCalledTimes(0);
     expect(targetConfig.getConfig).toHaveBeenCalledTimes(1);
     expect(targetConfig.getConfig).toHaveBeenCalledWith({
       input: path.join(target.paths.source, target.entry[buildType]),
@@ -1090,12 +1127,10 @@ describe('services/building:configuration', () => {
       target,
       buildType,
       targetRules,
-      definitions: {
-        'process.env.NODE_ENV': `'${buildType}'`,
-        [versionVariable]: `"${version}"`,
-      },
+      definitions: expect.any(Function),
       paths: target.output[buildType],
       copy: [],
+      additionalWatch: [],
     });
   });
 

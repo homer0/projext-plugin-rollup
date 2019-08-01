@@ -72,9 +72,7 @@ describe('services/configurations:plugins', () => {
   it('should generate the plugins configuration for a development Node target build', () => {
     // Given
     const buildType = 'development';
-    const definitions = {
-      NODE_ENV: 'development',
-    };
+    const input = 'input-file';
     const output = {
       file: 'output-file',
     };
@@ -95,8 +93,14 @@ describe('services/configurations:plugins', () => {
         node: true,
         browser: false,
       },
+      babel: {
+        polyfill: false,
+      },
       inspect: {
         enabled: false,
+      },
+      sourceMap: {
+        [buildType]: false,
       },
     };
     const rules = {
@@ -175,18 +179,19 @@ describe('services/configurations:plugins', () => {
       },
     };
     const copy = ['files-to-copy'];
+    const additionalWatch = ['file-to-watch'];
     const params = {
       buildType,
-      definitions,
+      input,
       output,
       paths,
       target,
       rules,
       targetRules,
       copy,
+      additionalWatch,
     };
     const stats = 'stats';
-
     const appLogger = 'appLogger';
     const babelConfig = {
       babel: true,
@@ -278,7 +283,14 @@ describe('services/configurations:plugins', () => {
         browser: false,
         preferBuiltins: true,
       },
-      replace: definitions,
+      extraWatch: [
+        input,
+        ...additionalWatch,
+      ],
+      moduleReplace: {
+        instructions: [],
+        sourceMap: target.sourceMap[buildType],
+      },
       babel: Object.assign({}, babelConfig, {
         modules: false,
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
@@ -354,6 +366,7 @@ describe('services/configurations:plugins', () => {
         files: copy,
         stats,
       },
+      polyfill: [],
       statsLog: {
         extraEntries: [
           {
@@ -402,10 +415,17 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
-          'rollup-replace-plugin-settings-configuration-for-node',
-          'rollup-replace-plugin-settings-configuration',
+          'rollup-extra-watch-plugin-settings-configuration-for-node',
+          'rollup-extra-watch-plugin-settings-configuration',
         ],
-        settings: expectedSettings.replace,
+        settings: expectedSettings.extraWatch,
+      },
+      {
+        events: [
+          'rollup-module-replace-plugin-settings-configuration-for-node',
+          'rollup-module-replace-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.moduleReplace,
       },
       {
         events: [
@@ -500,6 +520,13 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
+          'rollup-polyfill-plugin-settings-configuration-for-node',
+          'rollup-polyfill-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.polyfill,
+      },
+      {
+        events: [
           'rollup-stats-plugin-settings-configuration-for-node',
           'rollup-stats-plugin-settings-configuration',
         ],
@@ -543,16 +570,17 @@ describe('services/configurations:plugins', () => {
         params
       );
     });
-    expect(pathUtils.join).toHaveBeenCalledTimes(1);
+    expect(pathUtils.join).toHaveBeenCalledTimes(1 + additionalWatch.length);
     expect(pathUtils.join).toHaveBeenCalledWith('config');
+    additionalWatch.forEach((file) => {
+      expect(pathUtils.join).toHaveBeenCalledWith(file);
+    });
   });
 
   it('shouldn\'t include the dev dependencies as externals for a Node production build', () => {
     // Given
     const buildType = 'production';
-    const definitions = {
-      NODE_ENV: 'production',
-    };
+    const input = 'entry-file';
     const output = {
       file: 'output-file',
     };
@@ -572,6 +600,12 @@ describe('services/configurations:plugins', () => {
       is: {
         node: true,
         browser: false,
+      },
+      babel: {
+        polyfill: false,
+      },
+      sourceMap: {
+        [buildType]: false,
       },
     };
     const rules = {
@@ -650,15 +684,17 @@ describe('services/configurations:plugins', () => {
       },
     };
     const copy = ['files-to-copy'];
+    const additionalWatch = ['file-to-watch'];
     const params = {
       buildType,
-      definitions,
+      input,
       output,
       paths,
       target,
       rules,
       targetRules,
       copy,
+      additionalWatch,
     };
     const stats = 'stats';
 
@@ -751,7 +787,14 @@ describe('services/configurations:plugins', () => {
         browser: false,
         preferBuiltins: true,
       },
-      replace: definitions,
+      extraWatch: [
+        input,
+        ...additionalWatch,
+      ],
+      moduleReplace: {
+        instructions: [],
+        sourceMap: target.sourceMap[buildType],
+      },
       babel: Object.assign({}, babelConfig, {
         modules: false,
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
@@ -827,6 +870,7 @@ describe('services/configurations:plugins', () => {
         files: copy,
         stats,
       },
+      polyfill: [],
       statsLog: {
         extraEntries: [
           {
@@ -874,10 +918,17 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
-          'rollup-replace-plugin-settings-configuration-for-node',
-          'rollup-replace-plugin-settings-configuration',
+          'rollup-extra-watch-plugin-settings-configuration-for-node',
+          'rollup-extra-watch-plugin-settings-configuration',
         ],
-        settings: expectedSettings.replace,
+        settings: expectedSettings.extraWatch,
+      },
+      {
+        events: [
+          'rollup-module-replace-plugin-settings-configuration-for-node',
+          'rollup-module-replace-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.moduleReplace,
       },
       {
         events: [
@@ -972,6 +1023,13 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
+          'rollup-uglify-plugin-settings-configuration-for-node',
+          'rollup-uglify-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.uglify,
+      },
+      {
+        events: [
           'rollup-stats-plugin-settings-configuration-for-node',
           'rollup-stats-plugin-settings-configuration',
         ],
@@ -1020,9 +1078,7 @@ describe('services/configurations:plugins', () => {
   it('should generate the plugins configuration for a browser target build', () => {
     // Given
     const buildType = 'development';
-    const definitions = {
-      NODE_ENV: 'development',
-    };
+    const input = 'entry-file';
     const output = {
       file: 'output-file',
     };
@@ -1033,6 +1089,13 @@ describe('services/configurations:plugins', () => {
       images: 'images-path',
     };
     const excludeModule = 'colors';
+    const pluginName = 'plugin';
+    const polyfillFile = 'babel-polyfill.js';
+    const rollupPluginInfo = {
+      name: pluginName,
+      external: [],
+      babelPolyfill: polyfillFile,
+    };
     const target = {
       css: {
         modules: false,
@@ -1043,6 +1106,9 @@ describe('services/configurations:plugins', () => {
       is: {
         node: false,
         browser: true,
+      },
+      babel: {
+        polyfill: true,
       },
       html: {
         filename: 'my-target.html',
@@ -1056,6 +1122,9 @@ describe('services/configurations:plugins', () => {
       excludeModules: [
         excludeModule,
       ],
+      sourceMap: {
+        [buildType]: false,
+      },
     };
     const rules = {
       js: {
@@ -1133,15 +1202,17 @@ describe('services/configurations:plugins', () => {
       },
     };
     const copy = ['files-to-copy'];
+    const additionalWatch = ['file-to-watch'];
     const params = {
       buildType,
-      definitions,
+      input,
       output,
       paths,
       target,
       rules,
       targetRules,
       copy,
+      additionalWatch,
     };
     const stats = 'stats';
 
@@ -1174,11 +1245,6 @@ describe('services/configurations:plugins', () => {
     };
     const pathUtils = {
       join: jest.fn((rest) => rest),
-    };
-    const pluginName = 'plugin';
-    const rollupPluginInfo = {
-      name: pluginName,
-      external: [],
     };
     const htmlFile = 'index.html';
     const targetsHTML = {
@@ -1226,7 +1292,18 @@ describe('services/configurations:plugins', () => {
         browser: true,
         preferBuiltins: false,
       },
-      replace: definitions,
+      extraWatch: [
+        input,
+        ...additionalWatch,
+      ],
+      moduleReplace: {
+        instructions: [{
+          module: expect.any(RegExp),
+          search: expect.any(RegExp),
+          replace: expect.any(String),
+        }],
+        sourceMap: target.sourceMap[buildType],
+      },
       babel: Object.assign({}, babelConfig, {
         modules: false,
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
@@ -1302,6 +1379,7 @@ describe('services/configurations:plugins', () => {
         files: copy,
         stats,
       },
+      polyfill: [`${pluginName}/${polyfillFile}`],
       statsLog: {
         extraEntries: [
           {
@@ -1359,10 +1437,17 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
-          'rollup-replace-plugin-settings-configuration-for-browser',
-          'rollup-replace-plugin-settings-configuration',
+          'rollup-extra-watch-plugin-settings-configuration-for-browser',
+          'rollup-extra-watch-plugin-settings-configuration',
         ],
-        settings: expectedSettings.replace,
+        settings: expectedSettings.extraWatch,
+      },
+      {
+        events: [
+          'rollup-module-replace-plugin-settings-configuration-for-browser',
+          'rollup-module-replace-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.moduleReplace,
       },
       {
         events: [
@@ -1457,6 +1542,13 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
+          'rollup-uglify-plugin-settings-configuration-for-browser',
+          'rollup-uglify-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.uglify,
+      },
+      {
+        events: [
           'rollup-stats-plugin-settings-configuration-for-browser',
           'rollup-stats-plugin-settings-configuration',
         ],
@@ -1505,9 +1597,7 @@ describe('services/configurations:plugins', () => {
   it('should generate the settings for a browser target that injects its styles', () => {
     // Given
     const buildType = 'development';
-    const definitions = {
-      NODE_ENV: 'development',
-    };
+    const input = 'entry-file';
     const output = {
       file: 'output-file',
     };
@@ -1530,8 +1620,14 @@ describe('services/configurations:plugins', () => {
         node: false,
         browser: true,
       },
+      babel: {
+        polyfill: false,
+      },
       html: {
         filename: 'my-target.html',
+      },
+      sourceMap: {
+        [buildType]: false,
       },
       devServer: {
         host: 'localhost',
@@ -1619,15 +1715,17 @@ describe('services/configurations:plugins', () => {
       },
     };
     const copy = ['files-to-copy'];
+    const additionalWatch = ['file-to-watch'];
     const params = {
       buildType,
-      definitions,
+      input,
       output,
       paths,
       target,
       rules,
       targetRules,
       copy,
+      additionalWatch,
     };
     const stats = 'stats';
 
@@ -1712,7 +1810,18 @@ describe('services/configurations:plugins', () => {
         browser: true,
         preferBuiltins: false,
       },
-      replace: definitions,
+      extraWatch: [
+        input,
+        ...additionalWatch,
+      ],
+      moduleReplace: {
+        instructions: [{
+          module: expect.any(RegExp),
+          search: expect.any(RegExp),
+          replace: expect.any(String),
+        }],
+        sourceMap: target.sourceMap[buildType],
+      },
       babel: Object.assign({}, babelConfig, {
         modules: false,
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
@@ -1788,6 +1897,7 @@ describe('services/configurations:plugins', () => {
         files: copy,
         stats,
       },
+      polyfill: [],
       statsLog: {
         extraEntries: [
           {
@@ -1841,10 +1951,17 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
-          'rollup-replace-plugin-settings-configuration-for-browser',
-          'rollup-replace-plugin-settings-configuration',
+          'rollup-extra-watch-plugin-settings-configuration-for-browser',
+          'rollup-extra-watch-plugin-settings-configuration',
         ],
-        settings: expectedSettings.replace,
+        settings: expectedSettings.extraWatch,
+      },
+      {
+        events: [
+          'rollup-module-replace-plugin-settings-configuration-for-browser',
+          'rollup-module-replace-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.moduleReplace,
       },
       {
         events: [
@@ -1939,6 +2056,13 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
+          'rollup-polyfill-plugin-settings-configuration-for-browser',
+          'rollup-polyfill-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.polyfill,
+      },
+      {
+        events: [
           'rollup-stats-plugin-settings-configuration-for-browser',
           'rollup-stats-plugin-settings-configuration',
         ],
@@ -1992,9 +2116,7 @@ describe('services/configurations:plugins', () => {
     // - cert file
     fs.pathExistsSync.mockImplementationOnce(() => false);
     const buildType = 'development';
-    const definitions = {
-      NODE_ENV: 'development',
-    };
+    const input = 'entry-file';
     const output = {
       file: 'output-file',
     };
@@ -2016,6 +2138,9 @@ describe('services/configurations:plugins', () => {
         node: false,
         browser: true,
       },
+      babel: {
+        polyfill: false,
+      },
       html: {
         filename: 'my-target.html',
       },
@@ -2027,6 +2152,9 @@ describe('services/configurations:plugins', () => {
           cert: 'file.cert',
         },
         proxied: {},
+      },
+      sourceMap: {
+        [buildType]: false,
       },
       excludeModules: [
         excludeModule,
@@ -2108,15 +2236,17 @@ describe('services/configurations:plugins', () => {
       },
     };
     const copy = ['files-to-copy'];
+    const additionalWatch = ['file-to-watch'];
     const params = {
       buildType,
-      definitions,
+      input,
       output,
       paths,
       target,
       rules,
       targetRules,
       copy,
+      additionalWatch,
     };
     const stats = 'stats';
 
@@ -2201,7 +2331,18 @@ describe('services/configurations:plugins', () => {
         browser: true,
         preferBuiltins: false,
       },
-      replace: definitions,
+      extraWatch: [
+        input,
+        ...additionalWatch,
+      ],
+      moduleReplace: {
+        instructions: [{
+          module: expect.any(RegExp),
+          search: expect.any(RegExp),
+          replace: expect.any(String),
+        }],
+        sourceMap: target.sourceMap[buildType],
+      },
       babel: Object.assign({}, babelConfig, {
         modules: false,
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
@@ -2277,6 +2418,7 @@ describe('services/configurations:plugins', () => {
         files: copy,
         stats,
       },
+      polyfill: [],
       statsLog: {
         extraEntries: [
           {
@@ -2336,10 +2478,17 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
-          'rollup-replace-plugin-settings-configuration-for-browser',
-          'rollup-replace-plugin-settings-configuration',
+          'rollup-extra-watch-plugin-settings-configuration-for-browser',
+          'rollup-extra-watch-plugin-settings-configuration',
         ],
-        settings: expectedSettings.replace,
+        settings: expectedSettings.extraWatch,
+      },
+      {
+        events: [
+          'rollup-module-replace-plugin-settings-configuration-for-browser',
+          'rollup-module-replace-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.moduleReplace,
       },
       {
         events: [
@@ -2434,6 +2583,13 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
+          'rollup-polyfill-plugin-settings-configuration-for-browser',
+          'rollup-polyfill-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.polyfill,
+      },
+      {
+        events: [
           'rollup-stats-plugin-settings-configuration-for-browser',
           'rollup-stats-plugin-settings-configuration',
         ],
@@ -2487,9 +2643,7 @@ describe('services/configurations:plugins', () => {
     // - cert file
     fs.pathExistsSync.mockImplementationOnce(() => false);
     const buildType = 'development';
-    const definitions = {
-      NODE_ENV: 'development',
-    };
+    const input = 'entry-file';
     const output = {
       file: 'output-file',
     };
@@ -2511,6 +2665,9 @@ describe('services/configurations:plugins', () => {
         node: false,
         browser: true,
       },
+      babel: {
+        polyfill: false,
+      },
       html: {
         filename: 'my-target.html',
       },
@@ -2526,6 +2683,9 @@ describe('services/configurations:plugins', () => {
           host: null,
           https: null,
         },
+      },
+      sourceMap: {
+        [buildType]: false,
       },
       excludeModules: [
         excludeModule,
@@ -2607,15 +2767,17 @@ describe('services/configurations:plugins', () => {
       },
     };
     const copy = ['files-to-copy'];
+    const additionalWatch = ['file-to-watch'];
     const params = {
       buildType,
-      definitions,
+      input,
       output,
       paths,
       target,
       rules,
       targetRules,
       copy,
+      additionalWatch,
     };
     const stats = 'stats';
 
@@ -2700,7 +2862,18 @@ describe('services/configurations:plugins', () => {
         browser: true,
         preferBuiltins: false,
       },
-      replace: definitions,
+      extraWatch: [
+        input,
+        ...additionalWatch,
+      ],
+      moduleReplace: {
+        instructions: [{
+          module: expect.any(RegExp),
+          search: expect.any(RegExp),
+          replace: expect.any(String),
+        }],
+        sourceMap: target.sourceMap[buildType],
+      },
       babel: Object.assign({}, babelConfig, {
         modules: false,
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
@@ -2776,6 +2949,7 @@ describe('services/configurations:plugins', () => {
         files: copy,
         stats,
       },
+      polyfill: [],
       statsLog: {
         extraEntries: [
           {
@@ -2839,10 +3013,17 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
-          'rollup-replace-plugin-settings-configuration-for-browser',
-          'rollup-replace-plugin-settings-configuration',
+          'rollup-extra-watch-plugin-settings-configuration-for-browser',
+          'rollup-extra-watch-plugin-settings-configuration',
         ],
-        settings: expectedSettings.replace,
+        settings: expectedSettings.extraWatch,
+      },
+      {
+        events: [
+          'rollup-module-replace-plugin-settings-configuration-for-browser',
+          'rollup-module-replace-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.moduleReplace,
       },
       {
         events: [
@@ -2937,6 +3118,13 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
+          'rollup-polyfill-plugin-settings-configuration-for-browser',
+          'rollup-polyfill-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.polyfill,
+      },
+      {
+        events: [
           'rollup-stats-plugin-settings-configuration-for-browser',
           'rollup-stats-plugin-settings-configuration',
         ],
@@ -2985,9 +3173,7 @@ describe('services/configurations:plugins', () => {
   it('should generate the configurations with a server being proxied with custom SSL host', () => {
     // Given
     const buildType = 'development';
-    const definitions = {
-      NODE_ENV: 'development',
-    };
+    const input = 'entry-file';
     const output = {
       file: 'output-file',
     };
@@ -3009,6 +3195,9 @@ describe('services/configurations:plugins', () => {
         node: false,
         browser: true,
       },
+      babel: {
+        polyfill: false,
+      },
       html: {
         filename: 'my-target.html',
       },
@@ -3021,6 +3210,9 @@ describe('services/configurations:plugins', () => {
           host: 'my-proxied-domain.com',
           https: true,
         },
+      },
+      sourceMap: {
+        [buildType]: false,
       },
       excludeModules: [
         excludeModule,
@@ -3102,15 +3294,17 @@ describe('services/configurations:plugins', () => {
       },
     };
     const copy = ['files-to-copy'];
+    const additionalWatch = ['file-to-watch'];
     const params = {
       buildType,
-      definitions,
+      input,
       output,
       paths,
       target,
       rules,
       targetRules,
       copy,
+      additionalWatch,
     };
     const stats = 'stats';
 
@@ -3195,7 +3389,18 @@ describe('services/configurations:plugins', () => {
         browser: true,
         preferBuiltins: false,
       },
-      replace: definitions,
+      extraWatch: [
+        input,
+        ...additionalWatch,
+      ],
+      moduleReplace: {
+        instructions: [{
+          module: expect.any(RegExp),
+          search: expect.any(RegExp),
+          replace: expect.any(String),
+        }],
+        sourceMap: target.sourceMap[buildType],
+      },
       babel: Object.assign({}, babelConfig, {
         modules: false,
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
@@ -3271,6 +3476,7 @@ describe('services/configurations:plugins', () => {
         files: copy,
         stats,
       },
+      polyfill: [],
       statsLog: {
         extraEntries: [
           {
@@ -3332,10 +3538,17 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
-          'rollup-replace-plugin-settings-configuration-for-browser',
-          'rollup-replace-plugin-settings-configuration',
+          'rollup-extra-watch-plugin-settings-configuration-for-browser',
+          'rollup-extra-watch-plugin-settings-configuration',
         ],
-        settings: expectedSettings.replace,
+        settings: expectedSettings.extraWatch,
+      },
+      {
+        events: [
+          'rollup-module-replace-plugin-settings-configuration-for-browser',
+          'rollup-module-replace-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.moduleReplace,
       },
       {
         events: [
@@ -3430,6 +3643,13 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
+          'rollup-polyfill-plugin-settings-configuration-for-browser',
+          'rollup-polyfill-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.polyfill,
+      },
+      {
+        events: [
           'rollup-stats-plugin-settings-configuration-for-browser',
           'rollup-stats-plugin-settings-configuration',
         ],
@@ -3478,9 +3698,7 @@ describe('services/configurations:plugins', () => {
   it('should generate the plugins configuration for a browser target with source map', () => {
     // Given
     const buildType = 'development';
-    const definitions = {
-      NODE_ENV: 'development',
-    };
+    const input = 'entry-file';
     const output = {
       file: 'output-file',
     };
@@ -3501,6 +3719,9 @@ describe('services/configurations:plugins', () => {
       is: {
         node: false,
         browser: true,
+      },
+      babel: {
+        polyfill: false,
       },
       html: {
         filename: 'my-target.html',
@@ -3594,15 +3815,17 @@ describe('services/configurations:plugins', () => {
       },
     };
     const copy = ['files-to-copy'];
+    const additionalWatch = ['file-to-watch'];
     const params = {
       buildType,
-      definitions,
+      input,
       output,
       paths,
       target,
       rules,
       targetRules,
       copy,
+      additionalWatch,
     };
     const stats = 'stats';
 
@@ -3687,7 +3910,18 @@ describe('services/configurations:plugins', () => {
         browser: true,
         preferBuiltins: false,
       },
-      replace: definitions,
+      extraWatch: [
+        input,
+        ...additionalWatch,
+      ],
+      moduleReplace: {
+        instructions: [{
+          module: expect.any(RegExp),
+          search: expect.any(RegExp),
+          replace: expect.any(String),
+        }],
+        sourceMap: target.sourceMap[buildType],
+      },
       babel: Object.assign({}, babelConfig, {
         modules: false,
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
@@ -3763,6 +3997,7 @@ describe('services/configurations:plugins', () => {
         files: copy,
         stats,
       },
+      polyfill: [],
       statsLog: {
         extraEntries: [
           {
@@ -3824,10 +4059,17 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
-          'rollup-replace-plugin-settings-configuration-for-browser',
-          'rollup-replace-plugin-settings-configuration',
+          'rollup-extra-watch-plugin-settings-configuration-for-browser',
+          'rollup-extra-watch-plugin-settings-configuration',
         ],
-        settings: expectedSettings.replace,
+        settings: expectedSettings.extraWatch,
+      },
+      {
+        events: [
+          'rollup-module-replace-plugin-settings-configuration-for-browser',
+          'rollup-module-replace-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.moduleReplace,
       },
       {
         events: [
@@ -3922,6 +4164,13 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
+          'rollup-polyfill-plugin-settings-configuration-for-browser',
+          'rollup-polyfill-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.polyfill,
+      },
+      {
+        events: [
           'rollup-stats-plugin-settings-configuration-for-browser',
           'rollup-stats-plugin-settings-configuration',
         ],
@@ -3972,9 +4221,7 @@ describe('services/configurations:plugins', () => {
     const postcssModulesName = 'postcss-modules-plugin';
     postcssModules.mockImplementationOnce(() => postcssModulesName);
     const buildType = 'development';
-    const definitions = {
-      NODE_ENV: 'development',
-    };
+    const input = 'entry-file';
     const output = {
       file: 'output-file',
     };
@@ -3995,6 +4242,9 @@ describe('services/configurations:plugins', () => {
       is: {
         node: false,
         browser: true,
+      },
+      babel: {
+        polyfill: false,
       },
       html: {
         filename: 'my-target.html',
@@ -4085,15 +4335,17 @@ describe('services/configurations:plugins', () => {
       },
     };
     const copy = ['files-to-copy'];
+    const additionalWatch = ['file-to-watch'];
     const params = {
       buildType,
-      definitions,
+      input,
       output,
       paths,
       target,
       rules,
       targetRules,
       copy,
+      additionalWatch,
     };
     const stats = 'stats';
 
@@ -4187,9 +4439,7 @@ describe('services/configurations:plugins', () => {
       };
     });
     const buildType = 'development';
-    const definitions = {
-      NODE_ENV: 'development',
-    };
+    const input = 'entry-file';
     const output = {
       file: 'output-file',
     };
@@ -4210,6 +4460,9 @@ describe('services/configurations:plugins', () => {
       is: {
         node: false,
         browser: true,
+      },
+      babel: {
+        polyfill: false,
       },
       html: {
         filename: 'my-target.html',
@@ -4300,15 +4553,17 @@ describe('services/configurations:plugins', () => {
       },
     };
     const copy = ['files-to-copy'];
+    const additionalWatch = ['file-to-watch'];
     const params = {
       buildType,
-      definitions,
+      input,
       output,
       paths,
       target,
       rules,
       targetRules,
       copy,
+      additionalWatch,
     };
     const stats = 'stats';
 
@@ -4398,9 +4653,7 @@ describe('services/configurations:plugins', () => {
     const postcssModulesName = 'postcss-modules-plugin';
     postcssModules.mockImplementationOnce(() => postcssModulesName);
     const buildType = 'development';
-    const definitions = {
-      NODE_ENV: 'development',
-    };
+    const input = 'entry-file';
     const output = {
       file: 'output-file',
     };
@@ -4421,6 +4674,9 @@ describe('services/configurations:plugins', () => {
       is: {
         node: false,
         browser: true,
+      },
+      babel: {
+        polyfill: false,
       },
       html: {
         filename: 'my-target.html',
@@ -4511,15 +4767,17 @@ describe('services/configurations:plugins', () => {
       },
     };
     const copy = ['files-to-copy'];
+    const additionalWatch = ['file-to-watch'];
     const params = {
       buildType,
-      definitions,
+      input,
       output,
       paths,
       target,
       rules,
       targetRules,
       copy,
+      additionalWatch,
     };
     const stats = 'stats';
 

@@ -6,10 +6,10 @@ jest.mock('fs-extra');
 jest.mock('rollup-plugin-node-resolve');
 jest.mock('rollup-plugin-babel');
 jest.mock('rollup-plugin-commonjs');
-jest.mock('rollup-plugin-replace');
 jest.mock('rollup-plugin-sass');
 jest.mock('rollup-plugin-html');
 jest.mock('rollup-plugin-json');
+jest.mock('rollup-plugin-polyfill');
 jest.mock('/src/abstracts/configurationFile', () => ConfigurationFileMock);
 jest.unmock('/src/services/configurations/nodeDevelopmentConfiguration');
 
@@ -21,18 +21,20 @@ const {
 const {
   copy,
   css,
-  urls,
-  stylesheetAssets,
+  extraWatch,
+  moduleReplace,
   nodeRunner,
   stats,
+  stylesheetAssets,
+  urls,
 } = require('/src/plugins');
 const resolve = require('rollup-plugin-node-resolve');
 const babel = require('rollup-plugin-babel');
 const commonjs = require('rollup-plugin-commonjs');
-const replace = require('rollup-plugin-replace');
 const sass = require('rollup-plugin-sass');
 const html = require('rollup-plugin-html');
 const json = require('rollup-plugin-json');
+const polyfill = require('rollup-plugin-polyfill');
 
 describe('services/configurations:nodeDevelopmentConfiguration', () => {
   const getPlugins = () => {
@@ -52,8 +54,10 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
       },
       resolve: 'resolve-plugin',
       babel: 'babel-plugin',
+      polyfill: 'polyfill-plugin',
       commonjs: 'commonjs-plugin',
-      replace: 'replace-plugin',
+      extraWatch: 'extra-watch-plugin',
+      moduleReplace: 'module-replace-plugin',
       sass: 'sass-plugin',
       html: 'html-plugin',
       json: 'json-plugin',
@@ -69,8 +73,10 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
     stats.mockImplementationOnce(() => values.stats);
     resolve.mockImplementationOnce(() => values.resolve);
     babel.mockImplementationOnce(() => values.babel);
+    polyfill.mockImplementationOnce(() => values.polyfill);
     commonjs.mockImplementationOnce(() => values.commonjs);
-    replace.mockImplementationOnce(() => values.replace);
+    extraWatch.mockImplementationOnce(() => values.extraWatch);
+    moduleReplace.mockImplementationOnce(() => values.moduleReplace);
     sass.mockImplementationOnce(() => values.sass);
     html.mockImplementationOnce(() => values.html);
     json.mockImplementationOnce(() => values.json);
@@ -85,8 +91,10 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
       statsLog: values.stats.log,
       resolve,
       babel,
+      polyfill,
       commonjs,
-      replace,
+      extraWatch,
+      moduleReplace,
       sass,
       html,
       json,
@@ -95,7 +103,10 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
       resolve: 'resolve-plugin-settings',
       babel: 'babel-plugin-settings',
       commonjs: 'commonjs-plugin-settings',
-      replace: 'replace-plugin-settings',
+      extraWatch: 'extra-watch-plugin-settings',
+      moduleReplace: {
+        instructions: ['module-replace-plugin-settings'],
+      },
       sass: 'sass-plugin-settings',
       css: 'css-plugin-settings',
       stylesheetAssets: 'stylesheetAssets-plugin-settings',
@@ -113,6 +124,7 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
       },
       watch: 'watch-plugin-settings',
       copy: 'copy-plugin-settings',
+      polyfill: 'polyfill-plugin-settings',
     };
     return {
       values,
@@ -132,10 +144,12 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
     resolve.mockClear();
     babel.mockClear();
     commonjs.mockClear();
-    replace.mockClear();
+    extraWatch.mockClear();
+    moduleReplace.mockClear();
     sass.mockClear();
     html.mockClear();
     json.mockClear();
+    polyfill.mockClear();
   });
 
   it('should be instantiated with all its dependencies', () => {
@@ -203,7 +217,9 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
         plugins.values.resolve,
         plugins.values.commonjs,
         plugins.values.babel,
-        plugins.values.replace,
+        plugins.values.polyfill,
+        plugins.values.moduleReplace,
+        plugins.values.extraWatch,
         plugins.values.sass,
         plugins.values.css,
         plugins.values.stylesheetAssetsHelper,
@@ -234,10 +250,14 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
     expect(plugins.mocks.resolve).toHaveBeenCalledWith(plugins.settings.resolve);
     expect(plugins.mocks.babel).toHaveBeenCalledTimes(1);
     expect(plugins.mocks.babel).toHaveBeenCalledWith(plugins.settings.babel);
+    expect(plugins.mocks.polyfill).toHaveBeenCalledTimes(1);
+    expect(plugins.mocks.polyfill).toHaveBeenCalledWith(plugins.settings.polyfill);
     expect(plugins.mocks.commonjs).toHaveBeenCalledTimes(1);
     expect(plugins.mocks.commonjs).toHaveBeenCalledWith(plugins.settings.commonjs);
-    expect(plugins.mocks.replace).toHaveBeenCalledTimes(1);
-    expect(plugins.mocks.replace).toHaveBeenCalledWith(plugins.settings.replace);
+    expect(plugins.mocks.moduleReplace).toHaveBeenCalledTimes(1);
+    expect(plugins.mocks.moduleReplace).toHaveBeenCalledWith(plugins.settings.moduleReplace);
+    expect(plugins.mocks.extraWatch).toHaveBeenCalledTimes(1);
+    expect(plugins.mocks.extraWatch).toHaveBeenCalledWith(plugins.settings.extraWatch);
     expect(plugins.mocks.sass).toHaveBeenCalledTimes(1);
     expect(plugins.mocks.sass).toHaveBeenCalledWith(plugins.settings.sass);
     expect(plugins.mocks.css).toHaveBeenCalledTimes(1);
@@ -266,6 +286,70 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
       expectedConfig,
       params
     );
+  });
+
+  it('should create a configuration without the \'module-replace\' plugin', () => {
+    // Given
+    const plugins = getPlugins();
+    plugins.settings.moduleReplace.instructions = [];
+    const events = {
+      reduce: jest.fn((eventNames, config) => config),
+    };
+    const pathUtils = 'pathUtils';
+    const rollupPluginSettingsConfiguration = {
+      getConfig: jest.fn(() => plugins.settings),
+    };
+    const target = {
+      css: {},
+      paths: {
+        build: 'dist',
+      },
+      watch: {
+        development: false,
+      },
+    };
+    const output = {};
+    const input = 'input';
+    const params = {
+      target,
+      input,
+      output,
+    };
+    let sut = null;
+    let result = null;
+    // When
+    sut = new RollupNodeDevelopmentConfiguration(
+      events,
+      pathUtils,
+      rollupPluginSettingsConfiguration
+    );
+    result = sut.getConfig(params);
+    // Then
+    expect(result).toEqual({
+      input,
+      output: Object.assign({}, output, {
+        globals: plugins.settings.globals,
+      }),
+      plugins: [
+        plugins.values.statsReset,
+        plugins.values.resolve,
+        plugins.values.commonjs,
+        plugins.values.babel,
+        plugins.values.polyfill,
+        plugins.values.extraWatch,
+        plugins.values.sass,
+        plugins.values.css,
+        plugins.values.stylesheetAssetsHelper,
+        plugins.values.stylesheetAssets,
+        plugins.values.html,
+        plugins.values.json,
+        plugins.values.urls,
+        plugins.values.copy,
+        plugins.values.statsLog,
+      ],
+      external: plugins.settings.external.external,
+    });
+    expect(plugins.mocks.moduleReplace).toHaveBeenCalledTimes(0);
   });
 
   it('should create a configuration for a target with custom globals', () => {
@@ -318,7 +402,9 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
         plugins.values.resolve,
         plugins.values.commonjs,
         plugins.values.babel,
-        plugins.values.replace,
+        plugins.values.polyfill,
+        plugins.values.moduleReplace,
+        plugins.values.extraWatch,
         plugins.values.sass,
         plugins.values.css,
         plugins.values.stylesheetAssetsHelper,
@@ -331,6 +417,74 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
       ],
       external: plugins.settings.external.external,
     });
+  });
+
+  it('should create a configuration for a target without a Babel polyfill', () => {
+    // Given
+    const plugins = getPlugins();
+    plugins.settings.polyfill = [];
+    const events = {
+      reduce: jest.fn((eventNames, config) => config),
+    };
+    const pathUtils = 'pathUtils';
+    const rollupPluginSettingsConfiguration = {
+      getConfig: jest.fn(() => plugins.settings),
+    };
+    const target = {
+      css: {},
+      paths: {
+        build: 'dist',
+      },
+      watch: {
+        development: false,
+      },
+    };
+    const output = {
+      globals: {
+        wootils: 'wootils',
+      },
+    };
+    const input = 'input';
+    const params = {
+      target,
+      input,
+      output,
+    };
+    let sut = null;
+    let result = null;
+    // When
+    sut = new RollupNodeDevelopmentConfiguration(
+      events,
+      pathUtils,
+      rollupPluginSettingsConfiguration
+    );
+    result = sut.getConfig(params);
+    // Then
+    expect(result).toEqual({
+      input,
+      output: Object.assign({}, output, {
+        globals: Object.assign({}, output.globals, plugins.settings.globals),
+      }),
+      plugins: [
+        plugins.values.statsReset,
+        plugins.values.resolve,
+        plugins.values.commonjs,
+        plugins.values.babel,
+        plugins.values.moduleReplace,
+        plugins.values.extraWatch,
+        plugins.values.sass,
+        plugins.values.css,
+        plugins.values.stylesheetAssetsHelper,
+        plugins.values.stylesheetAssets,
+        plugins.values.html,
+        plugins.values.json,
+        plugins.values.urls,
+        plugins.values.copy,
+        plugins.values.statsLog,
+      ],
+      external: plugins.settings.external.external,
+    });
+    expect(plugins.mocks.polyfill).toHaveBeenCalledTimes(0);
   });
 
   it('should create a configuration for a target that will run', () => {
@@ -380,7 +534,9 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
         plugins.values.resolve,
         plugins.values.commonjs,
         plugins.values.babel,
-        plugins.values.replace,
+        plugins.values.polyfill,
+        plugins.values.moduleReplace,
+        plugins.values.extraWatch,
         plugins.values.sass,
         plugins.values.css,
         plugins.values.stylesheetAssetsHelper,
@@ -446,7 +602,9 @@ describe('services/configurations:nodeDevelopmentConfiguration', () => {
         plugins.values.resolve,
         plugins.values.commonjs,
         plugins.values.babel,
-        plugins.values.replace,
+        plugins.values.polyfill,
+        plugins.values.moduleReplace,
+        plugins.values.extraWatch,
         plugins.values.sass,
         plugins.values.css,
         plugins.values.stylesheetAssetsHelper,

@@ -19,13 +19,48 @@ class ProjextRollupUtils {
     .replace(/\[ext\]/g, info.ext.substr(1));
   }
   /**
-   * Escape special characters from a string in order to be used on a {@link RegExp}.
+   * Escapes special characters from a string in order to be used on a {@link RegExp}.
    * @param {string} expression The string to escape.
    * @return {string}
    * @static
    */
   static escapeRegex(expression) {
     return expression.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+  }
+  /**
+   * Copies a regular expression and, if specified, inject extra flags.
+   * @param {RegExp} expression       The expression to copy.
+   * @param {string} [injectFlags=''] Extra flags to add to the new expression. For example 'ig'.
+   * @return {RegExp}
+   * @static
+   */
+  static cloneRegex(expression, injectFlags = '') {
+    const baseFlags = injectFlags.split('').map((flag) => flag.toLowerCase());
+    const flagsAndProps = [
+      {
+        property: 'global',
+        flag: 'g',
+      },
+      {
+        property: 'ignoreCase',
+        flag: 'i',
+      },
+      {
+        property: 'multiline',
+        flag: 'm',
+      },
+    ];
+
+    const flags = flagsAndProps.reduce(
+      (currentFlags, info) => (
+        expression[info.property] && !currentFlags.includes(info.flag) ?
+          [...currentFlags, info.flag] :
+          currentFlags
+      ),
+      baseFlags
+    );
+
+    return new RegExp(expression.source, flags.join(''));
   }
   /**
    * Validate and create a {@link Logger} instance for a plugin.

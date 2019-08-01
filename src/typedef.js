@@ -536,24 +536,27 @@
 
 /**
  * @typedef {Object} RollupConfigurationParams
- * @property {string}                          input       The path for the entry file.
- * @property {RollupConfigurationOutputParams} output      The Rollup settings for the bundle
- *                                                         generation.
- * @property {Target}                          target      The information of the target being
- *                                                         bundled.
- * @property {TargetFileRules}                 targetRules The rules to find the different file
- *                                                         types a target may use.
- * @property {Object}                          definitions A dictionary of defined variables that
- *                                                         will be replaced on the bundled code.
- * @property {string}                          buildType   The intended build type: `development`
- *                                                         or `production`.
- * @property {RollupConfigurationPathsParams}  paths       A dictionary with the filenames formats
- *                                                         and paths of the different files the
- *                                                         bundle can generate.
- * @property {Array}                           copy        A list of
- *                                                         {@link TargetExtraFile} with
- *                                                         the information of files that need to
- *                                                         be copied during the bundling process.
+ * @property {string} input
+ * The path for the entry file.
+ * @property {RollupConfigurationOutputParams} output
+ * The Rollup settings for the bundle generation.
+ * @property {Target} target
+ * The information of the target being bundled.
+ * @property {TargetFileRules} targetRules
+ * The rules to find the different file types a target may use.
+ * @property {Function():Object} definitions
+ * A function that generates a dictionary of variables that will be replaced on the bundled code.
+ * @property {string} buildType
+ * The intended build type: `development` or `production`.
+ * @property {RollupConfigurationPathsParams} paths
+ * A dictionary with the filenames formats and paths of the different files the bundle can
+ * generate.
+ * @property {Array} copy
+ * A list of {@link TargetExtraFile} with the information of files that need to be copied during
+ * the bundling process.
+ * @property {Array} additionalWatch
+ * A list of additional paths webpack should watch for in order to restart the bundle.
+ */
 
 /**
  * @typedef {Object} RollupPluginInfo
@@ -562,6 +565,8 @@
  * @property {Array}  external      The list of subpaths the plugin exposes and that should be
  *                                  handled as external dependencies, in order to avoid bundling
  *                                  them.
+ * @property {string} babelPolyfill The name of the file that imports the required modules to
+ *                                  act as the old Babel polyfill.
  */
 
 /**

@@ -31,6 +31,7 @@ describe('plugin:projextRollup', () => {
         'express',
         'jimpex',
       ],
+      babelPolyfill: 'polyfill.js',
     });
     expect(app.set).toHaveBeenCalledTimes(1);
     expect(app.set).toHaveBeenCalledWith('rollupPluginInfo', expect.any(Function));

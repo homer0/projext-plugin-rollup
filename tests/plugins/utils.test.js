@@ -39,6 +39,41 @@ describe('plugins:utils', () => {
     });
   });
 
+  describe('cloneRegex', () => {
+    it('should clone a regular expression', () => {
+      // Given
+      const text = 'charito';
+      const flags = 'ig';
+      const expression = new RegExp(text, flags);
+      let result = null;
+      // When
+      result = ProjextRollupUtils.cloneRegex(expression);
+      // Then
+      expect(expression).not.toBe(result);
+      expect(result).toBeRegExp();
+      expect(result.ignoreCase).toBeTrue();
+      expect(result.global).toBeTrue();
+      expect(result.multiline).toBeFalse();
+    });
+
+    it('should clone a regular expression and add extra flags', () => {
+      // Given
+      const text = 'charito';
+      const flags = 'i';
+      const expression = new RegExp(text, flags);
+      const extraFlags = 'gm';
+      let result = null;
+      // When
+      result = ProjextRollupUtils.cloneRegex(expression, extraFlags);
+      // Then
+      expect(expression).not.toBe(result);
+      expect(result).toBeRegExp();
+      expect(result.ignoreCase).toBeTrue();
+      expect(result.global).toBeTrue();
+      expect(result.multiline).toBeTrue();
+    });
+  });
+
   describe('createLogger', () => {
     it('should create a logger if no instance is sent to be validate', () => {
       // Given
