@@ -30,9 +30,21 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "projext-plugin-rollup/src/plugins/modulereplace/index.js~projextrollupmodulereplaceplugin",
+    "class/src/plugins/moduleReplace/index.js~ProjextRollupModuleReplacePlugin.html",
+    "<span>ProjextRollupModuleReplacePlugin</span> <span class=\"search-result-import-path\">projext-plugin-rollup/src/plugins/moduleReplace/index.js</span>",
+    "class"
+  ],
+  [
     "projext-plugin-rollup/src/plugins/noderunner/index.js~projextrollupnoderunnerplugin",
     "class/src/plugins/nodeRunner/index.js~ProjextRollupNodeRunnerPlugin.html",
     "<span>ProjextRollupNodeRunnerPlugin</span> <span class=\"search-result-import-path\">projext-plugin-rollup/src/plugins/nodeRunner/index.js</span>",
+    "class"
+  ],
+  [
+    "projext-plugin-rollup/src/plugins/runtimereplace/index.js~projextrollupruntimereplaceplugin",
+    "class/src/plugins/runtimeReplace/index.js~ProjextRollupRuntimeReplacePlugin.html",
+    "<span>ProjextRollupRuntimeReplacePlugin</span> <span class=\"search-result-import-path\">projext-plugin-rollup/src/plugins/runtimeReplace/index.js</span>",
     "class"
   ],
   [
@@ -168,6 +180,18 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "projext-plugin-rollup/src/plugins/extrawatch/index.js~extrawatch",
+    "function/index.html#static-function-extraWatch",
+    "<span>extraWatch</span> <span class=\"search-result-import-path\">projext-plugin-rollup/src/plugins/extraWatch/index.js</span>",
+    "function"
+  ],
+  [
+    "projext-plugin-rollup/src/plugins/modulereplace/index.js~modulereplace",
+    "function/index.html#static-function-moduleReplace",
+    "<span>moduleReplace</span> <span class=\"search-result-import-path\">projext-plugin-rollup/src/plugins/moduleReplace/index.js</span>",
+    "function"
+  ],
+  [
     "projext-plugin-rollup/src/plugins/noderunner/index.js~noderunner",
     "function/index.html#static-function-nodeRunner",
     "<span>nodeRunner</span> <span class=\"search-result-import-path\">projext-plugin-rollup/src/plugins/nodeRunner/index.js</span>",
@@ -232,6 +256,12 @@ window.esdocSearchIndex = [
     "variable/index.html#static-variable-rollupSendFile",
     "<span>rollupSendFile</span> <span class=\"search-result-import-path\">projext-plugin-rollup/src/jimpex/sendFile.js</span>",
     "variable"
+  ],
+  [
+    "projext-plugin-rollup/src/plugins/runtimereplace/index.js~runtimereplace",
+    "function/index.html#static-function-runtimeReplace",
+    "<span>runtimeReplace</span> <span class=\"search-result-import-path\">projext-plugin-rollup/src/plugins/runtimeReplace/index.js</span>",
+    "function"
   ],
   [
     "projext-plugin-rollup/src/plugins/stats/index.js~stats",
@@ -738,9 +768,9 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/plugins/compression/index.js~projextrollupcompressionplugin#onwrite",
-    "class/src/plugins/compression/index.js~ProjextRollupCompressionPlugin.html#instance-method-onwrite",
-    "src/plugins/compression/index.js~ProjextRollupCompressionPlugin#onwrite",
+    "src/plugins/compression/index.js~projextrollupcompressionplugin#writebundle",
+    "class/src/plugins/compression/index.js~ProjextRollupCompressionPlugin.html#instance-method-writeBundle",
+    "src/plugins/compression/index.js~ProjextRollupCompressionPlugin#writeBundle",
     "method"
   ],
   [
@@ -768,9 +798,9 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/plugins/copy/index.js~projextrollupcopyplugin#onwrite",
-    "class/src/plugins/copy/index.js~ProjextRollupCopyPlugin.html#instance-method-onwrite",
-    "src/plugins/copy/index.js~ProjextRollupCopyPlugin#onwrite",
+    "src/plugins/copy/index.js~projextrollupcopyplugin#writebundle",
+    "class/src/plugins/copy/index.js~ProjextRollupCopyPlugin.html#instance-method-writeBundle",
+    "src/plugins/copy/index.js~ProjextRollupCopyPlugin#writeBundle",
     "method"
   ],
   [
@@ -810,15 +840,15 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/plugins/css/index.js~projextrollupcssplugin#ongenerate",
-    "class/src/plugins/css/index.js~ProjextRollupCSSPlugin.html#instance-method-ongenerate",
-    "src/plugins/css/index.js~ProjextRollupCSSPlugin#ongenerate",
-    "method"
-  ],
-  [
     "src/plugins/css/index.js~projextrollupcssplugin#transform",
     "class/src/plugins/css/index.js~ProjextRollupCSSPlugin.html#instance-method-transform",
     "src/plugins/css/index.js~ProjextRollupCSSPlugin#transform",
+    "method"
+  ],
+  [
+    "src/plugins/css/index.js~projextrollupcssplugin#writebundle",
+    "class/src/plugins/css/index.js~ProjextRollupCSSPlugin.html#instance-method-writeBundle",
+    "src/plugins/css/index.js~ProjextRollupCSSPlugin#writeBundle",
     "method"
   ],
   [
@@ -852,12 +882,6 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/plugins/devserver/index.js~projextrollupdevserverplugin#onwrite",
-    "class/src/plugins/devServer/index.js~ProjextRollupDevServerPlugin.html#instance-method-onwrite",
-    "src/plugins/devServer/index.js~ProjextRollupDevServerPlugin#onwrite",
-    "method"
-  ],
-  [
     "src/plugins/devserver/index.js~projextrollupdevserverplugin#showurl",
     "class/src/plugins/devServer/index.js~ProjextRollupDevServerPlugin.html#instance-method-showURL",
     "src/plugins/devServer/index.js~ProjextRollupDevServerPlugin#showURL",
@@ -870,10 +894,70 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/plugins/devserver/index.js~projextrollupdevserverplugin#writebundle",
+    "class/src/plugins/devServer/index.js~ProjextRollupDevServerPlugin.html#instance-method-writeBundle",
+    "src/plugins/devServer/index.js~ProjextRollupDevServerPlugin#writeBundle",
+    "method"
+  ],
+  [
+    "src/plugins/extrawatch/index.js",
+    "file/src/plugins/extraWatch/index.js.html",
+    "src/plugins/extraWatch/index.js",
+    "file"
+  ],
+  [
     "src/plugins/index.js",
     "file/src/plugins/index.js.html",
     "src/plugins/index.js",
     "file"
+  ],
+  [
+    "src/plugins/modulereplace/index.js",
+    "file/src/plugins/moduleReplace/index.js.html",
+    "src/plugins/moduleReplace/index.js",
+    "file"
+  ],
+  [
+    "src/plugins/modulereplace/index.js~projextrollupmodulereplaceplugin#_applyinstructions",
+    "class/src/plugins/moduleReplace/index.js~ProjextRollupModuleReplacePlugin.html#instance-method-_applyInstructions",
+    "src/plugins/moduleReplace/index.js~ProjextRollupModuleReplacePlugin#_applyInstructions",
+    "method"
+  ],
+  [
+    "src/plugins/modulereplace/index.js~projextrollupmodulereplaceplugin#_options",
+    "class/src/plugins/moduleReplace/index.js~ProjextRollupModuleReplacePlugin.html#instance-member-_options",
+    "src/plugins/moduleReplace/index.js~ProjextRollupModuleReplacePlugin#_options",
+    "member"
+  ],
+  [
+    "src/plugins/modulereplace/index.js~projextrollupmodulereplaceplugin#_validateinstructions",
+    "class/src/plugins/moduleReplace/index.js~ProjextRollupModuleReplacePlugin.html#instance-method-_validateInstructions",
+    "src/plugins/moduleReplace/index.js~ProjextRollupModuleReplacePlugin#_validateInstructions",
+    "method"
+  ],
+  [
+    "src/plugins/modulereplace/index.js~projextrollupmodulereplaceplugin#constructor",
+    "class/src/plugins/moduleReplace/index.js~ProjextRollupModuleReplacePlugin.html#instance-constructor-constructor",
+    "src/plugins/moduleReplace/index.js~ProjextRollupModuleReplacePlugin#constructor",
+    "method"
+  ],
+  [
+    "src/plugins/modulereplace/index.js~projextrollupmodulereplaceplugin#getoptions",
+    "class/src/plugins/moduleReplace/index.js~ProjextRollupModuleReplacePlugin.html#instance-method-getOptions",
+    "src/plugins/moduleReplace/index.js~ProjextRollupModuleReplacePlugin#getOptions",
+    "method"
+  ],
+  [
+    "src/plugins/modulereplace/index.js~projextrollupmodulereplaceplugin#name",
+    "class/src/plugins/moduleReplace/index.js~ProjextRollupModuleReplacePlugin.html#instance-member-name",
+    "src/plugins/moduleReplace/index.js~ProjextRollupModuleReplacePlugin#name",
+    "member"
+  ],
+  [
+    "src/plugins/modulereplace/index.js~projextrollupmodulereplaceplugin#transform",
+    "class/src/plugins/moduleReplace/index.js~ProjextRollupModuleReplacePlugin.html#instance-method-transform",
+    "src/plugins/moduleReplace/index.js~ProjextRollupModuleReplacePlugin#transform",
+    "method"
   ],
   [
     "src/plugins/noderunner/index.js",
@@ -900,9 +984,39 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/plugins/noderunner/index.js~projextrollupnoderunnerplugin#onwrite",
-    "class/src/plugins/nodeRunner/index.js~ProjextRollupNodeRunnerPlugin.html#instance-method-onwrite",
-    "src/plugins/nodeRunner/index.js~ProjextRollupNodeRunnerPlugin#onwrite",
+    "src/plugins/noderunner/index.js~projextrollupnoderunnerplugin#writebundle",
+    "class/src/plugins/nodeRunner/index.js~ProjextRollupNodeRunnerPlugin.html#instance-method-writeBundle",
+    "src/plugins/nodeRunner/index.js~ProjextRollupNodeRunnerPlugin#writeBundle",
+    "method"
+  ],
+  [
+    "src/plugins/runtimereplace/index.js",
+    "file/src/plugins/runtimeReplace/index.js.html",
+    "src/plugins/runtimeReplace/index.js",
+    "file"
+  ],
+  [
+    "src/plugins/runtimereplace/index.js~projextrollupruntimereplaceplugin#buildstart",
+    "class/src/plugins/runtimeReplace/index.js~ProjextRollupRuntimeReplacePlugin.html#instance-method-buildStart",
+    "src/plugins/runtimeReplace/index.js~ProjextRollupRuntimeReplacePlugin#buildStart",
+    "method"
+  ],
+  [
+    "src/plugins/runtimereplace/index.js~projextrollupruntimereplaceplugin#constructor",
+    "class/src/plugins/runtimeReplace/index.js~ProjextRollupRuntimeReplacePlugin.html#instance-constructor-constructor",
+    "src/plugins/runtimeReplace/index.js~ProjextRollupRuntimeReplacePlugin#constructor",
+    "method"
+  ],
+  [
+    "src/plugins/runtimereplace/index.js~projextrollupruntimereplaceplugin#name",
+    "class/src/plugins/runtimeReplace/index.js~ProjextRollupRuntimeReplacePlugin.html#instance-member-name",
+    "src/plugins/runtimeReplace/index.js~ProjextRollupRuntimeReplacePlugin#name",
+    "member"
+  ],
+  [
+    "src/plugins/runtimereplace/index.js~projextrollupruntimereplaceplugin#transform",
+    "class/src/plugins/runtimeReplace/index.js~ProjextRollupRuntimeReplacePlugin.html#instance-method-transform",
+    "src/plugins/runtimeReplace/index.js~ProjextRollupRuntimeReplacePlugin#transform",
     "method"
   ],
   [
@@ -1020,9 +1134,9 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/plugins/stylesheetassets/index.js~projextrollupstylesheetassetsplugin#onwrite",
-    "class/src/plugins/stylesheetAssets/index.js~ProjextRollupStylesheetAssetsPlugin.html#instance-method-onwrite",
-    "src/plugins/stylesheetAssets/index.js~ProjextRollupStylesheetAssetsPlugin#onwrite",
+    "src/plugins/stylesheetassets/index.js~projextrollupstylesheetassetsplugin#writebundle",
+    "class/src/plugins/stylesheetAssets/index.js~ProjextRollupStylesheetAssetsPlugin.html#instance-method-writeBundle",
+    "src/plugins/stylesheetAssets/index.js~ProjextRollupStylesheetAssetsPlugin#writeBundle",
     "method"
   ],
   [
@@ -1092,9 +1206,9 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/plugins/template/index.js~projextrolluptemplateplugin#onwrite",
-    "class/src/plugins/template/index.js~ProjextRollupTemplatePlugin.html#instance-method-onwrite",
-    "src/plugins/template/index.js~ProjextRollupTemplatePlugin#onwrite",
+    "src/plugins/template/index.js~projextrolluptemplateplugin#writebundle",
+    "class/src/plugins/template/index.js~ProjextRollupTemplatePlugin.html#instance-method-writeBundle",
+    "src/plugins/template/index.js~ProjextRollupTemplatePlugin#writeBundle",
     "method"
   ],
   [
@@ -1128,9 +1242,9 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/plugins/urls/index.js~projextrollupurlsplugin#onwrite",
-    "class/src/plugins/urls/index.js~ProjextRollupURLsPlugin.html#instance-method-onwrite",
-    "src/plugins/urls/index.js~ProjextRollupURLsPlugin#onwrite",
+    "src/plugins/urls/index.js~projextrollupurlsplugin#writebundle",
+    "class/src/plugins/urls/index.js~ProjextRollupURLsPlugin.html#instance-method-writeBundle",
+    "src/plugins/urls/index.js~ProjextRollupURLsPlugin#writeBundle",
     "method"
   ],
   [
@@ -1138,6 +1252,12 @@ window.esdocSearchIndex = [
     "file/src/plugins/utils.js.html",
     "src/plugins/utils.js",
     "file"
+  ],
+  [
+    "src/plugins/utils.js~projextrolluputils.cloneregex",
+    "class/src/plugins/utils.js~ProjextRollupUtils.html#static-method-cloneRegex",
+    "src/plugins/utils.js~ProjextRollupUtils.cloneRegex",
+    "method"
   ],
   [
     "src/plugins/utils.js~projextrolluputils.createlogger",
@@ -1686,6 +1806,12 @@ window.esdocSearchIndex = [
     "typedef"
   ],
   [
+    "src/typedef.js~projextrollupdevserverpluginoptions",
+    "typedef/index.html#static-typedef-ProjextRollupDevServerPluginOptions",
+    "src/typedef.js~ProjextRollupDevServerPluginOptions",
+    "typedef"
+  ],
+  [
     "src/typedef.js~projextrollupnoderunnerpluginevent",
     "typedef/index.html#static-typedef-ProjextRollupNodeRunnerPluginEvent",
     "src/typedef.js~ProjextRollupNodeRunnerPluginEvent",
@@ -1785,6 +1911,12 @@ window.esdocSearchIndex = [
     "src/typedef.js~rollupconfigurationoutputparams",
     "typedef/index.html#static-typedef-RollupConfigurationOutputParams",
     "src/typedef.js~RollupConfigurationOutputParams",
+    "typedef"
+  ],
+  [
+    "src/typedef.js~rollupconfigurationparams",
+    "typedef/index.html#static-typedef-RollupConfigurationParams",
+    "src/typedef.js~RollupConfigurationParams",
     "typedef"
   ],
   [

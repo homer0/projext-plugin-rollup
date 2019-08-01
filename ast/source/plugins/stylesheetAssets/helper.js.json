@@ -1,7 +1,7 @@
 {
   "type": "File",
   "start": 0,
-  "end": 3940,
+  "end": 3942,
   "loc": {
     "start": {
       "line": 1,
@@ -15,7 +15,7 @@
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 3940,
+    "end": 3942,
     "loc": {
       "start": {
         "line": 1,
@@ -4444,8 +4444,8 @@
       },
       {
         "type": "Identifier",
-        "start": 3740,
-        "end": 3857,
+        "start": 3742,
+        "end": 3859,
         "loc": {
           "start": {
             "line": 120,
@@ -4459,8 +4459,8 @@
         "declarations": [
           {
             "type": "VariableDeclarator",
-            "start": 3746,
-            "end": 3856,
+            "start": 3748,
+            "end": 3858,
             "loc": {
               "start": {
                 "line": 120,
@@ -4473,8 +4473,8 @@
             },
             "id": {
               "type": "Identifier",
-              "start": 3746,
-              "end": 3768,
+              "start": 3748,
+              "end": 3770,
               "loc": {
                 "start": {
                   "line": 120,
@@ -4491,8 +4491,8 @@
             },
             "init": {
               "type": "ArrowFunctionExpression",
-              "start": 3771,
-              "end": 3856,
+              "start": 3773,
+              "end": 3858,
               "loc": {
                 "start": {
                   "line": 120,
@@ -4510,8 +4510,8 @@
               "params": [
                 {
                   "type": "Identifier",
-                  "start": 3775,
-                  "end": 3782,
+                  "start": 3777,
+                  "end": 3784,
                   "loc": {
                     "start": {
                       "line": 121,
@@ -4527,8 +4527,8 @@
                 },
                 {
                   "type": "Identifier",
-                  "start": 3786,
-                  "end": 3790,
+                  "start": 3788,
+                  "end": 3792,
                   "loc": {
                     "start": {
                       "line": 122,
@@ -4545,8 +4545,8 @@
               ],
               "body": {
                 "type": "NewExpression",
-                "start": 3796,
-                "end": 3856,
+                "start": 3798,
+                "end": 3858,
                 "loc": {
                   "start": {
                     "line": 123,
@@ -4559,8 +4559,8 @@
                 },
                 "callee": {
                   "type": "Identifier",
-                  "start": 3800,
-                  "end": 3841,
+                  "start": 3802,
+                  "end": 3843,
                   "loc": {
                     "start": {
                       "line": 123,
@@ -4577,8 +4577,8 @@
                 "arguments": [
                   {
                     "type": "Identifier",
-                    "start": 3842,
-                    "end": 3849,
+                    "start": 3844,
+                    "end": 3851,
                     "loc": {
                       "start": {
                         "line": 123,
@@ -4594,8 +4594,8 @@
                   },
                   {
                     "type": "Identifier",
-                    "start": 3851,
-                    "end": 3855,
+                    "start": 3853,
+                    "end": 3857,
                     "loc": {
                       "start": {
                         "line": 123,
@@ -4622,8 +4622,8 @@
       },
       {
         "type": "ExportNamedDeclaration",
-        "start": 3859,
-        "end": 3939,
+        "start": 3861,
+        "end": 3941,
         "loc": {
           "start": {
             "line": 125,
@@ -4638,8 +4638,8 @@
         "specifiers": [
           {
             "type": "ExportSpecifier",
-            "start": 3868,
-            "end": 3909,
+            "start": 3870,
+            "end": 3911,
             "loc": {
               "start": {
                 "line": 125,
@@ -4652,8 +4652,8 @@
             },
             "local": {
               "type": "Identifier",
-              "start": 3868,
-              "end": 3909,
+              "start": 3870,
+              "end": 3911,
               "loc": {
                 "start": {
                   "line": 125,
@@ -4669,8 +4669,8 @@
             },
             "exported": {
               "type": "Identifier",
-              "start": 3868,
-              "end": 3909,
+              "start": 3870,
+              "end": 3911,
               "loc": {
                 "start": {
                   "line": 125,
@@ -4687,8 +4687,8 @@
           },
           {
             "type": "ExportSpecifier",
-            "start": 3913,
-            "end": 3935,
+            "start": 3915,
+            "end": 3937,
             "loc": {
               "start": {
                 "line": 126,
@@ -4701,8 +4701,8 @@
             },
             "local": {
               "type": "Identifier",
-              "start": 3913,
-              "end": 3935,
+              "start": 3915,
+              "end": 3937,
               "loc": {
                 "start": {
                   "line": 126,
@@ -4718,8 +4718,8 @@
             },
             "exported": {
               "type": "Identifier",
-              "start": 3913,
-              "end": 3935,
+              "start": 3915,
+              "end": 3937,
               "loc": {
                 "start": {
                   "line": 126,
@@ -4739,8 +4739,8 @@
       },
       {
         "type": "ExportNamedDeclaration",
-        "start": 3859,
-        "end": 3939,
+        "start": 3861,
+        "end": 3941,
         "loc": {
           "start": {
             "line": 125,
@@ -8957,9 +8957,9 @@
           "trailingComments": [
             {
               "type": "CommentBlock",
-              "value": "*\n * Shorthand method to create an instance of {@link ProjextRollupStylesheetAssetsHelperPlugin}.\n * @param {ProjextRollupStylesheetAssetsHelperPluginOptions} options\n * The options to customize the plugin behaviour.\n * @param {string} name\n * The name of the plugin's instance.\n * @return {ProjextRollupStylesheetAssetsHelperPlugin}\n ",
+              "value": "*\n * Shorthand method to create an instance of {@link ProjextRollupStylesheetAssetsHelperPlugin}.\n * @param {ProjextRollupStylesheetAssetsHelperPluginOptions} options\n * The options to customize the plugin behaviour.\n * @param {string} [name]\n * The name of the plugin's instance.\n * @return {ProjextRollupStylesheetAssetsHelperPlugin}\n ",
               "start": 3400,
-              "end": 3739,
+              "end": 3741,
               "loc": {
                 "start": {
                   "line": 112,
@@ -8980,8 +8980,8 @@
       },
       {
         "type": "ExportNamedDeclaration",
-        "start": 3859,
-        "end": 3939,
+        "start": 3861,
+        "end": 3941,
         "loc": {
           "start": {
             "line": 125,
@@ -8994,8 +8994,8 @@
         },
         "declaration": {
           "type": "VariableDeclaration",
-          "start": 3740,
-          "end": 3857,
+          "start": 3742,
+          "end": 3859,
           "loc": {
             "start": {
               "line": 120,
@@ -9009,8 +9009,8 @@
           "declarations": [
             {
               "type": "VariableDeclarator",
-              "start": 3746,
-              "end": 3856,
+              "start": 3748,
+              "end": 3858,
               "loc": {
                 "start": {
                   "line": 120,
@@ -9023,8 +9023,8 @@
               },
               "id": {
                 "type": "Identifier",
-                "start": 3746,
-                "end": 3768,
+                "start": 3748,
+                "end": 3770,
                 "loc": {
                   "start": {
                     "line": 120,
@@ -9041,8 +9041,8 @@
               },
               "init": {
                 "type": "ArrowFunctionExpression",
-                "start": 3771,
-                "end": 3856,
+                "start": 3773,
+                "end": 3858,
                 "loc": {
                   "start": {
                     "line": 120,
@@ -9055,8 +9055,8 @@
                 },
                 "id": {
                   "type": "Identifier",
-                  "start": 3746,
-                  "end": 3768,
+                  "start": 3748,
+                  "end": 3770,
                   "loc": {
                     "start": {
                       "line": 120,
@@ -9077,8 +9077,8 @@
                 "params": [
                   {
                     "type": "Identifier",
-                    "start": 3775,
-                    "end": 3782,
+                    "start": 3777,
+                    "end": 3784,
                     "loc": {
                       "start": {
                         "line": 121,
@@ -9094,8 +9094,8 @@
                   },
                   {
                     "type": "Identifier",
-                    "start": 3786,
-                    "end": 3790,
+                    "start": 3788,
+                    "end": 3792,
                     "loc": {
                       "start": {
                         "line": 122,
@@ -9112,8 +9112,8 @@
                 ],
                 "body": {
                   "type": "NewExpression",
-                  "start": 3796,
-                  "end": 3856,
+                  "start": 3798,
+                  "end": 3858,
                   "loc": {
                     "start": {
                       "line": 123,
@@ -9126,8 +9126,8 @@
                   },
                   "callee": {
                     "type": "Identifier",
-                    "start": 3800,
-                    "end": 3841,
+                    "start": 3802,
+                    "end": 3843,
                     "loc": {
                       "start": {
                         "line": 123,
@@ -9144,8 +9144,8 @@
                   "arguments": [
                     {
                       "type": "Identifier",
-                      "start": 3842,
-                      "end": 3849,
+                      "start": 3844,
+                      "end": 3851,
                       "loc": {
                         "start": {
                           "line": 123,
@@ -9161,8 +9161,8 @@
                     },
                     {
                       "type": "Identifier",
-                      "start": 3851,
-                      "end": 3855,
+                      "start": 3853,
+                      "end": 3857,
                       "loc": {
                         "start": {
                           "line": 123,
@@ -9186,9 +9186,9 @@
           "leadingComments": [
             {
               "type": "CommentBlock",
-              "value": "*\n * Shorthand method to create an instance of {@link ProjextRollupStylesheetAssetsHelperPlugin}.\n * @param {ProjextRollupStylesheetAssetsHelperPluginOptions} options\n * The options to customize the plugin behaviour.\n * @param {string} name\n * The name of the plugin's instance.\n * @return {ProjextRollupStylesheetAssetsHelperPlugin}\n ",
+              "value": "*\n * Shorthand method to create an instance of {@link ProjextRollupStylesheetAssetsHelperPlugin}.\n * @param {ProjextRollupStylesheetAssetsHelperPluginOptions} options\n * The options to customize the plugin behaviour.\n * @param {string} [name]\n * The name of the plugin's instance.\n * @return {ProjextRollupStylesheetAssetsHelperPlugin}\n ",
               "start": 3400,
-              "end": 3739,
+              "end": 3741,
               "loc": {
                 "start": {
                   "line": 112,
@@ -9469,9 +9469,9 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * Shorthand method to create an instance of {@link ProjextRollupStylesheetAssetsHelperPlugin}.\n * @param {ProjextRollupStylesheetAssetsHelperPluginOptions} options\n * The options to customize the plugin behaviour.\n * @param {string} name\n * The name of the plugin's instance.\n * @return {ProjextRollupStylesheetAssetsHelperPlugin}\n ",
+      "value": "*\n * Shorthand method to create an instance of {@link ProjextRollupStylesheetAssetsHelperPlugin}.\n * @param {ProjextRollupStylesheetAssetsHelperPluginOptions} options\n * The options to customize the plugin behaviour.\n * @param {string} [name]\n * The name of the plugin's instance.\n * @return {ProjextRollupStylesheetAssetsHelperPlugin}\n ",
       "start": 3400,
-      "end": 3739,
+      "end": 3741,
       "loc": {
         "start": {
           "line": 112,
@@ -17555,9 +17555,9 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * Shorthand method to create an instance of {@link ProjextRollupStylesheetAssetsHelperPlugin}.\n * @param {ProjextRollupStylesheetAssetsHelperPluginOptions} options\n * The options to customize the plugin behaviour.\n * @param {string} name\n * The name of the plugin's instance.\n * @return {ProjextRollupStylesheetAssetsHelperPlugin}\n ",
+      "value": "*\n * Shorthand method to create an instance of {@link ProjextRollupStylesheetAssetsHelperPlugin}.\n * @param {ProjextRollupStylesheetAssetsHelperPluginOptions} options\n * The options to customize the plugin behaviour.\n * @param {string} [name]\n * The name of the plugin's instance.\n * @return {ProjextRollupStylesheetAssetsHelperPlugin}\n ",
       "start": 3400,
-      "end": 3739,
+      "end": 3741,
       "loc": {
         "start": {
           "line": 112,
@@ -17584,8 +17584,8 @@
         "updateContext": null
       },
       "value": "const",
-      "start": 3740,
-      "end": 3745,
+      "start": 3742,
+      "end": 3747,
       "loc": {
         "start": {
           "line": 120,
@@ -17610,8 +17610,8 @@
         "binop": null
       },
       "value": "stylesheetAssetsHelper",
-      "start": 3746,
-      "end": 3768,
+      "start": 3748,
+      "end": 3770,
       "loc": {
         "start": {
           "line": 120,
@@ -17637,8 +17637,8 @@
         "updateContext": null
       },
       "value": "=",
-      "start": 3769,
-      "end": 3770,
+      "start": 3771,
+      "end": 3772,
       "loc": {
         "start": {
           "line": 120,
@@ -17662,8 +17662,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 3771,
-      "end": 3772,
+      "start": 3773,
+      "end": 3774,
       "loc": {
         "start": {
           "line": 120,
@@ -17688,8 +17688,8 @@
         "binop": null
       },
       "value": "options",
-      "start": 3775,
-      "end": 3782,
+      "start": 3777,
+      "end": 3784,
       "loc": {
         "start": {
           "line": 121,
@@ -17714,8 +17714,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 3782,
-      "end": 3783,
+      "start": 3784,
+      "end": 3785,
       "loc": {
         "start": {
           "line": 121,
@@ -17740,8 +17740,8 @@
         "binop": null
       },
       "value": "name",
-      "start": 3786,
-      "end": 3790,
+      "start": 3788,
+      "end": 3792,
       "loc": {
         "start": {
           "line": 122,
@@ -17765,8 +17765,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 3791,
-      "end": 3792,
+      "start": 3793,
+      "end": 3794,
       "loc": {
         "start": {
           "line": 123,
@@ -17791,8 +17791,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 3793,
-      "end": 3795,
+      "start": 3795,
+      "end": 3797,
       "loc": {
         "start": {
           "line": 123,
@@ -17819,8 +17819,8 @@
         "updateContext": null
       },
       "value": "new",
-      "start": 3796,
-      "end": 3799,
+      "start": 3798,
+      "end": 3801,
       "loc": {
         "start": {
           "line": 123,
@@ -17845,8 +17845,8 @@
         "binop": null
       },
       "value": "ProjextRollupStylesheetAssetsHelperPlugin",
-      "start": 3800,
-      "end": 3841,
+      "start": 3802,
+      "end": 3843,
       "loc": {
         "start": {
           "line": 123,
@@ -17870,8 +17870,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 3841,
-      "end": 3842,
+      "start": 3843,
+      "end": 3844,
       "loc": {
         "start": {
           "line": 123,
@@ -17896,8 +17896,8 @@
         "binop": null
       },
       "value": "options",
-      "start": 3842,
-      "end": 3849,
+      "start": 3844,
+      "end": 3851,
       "loc": {
         "start": {
           "line": 123,
@@ -17922,8 +17922,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 3849,
-      "end": 3850,
+      "start": 3851,
+      "end": 3852,
       "loc": {
         "start": {
           "line": 123,
@@ -17948,8 +17948,8 @@
         "binop": null
       },
       "value": "name",
-      "start": 3851,
-      "end": 3855,
+      "start": 3853,
+      "end": 3857,
       "loc": {
         "start": {
           "line": 123,
@@ -17973,8 +17973,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 3855,
-      "end": 3856,
+      "start": 3857,
+      "end": 3858,
       "loc": {
         "start": {
           "line": 123,
@@ -17999,8 +17999,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 3856,
-      "end": 3857,
+      "start": 3858,
+      "end": 3859,
       "loc": {
         "start": {
           "line": 123,
@@ -18027,8 +18027,8 @@
         "updateContext": null
       },
       "value": "export",
-      "start": 3859,
-      "end": 3865,
+      "start": 3861,
+      "end": 3867,
       "loc": {
         "start": {
           "line": 125,
@@ -18052,8 +18052,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 3866,
-      "end": 3867,
+      "start": 3868,
+      "end": 3869,
       "loc": {
         "start": {
           "line": 125,
@@ -18078,8 +18078,8 @@
         "binop": null
       },
       "value": "ProjextRollupStylesheetAssetsHelperPlugin",
-      "start": 3868,
-      "end": 3909,
+      "start": 3870,
+      "end": 3911,
       "loc": {
         "start": {
           "line": 125,
@@ -18104,8 +18104,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 3909,
-      "end": 3910,
+      "start": 3911,
+      "end": 3912,
       "loc": {
         "start": {
           "line": 125,
@@ -18130,8 +18130,8 @@
         "binop": null
       },
       "value": "stylesheetAssetsHelper",
-      "start": 3913,
-      "end": 3935,
+      "start": 3915,
+      "end": 3937,
       "loc": {
         "start": {
           "line": 126,
@@ -18156,8 +18156,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 3935,
-      "end": 3936,
+      "start": 3937,
+      "end": 3938,
       "loc": {
         "start": {
           "line": 126,
@@ -18181,8 +18181,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 3937,
-      "end": 3938,
+      "start": 3939,
+      "end": 3940,
       "loc": {
         "start": {
           "line": 126,
@@ -18207,8 +18207,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 3938,
-      "end": 3939,
+      "start": 3940,
+      "end": 3941,
       "loc": {
         "start": {
           "line": 126,
@@ -18233,8 +18233,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 3940,
-      "end": 3940,
+      "start": 3942,
+      "end": 3942,
       "loc": {
         "start": {
           "line": 127,

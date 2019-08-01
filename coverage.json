@@ -1,7 +1,7 @@
 {
-  "coverage": "100%",
-  "expectCount": 322,
-  "actualCount": 322,
+  "coverage": "97.43%",
+  "expectCount": 351,
+  "actualCount": 342,
   "files": {
     "src/abstracts/configurationFile.js": {
       "expectCount": 13,
@@ -58,9 +58,34 @@
       "actualCount": 31,
       "undocumentLines": []
     },
+    "src/plugins/extraWatch/index.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/plugins/moduleReplace/index.js": {
+      "expectCount": 9,
+      "actualCount": 0,
+      "undocumentLines": [
+        4,
+        5,
+        14,
+        15,
+        25,
+        29,
+        37,
+        54,
+        82
+      ]
+    },
     "src/plugins/nodeRunner/index.js": {
       "expectCount": 18,
       "actualCount": 18,
+      "undocumentLines": []
+    },
+    "src/plugins/runtimeReplace/index.js": {
+      "expectCount": 13,
+      "actualCount": 13,
       "undocumentLines": []
     },
     "src/plugins/stats/index.js": {
@@ -99,8 +124,8 @@
       "undocumentLines": []
     },
     "src/plugins/utils.js": {
-      "expectCount": 4,
-      "actualCount": 4,
+      "expectCount": 5,
+      "actualCount": 5,
       "undocumentLines": []
     },
     "src/plugins/windowAsGlobal/index.js": {
@@ -109,8 +134,8 @@
       "undocumentLines": []
     },
     "src/services/building/configuration.js": {
-      "expectCount": 11,
-      "actualCount": 11,
+      "expectCount": 14,
+      "actualCount": 14,
       "undocumentLines": []
     },
     "src/services/building/engine.js": {
@@ -139,8 +164,8 @@
       "undocumentLines": []
     },
     "src/services/configurations/pluginsConfiguration.js": {
-      "expectCount": 37,
-      "actualCount": 37,
+      "expectCount": 39,
+      "actualCount": 39,
       "undocumentLines": []
     },
     "src/services/server/middleware.js": {
