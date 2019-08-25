@@ -524,6 +524,7 @@ class ProjextRollupStylesheetAssetsPlugin {
    * @ignore
    */
   _parseURL(urlPath) {
+    // eslint-disable-next-line node/no-deprecated-api
     const parsed = url.parse(urlPath);
     const urlQuery = parsed.search || '';
     const urlHash = parsed.hash || '';
