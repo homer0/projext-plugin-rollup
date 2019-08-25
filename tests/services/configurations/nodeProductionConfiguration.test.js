@@ -10,6 +10,7 @@ jest.mock('rollup-plugin-sass');
 jest.mock('rollup-plugin-html');
 jest.mock('rollup-plugin-json');
 jest.mock('rollup-plugin-polyfill');
+jest.mock('rollup-plugin-visualizer');
 jest.mock('/src/abstracts/configurationFile', () => ConfigurationFileMock);
 jest.unmock('/src/services/configurations/nodeProductionConfiguration');
 
@@ -34,6 +35,7 @@ const sass = require('rollup-plugin-sass');
 const html = require('rollup-plugin-html');
 const json = require('rollup-plugin-json');
 const polyfill = require('rollup-plugin-polyfill');
+const visualizer = require('rollup-plugin-visualizer');
 
 describe('services/configurations:nodeProductionConfiguration', () => {
   const getPlugins = () => {
@@ -53,6 +55,7 @@ describe('services/configurations:nodeProductionConfiguration', () => {
       resolve: 'resolve-plugin',
       babel: 'babel-plugin',
       polyfill: 'polyfill-plugin',
+      visualizer: 'visualizer-plugin',
       commonjs: 'commonjs-plugin',
       extraWatch: 'extra-watch-plugin',
       moduleReplace: 'module-replace-plugin',
@@ -71,6 +74,7 @@ describe('services/configurations:nodeProductionConfiguration', () => {
     resolve.mockImplementationOnce(() => values.resolve);
     babel.mockImplementationOnce(() => values.babel);
     polyfill.mockImplementationOnce(() => values.polyfill);
+    visualizer.mockImplementationOnce(() => values.visualizer);
     commonjs.mockImplementationOnce(() => values.commonjs);
     extraWatch.mockImplementationOnce(() => values.extraWatch);
     moduleReplace.mockImplementationOnce(() => values.moduleReplace);
@@ -88,6 +92,7 @@ describe('services/configurations:nodeProductionConfiguration', () => {
       resolve,
       babel,
       polyfill,
+      visualizer,
       commonjs,
       extraWatch,
       moduleReplace,
@@ -120,6 +125,7 @@ describe('services/configurations:nodeProductionConfiguration', () => {
       watch: 'watch-plugin-settings',
       copy: 'copy-plugin-settings',
       polyfill: 'polyfill-plugin-settings',
+      visualizer: 'visualizer-plugin-settings',
     };
     return {
       values,
@@ -144,6 +150,7 @@ describe('services/configurations:nodeProductionConfiguration', () => {
     html.mockClear();
     json.mockClear();
     polyfill.mockClear();
+    visualizer.mockClear();
   });
 
   it('should be instantiated with all its dependencies', () => {
@@ -344,6 +351,73 @@ describe('services/configurations:nodeProductionConfiguration', () => {
       external: plugins.settings.external.external,
     });
     expect(plugins.mocks.moduleReplace).toHaveBeenCalledTimes(0);
+  });
+
+  it('should create a configuration with the \'visualizer\' plugin', () => {
+    // Given
+    const plugins = getPlugins();
+    const events = {
+      reduce: jest.fn((eventNames, config) => config),
+    };
+    const pathUtils = 'pathUtils';
+    const rollupPluginSettingsConfiguration = {
+      getConfig: jest.fn(() => plugins.settings),
+    };
+    const target = {
+      css: {},
+      paths: {
+        build: 'dist',
+      },
+      watch: {
+        production: false,
+      },
+    };
+    const output = {};
+    const input = 'input';
+    const params = {
+      target,
+      input,
+      output,
+      analyze: true,
+    };
+    let sut = null;
+    let result = null;
+    // When
+    sut = new RollupNodeProductionConfiguration(
+      events,
+      pathUtils,
+      rollupPluginSettingsConfiguration
+    );
+    result = sut.getConfig(params);
+    // Then
+    expect(result).toEqual({
+      input,
+      output: Object.assign({}, output, {
+        globals: plugins.settings.globals,
+      }),
+      plugins: [
+        plugins.values.statsReset,
+        plugins.values.resolve,
+        plugins.values.commonjs,
+        plugins.values.babel,
+        plugins.values.polyfill,
+        plugins.values.moduleReplace,
+        plugins.values.extraWatch,
+        plugins.values.sass,
+        plugins.values.css,
+        plugins.values.stylesheetAssetsHelper,
+        plugins.values.stylesheetAssets,
+        plugins.values.html,
+        plugins.values.json,
+        plugins.values.urls,
+        plugins.values.copy,
+        plugins.values.statsLog,
+        plugins.values.visualizer,
+      ],
+      external: plugins.settings.external.external,
+    });
+    expect(plugins.mocks.visualizer).toHaveBeenCalledTimes(1);
+    expect(plugins.mocks.visualizer).toHaveBeenCalledWith(plugins.settings.visualizer);
   });
 
   it('should create a configuration for a target with custom globals', () => {

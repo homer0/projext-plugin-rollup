@@ -5,6 +5,7 @@ const sass = require('rollup-plugin-sass');
 const html = require('rollup-plugin-html');
 const json = require('rollup-plugin-json');
 const polyfill = require('rollup-plugin-polyfill');
+const visualizer = require('rollup-plugin-visualizer');
 
 const { provider } = require('jimple');
 const ConfigurationFile = require('../../abstracts/configurationFile');
@@ -67,6 +68,7 @@ class RollupNodeDevelopmentConfiguration extends ConfigurationFile {
       input,
       output,
       target,
+      analyze,
     } = params;
     // Create the `stats` plugin instance.
     const statsPlugin = stats({
@@ -103,6 +105,11 @@ class RollupNodeDevelopmentConfiguration extends ConfigurationFile {
       urls(pluginSettings.urls),
       copy(pluginSettings.copy),
       statsPlugin.log(pluginSettings.statsLog),
+      ...(
+        analyze ?
+          [visualizer(pluginSettings.visualizer)] :
+          []
+      ),
     ];
     // Get the list of external dependencies.
     const { external } = pluginSettings.external;
