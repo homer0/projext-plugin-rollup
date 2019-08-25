@@ -369,7 +369,8 @@ describe('services/configurations:plugins', () => {
       },
       polyfill: [],
       visualizer: {
-        filename: `${target.name}-visualizer.html`,
+        filename: `${target.paths.build}/${target.name}-stats-visualizer.html`,
+        open: true,
       },
       statsLog: {
         extraEntries: [
@@ -884,7 +885,8 @@ describe('services/configurations:plugins', () => {
       },
       polyfill: [],
       visualizer: {
-        filename: `${target.name}-visualizer.html`,
+        filename: `${target.paths.build}/${target.name}-stats-visualizer.html`,
+        open: true,
       },
       statsLog: {
         extraEntries: [
@@ -1404,7 +1406,8 @@ describe('services/configurations:plugins', () => {
       },
       polyfill: [`${pluginName}/${polyfillFile}`],
       visualizer: {
-        filename: `${target.name}-visualizer.html`,
+        filename: `${target.paths.build}/${target.name}-stats-visualizer.html`,
+        open: true,
       },
       statsLog: {
         extraEntries: [
@@ -1933,7 +1936,8 @@ describe('services/configurations:plugins', () => {
       },
       polyfill: [],
       visualizer: {
-        filename: `${target.name}-visualizer.html`,
+        filename: `${target.paths.build}/${target.name}-stats-visualizer.html`,
+        open: true,
       },
       statsLog: {
         extraEntries: [
@@ -2465,7 +2469,8 @@ describe('services/configurations:plugins', () => {
       },
       polyfill: [],
       visualizer: {
-        filename: `${target.name}-visualizer.html`,
+        filename: `${target.paths.build}/${target.name}-stats-visualizer.html`,
+        open: true,
       },
       statsLog: {
         extraEntries: [
@@ -3007,7 +3012,8 @@ describe('services/configurations:plugins', () => {
       },
       polyfill: [],
       visualizer: {
-        filename: `${target.name}-visualizer.html`,
+        filename: `${target.paths.build}/${target.name}-stats-visualizer.html`,
+        open: true,
       },
       statsLog: {
         extraEntries: [
@@ -3545,7 +3551,8 @@ describe('services/configurations:plugins', () => {
       },
       polyfill: [],
       visualizer: {
-        filename: `${target.name}-visualizer.html`,
+        filename: `${target.paths.build}/${target.name}-stats-visualizer.html`,
+        open: true,
       },
       statsLog: {
         extraEntries: [
@@ -4077,7 +4084,8 @@ describe('services/configurations:plugins', () => {
       },
       polyfill: [],
       visualizer: {
-        filename: `${target.name}-visualizer.html`,
+        filename: `${target.paths.build}/${target.name}-stats-visualizer.html`,
+        open: true,
       },
       statsLog: {
         extraEntries: [

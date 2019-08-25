@@ -1093,7 +1093,8 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     const { target } = params;
     const targetFilename = target.name.replace(/\//g, '-');
     const settings = {
-      filename: `${targetFilename}-visualizer.html`,
+      filename: `${target.paths.build}/${targetFilename}-stats-visualizer.html`,
+      open: true,
     };
 
     const eventName = target.is.node ?
