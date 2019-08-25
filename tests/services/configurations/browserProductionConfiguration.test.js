@@ -10,7 +10,7 @@ jest.mock('rollup-plugin-sass');
 jest.mock('rollup-plugin-html');
 jest.mock('rollup-plugin-json');
 jest.mock('rollup-plugin-polyfill');
-jest.mock('rollup-plugin-uglify');
+jest.mock('rollup-plugin-terser');
 jest.mock('/src/abstracts/configurationFile', () => ConfigurationFileMock);
 jest.unmock('/src/services/configurations/browserProductionConfiguration');
 
@@ -40,7 +40,7 @@ const sass = require('rollup-plugin-sass');
 const html = require('rollup-plugin-html');
 const json = require('rollup-plugin-json');
 const polyfill = require('rollup-plugin-polyfill');
-const { uglify } = require('rollup-plugin-uglify');
+const { terser } = require('rollup-plugin-terser');
 
 describe('services/configurations:browserProductionConfiguration', () => {
   const getPlugins = () => {
@@ -70,7 +70,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
       sass: 'sass-plugin',
       html: 'html-plugin',
       json: 'json-plugin',
-      uglify: 'uglify-plugin',
+      terser: 'terser-plugin',
     };
     values.statsReset = statsResetValue;
     values.statsLog = statsLogValue;
@@ -93,7 +93,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
     sass.mockImplementationOnce(() => values.sass);
     html.mockImplementationOnce(() => values.html);
     json.mockImplementationOnce(() => values.json);
-    uglify.mockImplementationOnce(() => values.uglify);
+    terser.mockImplementationOnce(() => values.terser);
     const mocks = {
       copy,
       css,
@@ -116,7 +116,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
       sass,
       html,
       json,
-      uglify,
+      terser,
     };
     const settings = {
       resolve: 'resolve-plugin-settings',
@@ -173,7 +173,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
     sass.mockClear();
     html.mockClear();
     json.mockClear();
-    uglify.mockClear();
+    terser.mockClear();
     polyfill.mockClear();
   });
 
@@ -256,7 +256,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
         plugins.values.html,
         plugins.values.json,
         plugins.values.urls,
-        plugins.values.uglify,
+        plugins.values.terser,
         plugins.values.copy,
         plugins.values.template,
         plugins.values.compression,
@@ -305,8 +305,8 @@ describe('services/configurations:browserProductionConfiguration', () => {
     expect(plugins.mocks.json).toHaveBeenCalledWith(plugins.settings.json);
     expect(plugins.mocks.urls).toHaveBeenCalledTimes(1);
     expect(plugins.mocks.urls).toHaveBeenCalledWith(plugins.settings.urls);
-    expect(plugins.mocks.uglify).toHaveBeenCalledTimes(1);
-    expect(plugins.mocks.uglify).toHaveBeenCalledWith(plugins.settings.uglify);
+    expect(plugins.mocks.terser).toHaveBeenCalledTimes(1);
+    expect(plugins.mocks.terser).toHaveBeenCalledWith(plugins.settings.terser);
     expect(plugins.mocks.copy).toHaveBeenCalledTimes(1);
     expect(plugins.mocks.copy).toHaveBeenCalledWith(plugins.settings.copy);
     expect(plugins.mocks.template).toHaveBeenCalledTimes(1);
@@ -389,7 +389,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
         plugins.values.html,
         plugins.values.json,
         plugins.values.urls,
-        plugins.values.uglify,
+        plugins.values.terser,
         plugins.values.copy,
         plugins.values.template,
         plugins.values.compression,
@@ -612,7 +612,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
         plugins.values.html,
         plugins.values.json,
         plugins.values.urls,
-        plugins.values.uglify,
+        plugins.values.terser,
         plugins.values.copy,
         plugins.values.template,
         plugins.values.compression,
@@ -686,7 +686,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
         plugins.values.html,
         plugins.values.json,
         plugins.values.urls,
-        plugins.values.uglify,
+        plugins.values.terser,
         plugins.values.copy,
         plugins.values.template,
         plugins.values.compression,
@@ -762,7 +762,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
         plugins.values.html,
         plugins.values.json,
         plugins.values.urls,
-        plugins.values.uglify,
+        plugins.values.terser,
         plugins.values.copy,
         plugins.values.template,
         plugins.values.compression,
@@ -832,7 +832,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
         plugins.values.html,
         plugins.values.json,
         plugins.values.urls,
-        plugins.values.uglify,
+        plugins.values.terser,
         plugins.values.copy,
         plugins.values.statsLog,
       ],
@@ -907,7 +907,7 @@ describe('services/configurations:browserProductionConfiguration', () => {
         plugins.values.html,
         plugins.values.json,
         plugins.values.urls,
-        plugins.values.uglify,
+        plugins.values.terser,
         plugins.values.copy,
         plugins.values.compression,
         plugins.values.statsLog,

@@ -5,7 +5,7 @@ const sass = require('rollup-plugin-sass');
 const html = require('rollup-plugin-html');
 const json = require('rollup-plugin-json');
 const polyfill = require('rollup-plugin-polyfill');
-const { uglify } = require('rollup-plugin-uglify');
+const { terser } = require('rollup-plugin-terser');
 
 const { provider } = require('jimple');
 const ConfigurationFile = require('../../abstracts/configurationFile');
@@ -115,7 +115,7 @@ class RollupBrowserProductionConfiguration extends ConfigurationFile {
       urls(pluginSettings.urls),
       ...(
         target.uglifyOnProduction ?
-          [uglify(pluginSettings.uglify)] :
+          [terser(pluginSettings.terser)] :
           []
       ),
       copy(pluginSettings.copy),
