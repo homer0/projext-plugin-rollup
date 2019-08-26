@@ -790,12 +790,12 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
    * @ignore
    */
   _getTemplateSettings(params, stats) {
-    const { target, paths } = params;
+    const { target, paths, buildType } = params;
     // Get the rules for common assets.
     const assetsRules = this._getAssetsRules(params);
     // Define the plugin settings.
     const settings = {
-      template: this.targetsHTML.getFilepath(target),
+      template: this.targetsHTML.getFilepath(target, false, buildType),
       output: `${target.paths.build}/${target.html.filename}`,
       stylesheets: target.css.inject ?
         [] :
