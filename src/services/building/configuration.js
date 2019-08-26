@@ -50,8 +50,8 @@ class RollupConfiguration {
   }
   /**
    * This method generates a complete Rollup configuration for a target.
-   * @param {Target}  target    The target information.
-   * @param {string}  buildType The intended build type: `production` or `development`.
+   * @param {Target} target    The target information.
+   * @param {string} buildType The intended build type: `production` or `development`.
    * @return {Object}
    * @throws {Error} If there's no base configuration for the target type.
    * @throws {Error} If there's no base configuration for the target type and build type.
@@ -68,7 +68,7 @@ class RollupConfiguration {
 
     const input = path.join(target.paths.source, target.entry[buildType]);
 
-    const defaultFormat = target.is.node ? 'cjs' : 'iife';
+    const defaultFormat = this._getTargetDefaultFormat(target);
     const output = {
       sourcemap: !!(target.sourceMap && target.sourceMap[buildType]),
       name: target.name.replace(/-(\w)/ig, (match, letter) => letter.toUpperCase()),
@@ -128,6 +128,18 @@ class RollupConfiguration {
     ).getConfig(params);
 
     return config;
+  }
+  /**
+   * Based on the taget type, this method will decide which will be the default output format
+   * the target will use. The reason this is the "default" format, it's because the service
+   * can later changed dependeding in whether the target is a library or not.
+   * @param {Target} target The target information.
+   * @return {string}
+   * @access protected
+   * @ignore
+   */
+  _getTargetDefaultFormat(target) {
+    return target.is.node ? 'cjs' : 'iife';
   }
   /**
    * Generates a function that when called will return a dictionary with definitions that will be
