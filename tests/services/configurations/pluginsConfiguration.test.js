@@ -355,7 +355,7 @@ describe('services/configurations:plugins', () => {
       watch: {
         clearScreen: false,
       },
-      uglify: {},
+      terser: {},
       compression: {
         folder: target.paths.build,
         include: [expect.any(RegExp)],
@@ -499,10 +499,10 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
-          'rollup-uglify-plugin-settings-configuration-for-node',
-          'rollup-uglify-plugin-settings-configuration',
+          'rollup-terser-plugin-settings-configuration-for-node',
+          'rollup-terser-plugin-settings-configuration',
         ],
-        settings: expectedSettings.uglify,
+        settings: expectedSettings.terser,
       },
       {
         events: [
@@ -859,7 +859,7 @@ describe('services/configurations:plugins', () => {
       watch: {
         clearScreen: false,
       },
-      uglify: {},
+      terser: {},
       compression: {
         folder: target.paths.build,
         include: [expect.any(RegExp)],
@@ -1002,10 +1002,10 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
-          'rollup-uglify-plugin-settings-configuration-for-node',
-          'rollup-uglify-plugin-settings-configuration',
+          'rollup-terser-plugin-settings-configuration-for-node',
+          'rollup-terser-plugin-settings-configuration',
         ],
-        settings: expectedSettings.uglify,
+        settings: expectedSettings.terser,
       },
       {
         events: [
@@ -1023,10 +1023,10 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
-          'rollup-uglify-plugin-settings-configuration-for-node',
-          'rollup-uglify-plugin-settings-configuration',
+          'rollup-terser-plugin-settings-configuration-for-node',
+          'rollup-terser-plugin-settings-configuration',
         ],
-        settings: expectedSettings.uglify,
+        settings: expectedSettings.terser,
       },
       {
         events: [
@@ -1368,7 +1368,7 @@ describe('services/configurations:plugins', () => {
       watch: {
         clearScreen: false,
       },
-      uglify: {},
+      terser: {},
       compression: {
         folder: target.paths.build,
         include: [expect.any(RegExp)],
@@ -1521,10 +1521,10 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
-          'rollup-uglify-plugin-settings-configuration-for-browser',
-          'rollup-uglify-plugin-settings-configuration',
+          'rollup-terser-plugin-settings-configuration-for-browser',
+          'rollup-terser-plugin-settings-configuration',
         ],
-        settings: expectedSettings.uglify,
+        settings: expectedSettings.terser,
       },
       {
         events: [
@@ -1542,10 +1542,10 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
-          'rollup-uglify-plugin-settings-configuration-for-browser',
-          'rollup-uglify-plugin-settings-configuration',
+          'rollup-terser-plugin-settings-configuration-for-browser',
+          'rollup-terser-plugin-settings-configuration',
         ],
-        settings: expectedSettings.uglify,
+        settings: expectedSettings.terser,
       },
       {
         events: [
@@ -1886,7 +1886,7 @@ describe('services/configurations:plugins', () => {
       watch: {
         clearScreen: false,
       },
-      uglify: {},
+      terser: {},
       compression: {
         folder: target.paths.build,
         include: [expect.any(RegExp)],
@@ -2035,10 +2035,10 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
-          'rollup-uglify-plugin-settings-configuration-for-browser',
-          'rollup-uglify-plugin-settings-configuration',
+          'rollup-terser-plugin-settings-configuration-for-browser',
+          'rollup-terser-plugin-settings-configuration',
         ],
-        settings: expectedSettings.uglify,
+        settings: expectedSettings.terser,
       },
       {
         events: [
@@ -2407,7 +2407,7 @@ describe('services/configurations:plugins', () => {
       watch: {
         clearScreen: false,
       },
-      uglify: {},
+      terser: {},
       compression: {
         folder: target.paths.build,
         include: [expect.any(RegExp)],
@@ -2562,10 +2562,10 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
-          'rollup-uglify-plugin-settings-configuration-for-browser',
-          'rollup-uglify-plugin-settings-configuration',
+          'rollup-terser-plugin-settings-configuration-for-browser',
+          'rollup-terser-plugin-settings-configuration',
         ],
-        settings: expectedSettings.uglify,
+        settings: expectedSettings.terser,
       },
       {
         events: [
@@ -2938,7 +2938,7 @@ describe('services/configurations:plugins', () => {
       watch: {
         clearScreen: false,
       },
-      uglify: {},
+      terser: {},
       compression: {
         folder: target.paths.build,
         include: [expect.any(RegExp)],
@@ -3097,10 +3097,10 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
-          'rollup-uglify-plugin-settings-configuration-for-browser',
-          'rollup-uglify-plugin-settings-configuration',
+          'rollup-terser-plugin-settings-configuration-for-browser',
+          'rollup-terser-plugin-settings-configuration',
         ],
-        settings: expectedSettings.uglify,
+        settings: expectedSettings.terser,
       },
       {
         events: [
@@ -3465,7 +3465,7 @@ describe('services/configurations:plugins', () => {
       watch: {
         clearScreen: false,
       },
-      uglify: {},
+      terser: {},
       compression: {
         folder: target.paths.build,
         include: [expect.any(RegExp)],
@@ -3622,10 +3622,10 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
-          'rollup-uglify-plugin-settings-configuration-for-browser',
-          'rollup-uglify-plugin-settings-configuration',
+          'rollup-terser-plugin-settings-configuration-for-browser',
+          'rollup-terser-plugin-settings-configuration',
         ],
-        settings: expectedSettings.uglify,
+        settings: expectedSettings.terser,
       },
       {
         events: [
@@ -3986,7 +3986,7 @@ describe('services/configurations:plugins', () => {
       watch: {
         clearScreen: false,
       },
-      uglify: {},
+      terser: {},
       compression: {
         folder: target.paths.build,
         include: [expect.any(RegExp)],
@@ -4143,10 +4143,10 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
-          'rollup-uglify-plugin-settings-configuration-for-browser',
-          'rollup-uglify-plugin-settings-configuration',
+          'rollup-terser-plugin-settings-configuration-for-browser',
+          'rollup-terser-plugin-settings-configuration',
         ],
-        settings: expectedSettings.uglify,
+        settings: expectedSettings.terser,
       },
       {
         events: [
