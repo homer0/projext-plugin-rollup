@@ -83,6 +83,7 @@ describe('services/configurations:plugins', () => {
       images: 'images-path',
     };
     const target = {
+      name: 'my-target',
       css: {
         modules: false,
       },
@@ -367,6 +368,10 @@ describe('services/configurations:plugins', () => {
         stats,
       },
       polyfill: [],
+      visualizer: {
+        filename: `${target.paths.build}/${target.name}-stats-visualizer.html`,
+        open: true,
+      },
       statsLog: {
         extraEntries: [
           {
@@ -527,6 +532,13 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
+          'rollup-visualizer-plugin-settings-configuration-for-node',
+          'rollup-visualizer-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.visualizer,
+      },
+      {
+        events: [
           'rollup-stats-plugin-settings-configuration-for-node',
           'rollup-stats-plugin-settings-configuration',
         ],
@@ -591,6 +603,7 @@ describe('services/configurations:plugins', () => {
       images: 'images-path',
     };
     const target = {
+      name: 'my-target',
       css: {
         modules: false,
       },
@@ -871,6 +884,10 @@ describe('services/configurations:plugins', () => {
         stats,
       },
       polyfill: [],
+      visualizer: {
+        filename: `${target.paths.build}/${target.name}-stats-visualizer.html`,
+        open: true,
+      },
       statsLog: {
         extraEntries: [
           {
@@ -1030,6 +1047,13 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
+          'rollup-visualizer-plugin-settings-configuration-for-node',
+          'rollup-visualizer-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.visualizer,
+      },
+      {
+        events: [
           'rollup-stats-plugin-settings-configuration-for-node',
           'rollup-stats-plugin-settings-configuration',
         ],
@@ -1097,6 +1121,7 @@ describe('services/configurations:plugins', () => {
       babelPolyfill: polyfillFile,
     };
     const target = {
+      name: 'my-target',
       css: {
         modules: false,
       },
@@ -1380,6 +1405,10 @@ describe('services/configurations:plugins', () => {
         stats,
       },
       polyfill: [`${pluginName}/${polyfillFile}`],
+      visualizer: {
+        filename: `${target.paths.build}/${target.name}-stats-visualizer.html`,
+        open: true,
+      },
       statsLog: {
         extraEntries: [
           {
@@ -1542,10 +1571,17 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
-          'rollup-terser-plugin-settings-configuration-for-browser',
-          'rollup-terser-plugin-settings-configuration',
+          'rollup-polyfill-plugin-settings-configuration-for-browser',
+          'rollup-polyfill-plugin-settings-configuration',
         ],
-        settings: expectedSettings.terser,
+        settings: expectedSettings.polyfill,
+      },
+      {
+        events: [
+          'rollup-visualizer-plugin-settings-configuration-for-browser',
+          'rollup-visualizer-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.visualizer,
       },
       {
         events: [
@@ -1609,6 +1645,7 @@ describe('services/configurations:plugins', () => {
     };
     const excludeModule = 'colors';
     const target = {
+      name: 'my-target',
       css: {
         modules: false,
         inject: true,
@@ -1898,6 +1935,10 @@ describe('services/configurations:plugins', () => {
         stats,
       },
       polyfill: [],
+      visualizer: {
+        filename: `${target.paths.build}/${target.name}-stats-visualizer.html`,
+        open: true,
+      },
       statsLog: {
         extraEntries: [
           {
@@ -2063,6 +2104,13 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
+          'rollup-visualizer-plugin-settings-configuration-for-browser',
+          'rollup-visualizer-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.visualizer,
+      },
+      {
+        events: [
           'rollup-stats-plugin-settings-configuration-for-browser',
           'rollup-stats-plugin-settings-configuration',
         ],
@@ -2128,6 +2176,7 @@ describe('services/configurations:plugins', () => {
     };
     const excludeModule = 'colors';
     const target = {
+      name: 'my-target',
       css: {
         modules: false,
       },
@@ -2419,6 +2468,10 @@ describe('services/configurations:plugins', () => {
         stats,
       },
       polyfill: [],
+      visualizer: {
+        filename: `${target.paths.build}/${target.name}-stats-visualizer.html`,
+        open: true,
+      },
       statsLog: {
         extraEntries: [
           {
@@ -2590,6 +2643,13 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
+          'rollup-visualizer-plugin-settings-configuration-for-browser',
+          'rollup-visualizer-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.visualizer,
+      },
+      {
+        events: [
           'rollup-stats-plugin-settings-configuration-for-browser',
           'rollup-stats-plugin-settings-configuration',
         ],
@@ -2655,6 +2715,7 @@ describe('services/configurations:plugins', () => {
     };
     const excludeModule = 'colors';
     const target = {
+      name: 'my-target',
       css: {
         modules: false,
       },
@@ -2950,6 +3011,10 @@ describe('services/configurations:plugins', () => {
         stats,
       },
       polyfill: [],
+      visualizer: {
+        filename: `${target.paths.build}/${target.name}-stats-visualizer.html`,
+        open: true,
+      },
       statsLog: {
         extraEntries: [
           {
@@ -3125,6 +3190,13 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
+          'rollup-visualizer-plugin-settings-configuration-for-browser',
+          'rollup-visualizer-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.visualizer,
+      },
+      {
+        events: [
           'rollup-stats-plugin-settings-configuration-for-browser',
           'rollup-stats-plugin-settings-configuration',
         ],
@@ -3185,6 +3257,7 @@ describe('services/configurations:plugins', () => {
     };
     const excludeModule = 'colors';
     const target = {
+      name: 'my-target',
       css: {
         modules: false,
       },
@@ -3477,6 +3550,10 @@ describe('services/configurations:plugins', () => {
         stats,
       },
       polyfill: [],
+      visualizer: {
+        filename: `${target.paths.build}/${target.name}-stats-visualizer.html`,
+        open: true,
+      },
       statsLog: {
         extraEntries: [
           {
@@ -3650,6 +3727,13 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
+          'rollup-visualizer-plugin-settings-configuration-for-browser',
+          'rollup-visualizer-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.visualizer,
+      },
+      {
+        events: [
           'rollup-stats-plugin-settings-configuration-for-browser',
           'rollup-stats-plugin-settings-configuration',
         ],
@@ -3710,6 +3794,7 @@ describe('services/configurations:plugins', () => {
     };
     const excludeModule = 'colors';
     const target = {
+      name: 'my-target',
       css: {
         modules: false,
       },
@@ -3998,6 +4083,10 @@ describe('services/configurations:plugins', () => {
         stats,
       },
       polyfill: [],
+      visualizer: {
+        filename: `${target.paths.build}/${target.name}-stats-visualizer.html`,
+        open: true,
+      },
       statsLog: {
         extraEntries: [
           {
@@ -4171,6 +4260,13 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
+          'rollup-visualizer-plugin-settings-configuration-for-browser',
+          'rollup-visualizer-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.visualizer,
+      },
+      {
+        events: [
           'rollup-stats-plugin-settings-configuration-for-browser',
           'rollup-stats-plugin-settings-configuration',
         ],
@@ -4233,6 +4329,7 @@ describe('services/configurations:plugins', () => {
     };
     const excludeModule = 'colors';
     const target = {
+      name: 'my-target',
       css: {
         modules: false,
       },
@@ -4451,6 +4548,7 @@ describe('services/configurations:plugins', () => {
     };
     const excludeModule = 'colors';
     const target = {
+      name: 'my-target',
       css: {
         modules: true,
       },
@@ -4665,6 +4763,7 @@ describe('services/configurations:plugins', () => {
     };
     const excludeModule = 'colors';
     const target = {
+      name: 'my-target',
       css: {
         modules: false,
       },
