@@ -2,22 +2,22 @@
     "name": "projext-plugin-rollup",
     "description": "Allows projext to use Rollup as a build engine.",
     "homepage": "https://homer0.github.io/projext-plugin-rollup/",
-    "version": "4.0.0",
+    "version": "5.0.0",
     "repository": "homer0/projext-plugin-rollup",
     "author": "Leonardo Apiwan (@homer0) <me@homer0.com>",
     "license": "MIT",
     "dependencies": {
-      "projext": "^7.0.0",
-      "wootils": "^2.6.0",
+      "projext": "^7.1.0",
+      "wootils": "^2.6.5",
       "jimple": "^1.5.0",
       "fs-extra": "^8.1.0",
       "extend": "^3.0.2",
       "magic-string": "0.25.3",
 
-      "rollup": "^1.17.0",
-      "rollup-plugin-commonjs": "^10.0.1",
+      "rollup": "^1.20.2",
+      "rollup-plugin-commonjs": "^10.0.2",
       "rollup-plugin-node-resolve": "^5.2.0",
-      "rollup-plugin-uglify": "^6.0.2",
+      "rollup-plugin-terser": "^5.1.1",
       "rollup-plugin-html": "0.2.1",
       "rollup-plugin-babel": "^4.3.3",
       "rollup-plugin-json": "^4.0.0",
@@ -25,6 +25,7 @@
       "rollup-plugin-sass": "^1.2.2",
       "rollup-pluginutils": "^2.8.1",
       "rollup-plugin-polyfill": "^3.0.0",
+      "rollup-plugin-visualizer": "^2.5.4",
 
       "builtin-modules": "^3.1.0",
 
@@ -36,29 +37,28 @@
       "opener": "^1.5.1",
       "prettysize": "^2.0.0",
       "colors": "^1.3.3",
+      "statuses": "^1.5.0",
 
-      "core-js": "^3.1.4",
+      "core-js": "^3.2.1",
       "regenerator-runtime": "0.13.3",
 
       "@babel/core": "7.5.5",
       "@babel/preset-env": "7.5.5"
     },
     "devDependencies": {
-      "eslint": "^5.16.0",
-      "eslint-config-airbnb-base": "^13.2.0",
-      "eslint-plugin-import": "^2.18.2",
-      "eslint-plugin-node": "^9.1.0",
+      "eslint": "^6.2.2",
+      "eslint-plugin-homer0": "^2.0.0",
       "@babel/plugin-transform-runtime": "7.5.5",
       "jest-ex": "^6.1.1",
-      "jest-cli": "^24.8.0",
+      "jest-cli": "^24.9.0",
       "jasmine-expect": "^4.0.3",
       "jimpex": "^4.0.1",
       "esdoc": "^1.1.0",
       "esdoc-standard-plugin": "^1.0.0",
       "esdoc-node": "^1.0.4",
       "leasot": "^8.0.0",
-      "coveralls": "^3.0.5",
-      "husky": "^3.0.2"
+      "coveralls": "^3.0.6",
+      "husky": "^3.0.4"
     },
     "engine-strict": true,
     "engines": {

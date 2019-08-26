@@ -211,6 +211,7 @@ describe('services/building:configuration', () => {
       paths: target.output[buildType],
       copy: [],
       additionalWatch: [],
+      analyze: false,
     });
   });
 
@@ -317,6 +318,7 @@ describe('services/building:configuration', () => {
       paths: target.output[buildType],
       copy: filesToCopy,
       additionalWatch: [],
+      analyze: false,
     });
     expect(targets.getFilesToCopy).toHaveBeenCalledTimes(1);
     expect(targets.getFilesToCopy).toHaveBeenCalledWith(target, buildType);
@@ -430,6 +432,7 @@ describe('services/building:configuration', () => {
       }),
       copy: filesToCopy,
       additionalWatch: [],
+      analyze: false,
     });
     expect(targets.getFilesToCopy).toHaveBeenCalledTimes(1);
     expect(targets.getFilesToCopy).toHaveBeenCalledWith(target, buildType);
@@ -537,6 +540,7 @@ describe('services/building:configuration', () => {
       paths: target.output[buildType],
       copy: filesToCopy,
       additionalWatch: [],
+      analyze: false,
     });
     expect(targets.getFilesToCopy).toHaveBeenCalledTimes(1);
     expect(targets.getFilesToCopy).toHaveBeenCalledWith(target, buildType);
@@ -647,6 +651,7 @@ describe('services/building:configuration', () => {
       paths: target.output[buildType],
       copy: filesToCopy,
       additionalWatch: [],
+      analyze: false,
     });
     expect(targets.getFilesToCopy).toHaveBeenCalledTimes(1);
     expect(targets.getFilesToCopy).toHaveBeenCalledWith(target, buildType);
@@ -770,6 +775,7 @@ describe('services/building:configuration', () => {
       paths: target.output[buildType],
       copy: filesToCopy,
       additionalWatch: targetBrowserConfigFiles,
+      analyze: false,
     });
     expect(targets.getBrowserTargetConfiguration).toHaveBeenCalledTimes(2);
     expect(targets.getBrowserTargetConfiguration).toHaveBeenCalledWith(target);
@@ -889,6 +895,7 @@ describe('services/building:configuration', () => {
       paths: target.output[buildType],
       copy: [],
       additionalWatch: [],
+      analyze: false,
     });
   });
 
@@ -1010,6 +1017,7 @@ describe('services/building:configuration', () => {
       paths: target.output[buildType],
       copy: filesToCopy,
       additionalWatch: [],
+      analyze: false,
     });
     expect(targets.getFilesToCopy).toHaveBeenCalledTimes(1);
     expect(targets.getFilesToCopy).toHaveBeenCalledWith(target, buildType);
@@ -1131,6 +1139,7 @@ describe('services/building:configuration', () => {
       paths: target.output[buildType],
       copy: [],
       additionalWatch: [],
+      analyze: false,
     });
   });
 

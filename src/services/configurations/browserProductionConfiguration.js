@@ -5,7 +5,8 @@ const sass = require('rollup-plugin-sass');
 const html = require('rollup-plugin-html');
 const json = require('rollup-plugin-json');
 const polyfill = require('rollup-plugin-polyfill');
-const { uglify } = require('rollup-plugin-uglify');
+const { terser } = require('rollup-plugin-terser');
+const visualizer = require('rollup-plugin-visualizer');
 
 const { provider } = require('jimple');
 const ConfigurationFile = require('../../abstracts/configurationFile');
@@ -73,6 +74,7 @@ class RollupBrowserProductionConfiguration extends ConfigurationFile {
       input,
       output,
       target,
+      analyze,
     } = params;
     // Create the `stats` plugin instance.
     const statsPlugin = stats({
@@ -115,10 +117,15 @@ class RollupBrowserProductionConfiguration extends ConfigurationFile {
       urls(pluginSettings.urls),
       ...(
         target.uglifyOnProduction ?
-          [uglify(pluginSettings.uglify)] :
+          [terser(pluginSettings.terser)] :
           []
       ),
       copy(pluginSettings.copy),
+      ...(
+        analyze ?
+          [visualizer(pluginSettings.visualizer)] :
+          []
+      ),
     ];
     // If the target is not a library, push the template plugin for the HTML file.
     if (!target.library) {

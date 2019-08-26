@@ -83,6 +83,7 @@ describe('services/configurations:plugins', () => {
       images: 'images-path',
     };
     const target = {
+      name: 'my-target',
       css: {
         modules: false,
       },
@@ -355,7 +356,7 @@ describe('services/configurations:plugins', () => {
       watch: {
         clearScreen: false,
       },
-      uglify: {},
+      terser: {},
       compression: {
         folder: target.paths.build,
         include: [expect.any(RegExp)],
@@ -367,6 +368,10 @@ describe('services/configurations:plugins', () => {
         stats,
       },
       polyfill: [],
+      visualizer: {
+        filename: `${target.paths.build}/${target.name}-stats-visualizer.html`,
+        open: true,
+      },
       statsLog: {
         extraEntries: [
           {
@@ -499,10 +504,10 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
-          'rollup-uglify-plugin-settings-configuration-for-node',
-          'rollup-uglify-plugin-settings-configuration',
+          'rollup-terser-plugin-settings-configuration-for-node',
+          'rollup-terser-plugin-settings-configuration',
         ],
-        settings: expectedSettings.uglify,
+        settings: expectedSettings.terser,
       },
       {
         events: [
@@ -524,6 +529,13 @@ describe('services/configurations:plugins', () => {
           'rollup-polyfill-plugin-settings-configuration',
         ],
         settings: expectedSettings.polyfill,
+      },
+      {
+        events: [
+          'rollup-visualizer-plugin-settings-configuration-for-node',
+          'rollup-visualizer-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.visualizer,
       },
       {
         events: [
@@ -591,6 +603,7 @@ describe('services/configurations:plugins', () => {
       images: 'images-path',
     };
     const target = {
+      name: 'my-target',
       css: {
         modules: false,
       },
@@ -859,7 +872,7 @@ describe('services/configurations:plugins', () => {
       watch: {
         clearScreen: false,
       },
-      uglify: {},
+      terser: {},
       compression: {
         folder: target.paths.build,
         include: [expect.any(RegExp)],
@@ -871,6 +884,10 @@ describe('services/configurations:plugins', () => {
         stats,
       },
       polyfill: [],
+      visualizer: {
+        filename: `${target.paths.build}/${target.name}-stats-visualizer.html`,
+        open: true,
+      },
       statsLog: {
         extraEntries: [
           {
@@ -1002,10 +1019,10 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
-          'rollup-uglify-plugin-settings-configuration-for-node',
-          'rollup-uglify-plugin-settings-configuration',
+          'rollup-terser-plugin-settings-configuration-for-node',
+          'rollup-terser-plugin-settings-configuration',
         ],
-        settings: expectedSettings.uglify,
+        settings: expectedSettings.terser,
       },
       {
         events: [
@@ -1023,10 +1040,17 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
-          'rollup-uglify-plugin-settings-configuration-for-node',
-          'rollup-uglify-plugin-settings-configuration',
+          'rollup-terser-plugin-settings-configuration-for-node',
+          'rollup-terser-plugin-settings-configuration',
         ],
-        settings: expectedSettings.uglify,
+        settings: expectedSettings.terser,
+      },
+      {
+        events: [
+          'rollup-visualizer-plugin-settings-configuration-for-node',
+          'rollup-visualizer-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.visualizer,
       },
       {
         events: [
@@ -1097,6 +1121,7 @@ describe('services/configurations:plugins', () => {
       babelPolyfill: polyfillFile,
     };
     const target = {
+      name: 'my-target',
       css: {
         modules: false,
       },
@@ -1368,7 +1393,7 @@ describe('services/configurations:plugins', () => {
       watch: {
         clearScreen: false,
       },
-      uglify: {},
+      terser: {},
       compression: {
         folder: target.paths.build,
         include: [expect.any(RegExp)],
@@ -1380,6 +1405,10 @@ describe('services/configurations:plugins', () => {
         stats,
       },
       polyfill: [`${pluginName}/${polyfillFile}`],
+      visualizer: {
+        filename: `${target.paths.build}/${target.name}-stats-visualizer.html`,
+        open: true,
+      },
       statsLog: {
         extraEntries: [
           {
@@ -1521,10 +1550,10 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
-          'rollup-uglify-plugin-settings-configuration-for-browser',
-          'rollup-uglify-plugin-settings-configuration',
+          'rollup-terser-plugin-settings-configuration-for-browser',
+          'rollup-terser-plugin-settings-configuration',
         ],
-        settings: expectedSettings.uglify,
+        settings: expectedSettings.terser,
       },
       {
         events: [
@@ -1542,10 +1571,17 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
-          'rollup-uglify-plugin-settings-configuration-for-browser',
-          'rollup-uglify-plugin-settings-configuration',
+          'rollup-polyfill-plugin-settings-configuration-for-browser',
+          'rollup-polyfill-plugin-settings-configuration',
         ],
-        settings: expectedSettings.uglify,
+        settings: expectedSettings.polyfill,
+      },
+      {
+        events: [
+          'rollup-visualizer-plugin-settings-configuration-for-browser',
+          'rollup-visualizer-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.visualizer,
       },
       {
         events: [
@@ -1609,6 +1645,7 @@ describe('services/configurations:plugins', () => {
     };
     const excludeModule = 'colors';
     const target = {
+      name: 'my-target',
       css: {
         modules: false,
         inject: true,
@@ -1886,7 +1923,7 @@ describe('services/configurations:plugins', () => {
       watch: {
         clearScreen: false,
       },
-      uglify: {},
+      terser: {},
       compression: {
         folder: target.paths.build,
         include: [expect.any(RegExp)],
@@ -1898,6 +1935,10 @@ describe('services/configurations:plugins', () => {
         stats,
       },
       polyfill: [],
+      visualizer: {
+        filename: `${target.paths.build}/${target.name}-stats-visualizer.html`,
+        open: true,
+      },
       statsLog: {
         extraEntries: [
           {
@@ -2035,10 +2076,10 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
-          'rollup-uglify-plugin-settings-configuration-for-browser',
-          'rollup-uglify-plugin-settings-configuration',
+          'rollup-terser-plugin-settings-configuration-for-browser',
+          'rollup-terser-plugin-settings-configuration',
         ],
-        settings: expectedSettings.uglify,
+        settings: expectedSettings.terser,
       },
       {
         events: [
@@ -2060,6 +2101,13 @@ describe('services/configurations:plugins', () => {
           'rollup-polyfill-plugin-settings-configuration',
         ],
         settings: expectedSettings.polyfill,
+      },
+      {
+        events: [
+          'rollup-visualizer-plugin-settings-configuration-for-browser',
+          'rollup-visualizer-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.visualizer,
       },
       {
         events: [
@@ -2128,6 +2176,7 @@ describe('services/configurations:plugins', () => {
     };
     const excludeModule = 'colors';
     const target = {
+      name: 'my-target',
       css: {
         modules: false,
       },
@@ -2407,7 +2456,7 @@ describe('services/configurations:plugins', () => {
       watch: {
         clearScreen: false,
       },
-      uglify: {},
+      terser: {},
       compression: {
         folder: target.paths.build,
         include: [expect.any(RegExp)],
@@ -2419,6 +2468,10 @@ describe('services/configurations:plugins', () => {
         stats,
       },
       polyfill: [],
+      visualizer: {
+        filename: `${target.paths.build}/${target.name}-stats-visualizer.html`,
+        open: true,
+      },
       statsLog: {
         extraEntries: [
           {
@@ -2562,10 +2615,10 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
-          'rollup-uglify-plugin-settings-configuration-for-browser',
-          'rollup-uglify-plugin-settings-configuration',
+          'rollup-terser-plugin-settings-configuration-for-browser',
+          'rollup-terser-plugin-settings-configuration',
         ],
-        settings: expectedSettings.uglify,
+        settings: expectedSettings.terser,
       },
       {
         events: [
@@ -2587,6 +2640,13 @@ describe('services/configurations:plugins', () => {
           'rollup-polyfill-plugin-settings-configuration',
         ],
         settings: expectedSettings.polyfill,
+      },
+      {
+        events: [
+          'rollup-visualizer-plugin-settings-configuration-for-browser',
+          'rollup-visualizer-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.visualizer,
       },
       {
         events: [
@@ -2655,6 +2715,7 @@ describe('services/configurations:plugins', () => {
     };
     const excludeModule = 'colors';
     const target = {
+      name: 'my-target',
       css: {
         modules: false,
       },
@@ -2938,7 +2999,7 @@ describe('services/configurations:plugins', () => {
       watch: {
         clearScreen: false,
       },
-      uglify: {},
+      terser: {},
       compression: {
         folder: target.paths.build,
         include: [expect.any(RegExp)],
@@ -2950,6 +3011,10 @@ describe('services/configurations:plugins', () => {
         stats,
       },
       polyfill: [],
+      visualizer: {
+        filename: `${target.paths.build}/${target.name}-stats-visualizer.html`,
+        open: true,
+      },
       statsLog: {
         extraEntries: [
           {
@@ -3097,10 +3162,10 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
-          'rollup-uglify-plugin-settings-configuration-for-browser',
-          'rollup-uglify-plugin-settings-configuration',
+          'rollup-terser-plugin-settings-configuration-for-browser',
+          'rollup-terser-plugin-settings-configuration',
         ],
-        settings: expectedSettings.uglify,
+        settings: expectedSettings.terser,
       },
       {
         events: [
@@ -3122,6 +3187,13 @@ describe('services/configurations:plugins', () => {
           'rollup-polyfill-plugin-settings-configuration',
         ],
         settings: expectedSettings.polyfill,
+      },
+      {
+        events: [
+          'rollup-visualizer-plugin-settings-configuration-for-browser',
+          'rollup-visualizer-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.visualizer,
       },
       {
         events: [
@@ -3185,6 +3257,7 @@ describe('services/configurations:plugins', () => {
     };
     const excludeModule = 'colors';
     const target = {
+      name: 'my-target',
       css: {
         modules: false,
       },
@@ -3465,7 +3538,7 @@ describe('services/configurations:plugins', () => {
       watch: {
         clearScreen: false,
       },
-      uglify: {},
+      terser: {},
       compression: {
         folder: target.paths.build,
         include: [expect.any(RegExp)],
@@ -3477,6 +3550,10 @@ describe('services/configurations:plugins', () => {
         stats,
       },
       polyfill: [],
+      visualizer: {
+        filename: `${target.paths.build}/${target.name}-stats-visualizer.html`,
+        open: true,
+      },
       statsLog: {
         extraEntries: [
           {
@@ -3622,10 +3699,10 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
-          'rollup-uglify-plugin-settings-configuration-for-browser',
-          'rollup-uglify-plugin-settings-configuration',
+          'rollup-terser-plugin-settings-configuration-for-browser',
+          'rollup-terser-plugin-settings-configuration',
         ],
-        settings: expectedSettings.uglify,
+        settings: expectedSettings.terser,
       },
       {
         events: [
@@ -3647,6 +3724,13 @@ describe('services/configurations:plugins', () => {
           'rollup-polyfill-plugin-settings-configuration',
         ],
         settings: expectedSettings.polyfill,
+      },
+      {
+        events: [
+          'rollup-visualizer-plugin-settings-configuration-for-browser',
+          'rollup-visualizer-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.visualizer,
       },
       {
         events: [
@@ -3710,6 +3794,7 @@ describe('services/configurations:plugins', () => {
     };
     const excludeModule = 'colors';
     const target = {
+      name: 'my-target',
       css: {
         modules: false,
       },
@@ -3986,7 +4071,7 @@ describe('services/configurations:plugins', () => {
       watch: {
         clearScreen: false,
       },
-      uglify: {},
+      terser: {},
       compression: {
         folder: target.paths.build,
         include: [expect.any(RegExp)],
@@ -3998,6 +4083,10 @@ describe('services/configurations:plugins', () => {
         stats,
       },
       polyfill: [],
+      visualizer: {
+        filename: `${target.paths.build}/${target.name}-stats-visualizer.html`,
+        open: true,
+      },
       statsLog: {
         extraEntries: [
           {
@@ -4143,10 +4232,10 @@ describe('services/configurations:plugins', () => {
       },
       {
         events: [
-          'rollup-uglify-plugin-settings-configuration-for-browser',
-          'rollup-uglify-plugin-settings-configuration',
+          'rollup-terser-plugin-settings-configuration-for-browser',
+          'rollup-terser-plugin-settings-configuration',
         ],
-        settings: expectedSettings.uglify,
+        settings: expectedSettings.terser,
       },
       {
         events: [
@@ -4168,6 +4257,13 @@ describe('services/configurations:plugins', () => {
           'rollup-polyfill-plugin-settings-configuration',
         ],
         settings: expectedSettings.polyfill,
+      },
+      {
+        events: [
+          'rollup-visualizer-plugin-settings-configuration-for-browser',
+          'rollup-visualizer-plugin-settings-configuration',
+        ],
+        settings: expectedSettings.visualizer,
       },
       {
         events: [
@@ -4233,6 +4329,7 @@ describe('services/configurations:plugins', () => {
     };
     const excludeModule = 'colors';
     const target = {
+      name: 'my-target',
       css: {
         modules: false,
       },
@@ -4451,6 +4548,7 @@ describe('services/configurations:plugins', () => {
     };
     const excludeModule = 'colors';
     const target = {
+      name: 'my-target',
       css: {
         modules: true,
       },
@@ -4665,6 +4763,7 @@ describe('services/configurations:plugins', () => {
     };
     const excludeModule = 'colors';
     const target = {
+      name: 'my-target',
       css: {
         modules: false,
       },
