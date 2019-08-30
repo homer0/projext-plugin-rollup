@@ -50,11 +50,17 @@ class RollupConfiguration {
   }
   /**
    * This method generates a complete Rollup configuration for a target.
+   * Before creating the configuration, it uses the reducer event
+   * `rollup-configuration-parameters-for-browser` or `rollup-configuration-parameters-for-node`,
+   * depending on the target type, and then `rollup-configuration-parameters` to reduce
+   * the parameters ({@link RollupConfigurationParams}) the services will use to generate the
+   * configuration. The event recevies the parameters and expects updated parameters in return.
    * @param {Target} target    The target information.
    * @param {string} buildType The intended build type: `production` or `development`.
    * @return {Object}
    * @throws {Error} If there's no base configuration for the target type.
    * @throws {Error} If there's no base configuration for the target type and build type.
+   * @todo Stop using `events` from `targets` and inject it directly on the class.
    */
   getConfig(target, buildType) {
     const targetType = target.type;
@@ -81,7 +87,7 @@ class RollupConfiguration {
     const definitions = this._getDefinitionsGenerator(target, buildType);
     const additionalWatch = this._getBrowserTargetConfigurationDefinitions(target).files;
 
-    const params = {
+    let params = {
       input,
       output,
       target,
@@ -97,6 +103,15 @@ class RollupConfiguration {
        */
       analyze: !!target.analyze,
     };
+
+    const eventName = target.is.node ?
+      'rollup-configuration-parameters-for-node' :
+      'rollup-configuration-parameters-for-browser';
+
+    params = this.targets.events.reduce(
+      [eventName, 'rollup-configuration-parameters'],
+      params
+    );
 
     let config = this.targetConfiguration(
       `rollup/${target.name}.config.js`,
@@ -275,8 +290,8 @@ class RollupConfiguration {
     return result;
   }
   /**
-   * This is a small helper function that parses the default path of the JS file webpack will
-   * emmit and adds a `[name]` placeholder for webpack to replace with the chunk name.
+   * This is a small helper function that parses the default path of the JS file Rollup will
+   * emmit and adds a `[name]` placeholder for Rollup to replace with the chunk name.
    * @param {string} jsPath The original path for the JS file.
    * @return {string}
    * @access protected
