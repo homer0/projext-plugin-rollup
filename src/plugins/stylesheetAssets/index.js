@@ -341,52 +341,63 @@ class ProjextRollupStylesheetAssetsPlugin {
    * @ignore
    */
   _updateCSSBlock(block) {
-    // Get all the linked files on the block.
-    const paths = this._getPathsForCSSBlock(block);
-    let { css } = block;
-    // Loop all the files.
-    paths
-    // Filter those which absolute path couldn't be found.
-    .filter((pathChange) => !!pathChange.absPath)
-    // Loop the filtered list.
-    .forEach((pathChange) => {
-      const {
-        absPath,
-        line,
-        query,
-        info,
-      } = pathChange;
-      // Try to find a URL setting which filter matches a file absolute path.
-      const settings = this._options.urls.find((setting) => setting.filter(absPath));
-      // If a URL setting was found...
-      if (settings) {
-        // Generate the output path where the file will be copied.
-        const output = ProjextRollupUtils.formatPlaceholder(settings.output, info);
-        // Get the directory where the file will be copied.
-        const outputDir = path.dirname(output);
-        // Generate the new URL for the file.
-        const urlBase = ProjextRollupUtils.formatPlaceholder(settings.url, info);
-        // Append any existing query the file originally had.
-        const newURL = `${urlBase}${query}`;
-        // Generate the new statement for the CSS.
-        const newLine = `url('${newURL}')`;
-        // Generate a RegExp that matches the old statement.
-        const lineRegex = new RegExp(ProjextRollupUtils.escapeRegex(line.trim()), 'ig');
-        // if the directory wasn't already created, create it.
-        if (!this._createdDirectoriesCache.includes(outputDir)) {
-          fs.ensureDirSync(outputDir);
-          this._createdDirectoriesCache.push(outputDir);
+    let result;
+    /**
+     * If there's a map on the block (because on watch mode Rollup caches the files'
+     * transformations), then do the processing, otherwise, just set to return the same block.
+     */
+    if (block.map) {
+      // Get all the linked files on the block.
+      const paths = this._getPathsForCSSBlock(block);
+      let { css } = block;
+      // Loop all the files.
+      paths
+      // Filter those which absolute path couldn't be found.
+      .filter((pathChange) => !!pathChange.absPath)
+      // Loop the filtered list.
+      .forEach((pathChange) => {
+        const {
+          absPath,
+          line,
+          query,
+          info,
+        } = pathChange;
+        // Try to find a URL setting which filter matches a file absolute path.
+        const settings = this._options.urls.find((setting) => setting.filter(absPath));
+        // If a URL setting was found...
+        if (settings) {
+          // Generate the output path where the file will be copied.
+          const output = ProjextRollupUtils.formatPlaceholder(settings.output, info);
+          // Get the directory where the file will be copied.
+          const outputDir = path.dirname(output);
+          // Generate the new URL for the file.
+          const urlBase = ProjextRollupUtils.formatPlaceholder(settings.url, info);
+          // Append any existing query the file originally had.
+          const newURL = `${urlBase}${query}`;
+          // Generate the new statement for the CSS.
+          const newLine = `url('${newURL}')`;
+          // Generate a RegExp that matches the old statement.
+          const lineRegex = new RegExp(ProjextRollupUtils.escapeRegex(line.trim()), 'ig');
+          // if the directory wasn't already created, create it.
+          if (!this._createdDirectoriesCache.includes(outputDir)) {
+            fs.ensureDirSync(outputDir);
+            this._createdDirectoriesCache.push(outputDir);
+          }
+          // Copy the file.
+          fs.copySync(absPath, output);
+          // Add an stats entry that the file was copied.
+          this._options.stats(this.name, output);
+          // Replace the old statement with the new one.
+          css = css.replace(lineRegex, newLine);
         }
-        // Copy the file.
-        fs.copySync(absPath, output);
-        // Add an stats entry that the file was copied.
-        this._options.stats(this.name, output);
-        // Replace the old statement with the new one.
-        css = css.replace(lineRegex, newLine);
-      }
-    });
-    // Return the updated block with the new CSS code.
-    return Object.assign({}, block, { css });
+      });
+      // set to return the updated block with the new CSS code.
+      result = Object.assign({}, block, { css });
+    } else {
+      result = block;
+    }
+
+    return result;
   }
   /**
    * Gets a list of dictionaries with the information of all the files linked on a CSS block.
