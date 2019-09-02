@@ -731,9 +731,9 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
     );
   }
   /**
-   * Defines the settings for the `stylesheetAssets` plugin, which is a projext's plugin that
-   * transform files matching a filter by copying its contents into a new file on the output
-   * directory and replacing its default export with a URL for them.
+   * Defines the settings for the `urls` plugin, which is a projext's plugin that transforms
+   * files matching a filter and copies its contents into a new file on the output directory,
+   * then it replaces its default export with a URL for them.
    * This method uses the reducer event `rollup-urls-plugin-settings-configuration-for-browser` or
    * `rollup-urls-plugin-settings-configuration-for-node`, depending on the target type, and then
    * `rollup-urls-plugin-settings-configuration`. The event receives the settings, the `params`
