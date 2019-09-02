@@ -431,6 +431,59 @@ describe('plugins:stylesheetAssets', () => {
     );
   });
 
+  it('shouldn\'t fail to process a file without a map', () => {
+    // Given
+    const extension = '.png';
+    const assetOne = `file${extension}`;
+    const assetTwo = `fileB${extension}`;
+    const assetThree = 'fileC.html';
+    const assetFour = `fileD${extension}`;
+    const firstCodePart = [
+      `a { background: url('./${assetOne}'); }`,
+      `a.blue { background: url('./${assetTwo}?v=1.0'); }`,
+      `a.light-blue { background: url('./${assetTwo}?v=1.0'); }`,
+      `a.green { background: url('./${assetThree}'); }`,
+    ]
+    .join('\n');
+    const fileContents = [
+      `${firstCodePart}`,
+      `a.red { background: url('./${assetFour}'); }`,
+    ]
+    .join('\n');
+    const filter = jest.fn((filepath) => filepath.endsWith(extension));
+    rollupUtils.createFilter.mockImplementationOnce(() => filter);
+    ProjextRollupUtils.escapeRegex
+    .mockImplementation((exp) => exp.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&'));
+    fs.pathExistsSync.mockImplementationOnce(() => true);
+    fs.readFileSync.mockImplementationOnce(() => fileContents);
+    const url = {
+      include: ['include-some-files'],
+      exclude: ['exclude-some-files'],
+      output: 'output',
+      url: 'url',
+    };
+    const options = {
+      stylesheet: 'some-file.css',
+      urls: [url],
+      stats: jest.fn(),
+    };
+    let sut = null;
+    // When
+    sut = new ProjextRollupStylesheetAssetsPlugin(options);
+    sut.writeBundle();
+    // Then
+    expect(fs.pathExistsSync).toHaveBeenCalledTimes(1);
+    expect(fs.pathExistsSync).toHaveBeenCalledWith(options.stylesheet);
+    expect(fs.readFileSync).toHaveBeenCalledTimes(1);
+    expect(fs.readFileSync).toHaveBeenCalledWith(options.stylesheet, 'utf-8');
+    expect(ProjextRollupUtils.formatPlaceholder).toHaveBeenCalledTimes(0);
+    expect(fs.writeFileSync).toHaveBeenCalledTimes(1);
+    expect(fs.writeFileSync).toHaveBeenCalledWith(
+      options.stylesheet,
+      fileContents
+    );
+  });
+
   it('should provide a shorthand method to instantiate the plugin', () => {
     // Given
     const filter = 'filter';
