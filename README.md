@@ -105,8 +105,11 @@ All the configurations receive a single object parameter with the following prop
 - `input`: The path to the target entry file
 - `output`: The Rollup output settings for the target.
 - `paths`: A dictionary with the filenames formats and paths of the different files the bundle can generate (`js`, `css`, `images` and `fonts`).
-- `definitions`: A dictionary of defined variables that will be replaced on the bundled code.
+- `definitions`: A function that generates a dictionary of variables that will be replaced on the bundled code.
 - `buildType`: The indented build type (`development` or `production`).
+- `copy`: A list of information for files that need to be copied during the bundling process.
+- `additionalWatch`: A list of additional paths Rollup should watch for in order to restart the bundle.
+- `analyze`: A flag to detect if the bundled should be analyzed or not. 
 
 #### Plugins configuration
 
@@ -200,6 +203,13 @@ That change will only be applied when building the target `myApp` on a productio
 ## Making a plugin
 
 If you want to write a plugin that works with this one (like a framework plugin), there are a lot of reducer events you can listen for and use to modify the Rollup configuration:
+
+### Configuration parameters
+
+- Name: `rollup-configuration-parameters`
+- Reduces: The parameters used by the plugin services to build a target configuration.
+
+This is called before generating any configuration.
 
 ### Node target configuration
 

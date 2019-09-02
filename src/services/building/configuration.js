@@ -50,11 +50,17 @@ class RollupConfiguration {
   }
   /**
    * This method generates a complete Rollup configuration for a target.
+   * Before creating the configuration, it uses the reducer event
+   * `rollup-configuration-parameters-for-browser` or `rollup-configuration-parameters-for-node`,
+   * depending on the target type, and then `rollup-configuration-parameters` to reduce
+   * the parameters ({@link RollupConfigurationParams}) the services will use to generate the
+   * configuration. The event recevies the parameters and expects updated parameters in return.
    * @param {Target} target    The target information.
    * @param {string} buildType The intended build type: `production` or `development`.
    * @return {Object}
    * @throws {Error} If there's no base configuration for the target type.
    * @throws {Error} If there's no base configuration for the target type and build type.
+   * @todo Stop using `events` from `targets` and inject it directly on the class.
    */
   getConfig(target, buildType) {
     const targetType = target.type;
@@ -64,39 +70,14 @@ class RollupConfiguration {
       throw new Error(`There's no configuration for the selected build type: ${buildType}`);
     }
 
-    const paths = Object.assign({}, target.output[buildType]);
-
     const input = path.join(target.paths.source, target.entry[buildType]);
 
-    const defaultFormat = this._getTargetDefaultFormat(target);
-    const output = {
-      sourcemap: !!(target.sourceMap && target.sourceMap[buildType]),
-      name: target.name.replace(/-(\w)/ig, (match, letter) => letter.toUpperCase()),
-    };
-
-    if (target.library) {
-      output.format = this._getLibraryFormat(target.libraryOptions);
-      output.exports = 'named';
-    } else {
-      output.format = defaultFormat;
-    }
-
-    const filepath = `./${target.folders.build}/${paths.js}`;
-
+    const paths = Object.assign({}, target.output[buildType]);
     if (paths.jsChunks === true) {
       paths.jsChunks = this._generateChunkName(paths.js);
     }
 
-    if (paths.jsChunks) {
-      output.chunkFileNames = path.basename(paths.jsChunks);
-      output.entryFileNames = path.basename(paths.js);
-      output.dir = path.dirname(filepath);
-      if (target.is.browser && !target.library) {
-        output.format = 'es';
-      }
-    } else {
-      output.file = filepath;
-    }
+    const output = this._getTargetOutput(target, paths, buildType);
 
     const copy = [];
     if (target.is.browser || target.bundle) {
@@ -106,7 +87,7 @@ class RollupConfiguration {
     const definitions = this._getDefinitionsGenerator(target, buildType);
     const additionalWatch = this._getBrowserTargetConfigurationDefinitions(target).files;
 
-    const params = {
+    let params = {
       input,
       output,
       target,
@@ -123,6 +104,15 @@ class RollupConfiguration {
       analyze: !!target.analyze,
     };
 
+    const eventName = target.is.node ?
+      'rollup-configuration-parameters-for-node' :
+      'rollup-configuration-parameters-for-browser';
+
+    params = this.targets.events.reduce(
+      [eventName, 'rollup-configuration-parameters'],
+      params
+    );
+
     let config = this.targetConfiguration(
       `rollup/${target.name}.config.js`,
       this.rollupConfigurations[targetType][buildType]
@@ -133,6 +123,61 @@ class RollupConfiguration {
     ).getConfig(params);
 
     return config;
+  }
+  /**
+   * Generates the Rollup output configuration setting based on the target information, its
+   * pared paths and the type of build.
+   * @param {Target} target         The target information.
+   * @param {Object} formattedPaths The target `paths` setting for the selected build type. The
+   *                                reason they are received as a separated parameter is because
+   *                                in case the paths originally had a `jsChunk` property, the
+   *                                service parsed it in order to inject the paths to the
+   *                                actual chunks. Check the method `getConfig` for more
+   *                                information.
+   * @param {string} buildType      The intended build type: `production` or `development`.
+   * @return {Object} The Rollup output configuration.
+   * @property {boolean} sourcemap      Whether or not to include source maps.
+   * @property {string}  name           The name of the bundle, in case it exports something.
+   * @property {string}  format         The bundle format (`es`, `iifee` or `cjs`).
+   * @property {string}  file           The name of the bundle when code splitting is not used.
+   * @property {?string} exports        In case the target is a library, this will `named`, as the
+   *                                    default export mode for libraries.
+   * @property {?string} chunkFileNames If code splitting is used, this will be the base name of
+   *                                    the chunk files.
+   * @property {?string} entryFileNames If code splitting is used, this will be the base name of
+   *                                    the main bundle.
+   * @property {?string} dir            If code splitting is used, this will be the directory
+   *                                    where the chunk files will be saved.
+   * @access protected
+   * @ignore
+   */
+  _getTargetOutput(target, formattedPaths, buildType) {
+    const output = {
+      sourcemap: !!(target.sourceMap && target.sourceMap[buildType]),
+      name: target.name.replace(/-(\w)/ig, (match, letter) => letter.toUpperCase()),
+    };
+
+    if (target.library) {
+      output.format = this._getLibraryFormat(target.libraryOptions);
+      output.exports = 'named';
+    } else {
+      output.format = this._getTargetDefaultFormat(target);
+    }
+
+    const filepath = `./${target.folders.build}/${formattedPaths.js}`;
+
+    if (formattedPaths.jsChunks) {
+      output.chunkFileNames = path.basename(formattedPaths.jsChunks);
+      output.entryFileNames = path.basename(formattedPaths.js);
+      output.dir = path.dirname(filepath);
+      if (target.is.browser && !target.library) {
+        output.format = 'es';
+      }
+    } else {
+      output.file = filepath;
+    }
+
+    return output;
   }
   /**
    * Based on the taget type, this method will decide which will be the default output format
@@ -245,8 +290,8 @@ class RollupConfiguration {
     return result;
   }
   /**
-   * This is a small helper function that parses the default path of the JS file webpack will
-   * emmit and adds a `[name]` placeholder for webpack to replace with the chunk name.
+   * This is a small helper function that parses the default path of the JS file Rollup will
+   * emmit and adds a `[name]` placeholder for Rollup to replace with the chunk name.
    * @param {string} jsPath The original path for the JS file.
    * @return {string}
    * @access protected
