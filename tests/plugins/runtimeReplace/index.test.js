@@ -1,8 +1,8 @@
-jest.mock('rollup-plugin-replace');
+jest.mock('@rollup/plugin-replace');
 jest.unmock('/src/plugins/runtimeReplace');
 
 require('jasmine-expect');
-const replace = require('rollup-plugin-replace');
+const replace = require('@rollup/plugin-replace');
 const {
   ProjextRollupRuntimeReplacePlugin,
   runtimeReplace,
