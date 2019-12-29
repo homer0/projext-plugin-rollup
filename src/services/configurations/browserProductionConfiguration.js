@@ -4,7 +4,6 @@ const commonjs = require('rollup-plugin-commonjs');
 const sass = require('rollup-plugin-sass');
 const html = require('rollup-plugin-html');
 const json = require('rollup-plugin-json');
-const polyfill = require('rollup-plugin-polyfill');
 const { terser } = require('rollup-plugin-terser');
 const visualizer = require('rollup-plugin-visualizer');
 
@@ -91,11 +90,6 @@ class RollupBrowserProductionConfiguration extends ConfigurationFile {
       resolve(pluginSettings.resolve),
       commonjs(pluginSettings.commonjs),
       babel(pluginSettings.babel),
-      ...(
-        pluginSettings.polyfill.length ?
-          [polyfill(pluginSettings.polyfill)] :
-          []
-      ),
       windowAsGlobal(),
       runtimeReplace(definitions),
       ...(
