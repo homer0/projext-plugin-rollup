@@ -3,12 +3,12 @@ const ConfigurationFileMock = require('/tests/mocks/configurationFile.mock');
 
 jest.mock('jimple', () => JimpleMock);
 jest.mock('fs-extra');
-jest.mock('rollup-plugin-node-resolve');
+jest.mock('@rollup/plugin-node-resolve');
 jest.mock('rollup-plugin-babel');
-jest.mock('rollup-plugin-commonjs');
+jest.mock('@rollup/plugin-commonjs');
 jest.mock('rollup-plugin-sass');
 jest.mock('rollup-plugin-html');
-jest.mock('rollup-plugin-json');
+jest.mock('@rollup/plugin-json');
 jest.mock('rollup-plugin-visualizer');
 jest.mock('/src/abstracts/configurationFile', () => ConfigurationFileMock);
 jest.unmock('/src/services/configurations/browserDevelopmentConfiguration');
@@ -32,12 +32,12 @@ const {
   urls,
   windowAsGlobal,
 } = require('/src/plugins');
-const resolve = require('rollup-plugin-node-resolve');
+const resolve = require('@rollup/plugin-node-resolve');
 const babel = require('rollup-plugin-babel');
-const commonjs = require('rollup-plugin-commonjs');
+const commonjs = require('@rollup/plugin-commonjs');
 const sass = require('rollup-plugin-sass');
 const html = require('rollup-plugin-html');
-const json = require('rollup-plugin-json');
+const json = require('@rollup/plugin-json');
 const visualizer = require('rollup-plugin-visualizer');
 
 describe('services/configurations:browserDevelopmentConfiguration', () => {
