@@ -114,7 +114,19 @@ class ProjextRollupTemplatePlugin {
     const async = this._options.scriptsAsync ? ' async="async"' : '';
     // Create all the script tags.
     const scripts = this._options.scripts
-    .map((url) => `<script type="text/javascript" src="${url}"${async}></script>`);
+    .map((url) => {
+      let script;
+      if (typeof url === 'string') {
+        script = `<script type="text/javascript" src="${url}"${async}></script>`;
+      } else if (!url.src) {
+        throw new Error(`${this.name}: Missing 'src' property on script object`);
+      } else {
+        const attributes = this._toHTMLAttributes(url);
+        script = `<script ${attributes}></script>`;
+      }
+
+      return script;
+    });
     // Create all the stylesheet links.
     const stylesheets = this._options.stylesheets
     .map((url) => `<link href="${url}" rel="stylesheet" />`);
@@ -255,6 +267,28 @@ class ProjextRollupTemplatePlugin {
     }
     // Return the final list.
     return result;
+  }
+  /**
+   * Transform a dictionary into a string of HTML attributes.
+   * @example
+   * _toHTMLAttributes({ w: 'x', y: 'z' });
+   * // w="x" y="z"
+   *
+   * @param {Object} obj The dictionary to transform.
+   * @return {String}
+   * @access protected
+   * @ignore
+   */
+  _toHTMLAttributes(obj) {
+    return Object.keys(obj)
+    .reduce(
+      (acc, name) => {
+        const value = `${obj[name]}`.replace(/"/, '\\"');
+        return [...acc, `${name}="${value}"`];
+      },
+      []
+    )
+    .join(' ');
   }
 }
 /**

@@ -136,6 +136,55 @@ describe('plugins:template', () => {
     expect(fs.writeFileSync).toHaveBeenCalledWith(options.output, expectedCode);
   });
 
+  it('should generate a template with a JS file tag with custom attributes', () => {
+    // Given
+    const templateCode = '</head></body>';
+    fs.readFileSync.mockImplementationOnce(() => templateCode);
+    const script = {
+      type: 'module',
+      src: 'build.js',
+    };
+    const options = {
+      template: 'some-file.tpl',
+      output: 'dist/index.html',
+      scripts: [script],
+    };
+    let sut = null;
+    const expectedCode = [
+      '</head>',
+      `<script type="${script.type}" src="${script.src}"></script>\n`,
+      '</body>',
+    ]
+    .join('');
+    // When
+    sut = new ProjextRollupTemplatePlugin(options);
+    sut.writeBundle();
+    // Then
+    expect(fs.ensureDirSync).toHaveBeenCalledTimes(1);
+    expect(fs.ensureDirSync).toHaveBeenCalledWith(path.dirname(options.output));
+    expect(fs.writeFileSync).toHaveBeenCalledTimes(1);
+    expect(fs.writeFileSync).toHaveBeenCalledWith(options.output, expectedCode);
+  });
+
+  it('should throw an error when trying to generate a script tag without `src` attribute', () => {
+    // Given
+    const templateCode = '</head></body>';
+    fs.readFileSync.mockImplementationOnce(() => templateCode);
+    const script = {
+      type: 'module',
+    };
+    const options = {
+      template: 'some-file.tpl',
+      output: 'dist/index.html',
+      scripts: [script],
+    };
+    // When/Then
+    expect(() => (new ProjextRollupTemplatePlugin(options)).writeBundle())
+    .toThrow(/Missing 'src' property on script object/i);
+    expect(fs.ensureDirSync).toHaveBeenCalledTimes(0);
+    expect(fs.writeFileSync).toHaveBeenCalledTimes(0);
+  });
+
   it('should generate a template with a JS file on the head', () => {
     // Given
     const templateCode = '</head>';
