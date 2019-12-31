@@ -200,6 +200,14 @@ module.exports = (params) => ({
 
 That change will only be applied when building the target `myApp` on a production build.
 
+### Code splitting
+
+Using code splitting with projext is quite simple, you can [read about it on the site](https://homer0.github.io/projext/manual/codeSplitting.html), but when it comes to Rollup, there's something you should be aware: The script tag for the bundle will use [`type="module"`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules).
+
+When you use code splitting with Rollup, Rollup will automatically take shared code between the chunks in order to create a "shared chunk", the "problem" is that the shared chunk is loaded using `import ... from '...'`, and when declared like that, `import` can only be used on scripts loaded using the `type="module"` attribute.
+
+This makes it impossible to target old browsers and implement code splitting at the same time, so it may be recommendable to use a direct implementation of Rollup, with different builds, or [the webpack build engine](https://yarnpkg.com/en/package/projext-plugin-webpack).
+
 ## Making a plugin
 
 If you want to write a plugin that works with this one (like a framework plugin), there are a lot of reducer events you can listen for and use to modify the Rollup configuration:
@@ -258,11 +266,11 @@ I use [Jest](https://facebook.github.io/jest/) with [Jest-Ex](https://yarnpkg.co
 
 ### Linting
 
-I use [ESlint](http://eslint.org) to validate all our JS code. The configuration file for the project code is on `./.eslintrc` and for the tests on `./tests/.eslintrc` (which inherits from the one on the root), there's also an `./.eslintignore` to ignore some files on the process, and the script that runs it is on `./utils/scripts/lint`.
+I use [ESlint](http://eslint.org) with [my own custom configuration](http://yarnpkg.com/en/package/eslint-plugin-homer0) to validate all the JS code. The configuration file for the project code is on `./.eslintrc` and for the tests on `./tests/.eslintrc`, there's also an `./.eslintignore` to ignore some files on the process, and the script that runs it is on `./utils/scripts/lint`.
 
 ### Documentation
 
-I use [ESDoc](http://esdoc.org) to generate HTML documentation for the project. The configuration file is on `./.esdocrc` and the script that runs it is on `./utils/scripts/docs`.
+I use [ESDoc](https://esdoc.org) to generate HTML documentation for the project. The configuration file is on `./.esdocrc` and the script that runs it is on `./utils/scripts/docs`.
 
 ### To-Dos
 

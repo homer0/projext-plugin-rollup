@@ -789,9 +789,19 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
    * @ignore
    */
   _getTemplateSettings(params, stats) {
-    const { target, paths, buildType } = params;
+    const {
+      target,
+      paths,
+      buildType,
+      output,
+    } = params;
     // Get the rules for common assets.
     const assetsRules = this._getAssetsRules(params);
+    const script = {
+      src: `/${paths.js}`,
+      async: 'async',
+      type: output.format === 'es' ? 'module' : 'text/javascript',
+    };
     // Define the plugin settings.
     const settings = {
       template: this.targetsHTML.getFilepath(target, false, buildType),
@@ -799,7 +809,7 @@ class RollupPluginSettingsConfiguration extends ConfigurationFile {
       stylesheets: target.css.inject ?
         [] :
         [`/${paths.css}`],
-      scripts: [`/${paths.js}`],
+      scripts: [script],
       urls: [
         assetsRules.images,
         assetsRules.favicon,
