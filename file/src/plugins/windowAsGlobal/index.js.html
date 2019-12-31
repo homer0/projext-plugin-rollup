@@ -159,7 +159,11 @@ class ProjextRollupWindowAsGlobalPlugin {
    * @return {string}
    */
   intro() {
-    return &apos;var global = typeof window !== \&apos;undefined\&apos; ? window : {};&apos;;
+    return [
+      &apos;if (typeof window !== \&apos;undefined\&apos; &amp;&amp; typeof window.global === \&apos;undefined\&apos;) {&apos;,
+      &apos;window.global = window;&apos;,
+      &apos;}&apos;,
+    ].join(&apos; &apos;);
   }
 }
 /**

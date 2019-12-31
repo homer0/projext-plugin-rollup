@@ -750,14 +750,19 @@ Rollup configuration file for them.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/building/configuration.js.html#lineNumber59">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/building/configuration.js.html#lineNumber65">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>This method generates a complete Rollup configuration for a target.</p>
+  <div data-ice="description"><p>This method generates a complete Rollup configuration for a target.
+Before creating the configuration, it uses the reducer event
+<code>rollup-configuration-parameters-for-browser</code> or <code>rollup-configuration-parameters-for-node</code>,
+depending on the target type, and then <code>rollup-configuration-parameters</code> to reduce
+the parameters (<span><a href="typedef/index.html#static-typedef-RollupConfigurationParams">RollupConfigurationParams</a></span>) the services will use to generate the
+configuration. The event recevies the parameters and expects updated parameters in return.</p>
 </div>
 
   
@@ -833,7 +838,7 @@ Rollup configuration file for them.</p>
   
 
   
-  
+  <div data-ice="todo"><h4>TODO:</h4><ul><li><span>Stop using `events` from `targets` and inject it directly on the class.</span></li></ul></div>
 </div>
 </div>
 </div>

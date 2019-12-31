@@ -1,7 +1,7 @@
 {
-  "coverage": "97.43%",
-  "expectCount": 351,
-  "actualCount": 342,
+  "coverage": "97.45%",
+  "expectCount": 354,
+  "actualCount": 345,
   "files": {
     "src/abstracts/configurationFile.js": {
       "expectCount": 13,
@@ -114,8 +114,8 @@
       "undocumentLines": []
     },
     "src/plugins/template/index.js": {
-      "expectCount": 14,
-      "actualCount": 14,
+      "expectCount": 15,
+      "actualCount": 15,
       "undocumentLines": []
     },
     "src/plugins/urls/index.js": {
@@ -134,8 +134,8 @@
       "undocumentLines": []
     },
     "src/services/building/configuration.js": {
-      "expectCount": 14,
-      "actualCount": 14,
+      "expectCount": 16,
+      "actualCount": 16,
       "undocumentLines": []
     },
     "src/services/building/engine.js": {

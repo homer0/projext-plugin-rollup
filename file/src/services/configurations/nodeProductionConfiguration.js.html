@@ -148,13 +148,13 @@
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/services/configurations/nodeProductionConfiguration.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const resolve = require(&apos;rollup-plugin-node-resolve&apos;);
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const resolve = require(&apos;@rollup/plugin-node-resolve&apos;);
 const babel = require(&apos;rollup-plugin-babel&apos;);
-const commonjs = require(&apos;rollup-plugin-commonjs&apos;);
+const commonjs = require(&apos;@rollup/plugin-commonjs&apos;);
 const sass = require(&apos;rollup-plugin-sass&apos;);
 const html = require(&apos;rollup-plugin-html&apos;);
-const json = require(&apos;rollup-plugin-json&apos;);
-const polyfill = require(&apos;rollup-plugin-polyfill&apos;);
+const json = require(&apos;@rollup/plugin-json&apos;);
+const visualizer = require(&apos;rollup-plugin-visualizer&apos;);
 
 const { provider } = require(&apos;jimple&apos;);
 const ConfigurationFile = require(&apos;../../abstracts/configurationFile&apos;);
@@ -216,6 +216,7 @@ class RollupNodeProductionConfiguration extends ConfigurationFile {
       input,
       output,
       target,
+      analyze,
     } = params;
     // Create the `stats` plugin instance.
     const statsPlugin = stats({
@@ -233,11 +234,6 @@ class RollupNodeProductionConfiguration extends ConfigurationFile {
       commonjs(pluginSettings.commonjs),
       babel(pluginSettings.babel),
       ...(
-        pluginSettings.polyfill.length ?
-          [polyfill(pluginSettings.polyfill)] :
-          []
-      ),
-      ...(
         pluginSettings.moduleReplace.instructions.length ?
           [moduleReplace(pluginSettings.moduleReplace)] :
           []
@@ -252,6 +248,11 @@ class RollupNodeProductionConfiguration extends ConfigurationFile {
       urls(pluginSettings.urls),
       copy(pluginSettings.copy),
       statsPlugin.log(pluginSettings.statsLog),
+      ...(
+        analyze ?
+          [visualizer(pluginSettings.visualizer)] :
+          []
+      ),
     ];
     // Get the list of external dependencies.
     const { external } = pluginSettings.external;

@@ -205,6 +205,9 @@ class RollupBuildEngine {
      * @property {string} inspect Whether or not to enable the Node inspector. This will be like a
      *                            fake boolean as the CLI doesn&apos;t support boolean variables, so its
      *                            value will be either `&apos;true&apos;` or `&apos;false&apos;`.
+     * @property {string} analyze Whether or not to enable the bundle analyzer. This will be like a
+     *                            fake boolean as the CLI doesn&apos;t support boolean variables, so its
+     *                            value will be either `&apos;true&apos;` or `&apos;false&apos;`.
      * @access protected
      * @ignore
      */
@@ -214,6 +217,7 @@ class RollupBuildEngine {
       run: &apos;PXTRP_RUN&apos;,
       watch: &apos;PXTRP_WATCH&apos;,
       inspect: &apos;PXTRP_INSPECT&apos;,
+      analyze: &apos;PXTRP_ANALYZE&apos;,
     };
   }
   /**
@@ -226,6 +230,7 @@ class RollupBuildEngine {
    *                                       setting for the required build type is set to `false`.
    * @param {boolean} [forceInspect=false] Enables the Node inspector even if the target setting
    *                                       is set to `false`.
+   * @param {boolean} [forceAnalyze=false] Enables the bundle analyzer.
    * @return {string}
    */
   getBuildCommand(
@@ -233,7 +238,8 @@ class RollupBuildEngine {
     buildType,
     forceRun = false,
     forceWatch = false,
-    forceInspect = false
+    forceInspect = false,
+    forceAnalyze = false
   ) {
     const vars = this._getEnvVarsAsString({
       target: target.name,
@@ -241,6 +247,7 @@ class RollupBuildEngine {
       run: forceRun,
       watch: forceWatch,
       inspect: forceInspect,
+      analyze: forceAnalyze,
     });
 
     const config = path.join(
@@ -280,17 +287,26 @@ class RollupBuildEngine {
       throw new Error(&apos;This file can only be run by using the `build` command&apos;);
     }
 
-    const { type, run, inspect } = vars;
+    const {
+      type,
+      run,
+      inspect,
+      analyze,
+    } = vars;
     const target = Object.assign({}, this.targets.getTarget(vars.target));
-    if (run === &apos;true&apos;) {
-      target.runOnDevelopment = true;
-      if (inspect === &apos;true&apos;) {
-        target.inspect.enabled = true;
+    if (analyze === &apos;true&apos;) {
+      target.analyze = true;
+    } else {
+      if (run === &apos;true&apos;) {
+        target.runOnDevelopment = true;
+        if (inspect === &apos;true&apos;) {
+          target.inspect.enabled = true;
+        }
       }
-    }
 
-    if (vars.watch === &apos;true&apos;) {
-      target.watch[type] = true;
+      if (vars.watch === &apos;true&apos;) {
+        target.watch[type] = true;
+      }
     }
 
     return this.getConfiguration(target, type);

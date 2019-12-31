@@ -1,28 +1,28 @@
 {
   "type": "File",
   "start": 0,
-  "end": 24862,
+  "end": 24700,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 587,
+      "line": 585,
       "column": 0
     }
   },
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 24862,
+    "end": 24700,
     "loc": {
       "start": {
         "line": 1,
         "column": 0
       },
       "end": {
-        "line": 587,
+        "line": 585,
         "column": 0
       }
     },
@@ -1169,9 +1169,9 @@
       },
       {
         "type": "CommentBlock",
-        "value": "*\n * @typedef {Object} RollupConfigurationParams\n * @property {string} input\n * The path for the entry file.\n * @property {RollupConfigurationOutputParams} output\n * The Rollup settings for the bundle generation.\n * @property {Target} target\n * The information of the target being bundled.\n * @property {TargetFileRules} targetRules\n * The rules to find the different file types a target may use.\n * @property {Function():Object} definitions\n * A function that generates a dictionary of variables that will be replaced on the bundled code.\n * @property {string} buildType\n * The intended build type: `development` or `production`.\n * @property {RollupConfigurationPathsParams} paths\n * A dictionary with the filenames formats and paths of the different files the bundle can\n * generate.\n * @property {Array} copy\n * A list of {@link TargetExtraFile} with the information of files that need to be copied during\n * the bundling process.\n * @property {Array} additionalWatch\n * A list of additional paths webpack should watch for in order to restart the bundle.\n ",
+        "value": "*\n * @typedef {Object} RollupConfigurationParams\n * @property {string} input\n * The path for the entry file.\n * @property {RollupConfigurationOutputParams} output\n * The Rollup settings for the bundle generation.\n * @property {Target} target\n * The information of the target being bundled.\n * @property {TargetFileRules} targetRules\n * The rules to find the different file types a target may use.\n * @property {Function():Object} definitions\n * A function that generates a dictionary of variables that will be replaced on the bundled code.\n * @property {string} buildType\n * The intended build type: `development` or `production`.\n * @property {RollupConfigurationPathsParams} paths\n * A dictionary with the filenames formats and paths of the different files the bundle can\n * generate.\n * @property {Array} copy\n * A list of {@link TargetExtraFile} with the information of files that need to be copied during\n * the bundling process.\n * @property {Array} additionalWatch\n * A list of additional paths Rollup should watch for in order to restart the bundle.\n ",
         "start": 22884,
-        "end": 23948,
+        "end": 23947,
         "loc": {
           "start": {
             "line": 537,
@@ -1185,16 +1185,16 @@
       },
       {
         "type": "CommentBlock",
-        "value": "*\n * @typedef {Object} RollupPluginInfo\n * @property {string} name          The name of the plugin.\n * @property {string} configuration The path to the Rollup configuration file.\n * @property {Array}  external      The list of subpaths the plugin exposes and that should be\n *                                  handled as external dependencies, in order to avoid bundling\n *                                  them.\n * @property {string} babelPolyfill The name of the file that imports the required modules to\n *                                  act as the old Babel polyfill.\n ",
-        "start": 23950,
-        "end": 24529,
+        "value": "*\n * @typedef {Object} RollupPluginInfo\n * @property {string} name          The name of the plugin.\n * @property {string} configuration The path to the Rollup configuration file.\n * @property {Array}  external      The list of subpaths the plugin exposes and that should be\n *                                  handled as external dependencies, in order to avoid bundling\n *                                  them.\n ",
+        "start": 23949,
+        "end": 24367,
         "loc": {
           "start": {
             "line": 561,
             "column": 0
           },
           "end": {
-            "line": 570,
+            "line": 568,
             "column": 3
           }
         }
@@ -1202,15 +1202,15 @@
       {
         "type": "CommentBlock",
         "value": "*\n * @typedef {function} ProviderRegisterMethod\n * @param {Jimple} app\n * A reference to the dependency injection container.\n ",
-        "start": 24531,
-        "end": 24661,
+        "start": 24369,
+        "end": 24499,
         "loc": {
           "start": {
-            "line": 572,
+            "line": 570,
             "column": 0
           },
           "end": {
-            "line": 576,
+            "line": 574,
             "column": 3
           }
         }
@@ -1218,15 +1218,15 @@
       {
         "type": "CommentBlock",
         "value": "*\n * @typedef {Object} Provider\n * @property {ProviderRegisterMethod} register\n * The method that gets called when registering the provider.\n ",
-        "start": 24663,
-        "end": 24809,
+        "start": 24501,
+        "end": 24647,
         "loc": {
           "start": {
-            "line": 578,
+            "line": 576,
             "column": 0
           },
           "end": {
-            "line": 582,
+            "line": 580,
             "column": 3
           }
         }
@@ -1234,15 +1234,15 @@
       {
         "type": "CommentBlock",
         "value": "*\n * @typedef {string|Object} StringOrObject\n ",
-        "start": 24811,
-        "end": 24861,
+        "start": 24649,
+        "end": 24699,
         "loc": {
           "start": {
-            "line": 584,
+            "line": 582,
             "column": 0
           },
           "end": {
-            "line": 586,
+            "line": 584,
             "column": 3
           }
         }
@@ -2388,9 +2388,9 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @typedef {Object} RollupConfigurationParams\n * @property {string} input\n * The path for the entry file.\n * @property {RollupConfigurationOutputParams} output\n * The Rollup settings for the bundle generation.\n * @property {Target} target\n * The information of the target being bundled.\n * @property {TargetFileRules} targetRules\n * The rules to find the different file types a target may use.\n * @property {Function():Object} definitions\n * A function that generates a dictionary of variables that will be replaced on the bundled code.\n * @property {string} buildType\n * The intended build type: `development` or `production`.\n * @property {RollupConfigurationPathsParams} paths\n * A dictionary with the filenames formats and paths of the different files the bundle can\n * generate.\n * @property {Array} copy\n * A list of {@link TargetExtraFile} with the information of files that need to be copied during\n * the bundling process.\n * @property {Array} additionalWatch\n * A list of additional paths webpack should watch for in order to restart the bundle.\n ",
+      "value": "*\n * @typedef {Object} RollupConfigurationParams\n * @property {string} input\n * The path for the entry file.\n * @property {RollupConfigurationOutputParams} output\n * The Rollup settings for the bundle generation.\n * @property {Target} target\n * The information of the target being bundled.\n * @property {TargetFileRules} targetRules\n * The rules to find the different file types a target may use.\n * @property {Function():Object} definitions\n * A function that generates a dictionary of variables that will be replaced on the bundled code.\n * @property {string} buildType\n * The intended build type: `development` or `production`.\n * @property {RollupConfigurationPathsParams} paths\n * A dictionary with the filenames formats and paths of the different files the bundle can\n * generate.\n * @property {Array} copy\n * A list of {@link TargetExtraFile} with the information of files that need to be copied during\n * the bundling process.\n * @property {Array} additionalWatch\n * A list of additional paths Rollup should watch for in order to restart the bundle.\n ",
       "start": 22884,
-      "end": 23948,
+      "end": 23947,
       "loc": {
         "start": {
           "line": 537,
@@ -2404,16 +2404,16 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @typedef {Object} RollupPluginInfo\n * @property {string} name          The name of the plugin.\n * @property {string} configuration The path to the Rollup configuration file.\n * @property {Array}  external      The list of subpaths the plugin exposes and that should be\n *                                  handled as external dependencies, in order to avoid bundling\n *                                  them.\n * @property {string} babelPolyfill The name of the file that imports the required modules to\n *                                  act as the old Babel polyfill.\n ",
-      "start": 23950,
-      "end": 24529,
+      "value": "*\n * @typedef {Object} RollupPluginInfo\n * @property {string} name          The name of the plugin.\n * @property {string} configuration The path to the Rollup configuration file.\n * @property {Array}  external      The list of subpaths the plugin exposes and that should be\n *                                  handled as external dependencies, in order to avoid bundling\n *                                  them.\n ",
+      "start": 23949,
+      "end": 24367,
       "loc": {
         "start": {
           "line": 561,
           "column": 0
         },
         "end": {
-          "line": 570,
+          "line": 568,
           "column": 3
         }
       }
@@ -2421,15 +2421,15 @@
     {
       "type": "CommentBlock",
       "value": "*\n * @typedef {function} ProviderRegisterMethod\n * @param {Jimple} app\n * A reference to the dependency injection container.\n ",
-      "start": 24531,
-      "end": 24661,
+      "start": 24369,
+      "end": 24499,
       "loc": {
         "start": {
-          "line": 572,
+          "line": 570,
           "column": 0
         },
         "end": {
-          "line": 576,
+          "line": 574,
           "column": 3
         }
       }
@@ -2437,15 +2437,15 @@
     {
       "type": "CommentBlock",
       "value": "*\n * @typedef {Object} Provider\n * @property {ProviderRegisterMethod} register\n * The method that gets called when registering the provider.\n ",
-      "start": 24663,
-      "end": 24809,
+      "start": 24501,
+      "end": 24647,
       "loc": {
         "start": {
-          "line": 578,
+          "line": 576,
           "column": 0
         },
         "end": {
-          "line": 582,
+          "line": 580,
           "column": 3
         }
       }
@@ -2453,15 +2453,15 @@
     {
       "type": "CommentBlock",
       "value": "*\n * @typedef {string|Object} StringOrObject\n ",
-      "start": 24811,
-      "end": 24861,
+      "start": 24649,
+      "end": 24699,
       "loc": {
         "start": {
-          "line": 584,
+          "line": 582,
           "column": 0
         },
         "end": {
-          "line": 586,
+          "line": 584,
           "column": 3
         }
       }
@@ -3606,9 +3606,9 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @typedef {Object} RollupConfigurationParams\n * @property {string} input\n * The path for the entry file.\n * @property {RollupConfigurationOutputParams} output\n * The Rollup settings for the bundle generation.\n * @property {Target} target\n * The information of the target being bundled.\n * @property {TargetFileRules} targetRules\n * The rules to find the different file types a target may use.\n * @property {Function():Object} definitions\n * A function that generates a dictionary of variables that will be replaced on the bundled code.\n * @property {string} buildType\n * The intended build type: `development` or `production`.\n * @property {RollupConfigurationPathsParams} paths\n * A dictionary with the filenames formats and paths of the different files the bundle can\n * generate.\n * @property {Array} copy\n * A list of {@link TargetExtraFile} with the information of files that need to be copied during\n * the bundling process.\n * @property {Array} additionalWatch\n * A list of additional paths webpack should watch for in order to restart the bundle.\n ",
+      "value": "*\n * @typedef {Object} RollupConfigurationParams\n * @property {string} input\n * The path for the entry file.\n * @property {RollupConfigurationOutputParams} output\n * The Rollup settings for the bundle generation.\n * @property {Target} target\n * The information of the target being bundled.\n * @property {TargetFileRules} targetRules\n * The rules to find the different file types a target may use.\n * @property {Function():Object} definitions\n * A function that generates a dictionary of variables that will be replaced on the bundled code.\n * @property {string} buildType\n * The intended build type: `development` or `production`.\n * @property {RollupConfigurationPathsParams} paths\n * A dictionary with the filenames formats and paths of the different files the bundle can\n * generate.\n * @property {Array} copy\n * A list of {@link TargetExtraFile} with the information of files that need to be copied during\n * the bundling process.\n * @property {Array} additionalWatch\n * A list of additional paths Rollup should watch for in order to restart the bundle.\n ",
       "start": 22884,
-      "end": 23948,
+      "end": 23947,
       "loc": {
         "start": {
           "line": 537,
@@ -3622,16 +3622,16 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @typedef {Object} RollupPluginInfo\n * @property {string} name          The name of the plugin.\n * @property {string} configuration The path to the Rollup configuration file.\n * @property {Array}  external      The list of subpaths the plugin exposes and that should be\n *                                  handled as external dependencies, in order to avoid bundling\n *                                  them.\n * @property {string} babelPolyfill The name of the file that imports the required modules to\n *                                  act as the old Babel polyfill.\n ",
-      "start": 23950,
-      "end": 24529,
+      "value": "*\n * @typedef {Object} RollupPluginInfo\n * @property {string} name          The name of the plugin.\n * @property {string} configuration The path to the Rollup configuration file.\n * @property {Array}  external      The list of subpaths the plugin exposes and that should be\n *                                  handled as external dependencies, in order to avoid bundling\n *                                  them.\n ",
+      "start": 23949,
+      "end": 24367,
       "loc": {
         "start": {
           "line": 561,
           "column": 0
         },
         "end": {
-          "line": 570,
+          "line": 568,
           "column": 3
         }
       }
@@ -3639,15 +3639,15 @@
     {
       "type": "CommentBlock",
       "value": "*\n * @typedef {function} ProviderRegisterMethod\n * @param {Jimple} app\n * A reference to the dependency injection container.\n ",
-      "start": 24531,
-      "end": 24661,
+      "start": 24369,
+      "end": 24499,
       "loc": {
         "start": {
-          "line": 572,
+          "line": 570,
           "column": 0
         },
         "end": {
-          "line": 576,
+          "line": 574,
           "column": 3
         }
       }
@@ -3655,15 +3655,15 @@
     {
       "type": "CommentBlock",
       "value": "*\n * @typedef {Object} Provider\n * @property {ProviderRegisterMethod} register\n * The method that gets called when registering the provider.\n ",
-      "start": 24663,
-      "end": 24809,
+      "start": 24501,
+      "end": 24647,
       "loc": {
         "start": {
-          "line": 578,
+          "line": 576,
           "column": 0
         },
         "end": {
-          "line": 582,
+          "line": 580,
           "column": 3
         }
       }
@@ -3671,15 +3671,15 @@
     {
       "type": "CommentBlock",
       "value": "*\n * @typedef {string|Object} StringOrObject\n ",
-      "start": 24811,
-      "end": 24861,
+      "start": 24649,
+      "end": 24699,
       "loc": {
         "start": {
-          "line": 584,
+          "line": 582,
           "column": 0
         },
         "end": {
-          "line": 586,
+          "line": 584,
           "column": 3
         }
       }
@@ -3697,15 +3697,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 24862,
-      "end": 24862,
+      "start": 24700,
+      "end": 24700,
       "loc": {
         "start": {
-          "line": 587,
+          "line": 585,
           "column": 0
         },
         "end": {
-          "line": 587,
+          "line": 585,
           "column": 0
         }
       }

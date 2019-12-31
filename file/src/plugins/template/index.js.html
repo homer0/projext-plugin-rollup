@@ -264,7 +264,19 @@ class ProjextRollupTemplatePlugin {
     const async = this._options.scriptsAsync ? &apos; async=&quot;async&quot;&apos; : &apos;&apos;;
     // Create all the script tags.
     const scripts = this._options.scripts
-    .map((url) =&gt; `&lt;script type=&quot;text/javascript&quot; src=&quot;${url}&quot;${async}&gt;&lt;/script&gt;`);
+    .map((url) =&gt; {
+      let script;
+      if (typeof url === &apos;string&apos;) {
+        script = `&lt;script type=&quot;text/javascript&quot; src=&quot;${url}&quot;${async}&gt;&lt;/script&gt;`;
+      } else if (!url.src) {
+        throw new Error(`${this.name}: Missing &apos;src&apos; property on script object`);
+      } else {
+        const attributes = this._toHTMLAttributes(url);
+        script = `&lt;script ${attributes}&gt;&lt;/script&gt;`;
+      }
+
+      return script;
+    });
     // Create all the stylesheet links.
     const stylesheets = this._options.stylesheets
     .map((url) =&gt; `&lt;link href=&quot;${url}&quot; rel=&quot;stylesheet&quot; /&gt;`);
@@ -405,6 +417,28 @@ class ProjextRollupTemplatePlugin {
     }
     // Return the final list.
     return result;
+  }
+  /**
+   * Transform a dictionary into a string of HTML attributes.
+   * @example
+   * _toHTMLAttributes({ w: &apos;x&apos;, y: &apos;z&apos; });
+   * // w=&quot;x&quot; y=&quot;z&quot;
+   *
+   * @param {Object} obj The dictionary to transform.
+   * @return {String}
+   * @access protected
+   * @ignore
+   */
+  _toHTMLAttributes(obj) {
+    return Object.keys(obj)
+    .reduce(
+      (acc, name) =&gt; {
+        const value = `${obj[name]}`.replace(/&quot;/, &apos;\\&quot;&apos;);
+        return [...acc, `${name}=&quot;${value}&quot;`];
+      },
+      []
+    )
+    .join(&apos; &apos;);
   }
 }
 /**
