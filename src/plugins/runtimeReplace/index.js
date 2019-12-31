@@ -1,6 +1,6 @@
-const replace = require('rollup-plugin-replace');
+const replace = require('@rollup/plugin-replace');
 /**
- * This is a Rollup plugin that works as a wrapper for `rollup-plugin-replace` in order to reload
+ * This is a Rollup plugin that works as a wrapper for `@rollup/plugin-replace` in order to reload
  * all definitions when the bundle changes.
  */
 class ProjextRollupRuntimeReplacePlugin {
@@ -36,7 +36,7 @@ class ProjextRollupRuntimeReplacePlugin {
      */
     this._values = {};
     /**
-     * The instance of the real `rollup-plugin-replace` this plugin will call on `transform`.
+     * The instance of the real `@rollup/plugin-replace` this plugin will call on `transform`.
      * @type {Object}
      * @access protected
      * @ignore
@@ -45,7 +45,7 @@ class ProjextRollupRuntimeReplacePlugin {
     /**
      * This is a flag the plugin uses to avoid reload the definitions on the first build, since at
      * that point, the definitions were already loaded in order to create the
-     * `rollup-plugin-replace` instance.
+     * `@rollup/plugin-replace` instance.
      * @type {boolean}
      * @access protected
      * @ignore
@@ -64,7 +64,7 @@ class ProjextRollupRuntimeReplacePlugin {
    * This is called when Rollup starts the building process; if it's not the first build, it will
    * reload the definitions. The reason it doesn't load them on the first build it's because
    * when the plugin is instantiated, the definitions are already loaded for the
-   * `rollup-plugin-replace` instance creation.
+   * `@rollup/plugin-replace` instance creation.
    */
   buildStart() {
     if (this._firstReload) {
@@ -75,10 +75,10 @@ class ProjextRollupRuntimeReplacePlugin {
   }
   /**
    * This is called by Rollup when is parsing a file, and it just "forwards the call" to
-   * `rollup-plugin-replace`.
+   * `@rollup/plugin-replace`.
    * @param {string} code     The file contents.
    * @param {string} filepath The file path.
-   * @return {*} Whatever `rollup-plugin-replace` returns.
+   * @return {*} Whatever `@rollup/plugin-replace` returns.
    */
   transform(code, filepath) {
     return this._replace.transform(code, filepath);
@@ -93,7 +93,7 @@ class ProjextRollupRuntimeReplacePlugin {
     return this._values;
   }
   /**
-   * Creates an instance of `rollup-plugin-replace` using the definitions as options.
+   * Creates an instance of `@rollup/plugin-replace` using the definitions as options.
    * @return {Object}
    * @access protected
    * @ignore
