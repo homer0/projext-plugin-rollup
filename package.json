@@ -31,7 +31,7 @@
       "postcss": "^7.0.27",
       "postcss-modules": "^1.5.0",
 
-      "node-sass": "^4.13.1",
+      "node-sass": "^7.0.0",
       "mime": "^2.4.4",
       "opener": "^1.5.1",
       "prettysize": "^2.0.0",
